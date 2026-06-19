@@ -1,0 +1,23 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    Indicia API:
+        inputs:
+            - location: https://api.indicia.app/openapi
+        transformations:
+            - filterOperations:
+                operations: postV1SearchIntelligenceWebDbs
+                exclude: true
+        output: .speakeasy/out.openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/indicia/indicia/indicia-api
+targets:
+    indicia:
+        target: typescript
+        source: Indicia API
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/indicia/indicia/indicia-api-typescript-code-samples
+            labelOverride:
+                fixedValue: Typescript (SDK)
+            blocking: false
