@@ -1,6 +1,6 @@
 {
   "name": "@indiciaosint/sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Indicia <support@indicia.app> (https://indicia.app)",
   "type": "module",
   "main": "./esm/index.js",
@@ -45,7 +45,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/indiciateam/sdk-js.git"
+    "url": "https://github.com/indiciateam/sdk-js"
   },
   "scripts": {
     "lint": "oxlint --max-warnings=0 --deny-warnings src/**/*.ts src/**/*.tsx",

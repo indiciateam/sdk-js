@@ -9,9 +9,9 @@
 const value: string = "<value>";
 ```
 
-### `operations.PostV2SearchSocialsUsernameStatus`
+### `operations.SearchUsernameStatus`
 
 ```typescript
-const value: operations.PostV2SearchSocialsUsernameStatus = {};
+const value: operations.SearchUsernameStatus = {};
 ```
 

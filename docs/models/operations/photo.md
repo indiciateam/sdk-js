@@ -14,8 +14,8 @@ let value: Photo = {
     id: "<id>",
     name: "<value>",
     position: {
-      latitude: 7861.28,
-      longitude: 9974.98,
+      latitude: 9315.93,
+      longitude: 1296.15,
     },
     tags: [
       "<value 1>",
@@ -29,9 +29,9 @@ let value: Photo = {
 
 ## Fields
 
-| Field                                                                                                                     | Type                                                                                                                      | Required                                                                                                                  | Description                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `date`                                                                                                                    | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | N/A                                                                                                                       |
-| `id`                                                                                                                      | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | N/A                                                                                                                       |
-| `location`                                                                                                                | [operations.PostV1SearchIntelligenceGmailLocation](../../models/operations/post-v1-search-intelligence-gmail-location.md) | :heavy_check_mark:                                                                                                        | N/A                                                                                                                       |
-| `url`                                                                                                                     | *string*                                                                                                                  | :heavy_check_mark:                                                                                                        | N/A                                                                                                                       |
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `date`                                                                             | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `id`                                                                               | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `location`                                                                         | [operations.SearchGmailLocation](../../models/operations/search-gmail-location.md) | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `url`                                                                              | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |

@@ -7,7 +7,7 @@ const indicia = new Indicia({
 });
 
 async function run() {
-  const result = await indicia.getV1Info();
+  const result = await indicia.users.getInfo();
 
   console.log(result);
 }

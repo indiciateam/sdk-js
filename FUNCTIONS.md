@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { IndiciaCore } from "@indiciaosint/sdk/core.js";
-import { getV1Info } from "@indiciaosint/sdk/funcs/get-v1-info.js";
+import { usersGetInfo } from "@indiciaosint/sdk/funcs/users-get-info.js";
 
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -29,12 +29,12 @@ const indicia = new IndiciaCore({
 });
 
 async function run() {
-  const res = await getV1Info(indicia);
+  const res = await usersGetInfo(indicia);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("getV1Info failed:", res.error);
+    console.log("usersGetInfo failed:", res.error);
   }
 }
 
