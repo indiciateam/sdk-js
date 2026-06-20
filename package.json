@@ -1,6 +1,6 @@
 {
   "name": "@indiciaosint/sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Indicia <support@indicia.app> (https://indicia.app)",
   "type": "module",
   "main": "./esm/index.js",
@@ -52,9 +52,7 @@
     "build": "tsgo",
     "prepublishOnly": "npm run build"
   },
-  "peerDependencies": {
-    
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@typescript/native-preview": "7.0.0-dev.20260302.1",
     "oxlint": "^1.60.0",
