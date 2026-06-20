@@ -5,15 +5,15 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.784.0
   generationVersion: 2.911.0
-  releaseVersion: 1.0.0
-  configChecksum: d89dc913ee9c68521b936179ee3711f7
+  releaseVersion: 1.0.1
+  configChecksum: ab38c104ffd85c941b1fb272be974157
   repoURL: https://github.com/indiciateam/sdk-js.git
   installationURL: https://github.com/indiciateam/sdk-js
   published: true
 persistentEdits:
-  generation_id: 374879cc-e724-4954-87c7-211451be6ed7
-  pristine_commit_hash: 8ef528d8d7bd1ec2b6f7dd4b1c9dbb6e57f4b245
-  pristine_tree_hash: 5698507c8292660c66c28485e2dc1bd74e662757
+  generation_id: 3a095f24-5685-4bed-8299-8dfcf9edc118
+  pristine_commit_hash: 4c1b7a272eb7f97c7511d2e6e97f89213f918b6f
+  pristine_tree_hash: 98f8cd3b87e655009c1d7e7028ba956ee542051e
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1725,12 +1725,12 @@ trackedFiles:
     pristine_git_object: 606be4e3aee0e7e05832a7e23e79cab97ddc6083
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:ef687c3473ebd608d737be4aca3467b68debb257
-    pristine_git_object: 4b2b6722a8baddc44de8ecafb5c6dc60f889c664
+    last_write_checksum: sha1:98b1fdef11383f0b89c441af5dcce65b856d1a24
+    pristine_git_object: 8aa4a9ec857f2d5501f703ac6805c4384ce859c8
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:20067fd73497ca247bbe62e2f2daed6cc7b8f2e8
-    pristine_git_object: 32a589899831c87249a826249428089469503ba4
+    last_write_checksum: sha1:7beaccd9e63b807e74fded66572425730df2373a
+    pristine_git_object: a8aa35f36e7075be6df427fcbb99cb345dc31599
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a644a2c1bdd89948cb4098800c72e115eeb77cad
@@ -1897,8 +1897,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:2704600b637a4e8a1178aaadd2c38a4fbe5dd27d
-    pristine_git_object: 3c3f61c1b649e7721a57517c6cf371e3c6993142
+    last_write_checksum: sha1:f5ebe963bdfbd33b22abbb48302608a6e3ebbea6
+    pristine_git_object: 53a7b7122299d7d8dff69d5df2f85d1ac3e544ab
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
