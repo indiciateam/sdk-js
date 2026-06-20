@@ -1,20 +1,14 @@
+<h3>
+    <img src="https://indicia.app/branding/wordmark.png" alt="indicia wordmark" width="300">
+    <br />
+</h3>
+
 # @indiciaosint/sdk
 
-Developer-friendly & type-safe Typescript SDK specifically catered to leverage *@indiciaosint/sdk* API.
+Developer-friendly & type-safe Typescript SDK for the Indicia API. 
 
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=@indiciaosint/sdk&utm_campaign=typescript)
-[![License: MIT](https://img.shields.io/badge/LICENSE_//_MIT-3b5bdb?style=for-the-badge&labelColor=eff6ff)](https://opensource.org/licenses/MIT)
 
-
-<br /><br />
-> [!IMPORTANT]
-> This SDK is not yet ready for production use. To complete setup please follow the steps outlined in your [workspace](https://app.speakeasy.com/org/indicia/indicia). Delete this section before > publishing to a package manager.
-
-<!-- Start Summary [summary] -->
-## Summary
-
-Indicia API: Development documentation
-<!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
