@@ -1,6 +1,6 @@
 {
   "name": "@indiciaosint/sdk",
-  "version": "1.0.1-patch",
+  "version": "1.0.3",
   "author": "Indicia <support@indicia.app> (https://indicia.app)",
   "type": "module",
   "main": "./esm/index.js",
@@ -45,14 +45,16 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/indiciateam/sdk-js"
+    "url": "https://github.com/indiciateam/sdk-js.git"
   },
   "scripts": {
     "lint": "oxlint --max-warnings=0 --deny-warnings src/**/*.ts src/**/*.tsx",
     "build": "tsgo",
     "prepublishOnly": "npm run build"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    
+  },
   "devDependencies": {
     "@typescript/native-preview": "7.0.0-dev.20260302.1",
     "oxlint": "^1.60.0",

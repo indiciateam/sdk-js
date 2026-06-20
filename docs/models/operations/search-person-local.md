@@ -12,42 +12,42 @@ let value: SearchPersonLocal = {
   aka1fullname: "<value>",
   aka2fullname: "<value>",
   aka3fullname: "<value>",
-  alt1dob: "<value>",
-  alt2dob: null,
-  alt3dob: "<value>",
-  city: "Waukegan",
-  countyName: null,
-  dob: "1972-09-30",
-  firstname: "Jayda",
-  lastname: "Ondricka",
-  middlename: "Parker",
-  nameSuff: "<value>",
-  phone1: 940.58,
+  alt1DOB: 278.58,
+  alt2DOB: 2186.83,
+  alt3DOB: 9533.04,
+  city: null,
+  countyName: "<value>",
+  dob: 588.81,
+  firstname: "Major",
+  lastname: "Prosacco",
+  middlename: "Kennedy",
+  nameSuff: null,
+  phone1: 5918.71,
   st: "<value>",
-  zip: 3117.45,
+  zip: 4031.92,
 };
 ```
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *number*           | :heavy_check_mark: | N/A                |
-| `startDat`         | *number*           | :heavy_check_mark: | N/A                |
-| `address`          | *string*           | :heavy_check_mark: | N/A                |
-| `aka1fullname`     | *string*           | :heavy_check_mark: | N/A                |
-| `aka2fullname`     | *string*           | :heavy_check_mark: | N/A                |
-| `aka3fullname`     | *string*           | :heavy_check_mark: | N/A                |
-| `alt1dob`          | *string*           | :heavy_check_mark: | N/A                |
-| `alt2dob`          | *string*           | :heavy_check_mark: | N/A                |
-| `alt3dob`          | *string*           | :heavy_check_mark: | N/A                |
-| `city`             | *string*           | :heavy_check_mark: | N/A                |
-| `countyName`       | *string*           | :heavy_check_mark: | N/A                |
-| `dob`              | *string*           | :heavy_check_mark: | N/A                |
-| `firstname`        | *string*           | :heavy_check_mark: | N/A                |
-| `lastname`         | *string*           | :heavy_check_mark: | N/A                |
-| `middlename`       | *string*           | :heavy_check_mark: | N/A                |
-| `nameSuff`         | *string*           | :heavy_check_mark: | N/A                |
-| `phone1`           | *number*           | :heavy_check_mark: | N/A                |
-| `st`               | *string*           | :heavy_check_mark: | N/A                |
-| `zip`              | *number*           | :heavy_check_mark: | N/A                |
+| Field                        | Type                         | Required                     | Description                  |
+| ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
+| `id`                         | *number*                     | :heavy_check_mark:           | N/A                          |
+| `startDat`                   | *number*                     | :heavy_check_mark:           | N/A                          |
+| `address`                    | *string*                     | :heavy_check_mark:           | N/A                          |
+| `aka1fullname`               | *string*                     | :heavy_check_mark:           | N/A                          |
+| `aka2fullname`               | *string*                     | :heavy_check_mark:           | N/A                          |
+| `aka3fullname`               | *string*                     | :heavy_check_mark:           | N/A                          |
+| `alt1DOB`                    | *number*                     | :heavy_check_mark:           | N/A                          |
+| `alt2DOB`                    | *number*                     | :heavy_check_mark:           | N/A                          |
+| `alt3DOB`                    | *number*                     | :heavy_check_mark:           | N/A                          |
+| `city`                       | *string*                     | :heavy_check_mark:           | N/A                          |
+| `countyName`                 | *string*                     | :heavy_check_mark:           | N/A                          |
+| `dob`                        | *operations.SearchPersonDob* | :heavy_check_mark:           | N/A                          |
+| `firstname`                  | *string*                     | :heavy_check_mark:           | N/A                          |
+| `lastname`                   | *string*                     | :heavy_check_mark:           | N/A                          |
+| `middlename`                 | *string*                     | :heavy_check_mark:           | N/A                          |
+| `nameSuff`                   | *string*                     | :heavy_check_mark:           | N/A                          |
+| `phone1`                     | *number*                     | :heavy_check_mark:           | N/A                          |
+| `st`                         | *string*                     | :heavy_check_mark:           | N/A                          |
+| `zip`                        | *number*                     | :heavy_check_mark:           | N/A                          |

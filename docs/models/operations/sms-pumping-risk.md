@@ -6,9 +6,8 @@
 import { SmsPumpingRisk } from "@indiciaosint/sdk/models/operations";
 
 let value: SmsPumpingRisk = {
-  carrierRiskCategories: "<value>",
-  numberBlocked: true,
-  numberBlockedDate: 5714.37,
+  numberBlocked: false,
+  numberBlockedDate: "<value>",
   numberBlockedLast3Months: false,
 };
 ```
@@ -17,7 +16,7 @@ let value: SmsPumpingRisk = {
 
 | Field                      | Type                       | Required                   | Description                |
 | -------------------------- | -------------------------- | -------------------------- | -------------------------- |
-| `carrierRiskCategories`    | *string*                   | :heavy_check_mark:         | N/A                        |
 | `numberBlocked`            | *boolean*                  | :heavy_check_mark:         | N/A                        |
-| `numberBlockedDate`        | *number*                   | :heavy_check_mark:         | N/A                        |
+| `numberBlockedDate`        | *string*                   | :heavy_check_mark:         | N/A                        |
 | `numberBlockedLast3Months` | *boolean*                  | :heavy_check_mark:         | N/A                        |
+| `carrierRiskCategories`    | *string*                   | :heavy_minus_sign:         | N/A                        |

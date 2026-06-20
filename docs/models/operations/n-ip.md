@@ -9,12 +9,9 @@ let value: NIp = {
   asn: "<value>",
   asnName: "<value>",
   asnRange: "<value>",
-  banners: {
-    "key": {},
-  },
-  country: "Burkina Faso",
-  countryCode: "KN",
-  ip: "144.134.123.131",
+  country: "Somalia",
+  countryCode: "OM",
+  ip: "122.40.144.134",
   ptr: "<value>",
 };
 ```
@@ -26,8 +23,8 @@ let value: NIp = {
 | `asn`                      | *string*                   | :heavy_check_mark:         | N/A                        |
 | `asnName`                  | *string*                   | :heavy_check_mark:         | N/A                        |
 | `asnRange`                 | *string*                   | :heavy_check_mark:         | N/A                        |
-| `banners`                  | *operations.NBannersUnion* | :heavy_check_mark:         | N/A                        |
 | `country`                  | *string*                   | :heavy_check_mark:         | N/A                        |
 | `countryCode`              | *string*                   | :heavy_check_mark:         | N/A                        |
 | `ip`                       | *string*                   | :heavy_check_mark:         | N/A                        |
 | `ptr`                      | *string*                   | :heavy_check_mark:         | N/A                        |
+| `banners`                  | *operations.NBannersUnion* | :heavy_minus_sign:         | N/A                        |

@@ -7,11 +7,14 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type SearchPhoneRequest = {
   query: string;
 };
+
+export type SearchPhoneDob = number | string;
 
 export type SearchPhoneLocal = {
   id: number;
@@ -20,12 +23,12 @@ export type SearchPhoneLocal = {
   aka1fullname: string | null;
   aka2fullname: string | null;
   aka3fullname: string | null;
-  alt1dob: string | null;
-  alt2dob: string | null;
-  alt3dob: string | null;
+  alt1DOB: number | null;
+  alt2DOB: number | null;
+  alt3DOB: number | null;
   city: string | null;
   countyName: string | null;
-  dob: string | null;
+  dob: number | string | null;
   firstname: string;
   lastname: string;
   middlename: string | null;
@@ -42,19 +45,11 @@ export type LineTypeIntelligence = {
   type: string;
 };
 
-export type SimSwap = {
-  carrierName: string | null;
-  errorCode: number;
-  lastSimSwap: number | null;
-  mobileCountryCode: string | null;
-  mobileNetworkCode: string | null;
-};
-
 export type SmsPumpingRisk = {
-  carrierRiskCategories: string;
-  numberBlocked: boolean;
-  numberBlockedDate: number;
-  numberBlockedLast3Months: boolean;
+  numberBlocked: boolean | null;
+  numberBlockedDate: string | null;
+  numberBlockedLast3Months: boolean | null;
+  carrierRiskCategories?: string | null | undefined;
 };
 
 export type SearchPhonePhone = {
@@ -63,20 +58,20 @@ export type SearchPhonePhone = {
   phoneNumber: string;
   valid: boolean;
   lineTypeIntelligence?: LineTypeIntelligence | undefined;
-  simSwap?: SimSwap | undefined;
   smsPumpingRisk?: SmsPumpingRisk | undefined;
 };
 
 export type SearchPhoneWeb = {
-  aka: Array<string>;
-  associates: Array<string>;
-  children: number;
-  currentAddress: string;
-  emails: Array<string>;
-  maritalStatus: string;
-  name: string | null;
-  pastAddresses: Array<string>;
-  phones: Array<string>;
+  aka?: Array<string> | undefined;
+  associates?: Array<string> | undefined;
+  children?: number | undefined;
+  currentAddress?: string | undefined;
+  emails?: Array<string> | undefined;
+  error?: string | undefined;
+  maritalStatus?: string | undefined;
+  name?: string | null | undefined;
+  pastAddresses?: Array<string> | undefined;
+  phones?: Array<string> | undefined;
 };
 
 export type SearchPhoneData = {
@@ -116,6 +111,22 @@ export function searchPhoneRequestToJSON(
 }
 
 /** @internal */
+export const SearchPhoneDob$inboundSchema: z.ZodMiniType<
+  SearchPhoneDob,
+  unknown
+> = smartUnion([types.number(), types.string()]);
+
+export function searchPhoneDobFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchPhoneDob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchPhoneDob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchPhoneDob' from JSON`,
+  );
+}
+
+/** @internal */
 export const SearchPhoneLocal$inboundSchema: z.ZodMiniType<
   SearchPhoneLocal,
   unknown
@@ -127,12 +138,12 @@ export const SearchPhoneLocal$inboundSchema: z.ZodMiniType<
     aka1fullname: types.nullable(types.string()),
     aka2fullname: types.nullable(types.string()),
     aka3fullname: types.nullable(types.string()),
-    alt1dob: types.nullable(types.string()),
-    alt2dob: types.nullable(types.string()),
-    alt3dob: types.nullable(types.string()),
+    alt1DOB: types.nullable(types.number()),
+    alt2DOB: types.nullable(types.number()),
+    alt3DOB: types.nullable(types.number()),
     city: types.nullable(types.string()),
     county_name: types.nullable(types.string()),
-    dob: types.nullable(types.string()),
+    dob: types.nullable(smartUnion([types.number(), types.string()])),
     firstname: types.string(),
     lastname: types.string(),
     middlename: types.nullable(types.string()),
@@ -192,52 +203,22 @@ export function lineTypeIntelligenceFromJSON(
 }
 
 /** @internal */
-export const SimSwap$inboundSchema: z.ZodMiniType<SimSwap, unknown> = z.pipe(
-  z.object({
-    carrier_name: types.nullable(types.string()),
-    error_code: types.number(),
-    last_sim_swap: types.nullable(types.number()),
-    mobile_country_code: types.nullable(types.string()),
-    mobile_network_code: types.nullable(types.string()),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "carrier_name": "carrierName",
-      "error_code": "errorCode",
-      "last_sim_swap": "lastSimSwap",
-      "mobile_country_code": "mobileCountryCode",
-      "mobile_network_code": "mobileNetworkCode",
-    });
-  }),
-);
-
-export function simSwapFromJSON(
-  jsonString: string,
-): SafeParseResult<SimSwap, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SimSwap$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SimSwap' from JSON`,
-  );
-}
-
-/** @internal */
 export const SmsPumpingRisk$inboundSchema: z.ZodMiniType<
   SmsPumpingRisk,
   unknown
 > = z.pipe(
   z.object({
-    carrier_risk_categories: types.string(),
-    number_blocked: types.boolean(),
-    number_blocked_date: types.number(),
-    number_blocked_last_3_months: types.boolean(),
+    number_blocked: types.nullable(types.boolean()),
+    number_blocked_date: types.nullable(types.string()),
+    number_blocked_last_3_months: types.nullable(types.boolean()),
+    carrier_risk_categories: z.optional(z.nullable(types.string())),
   }),
   z.transform((v) => {
     return remap$(v, {
-      "carrier_risk_categories": "carrierRiskCategories",
       "number_blocked": "numberBlocked",
       "number_blocked_date": "numberBlockedDate",
       "number_blocked_last_3_months": "numberBlockedLast3Months",
+      "carrier_risk_categories": "carrierRiskCategories",
     });
   }),
 );
@@ -265,7 +246,6 @@ export const SearchPhonePhone$inboundSchema: z.ZodMiniType<
     line_type_intelligence: types.optional(
       z.lazy(() => LineTypeIntelligence$inboundSchema),
     ),
-    sim_swap: types.optional(z.lazy(() => SimSwap$inboundSchema)),
     sms_pumping_risk: types.optional(
       z.lazy(() => SmsPumpingRisk$inboundSchema),
     ),
@@ -276,7 +256,6 @@ export const SearchPhonePhone$inboundSchema: z.ZodMiniType<
       "national_format": "nationalFormat",
       "phone_number": "phoneNumber",
       "line_type_intelligence": "lineTypeIntelligence",
-      "sim_swap": "simSwap",
       "sms_pumping_risk": "smsPumpingRisk",
     });
   }),
@@ -297,15 +276,16 @@ export const SearchPhoneWeb$inboundSchema: z.ZodMiniType<
   SearchPhoneWeb,
   unknown
 > = z.object({
-  aka: z.array(types.string()),
-  associates: z.array(types.string()),
-  children: types.number(),
-  currentAddress: types.string(),
-  emails: z.array(types.string()),
-  maritalStatus: types.string(),
-  name: types.nullable(types.string()),
-  pastAddresses: z.array(types.string()),
-  phones: z.array(types.string()),
+  aka: types.optional(z.array(types.string())),
+  associates: types.optional(z.array(types.string())),
+  children: types.optional(types.number()),
+  currentAddress: types.optional(types.string()),
+  emails: types.optional(z.array(types.string())),
+  error: types.optional(types.string()),
+  maritalStatus: types.optional(types.string()),
+  name: z.optional(z.nullable(types.string())),
+  pastAddresses: types.optional(z.array(types.string())),
+  phones: types.optional(z.array(types.string())),
 });
 
 export function searchPhoneWebFromJSON(

@@ -3,44 +3,115 @@
  */
 
 import * as z from "zod/v4-mini";
+import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import * as openEnums from "../../types/enums.js";
-import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type SearchIpInfoRequest = {
   query: string;
 };
 
-export const SearchIpInfoStatus = {
-  Fail: "fail",
-  Success: "success",
-} as const;
-export type SearchIpInfoStatus = OpenEnum<typeof SearchIpInfoStatus>;
+export type Company = {
+  domain: string | null;
+  name: string | null;
+  network: string | null;
+  type: string | null;
+};
+
+export type Currency = {
+  code: string | null;
+  name: string | null;
+  native: string | null;
+  plural: string | null;
+  symbol: string | null;
+};
+
+export type Languages = {
+  code: string | null;
+  name: string | null;
+  native: string | null;
+};
+
+export type Scores = {
+  proxyScore: number;
+  threatScore: number;
+  trustScore: number;
+  vpnScore: number;
+};
+
+export type Blocklist = {
+  name: string;
+  site: string;
+  type: string;
+};
+
+export type Threat = {
+  isAnonymous: boolean;
+  isBogon: boolean;
+  isDatacenter: boolean;
+  isIcloudRelay: boolean;
+  isKnownAbuser: boolean;
+  isKnownAttacker: boolean;
+  isProxy: boolean;
+  isThreat: boolean;
+  isTor: boolean;
+  isVpn: boolean;
+  scores: Scores;
+  blocklists?: Array<Blocklist> | undefined;
+};
+
+export type CurrentTime = string | any;
+
+export type TimeZone = {
+  abbr: string | null;
+  currentTime: string | any | null;
+  isDst: boolean | null;
+  name: string | null;
+  offset: string | null;
+};
+
+export type Asn = {
+  asn: string | null;
+  domain: string | null;
+  name: string | null;
+  route: string | null;
+  type: string | null;
+};
+
+export type Carrier = {
+  mcc: string | null;
+  mnc: string | null;
+  name: string | null;
+};
 
 export type SearchIpInfoData = {
-  continent: string;
-  country: string;
-  hosting: boolean;
-  lat: number;
-  lon: number;
-  mobile: boolean;
-  proxy: boolean;
-  query: string;
-  status: SearchIpInfoStatus;
-  timezone: string;
-  as?: string | undefined;
-  asname?: string | undefined;
-  city?: string | undefined;
-  district?: string | undefined;
-  isp?: string | undefined;
+  callingCode: string | null;
+  city: string | null;
+  company: Company;
+  continentCode: string | null;
+  continentName: string | null;
+  countryCode: string | null;
+  countryName: string | null;
+  currency: Currency;
+  emojiFlag: string | null;
+  emojiUnicode: string | null;
+  ip: string;
+  isEu: boolean | null;
+  languages: Array<Languages> | null;
+  latitude: number | null;
+  longitude: number | null;
+  postal: string | null;
+  region: string | null;
+  regionCode: string | null;
+  regionType: string | null;
+  threat: Threat;
+  timeZone: TimeZone;
+  asn?: Asn | undefined;
+  carrier?: Carrier | undefined;
   message?: string | undefined;
-  org?: string | undefined;
-  regionName?: string | undefined;
-  reverse?: string | undefined;
-  zip?: string | undefined;
 };
 
 /**
@@ -74,37 +145,273 @@ export function searchIpInfoRequestToJSON(
 }
 
 /** @internal */
-export const SearchIpInfoStatus$inboundSchema: z.ZodMiniType<
-  SearchIpInfoStatus,
-  unknown
-> = openEnums.inboundSchema(SearchIpInfoStatus);
+export const Company$inboundSchema: z.ZodMiniType<Company, unknown> = z.object({
+  domain: types.nullable(types.string()),
+  name: types.nullable(types.string()),
+  network: types.nullable(types.string()),
+  type: types.nullable(types.string()),
+});
+
+export function companyFromJSON(
+  jsonString: string,
+): SafeParseResult<Company, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Company$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Company' from JSON`,
+  );
+}
+
+/** @internal */
+export const Currency$inboundSchema: z.ZodMiniType<Currency, unknown> = z
+  .object({
+    code: types.nullable(types.string()),
+    name: types.nullable(types.string()),
+    native: types.nullable(types.string()),
+    plural: types.nullable(types.string()),
+    symbol: types.nullable(types.string()),
+  });
+
+export function currencyFromJSON(
+  jsonString: string,
+): SafeParseResult<Currency, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Currency$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Currency' from JSON`,
+  );
+}
+
+/** @internal */
+export const Languages$inboundSchema: z.ZodMiniType<Languages, unknown> = z
+  .object({
+    code: types.nullable(types.string()),
+    name: types.nullable(types.string()),
+    native: types.nullable(types.string()),
+  });
+
+export function languagesFromJSON(
+  jsonString: string,
+): SafeParseResult<Languages, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Languages$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Languages' from JSON`,
+  );
+}
+
+/** @internal */
+export const Scores$inboundSchema: z.ZodMiniType<Scores, unknown> = z.pipe(
+  z.object({
+    proxy_score: types.number(),
+    threat_score: types.number(),
+    trust_score: types.number(),
+    vpn_score: types.number(),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "proxy_score": "proxyScore",
+      "threat_score": "threatScore",
+      "trust_score": "trustScore",
+      "vpn_score": "vpnScore",
+    });
+  }),
+);
+
+export function scoresFromJSON(
+  jsonString: string,
+): SafeParseResult<Scores, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Scores$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Scores' from JSON`,
+  );
+}
+
+/** @internal */
+export const Blocklist$inboundSchema: z.ZodMiniType<Blocklist, unknown> = z
+  .object({
+    name: types.string(),
+    site: types.string(),
+    type: types.string(),
+  });
+
+export function blocklistFromJSON(
+  jsonString: string,
+): SafeParseResult<Blocklist, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Blocklist$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Blocklist' from JSON`,
+  );
+}
+
+/** @internal */
+export const Threat$inboundSchema: z.ZodMiniType<Threat, unknown> = z.pipe(
+  z.object({
+    is_anonymous: types.boolean(),
+    is_bogon: types.boolean(),
+    is_datacenter: types.boolean(),
+    is_icloud_relay: types.boolean(),
+    is_known_abuser: types.boolean(),
+    is_known_attacker: types.boolean(),
+    is_proxy: types.boolean(),
+    is_threat: types.boolean(),
+    is_tor: types.boolean(),
+    is_vpn: types.boolean(),
+    scores: z.lazy(() => Scores$inboundSchema),
+    blocklists: types.optional(z.array(z.lazy(() => Blocklist$inboundSchema))),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "is_anonymous": "isAnonymous",
+      "is_bogon": "isBogon",
+      "is_datacenter": "isDatacenter",
+      "is_icloud_relay": "isIcloudRelay",
+      "is_known_abuser": "isKnownAbuser",
+      "is_known_attacker": "isKnownAttacker",
+      "is_proxy": "isProxy",
+      "is_threat": "isThreat",
+      "is_tor": "isTor",
+      "is_vpn": "isVpn",
+    });
+  }),
+);
+
+export function threatFromJSON(
+  jsonString: string,
+): SafeParseResult<Threat, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Threat$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Threat' from JSON`,
+  );
+}
+
+/** @internal */
+export const CurrentTime$inboundSchema: z.ZodMiniType<CurrentTime, unknown> =
+  smartUnion([types.string(), z.any()]);
+
+export function currentTimeFromJSON(
+  jsonString: string,
+): SafeParseResult<CurrentTime, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CurrentTime$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CurrentTime' from JSON`,
+  );
+}
+
+/** @internal */
+export const TimeZone$inboundSchema: z.ZodMiniType<TimeZone, unknown> = z.pipe(
+  z.object({
+    abbr: types.nullable(types.string()),
+    current_time: types.nullable(smartUnion([types.string(), z.any()])),
+    is_dst: types.nullable(types.boolean()),
+    name: types.nullable(types.string()),
+    offset: types.nullable(types.string()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "current_time": "currentTime",
+      "is_dst": "isDst",
+    });
+  }),
+);
+
+export function timeZoneFromJSON(
+  jsonString: string,
+): SafeParseResult<TimeZone, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TimeZone$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TimeZone' from JSON`,
+  );
+}
+
+/** @internal */
+export const Asn$inboundSchema: z.ZodMiniType<Asn, unknown> = z.object({
+  asn: types.nullable(types.string()),
+  domain: types.nullable(types.string()),
+  name: types.nullable(types.string()),
+  route: types.nullable(types.string()),
+  type: types.nullable(types.string()),
+});
+
+export function asnFromJSON(
+  jsonString: string,
+): SafeParseResult<Asn, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Asn$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Asn' from JSON`,
+  );
+}
+
+/** @internal */
+export const Carrier$inboundSchema: z.ZodMiniType<Carrier, unknown> = z.object({
+  mcc: types.nullable(types.string()),
+  mnc: types.nullable(types.string()),
+  name: types.nullable(types.string()),
+});
+
+export function carrierFromJSON(
+  jsonString: string,
+): SafeParseResult<Carrier, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Carrier$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Carrier' from JSON`,
+  );
+}
 
 /** @internal */
 export const SearchIpInfoData$inboundSchema: z.ZodMiniType<
   SearchIpInfoData,
   unknown
-> = z.object({
-  continent: types.string(),
-  country: types.string(),
-  hosting: types.boolean(),
-  lat: types.number(),
-  lon: types.number(),
-  mobile: types.boolean(),
-  proxy: types.boolean(),
-  query: types.string(),
-  status: SearchIpInfoStatus$inboundSchema,
-  timezone: types.string(),
-  as: types.optional(types.string()),
-  asname: types.optional(types.string()),
-  city: types.optional(types.string()),
-  district: types.optional(types.string()),
-  isp: types.optional(types.string()),
-  message: types.optional(types.string()),
-  org: types.optional(types.string()),
-  regionName: types.optional(types.string()),
-  reverse: types.optional(types.string()),
-  zip: types.optional(types.string()),
-});
+> = z.pipe(
+  z.object({
+    calling_code: types.nullable(types.string()),
+    city: types.nullable(types.string()),
+    company: z.lazy(() => Company$inboundSchema),
+    continent_code: types.nullable(types.string()),
+    continent_name: types.nullable(types.string()),
+    country_code: types.nullable(types.string()),
+    country_name: types.nullable(types.string()),
+    currency: z.lazy(() => Currency$inboundSchema),
+    emoji_flag: types.nullable(types.string()),
+    emoji_unicode: types.nullable(types.string()),
+    ip: types.string(),
+    is_eu: types.nullable(types.boolean()),
+    languages: types.nullable(z.array(z.lazy(() => Languages$inboundSchema))),
+    latitude: types.nullable(types.number()),
+    longitude: types.nullable(types.number()),
+    postal: types.nullable(types.string()),
+    region: types.nullable(types.string()),
+    region_code: types.nullable(types.string()),
+    region_type: types.nullable(types.string()),
+    threat: z.lazy(() => Threat$inboundSchema),
+    time_zone: z.lazy(() => TimeZone$inboundSchema),
+    asn: types.optional(z.lazy(() => Asn$inboundSchema)),
+    carrier: types.optional(z.lazy(() => Carrier$inboundSchema)),
+    message: types.optional(types.string()),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "calling_code": "callingCode",
+      "continent_code": "continentCode",
+      "continent_name": "continentName",
+      "country_code": "countryCode",
+      "country_name": "countryName",
+      "emoji_flag": "emojiFlag",
+      "emoji_unicode": "emojiUnicode",
+      "is_eu": "isEu",
+      "region_code": "regionCode",
+      "region_type": "regionType",
+      "time_zone": "timeZone",
+    });
+  }),
+);
 
 export function searchIpInfoDataFromJSON(
   jsonString: string,

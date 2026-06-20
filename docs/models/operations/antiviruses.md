@@ -6,20 +6,16 @@
 import { Antiviruses } from "@indiciaosint/sdk/models/operations";
 
 let value: Antiviruses = {
-  found: 578.93,
-  free: "<value>",
   list: [],
-  notFound: "<value>",
-  total: 8199.41,
 };
 ```
 
 ## Fields
 
-| Field                                                                                   | Type                                                                                    | Required                                                                                | Description                                                                             |
-| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `found`                                                                                 | *number*                                                                                | :heavy_check_mark:                                                                      | N/A                                                                                     |
-| `free`                                                                                  | *string*                                                                                | :heavy_check_mark:                                                                      | N/A                                                                                     |
-| `list`                                                                                  | [operations.SearchHudsonRockList](../../models/operations/search-hudson-rock-list.md)[] | :heavy_check_mark:                                                                      | N/A                                                                                     |
-| `notFound`                                                                              | *string*                                                                                | :heavy_check_mark:                                                                      | N/A                                                                                     |
-| `total`                                                                                 | *number*                                                                                | :heavy_check_mark:                                                                      | N/A                                                                                     |
+| Field                                                | Type                                                 | Required                                             | Description                                          |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| `list`                                               | [operations.List](../../models/operations/list.md)[] | :heavy_check_mark:                                   | N/A                                                  |
+| `found`                                              | *number*                                             | :heavy_minus_sign:                                   | N/A                                                  |
+| `free`                                               | *operations.Free*                                    | :heavy_minus_sign:                                   | N/A                                                  |
+| `notFound`                                           | *string*                                             | :heavy_minus_sign:                                   | N/A                                                  |
+| `total`                                              | *number*                                             | :heavy_minus_sign:                                   | N/A                                                  |

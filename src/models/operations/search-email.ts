@@ -12,23 +12,28 @@ export type SearchEmailRequest = {
   query: string;
 };
 
+export type SearchEmailWeb = {
+  aka?: Array<string> | undefined;
+  associates?: Array<string> | undefined;
+  children?: number | undefined;
+  currentAddress?: string | undefined;
+  emails?: Array<string> | undefined;
+  error?: string | undefined;
+  maritalStatus?: string | undefined;
+  name?: string | null | undefined;
+  pastAddresses?: Array<string> | undefined;
+  phones?: Array<string> | undefined;
+};
+
 export type SearchEmailData = {
-  aka: Array<string>;
-  associates: Array<string>;
-  children: number;
-  currentAddress: string;
-  emails: Array<string>;
-  maritalStatus: string;
-  name: string | null;
-  pastAddresses: Array<string>;
-  phones: Array<string>;
+  web: Array<SearchEmailWeb>;
 };
 
 /**
  * Search successful
  */
 export type SearchEmailResponse = {
-  data: Array<SearchEmailData>;
+  data: SearchEmailData;
   success: boolean;
   error?: string | undefined;
 };
@@ -55,19 +60,38 @@ export function searchEmailRequestToJSON(
 }
 
 /** @internal */
+export const SearchEmailWeb$inboundSchema: z.ZodMiniType<
+  SearchEmailWeb,
+  unknown
+> = z.object({
+  aka: types.optional(z.array(types.string())),
+  associates: types.optional(z.array(types.string())),
+  children: types.optional(types.number()),
+  currentAddress: types.optional(types.string()),
+  emails: types.optional(z.array(types.string())),
+  error: types.optional(types.string()),
+  maritalStatus: types.optional(types.string()),
+  name: z.optional(z.nullable(types.string())),
+  pastAddresses: types.optional(z.array(types.string())),
+  phones: types.optional(z.array(types.string())),
+});
+
+export function searchEmailWebFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchEmailWeb, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchEmailWeb$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchEmailWeb' from JSON`,
+  );
+}
+
+/** @internal */
 export const SearchEmailData$inboundSchema: z.ZodMiniType<
   SearchEmailData,
   unknown
 > = z.object({
-  aka: z.array(types.string()),
-  associates: z.array(types.string()),
-  children: types.number(),
-  currentAddress: types.string(),
-  emails: z.array(types.string()),
-  maritalStatus: types.string(),
-  name: types.nullable(types.string()),
-  pastAddresses: z.array(types.string()),
-  phones: z.array(types.string()),
+  web: z.array(z.lazy(() => SearchEmailWeb$inboundSchema)),
 });
 
 export function searchEmailDataFromJSON(
@@ -85,7 +109,7 @@ export const SearchEmailResponse$inboundSchema: z.ZodMiniType<
   SearchEmailResponse,
   unknown
 > = z.object({
-  data: z.array(z.lazy(() => SearchEmailData$inboundSchema)),
+  data: z.lazy(() => SearchEmailData$inboundSchema),
   success: types.boolean(),
   error: types.optional(types.string()),
 });

@@ -166,7 +166,7 @@ export type Domain = {
 export type AssociatedDomainRegistrations = {
   domains?: Array<Domain> | undefined;
   exists?: boolean | undefined;
-  firstRegistrationDate?: string | undefined;
+  firstRegistrationDate?: string | null | undefined;
   numberOfDomains?: number | undefined;
 };
 
@@ -258,14 +258,14 @@ export type RiskScores = {
 
 export type SeonFraudHistory = {
   customerHits?: number | undefined;
-  firstSeen?: number | undefined;
+  firstSeen?: number | null | undefined;
   flags?: Array<string> | undefined;
   fraudulentDeclineCustomerHits?: number | undefined;
-  fraudulentDeclineFirstSeen?: number | undefined;
+  fraudulentDeclineFirstSeen?: number | null | undefined;
   fraudulentDeclineHits?: number | undefined;
-  fraudulentDeclineLastSeen?: number | undefined;
+  fraudulentDeclineLastSeen?: number | null | undefined;
   hits?: number | undefined;
-  lastSeen?: number | undefined;
+  lastSeen?: number | null | undefined;
 };
 
 export type SearchSeonData = {
@@ -842,7 +842,7 @@ export const AssociatedDomainRegistrations$inboundSchema: z.ZodMiniType<
   z.object({
     domains: types.optional(z.array(z.lazy(() => Domain$inboundSchema))),
     exists: types.optional(types.boolean()),
-    first_registration_date: types.optional(types.string()),
+    first_registration_date: z.optional(z.nullable(types.string())),
     number_of_domains: types.optional(types.number()),
   }),
   z.transform((v) => {
@@ -1203,14 +1203,14 @@ export const SeonFraudHistory$inboundSchema: z.ZodMiniType<
 > = z.pipe(
   z.object({
     customer_hits: types.optional(types.number()),
-    first_seen: types.optional(types.number()),
+    first_seen: z.optional(z.nullable(types.number())),
     flags: types.optional(z.array(types.string())),
     fraudulent_decline_customer_hits: types.optional(types.number()),
-    fraudulent_decline_first_seen: types.optional(types.number()),
+    fraudulent_decline_first_seen: z.optional(z.nullable(types.number())),
     fraudulent_decline_hits: types.optional(types.number()),
-    fraudulent_decline_last_seen: types.optional(types.number()),
+    fraudulent_decline_last_seen: z.optional(z.nullable(types.number())),
     hits: types.optional(types.number()),
-    last_seen: types.optional(types.number()),
+    last_seen: z.optional(z.nullable(types.number())),
   }),
   z.transform((v) => {
     return remap$(v, {

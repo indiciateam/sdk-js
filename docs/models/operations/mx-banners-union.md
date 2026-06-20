@@ -9,9 +9,11 @@
 const value: string = "<value>";
 ```
 
-### `{ [k: string]: operations.BannersMx }`
+### `{ [k: string]: operations.BannersMxUnion }`
 
 ```typescript
-const value: { [k: string]: operations.BannersMx } = {};
+const value: { [k: string]: operations.BannersMxUnion } = {
+  "key": {},
+};
 ```
 

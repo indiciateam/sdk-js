@@ -23,7 +23,7 @@ export const Service = {
 } as const;
 export type Service = ClosedEnum<typeof Service>;
 
-export const CloudsintTypeRequest = {
+export const CloudsintType = {
   Discordid: "discordid",
   Email: "email",
   Ip: "ip",
@@ -34,7 +34,7 @@ export const CloudsintTypeRequest = {
   Url: "url",
   Username: "username",
 } as const;
-export type CloudsintTypeRequest = ClosedEnum<typeof CloudsintTypeRequest>;
+export type CloudsintType = ClosedEnum<typeof CloudsintType>;
 
 export const IntelxType = {
   Domain: "domain",
@@ -75,68 +75,42 @@ export type SnusbaseType = ClosedEnum<typeof SnusbaseType>;
 export type SearchWebDatabasesRequest = {
   query: string;
   services: Array<Service>;
-  cloudsintType?: CloudsintTypeRequest | undefined;
+  cloudsintType?: CloudsintType | undefined;
   intelxType?: IntelxType | undefined;
   leakCheckType?: LeakCheckType | undefined;
   snusbaseType?: SnusbaseType | undefined;
 };
 
-export type SearchWebDatabasesBreach = {
-  email: string;
-  id: string;
-  importedAt: string;
-  password: string;
+export type Breachvip = {
   source: string;
-  sourceDate: string;
-  sourceName: string;
-  url: string;
-  username: string;
+  breachDate?: string | undefined;
+  categories?: Array<string> | undefined;
+  domain?: string | undefined;
+  email?: string | undefined;
+  password?: string | undefined;
 };
 
-export const CloudsintTypeResponse = {
-  Discordid: "discordid",
-  Email: "email",
-  Ip: "ip",
-  Name: "name",
-  Password: "password",
-  Phone: "phone",
-  Steamid: "steamid",
-  Url: "url",
-  Username: "username",
-} as const;
-export type CloudsintTypeResponse = OpenEnum<typeof CloudsintTypeResponse>;
+export type SearchWebDatabasesBreach = {
+  id: string;
+  email?: string | undefined;
+  importedAt?: string | undefined;
+  password?: string | undefined;
+  source?: string | undefined;
+  sourceDate?: string | undefined;
+  sourceName?: string | undefined;
+  username?: string | undefined;
+};
 
-export type SearchWebDatabasesData = {
+export type CloudsintData = {
   breaches: Array<SearchWebDatabasesBreach>;
   query: string;
   totalMatches: number;
-  type: CloudsintTypeResponse;
 };
 
 export type Cloudsint = {
-  data: SearchWebDatabasesData;
+  data: CloudsintData;
   duration: number;
   success: boolean;
-};
-
-export type LogInfo = {
-  hwid: string | null;
-  name: string | null;
-  systemName: string | null;
-};
-
-export type Credential = {
-  logInfo: LogInfo;
-  date?: string | undefined;
-  login?: string | undefined;
-  password?: string | undefined;
-  url?: string | undefined;
-};
-
-export type Ghosint = {
-  count: number;
-  credentials: Array<Credential>;
-  resultId: string;
 };
 
 export type ResultsSource = {
@@ -144,7 +118,7 @@ export type ResultsSource = {
   name?: string | undefined;
 };
 
-export type ResultsResults = {
+export type ResultsResult = {
   id: string;
   source: ResultsSource;
   email?: string | undefined;
@@ -163,17 +137,19 @@ export type Results = {
   firstSeen: string;
   found: number;
   lastSeen: string;
-  results: ResultsResults;
+  results?: Array<ResultsResult> | undefined;
 };
 
 export type Hackcheck = {
-  results: Results;
+  results?: Results | undefined;
 };
 
-export type Tag = {
+export type ItemTag = {
   class: number;
   value: string;
 };
+
+export type ItemType = number | string;
 
 export type Item = {
   accesslevel?: number | undefined;
@@ -191,20 +167,46 @@ export type Item = {
   size?: number | undefined;
   storageid?: string | undefined;
   systemid?: string | undefined;
-  tags?: Array<Tag> | undefined;
-  type?: number | undefined;
+  tags?: Array<ItemTag> | undefined;
+  type?: number | string | undefined;
   xscore?: number | undefined;
 };
 
+export type Tag = {
+  class: number;
+  value: string;
+};
+
+export type SearchWebDatabasesType = number | string;
+
 export type Identityportal = {
-  linea: string;
+  accesslevel?: number | undefined;
+  added?: string | undefined;
+  bucket?: string | undefined;
+  date?: string | undefined;
+  description?: string | undefined;
+  instore?: boolean | undefined;
   item?: Item | undefined;
+  keyvalues?: any | undefined;
+  line?: string | undefined;
+  linea?: string | undefined;
   lineraw?: string | undefined;
   linesafterraw?: string | null | undefined;
   linesbeforeraw?: string | null | undefined;
+  media?: number | undefined;
+  name?: string | undefined;
+  owner?: string | undefined;
   positionabsolute?: number | undefined;
   positionline?: number | undefined;
   positionsize?: number | undefined;
+  relations?: any | undefined;
+  simhash?: number | undefined;
+  size?: number | undefined;
+  storageid?: string | undefined;
+  systemid?: string | undefined;
+  tags?: Array<Tag> | undefined;
+  type?: number | string | undefined;
+  xscore?: number | undefined;
 };
 
 export type Intelligencex = {
@@ -229,192 +231,38 @@ export const Unverified = {
 } as const;
 export type Unverified = OpenEnum<typeof Unverified>;
 
-export type ResultSource = {
-  breachDate: string;
-  compilation: Compilation;
-  name: string;
-  passwordless: Passwordless;
-  unverified: Unverified;
+export type LeakcheckSource = {
+  breachDate?: string | null | undefined;
+  compilation?: Compilation | undefined;
+  name?: string | undefined;
+  passwordless?: Passwordless | undefined;
+  unverified?: Unverified | undefined;
 };
 
-export type SearchWebDatabasesResult = {
-  address: string | null;
-  country: string | null;
-  dob: string | null;
-  email: string | null;
+export type LeakcheckResult = {
   fields: Array<string>;
-  firstName: string | null;
-  lastName: string | null;
-  name: string | null;
-  password: string | null;
-  phone: string | null;
-  source: ResultSource;
-  state: string | null;
-  zip: string | null;
+  address?: string | undefined;
+  country?: string | undefined;
+  dob?: string | undefined;
+  email?: string | undefined;
+  firstName?: string | undefined;
+  lastName?: string | undefined;
+  name?: string | undefined;
+  password?: string | undefined;
+  phone?: string | undefined;
+  source?: LeakcheckSource | undefined;
+  state?: string | undefined;
+  zip?: string | undefined;
 };
 
 export type Leakcheck = {
-  error: string | null;
   found: number;
-  quota: number | null;
-  result: Array<SearchWebDatabasesResult>;
+  result: Array<LeakcheckResult>;
   success: boolean;
+  error?: string | undefined;
 };
 
-export type Datum = {
-  email?: string | undefined;
-  nickName?: string | undefined;
-  password?: string | undefined;
-  url?: string | undefined;
-  additionalProperties?: { [k: string]: string | null } | undefined;
-};
-
-export type SearchWebDatabasesList = {
-  data: Array<Datum>;
-  infoLeak: string;
-  numOfResults: number;
-};
-
-export type Leakosint = {
-  list: { [k: string]: SearchWebDatabasesList };
-  numOfDatabase: number;
-  numOfResults: number;
-  price: number;
-  searchTime: number;
-};
-
-export type Body = {
-  bio?: string | undefined;
-  additionalProperties?: { [k: string]: string | null } | undefined;
-};
-
-export type SearchWebDatabasesTimeline = {
-  groupItems: { [k: string]: any };
-  groupYears: { [k: string]: any };
-  groups: { [k: string]: any };
-  lastSeen: boolean;
-  lastSeenDate: string | null;
-  registered: boolean;
-  registeredDate: string | null;
-};
-
-export type FrontSchema = {
-  body: Body;
-  image: string;
-  module: string;
-  tags: Array<string>;
-  timeline: SearchWebDatabasesTimeline;
-};
-
-export type Bio = {
-  properKey: string;
-  type: "str";
-  value: string;
-};
-
-export type SearchWebDatabasesId = {
-  properKey: string;
-  type: "str";
-  value: string;
-};
-
-export type SearchWebDatabasesLocation = {
-  properKey: string;
-  type: "str";
-  value: string;
-};
-
-export type Name = {
-  properKey: string;
-  type: "str";
-  value: string;
-};
-
-export type PictureUrl = {
-  properKey: string;
-  type: "str";
-  value: string;
-};
-
-export const PlatformVariableType = {
-  Bool: "bool",
-  List: "list",
-  Number: "number",
-  Str: "str",
-} as const;
-export type PlatformVariableType = OpenEnum<typeof PlatformVariableType>;
-
-export type Value = {
-  url: string;
-};
-
-export type ValueUnion = number | string | Array<Value> | boolean;
-
-export type PlatformVariable = {
-  key: string;
-  properKey: string;
-  type: PlatformVariableType;
-  value: number | string | Array<Value> | boolean;
-};
-
-export type Private = {
-  properKey: string;
-  type: "bool";
-  value: boolean;
-};
-
-export type ProfileUrl = {
-  properKey: string;
-  type: "str";
-  value: string;
-};
-
-export type Registered = {
-  properKey: string;
-  type: "bool";
-  value: boolean;
-};
-
-export type Verified = {
-  properKey: string;
-  type: "bool";
-  value: boolean;
-};
-
-export type SpecFormat = {
-  bio?: Bio | undefined;
-  id?: SearchWebDatabasesId | undefined;
-  location?: SearchWebDatabasesLocation | undefined;
-  name?: Name | undefined;
-  pictureUrl?: PictureUrl | undefined;
-  platformVariables?: Array<PlatformVariable> | undefined;
-  private?: Private | undefined;
-  profileUrl?: ProfileUrl | undefined;
-  registered?: Registered | undefined;
-  verified?: Verified | undefined;
-};
-
-export const SearchWebDatabasesStatus = {
-  Found: "found",
-  NotFound: "not_found",
-} as const;
-export type SearchWebDatabasesStatus = OpenEnum<
-  typeof SearchWebDatabasesStatus
->;
-
-export type Category = {
-  name: string;
-};
-
-export type Osintindustry = {
-  data: { [k: string]: any };
-  frontSchemas: Array<FrontSchema>;
-  module: string;
-  reliableSource: boolean;
-  specFormat: Array<SpecFormat>;
-  status: SearchWebDatabasesStatus;
-  category?: Category | undefined;
-};
+export type SnusbaseUnion = string | any;
 
 export type Snusbase = {
   address?: string | undefined;
@@ -447,24 +295,24 @@ export type Snusbase = {
   url?: string | undefined;
   username?: string | undefined;
   zip?: string | undefined;
+  additionalProperties?: { [k: string]: string | any } | undefined;
 };
 
-export type ResponseT = {
+export type SearchWebDatabasesData = {
+  breachvip?: Array<Breachvip> | undefined;
   cloudsint?: Cloudsint | undefined;
-  ghosint?: Ghosint | undefined;
   hackcheck?: Hackcheck | undefined;
   intelligencex?: Intelligencex | undefined;
   leakcheck?: Leakcheck | undefined;
-  leakosint?: Leakosint | undefined;
-  osintindustries?: Array<Osintindustry> | undefined;
   snusbase?: { [k: string]: Array<Snusbase> } | undefined;
+  snusbaseRateLimited?: boolean | undefined;
 };
 
 /**
  * Search successful
  */
 export type SearchWebDatabasesResponse = {
-  response: ResponseT;
+  data: SearchWebDatabasesData;
   success: boolean;
   error?: string | undefined;
 };
@@ -475,9 +323,8 @@ export const Service$outboundSchema: z.ZodMiniEnum<typeof Service> = z.enum(
 );
 
 /** @internal */
-export const CloudsintTypeRequest$outboundSchema: z.ZodMiniEnum<
-  typeof CloudsintTypeRequest
-> = z.enum(CloudsintTypeRequest);
+export const CloudsintType$outboundSchema: z.ZodMiniEnum<typeof CloudsintType> =
+  z.enum(CloudsintType);
 
 /** @internal */
 export const IntelxType$outboundSchema: z.ZodMiniEnum<typeof IntelxType> = z
@@ -508,7 +355,7 @@ export const SearchWebDatabasesRequest$outboundSchema: z.ZodMiniType<
 > = z.object({
   query: z.string(),
   services: z.array(Service$outboundSchema),
-  cloudsintType: z.optional(CloudsintTypeRequest$outboundSchema),
+  cloudsintType: z.optional(CloudsintType$outboundSchema),
   intelxType: z.optional(IntelxType$outboundSchema),
   leakCheckType: z.optional(LeakCheckType$outboundSchema),
   snusbaseType: z.optional(SnusbaseType$outboundSchema),
@@ -523,20 +370,47 @@ export function searchWebDatabasesRequestToJSON(
 }
 
 /** @internal */
+export const Breachvip$inboundSchema: z.ZodMiniType<Breachvip, unknown> = z
+  .pipe(
+    z.object({
+      source: types.string(),
+      _breach_date: types.optional(types.string()),
+      categories: types.optional(z.array(types.string())),
+      domain: types.optional(types.string()),
+      email: types.optional(types.string()),
+      password: types.optional(types.string()),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "_breach_date": "breachDate",
+      });
+    }),
+  );
+
+export function breachvipFromJSON(
+  jsonString: string,
+): SafeParseResult<Breachvip, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Breachvip$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Breachvip' from JSON`,
+  );
+}
+
+/** @internal */
 export const SearchWebDatabasesBreach$inboundSchema: z.ZodMiniType<
   SearchWebDatabasesBreach,
   unknown
 > = z.pipe(
   z.object({
-    email: types.string(),
     id: types.string(),
-    imported_at: types.string(),
-    password: types.string(),
-    source: types.string(),
-    source_date: types.string(),
-    source_name: types.string(),
-    url: types.string(),
-    username: types.string(),
+    email: types.optional(types.string()),
+    imported_at: types.optional(types.string()),
+    password: types.optional(types.string()),
+    source: types.optional(types.string()),
+    source_date: types.optional(types.string()),
+    source_name: types.optional(types.string()),
+    username: types.optional(types.string()),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -558,21 +432,14 @@ export function searchWebDatabasesBreachFromJSON(
 }
 
 /** @internal */
-export const CloudsintTypeResponse$inboundSchema: z.ZodMiniType<
-  CloudsintTypeResponse,
-  unknown
-> = openEnums.inboundSchema(CloudsintTypeResponse);
-
-/** @internal */
-export const SearchWebDatabasesData$inboundSchema: z.ZodMiniType<
-  SearchWebDatabasesData,
+export const CloudsintData$inboundSchema: z.ZodMiniType<
+  CloudsintData,
   unknown
 > = z.pipe(
   z.object({
     breaches: z.array(z.lazy(() => SearchWebDatabasesBreach$inboundSchema)),
     query: types.string(),
     total_matches: types.number(),
-    type: CloudsintTypeResponse$inboundSchema,
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -581,20 +448,20 @@ export const SearchWebDatabasesData$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function searchWebDatabasesDataFromJSON(
+export function cloudsintDataFromJSON(
   jsonString: string,
-): SafeParseResult<SearchWebDatabasesData, SDKValidationError> {
+): SafeParseResult<CloudsintData, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SearchWebDatabasesData$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchWebDatabasesData' from JSON`,
+    (x) => CloudsintData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CloudsintData' from JSON`,
   );
 }
 
 /** @internal */
 export const Cloudsint$inboundSchema: z.ZodMiniType<Cloudsint, unknown> = z
   .object({
-    data: z.lazy(() => SearchWebDatabasesData$inboundSchema),
+    data: z.lazy(() => CloudsintData$inboundSchema),
     duration: types.number(),
     success: types.boolean(),
   });
@@ -606,81 +473,6 @@ export function cloudsintFromJSON(
     jsonString,
     (x) => Cloudsint$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Cloudsint' from JSON`,
-  );
-}
-
-/** @internal */
-export const LogInfo$inboundSchema: z.ZodMiniType<LogInfo, unknown> = z.pipe(
-  z.object({
-    hwid: types.nullable(types.string()),
-    name: types.nullable(types.string()),
-    system_name: types.nullable(types.string()),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "system_name": "systemName",
-    });
-  }),
-);
-
-export function logInfoFromJSON(
-  jsonString: string,
-): SafeParseResult<LogInfo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => LogInfo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LogInfo' from JSON`,
-  );
-}
-
-/** @internal */
-export const Credential$inboundSchema: z.ZodMiniType<Credential, unknown> = z
-  .pipe(
-    z.object({
-      log_info: z.lazy(() => LogInfo$inboundSchema),
-      date: types.optional(types.string()),
-      login: types.optional(types.string()),
-      password: types.optional(types.string()),
-      url: types.optional(types.string()),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "log_info": "logInfo",
-      });
-    }),
-  );
-
-export function credentialFromJSON(
-  jsonString: string,
-): SafeParseResult<Credential, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Credential$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Credential' from JSON`,
-  );
-}
-
-/** @internal */
-export const Ghosint$inboundSchema: z.ZodMiniType<Ghosint, unknown> = z.pipe(
-  z.object({
-    count: types.number(),
-    credentials: z.array(z.lazy(() => Credential$inboundSchema)),
-    result_id: types.string(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "result_id": "resultId",
-    });
-  }),
-);
-
-export function ghosintFromJSON(
-  jsonString: string,
-): SafeParseResult<Ghosint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Ghosint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Ghosint' from JSON`,
   );
 }
 
@@ -704,8 +496,8 @@ export function resultsSourceFromJSON(
 }
 
 /** @internal */
-export const ResultsResults$inboundSchema: z.ZodMiniType<
-  ResultsResults,
+export const ResultsResult$inboundSchema: z.ZodMiniType<
+  ResultsResult,
   unknown
 > = z.pipe(
   z.object({
@@ -732,13 +524,13 @@ export const ResultsResults$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function resultsResultsFromJSON(
+export function resultsResultFromJSON(
   jsonString: string,
-): SafeParseResult<ResultsResults, SDKValidationError> {
+): SafeParseResult<ResultsResult, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ResultsResults$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ResultsResults' from JSON`,
+    (x) => ResultsResult$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ResultsResult' from JSON`,
   );
 }
 
@@ -749,7 +541,7 @@ export const Results$inboundSchema: z.ZodMiniType<Results, unknown> = z.pipe(
     first_seen: types.string(),
     found: types.number(),
     last_seen: types.string(),
-    results: z.lazy(() => ResultsResults$inboundSchema),
+    results: types.optional(z.array(z.lazy(() => ResultsResult$inboundSchema))),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -772,7 +564,7 @@ export function resultsFromJSON(
 /** @internal */
 export const Hackcheck$inboundSchema: z.ZodMiniType<Hackcheck, unknown> = z
   .object({
-    results: z.lazy(() => Results$inboundSchema),
+    results: types.optional(z.lazy(() => Results$inboundSchema)),
   });
 
 export function hackcheckFromJSON(
@@ -786,18 +578,32 @@ export function hackcheckFromJSON(
 }
 
 /** @internal */
-export const Tag$inboundSchema: z.ZodMiniType<Tag, unknown> = z.object({
+export const ItemTag$inboundSchema: z.ZodMiniType<ItemTag, unknown> = z.object({
   class: types.number(),
   value: types.string(),
 });
 
-export function tagFromJSON(
+export function itemTagFromJSON(
   jsonString: string,
-): SafeParseResult<Tag, SDKValidationError> {
+): SafeParseResult<ItemTag, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Tag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Tag' from JSON`,
+    (x) => ItemTag$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ItemTag' from JSON`,
+  );
+}
+
+/** @internal */
+export const ItemType$inboundSchema: z.ZodMiniType<ItemType, unknown> =
+  smartUnion([types.number(), types.string()]);
+
+export function itemTypeFromJSON(
+  jsonString: string,
+): SafeParseResult<ItemType, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ItemType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ItemType' from JSON`,
   );
 }
 
@@ -818,8 +624,8 @@ export const Item$inboundSchema: z.ZodMiniType<Item, unknown> = z.object({
   size: types.optional(types.number()),
   storageid: types.optional(types.string()),
   systemid: types.optional(types.string()),
-  tags: types.optional(z.array(z.lazy(() => Tag$inboundSchema))),
-  type: types.optional(types.number()),
+  tags: types.optional(z.array(z.lazy(() => ItemTag$inboundSchema))),
+  type: types.optional(smartUnion([types.number(), types.string()])),
   xscore: types.optional(types.number()),
 });
 
@@ -834,18 +640,69 @@ export function itemFromJSON(
 }
 
 /** @internal */
+export const Tag$inboundSchema: z.ZodMiniType<Tag, unknown> = z.object({
+  class: types.number(),
+  value: types.string(),
+});
+
+export function tagFromJSON(
+  jsonString: string,
+): SafeParseResult<Tag, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Tag$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Tag' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchWebDatabasesType$inboundSchema: z.ZodMiniType<
+  SearchWebDatabasesType,
+  unknown
+> = smartUnion([types.number(), types.string()]);
+
+export function searchWebDatabasesTypeFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchWebDatabasesType, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchWebDatabasesType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchWebDatabasesType' from JSON`,
+  );
+}
+
+/** @internal */
 export const Identityportal$inboundSchema: z.ZodMiniType<
   Identityportal,
   unknown
 > = z.object({
-  linea: types.string(),
+  accesslevel: types.optional(types.number()),
+  added: types.optional(types.string()),
+  bucket: types.optional(types.string()),
+  date: types.optional(types.string()),
+  description: types.optional(types.string()),
+  instore: types.optional(types.boolean()),
   item: types.optional(z.lazy(() => Item$inboundSchema)),
+  keyvalues: types.optional(z.any()),
+  line: types.optional(types.string()),
+  linea: types.optional(types.string()),
   lineraw: types.optional(types.string()),
   linesafterraw: z.optional(z.nullable(types.string())),
   linesbeforeraw: z.optional(z.nullable(types.string())),
+  media: types.optional(types.number()),
+  name: types.optional(types.string()),
+  owner: types.optional(types.string()),
   positionabsolute: types.optional(types.number()),
   positionline: types.optional(types.number()),
   positionsize: types.optional(types.number()),
+  relations: types.optional(z.any()),
+  simhash: types.optional(types.number()),
+  size: types.optional(types.number()),
+  storageid: types.optional(types.string()),
+  systemid: types.optional(types.string()),
+  tags: types.optional(z.array(z.lazy(() => Tag$inboundSchema))),
+  type: types.optional(smartUnion([types.number(), types.string()])),
+  xscore: types.optional(types.number()),
 });
 
 export function identityportalFromJSON(
@@ -891,51 +748,53 @@ export const Unverified$inboundSchema: z.ZodMiniType<Unverified, unknown> =
   openEnums.inboundSchema(Unverified);
 
 /** @internal */
-export const ResultSource$inboundSchema: z.ZodMiniType<ResultSource, unknown> =
-  z.pipe(
-    z.object({
-      breach_date: types.string(),
-      compilation: Compilation$inboundSchema,
-      name: types.string(),
-      passwordless: Passwordless$inboundSchema,
-      unverified: Unverified$inboundSchema,
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "breach_date": "breachDate",
-      });
-    }),
-  );
+export const LeakcheckSource$inboundSchema: z.ZodMiniType<
+  LeakcheckSource,
+  unknown
+> = z.pipe(
+  z.object({
+    breach_date: z.optional(z.nullable(types.string())),
+    compilation: types.optional(Compilation$inboundSchema),
+    name: types.optional(types.string()),
+    passwordless: types.optional(Passwordless$inboundSchema),
+    unverified: types.optional(Unverified$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "breach_date": "breachDate",
+    });
+  }),
+);
 
-export function resultSourceFromJSON(
+export function leakcheckSourceFromJSON(
   jsonString: string,
-): SafeParseResult<ResultSource, SDKValidationError> {
+): SafeParseResult<LeakcheckSource, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ResultSource$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ResultSource' from JSON`,
+    (x) => LeakcheckSource$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LeakcheckSource' from JSON`,
   );
 }
 
 /** @internal */
-export const SearchWebDatabasesResult$inboundSchema: z.ZodMiniType<
-  SearchWebDatabasesResult,
+export const LeakcheckResult$inboundSchema: z.ZodMiniType<
+  LeakcheckResult,
   unknown
 > = z.pipe(
   z.object({
-    address: types.nullable(types.string()),
-    country: types.nullable(types.string()),
-    dob: types.nullable(types.string()),
-    email: types.nullable(types.string()),
     fields: z.array(types.string()),
-    first_name: types.nullable(types.string()),
-    last_name: types.nullable(types.string()),
-    name: types.nullable(types.string()),
-    password: types.nullable(types.string()),
-    phone: types.nullable(types.string()),
-    source: z.lazy(() => ResultSource$inboundSchema),
-    state: types.nullable(types.string()),
-    zip: types.nullable(types.string()),
+    address: types.optional(types.string()),
+    country: types.optional(types.string()),
+    dob: types.optional(types.string()),
+    email: types.optional(types.string()),
+    first_name: types.optional(types.string()),
+    last_name: types.optional(types.string()),
+    name: types.optional(types.string()),
+    password: types.optional(types.string()),
+    phone: types.optional(types.string()),
+    source: types.optional(z.lazy(() => LeakcheckSource$inboundSchema)),
+    state: types.optional(types.string()),
+    zip: types.optional(types.string()),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -945,24 +804,23 @@ export const SearchWebDatabasesResult$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function searchWebDatabasesResultFromJSON(
+export function leakcheckResultFromJSON(
   jsonString: string,
-): SafeParseResult<SearchWebDatabasesResult, SDKValidationError> {
+): SafeParseResult<LeakcheckResult, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SearchWebDatabasesResult$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchWebDatabasesResult' from JSON`,
+    (x) => LeakcheckResult$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LeakcheckResult' from JSON`,
   );
 }
 
 /** @internal */
 export const Leakcheck$inboundSchema: z.ZodMiniType<Leakcheck, unknown> = z
   .object({
-    error: types.nullable(types.string()),
     found: types.number(),
-    quota: types.nullable(types.number()),
-    result: z.array(z.lazy(() => SearchWebDatabasesResult$inboundSchema)),
+    result: z.array(z.lazy(() => LeakcheckResult$inboundSchema)),
     success: types.boolean(),
+    error: types.optional(types.string()),
   });
 
 export function leakcheckFromJSON(
@@ -976,611 +834,62 @@ export function leakcheckFromJSON(
 }
 
 /** @internal */
-export const Datum$inboundSchema: z.ZodMiniType<Datum, unknown> = z.pipe(
+export const SnusbaseUnion$inboundSchema: z.ZodMiniType<
+  SnusbaseUnion,
+  unknown
+> = smartUnion([types.string(), z.any()]);
+
+export function snusbaseUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<SnusbaseUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SnusbaseUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SnusbaseUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const Snusbase$inboundSchema: z.ZodMiniType<Snusbase, unknown> =
   collectExtraKeys$(
     z.catchall(
       z.object({
-        Email: types.optional(types.string()),
-        NickName: types.optional(types.string()),
-        Password: types.optional(types.string()),
-        Url: types.optional(types.string()),
+        address: types.optional(types.string()),
+        birthdate: types.optional(types.string()),
+        city: types.optional(types.string()),
+        company: types.optional(types.string()),
+        country: types.optional(types.string()),
+        created: types.optional(types.string()),
+        date: types.optional(types.string()),
+        domain: types.optional(types.string()),
+        email: types.optional(types.string()),
+        followers: types.optional(types.string()),
+        gender: types.optional(types.string()),
+        hash: types.optional(types.string()),
+        host: types.optional(types.string()),
+        id: types.optional(types.string()),
+        job: types.optional(types.string()),
+        language: types.optional(types.string()),
+        lastip: types.optional(types.string()),
+        name: types.optional(types.string()),
+        other: types.optional(types.string()),
+        password: types.optional(types.string()),
+        phone: types.optional(types.string()),
+        regip: types.optional(types.string()),
+        salt: types.optional(types.string()),
+        state: types.optional(types.string()),
+        uid: types.optional(types.string()),
+        unparsed: types.optional(types.string()),
+        updated: types.optional(types.string()),
+        url: types.optional(types.string()),
+        username: types.optional(types.string()),
+        zip: types.optional(types.string()),
       }),
-      types.string(),
+      smartUnion([types.string(), z.any()]),
     ),
     "additionalProperties",
     true,
-  ),
-  z.transform((v) => {
-    return remap$(v, {
-      "Email": "email",
-      "NickName": "nickName",
-      "Password": "password",
-      "Url": "url",
-    });
-  }),
-);
-
-export function datumFromJSON(
-  jsonString: string,
-): SafeParseResult<Datum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Datum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Datum' from JSON`,
   );
-}
-
-/** @internal */
-export const SearchWebDatabasesList$inboundSchema: z.ZodMiniType<
-  SearchWebDatabasesList,
-  unknown
-> = z.pipe(
-  z.object({
-    Data: z.array(z.lazy(() => Datum$inboundSchema)),
-    InfoLeak: types.string(),
-    NumOfResults: types.number(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "Data": "data",
-      "InfoLeak": "infoLeak",
-      "NumOfResults": "numOfResults",
-    });
-  }),
-);
-
-export function searchWebDatabasesListFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchWebDatabasesList, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchWebDatabasesList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchWebDatabasesList' from JSON`,
-  );
-}
-
-/** @internal */
-export const Leakosint$inboundSchema: z.ZodMiniType<Leakosint, unknown> = z
-  .pipe(
-    z.object({
-      List: z.record(
-        z.string(),
-        z.lazy(() => SearchWebDatabasesList$inboundSchema),
-      ),
-      NumOfDatabase: types.number(),
-      NumOfResults: types.number(),
-      price: types.number(),
-      "search time": types.number(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "List": "list",
-        "NumOfDatabase": "numOfDatabase",
-        "NumOfResults": "numOfResults",
-        "search time": "searchTime",
-      });
-    }),
-  );
-
-export function leakosintFromJSON(
-  jsonString: string,
-): SafeParseResult<Leakosint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Leakosint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Leakosint' from JSON`,
-  );
-}
-
-/** @internal */
-export const Body$inboundSchema: z.ZodMiniType<Body, unknown> = z.pipe(
-  collectExtraKeys$(
-    z.catchall(
-      z.object({
-        Bio: types.optional(types.string()),
-      }),
-      types.string(),
-    ),
-    "additionalProperties",
-    true,
-  ),
-  z.transform((v) => {
-    return remap$(v, {
-      "Bio": "bio",
-    });
-  }),
-);
-
-export function bodyFromJSON(
-  jsonString: string,
-): SafeParseResult<Body, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Body$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Body' from JSON`,
-  );
-}
-
-/** @internal */
-export const SearchWebDatabasesTimeline$inboundSchema: z.ZodMiniType<
-  SearchWebDatabasesTimeline,
-  unknown
-> = z.pipe(
-  z.object({
-    group_items: z.record(z.string(), z.any()),
-    group_years: z.record(z.string(), z.any()),
-    groups: z.record(z.string(), z.any()),
-    last_seen: types.boolean(),
-    last_seen_date: types.nullable(types.string()),
-    registered: types.boolean(),
-    registered_date: types.nullable(types.string()),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "group_items": "groupItems",
-      "group_years": "groupYears",
-      "last_seen": "lastSeen",
-      "last_seen_date": "lastSeenDate",
-      "registered_date": "registeredDate",
-    });
-  }),
-);
-
-export function searchWebDatabasesTimelineFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchWebDatabasesTimeline, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchWebDatabasesTimeline$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchWebDatabasesTimeline' from JSON`,
-  );
-}
-
-/** @internal */
-export const FrontSchema$inboundSchema: z.ZodMiniType<FrontSchema, unknown> = z
-  .object({
-    body: z.lazy(() => Body$inboundSchema),
-    image: types.string(),
-    module: types.string(),
-    tags: z.array(types.string()),
-    timeline: z.lazy(() => SearchWebDatabasesTimeline$inboundSchema),
-  });
-
-export function frontSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FrontSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FrontSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FrontSchema' from JSON`,
-  );
-}
-
-/** @internal */
-export const Bio$inboundSchema: z.ZodMiniType<Bio, unknown> = z.pipe(
-  z.object({
-    proper_key: types.string(),
-    type: types.literal("str"),
-    value: types.string(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "proper_key": "properKey",
-    });
-  }),
-);
-
-export function bioFromJSON(
-  jsonString: string,
-): SafeParseResult<Bio, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Bio$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Bio' from JSON`,
-  );
-}
-
-/** @internal */
-export const SearchWebDatabasesId$inboundSchema: z.ZodMiniType<
-  SearchWebDatabasesId,
-  unknown
-> = z.pipe(
-  z.object({
-    proper_key: types.string(),
-    type: types.literal("str"),
-    value: types.string(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "proper_key": "properKey",
-    });
-  }),
-);
-
-export function searchWebDatabasesIdFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchWebDatabasesId, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchWebDatabasesId$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchWebDatabasesId' from JSON`,
-  );
-}
-
-/** @internal */
-export const SearchWebDatabasesLocation$inboundSchema: z.ZodMiniType<
-  SearchWebDatabasesLocation,
-  unknown
-> = z.pipe(
-  z.object({
-    proper_key: types.string(),
-    type: types.literal("str"),
-    value: types.string(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "proper_key": "properKey",
-    });
-  }),
-);
-
-export function searchWebDatabasesLocationFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchWebDatabasesLocation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchWebDatabasesLocation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchWebDatabasesLocation' from JSON`,
-  );
-}
-
-/** @internal */
-export const Name$inboundSchema: z.ZodMiniType<Name, unknown> = z.pipe(
-  z.object({
-    proper_key: types.string(),
-    type: types.literal("str"),
-    value: types.string(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "proper_key": "properKey",
-    });
-  }),
-);
-
-export function nameFromJSON(
-  jsonString: string,
-): SafeParseResult<Name, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Name$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Name' from JSON`,
-  );
-}
-
-/** @internal */
-export const PictureUrl$inboundSchema: z.ZodMiniType<PictureUrl, unknown> = z
-  .pipe(
-    z.object({
-      proper_key: types.string(),
-      type: types.literal("str"),
-      value: types.string(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "proper_key": "properKey",
-      });
-    }),
-  );
-
-export function pictureUrlFromJSON(
-  jsonString: string,
-): SafeParseResult<PictureUrl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PictureUrl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PictureUrl' from JSON`,
-  );
-}
-
-/** @internal */
-export const PlatformVariableType$inboundSchema: z.ZodMiniType<
-  PlatformVariableType,
-  unknown
-> = openEnums.inboundSchema(PlatformVariableType);
-
-/** @internal */
-export const Value$inboundSchema: z.ZodMiniType<Value, unknown> = z.object({
-  url: types.string(),
-});
-
-export function valueFromJSON(
-  jsonString: string,
-): SafeParseResult<Value, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Value$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Value' from JSON`,
-  );
-}
-
-/** @internal */
-export const ValueUnion$inboundSchema: z.ZodMiniType<ValueUnion, unknown> =
-  smartUnion([
-    types.number(),
-    types.string(),
-    z.array(z.lazy(() => Value$inboundSchema)),
-    types.boolean(),
-  ]);
-
-export function valueUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<ValueUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ValueUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ValueUnion' from JSON`,
-  );
-}
-
-/** @internal */
-export const PlatformVariable$inboundSchema: z.ZodMiniType<
-  PlatformVariable,
-  unknown
-> = z.pipe(
-  z.object({
-    key: types.string(),
-    proper_key: types.string(),
-    type: PlatformVariableType$inboundSchema,
-    value: smartUnion([
-      types.number(),
-      types.string(),
-      z.array(z.lazy(() => Value$inboundSchema)),
-      types.boolean(),
-    ]),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "proper_key": "properKey",
-    });
-  }),
-);
-
-export function platformVariableFromJSON(
-  jsonString: string,
-): SafeParseResult<PlatformVariable, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PlatformVariable$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PlatformVariable' from JSON`,
-  );
-}
-
-/** @internal */
-export const Private$inboundSchema: z.ZodMiniType<Private, unknown> = z.pipe(
-  z.object({
-    proper_key: types.string(),
-    type: types.literal("bool"),
-    value: types.boolean(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "proper_key": "properKey",
-    });
-  }),
-);
-
-export function privateFromJSON(
-  jsonString: string,
-): SafeParseResult<Private, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Private$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Private' from JSON`,
-  );
-}
-
-/** @internal */
-export const ProfileUrl$inboundSchema: z.ZodMiniType<ProfileUrl, unknown> = z
-  .pipe(
-    z.object({
-      proper_key: types.string(),
-      type: types.literal("str"),
-      value: types.string(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "proper_key": "properKey",
-      });
-    }),
-  );
-
-export function profileUrlFromJSON(
-  jsonString: string,
-): SafeParseResult<ProfileUrl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProfileUrl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProfileUrl' from JSON`,
-  );
-}
-
-/** @internal */
-export const Registered$inboundSchema: z.ZodMiniType<Registered, unknown> = z
-  .pipe(
-    z.object({
-      proper_key: types.string(),
-      type: types.literal("bool"),
-      value: types.boolean(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "proper_key": "properKey",
-      });
-    }),
-  );
-
-export function registeredFromJSON(
-  jsonString: string,
-): SafeParseResult<Registered, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Registered$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Registered' from JSON`,
-  );
-}
-
-/** @internal */
-export const Verified$inboundSchema: z.ZodMiniType<Verified, unknown> = z.pipe(
-  z.object({
-    proper_key: types.string(),
-    type: types.literal("bool"),
-    value: types.boolean(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "proper_key": "properKey",
-    });
-  }),
-);
-
-export function verifiedFromJSON(
-  jsonString: string,
-): SafeParseResult<Verified, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Verified$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Verified' from JSON`,
-  );
-}
-
-/** @internal */
-export const SpecFormat$inboundSchema: z.ZodMiniType<SpecFormat, unknown> = z
-  .pipe(
-    z.object({
-      bio: types.optional(z.lazy(() => Bio$inboundSchema)),
-      id: types.optional(z.lazy(() => SearchWebDatabasesId$inboundSchema)),
-      location: types.optional(
-        z.lazy(() => SearchWebDatabasesLocation$inboundSchema),
-      ),
-      name: types.optional(z.lazy(() => Name$inboundSchema)),
-      picture_url: types.optional(z.lazy(() => PictureUrl$inboundSchema)),
-      platform_variables: types.optional(
-        z.array(z.lazy(() => PlatformVariable$inboundSchema)),
-      ),
-      private: types.optional(z.lazy(() => Private$inboundSchema)),
-      profile_url: types.optional(z.lazy(() => ProfileUrl$inboundSchema)),
-      registered: types.optional(z.lazy(() => Registered$inboundSchema)),
-      verified: types.optional(z.lazy(() => Verified$inboundSchema)),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "picture_url": "pictureUrl",
-        "platform_variables": "platformVariables",
-        "profile_url": "profileUrl",
-      });
-    }),
-  );
-
-export function specFormatFromJSON(
-  jsonString: string,
-): SafeParseResult<SpecFormat, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SpecFormat$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SpecFormat' from JSON`,
-  );
-}
-
-/** @internal */
-export const SearchWebDatabasesStatus$inboundSchema: z.ZodMiniType<
-  SearchWebDatabasesStatus,
-  unknown
-> = openEnums.inboundSchema(SearchWebDatabasesStatus);
-
-/** @internal */
-export const Category$inboundSchema: z.ZodMiniType<Category, unknown> = z
-  .object({
-    name: types.string(),
-  });
-
-export function categoryFromJSON(
-  jsonString: string,
-): SafeParseResult<Category, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Category$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Category' from JSON`,
-  );
-}
-
-/** @internal */
-export const Osintindustry$inboundSchema: z.ZodMiniType<
-  Osintindustry,
-  unknown
-> = z.pipe(
-  z.object({
-    data: z.record(z.string(), z.any()),
-    front_schemas: z.array(z.lazy(() => FrontSchema$inboundSchema)),
-    module: types.string(),
-    reliable_source: types.boolean(),
-    spec_format: z.array(z.lazy(() => SpecFormat$inboundSchema)),
-    status: SearchWebDatabasesStatus$inboundSchema,
-    category: types.optional(z.lazy(() => Category$inboundSchema)),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "front_schemas": "frontSchemas",
-      "reliable_source": "reliableSource",
-      "spec_format": "specFormat",
-    });
-  }),
-);
-
-export function osintindustryFromJSON(
-  jsonString: string,
-): SafeParseResult<Osintindustry, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Osintindustry$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Osintindustry' from JSON`,
-  );
-}
-
-/** @internal */
-export const Snusbase$inboundSchema: z.ZodMiniType<Snusbase, unknown> = z
-  .object({
-    address: types.optional(types.string()),
-    birthdate: types.optional(types.string()),
-    city: types.optional(types.string()),
-    company: types.optional(types.string()),
-    country: types.optional(types.string()),
-    created: types.optional(types.string()),
-    date: types.optional(types.string()),
-    domain: types.optional(types.string()),
-    email: types.optional(types.string()),
-    followers: types.optional(types.string()),
-    gender: types.optional(types.string()),
-    hash: types.optional(types.string()),
-    host: types.optional(types.string()),
-    id: types.optional(types.string()),
-    job: types.optional(types.string()),
-    language: types.optional(types.string()),
-    lastip: types.optional(types.string()),
-    name: types.optional(types.string()),
-    other: types.optional(types.string()),
-    password: types.optional(types.string()),
-    phone: types.optional(types.string()),
-    regip: types.optional(types.string()),
-    salt: types.optional(types.string()),
-    state: types.optional(types.string()),
-    uid: types.optional(types.string()),
-    unparsed: types.optional(types.string()),
-    updated: types.optional(types.string()),
-    url: types.optional(types.string()),
-    username: types.optional(types.string()),
-    zip: types.optional(types.string()),
-  });
 
 export function snusbaseFromJSON(
   jsonString: string,
@@ -1593,29 +902,28 @@ export function snusbaseFromJSON(
 }
 
 /** @internal */
-export const ResponseT$inboundSchema: z.ZodMiniType<ResponseT, unknown> = z
-  .object({
-    cloudsint: types.optional(z.lazy(() => Cloudsint$inboundSchema)),
-    ghosint: types.optional(z.lazy(() => Ghosint$inboundSchema)),
-    hackcheck: types.optional(z.lazy(() => Hackcheck$inboundSchema)),
-    intelligencex: types.optional(z.lazy(() => Intelligencex$inboundSchema)),
-    leakcheck: types.optional(z.lazy(() => Leakcheck$inboundSchema)),
-    leakosint: types.optional(z.lazy(() => Leakosint$inboundSchema)),
-    osintindustries: types.optional(
-      z.array(z.lazy(() => Osintindustry$inboundSchema)),
-    ),
-    snusbase: types.optional(
-      z.record(z.string(), z.array(z.lazy(() => Snusbase$inboundSchema))),
-    ),
-  });
+export const SearchWebDatabasesData$inboundSchema: z.ZodMiniType<
+  SearchWebDatabasesData,
+  unknown
+> = z.object({
+  breachvip: types.optional(z.array(z.lazy(() => Breachvip$inboundSchema))),
+  cloudsint: types.optional(z.lazy(() => Cloudsint$inboundSchema)),
+  hackcheck: types.optional(z.lazy(() => Hackcheck$inboundSchema)),
+  intelligencex: types.optional(z.lazy(() => Intelligencex$inboundSchema)),
+  leakcheck: types.optional(z.lazy(() => Leakcheck$inboundSchema)),
+  snusbase: types.optional(
+    z.record(z.string(), z.array(z.lazy(() => Snusbase$inboundSchema))),
+  ),
+  snusbaseRateLimited: types.optional(types.boolean()),
+});
 
-export function responseFromJSON(
+export function searchWebDatabasesDataFromJSON(
   jsonString: string,
-): SafeParseResult<ResponseT, SDKValidationError> {
+): SafeParseResult<SearchWebDatabasesData, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ResponseT$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ResponseT' from JSON`,
+    (x) => SearchWebDatabasesData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchWebDatabasesData' from JSON`,
   );
 }
 
@@ -1624,7 +932,7 @@ export const SearchWebDatabasesResponse$inboundSchema: z.ZodMiniType<
   SearchWebDatabasesResponse,
   unknown
 > = z.object({
-  response: z.lazy(() => ResponseT$inboundSchema),
+  data: z.lazy(() => SearchWebDatabasesData$inboundSchema),
   success: types.boolean(),
   error: types.optional(types.string()),
 });

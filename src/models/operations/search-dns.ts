@@ -14,26 +14,30 @@ export type SearchDnsRequest = {
   query: string;
 };
 
+export type ACn = string | Array<string>;
+
 export type BannersA = {
   altN?: Array<string> | undefined;
   apps?: Array<string> | undefined;
-  cn?: Array<string> | undefined;
+  cn?: string | Array<string> | undefined;
   redirectLocation?: string | undefined;
   server?: string | undefined;
   title?: string | undefined;
 };
 
-export type ABannersUnion = string | { [k: string]: BannersA };
+export type BannersAUnion = string | BannersA;
+
+export type ABannersUnion = string | { [k: string]: string | BannersA };
 
 export type AIp = {
   asn: string;
   asnName: string;
   asnRange: string;
-  banners: string | { [k: string]: BannersA };
   country: string;
   countryCode: string;
   ip: string;
   ptr: string;
+  banners?: string | { [k: string]: string | BannersA } | undefined;
 };
 
 export type A = {
@@ -41,26 +45,30 @@ export type A = {
   ips: Array<AIp>;
 };
 
+export type CnameCn = string | Array<string>;
+
 export type BannersCname = {
   altN?: Array<string> | undefined;
   apps?: Array<string> | undefined;
-  cn?: Array<string> | undefined;
+  cn?: string | Array<string> | undefined;
   redirectLocation?: string | undefined;
   server?: string | undefined;
   title?: string | undefined;
 };
 
-export type CnameBannersUnion = string | { [k: string]: BannersCname };
+export type BannersCnameUnion = string | BannersCname;
+
+export type CnameBannersUnion = string | { [k: string]: string | BannersCname };
 
 export type CnameIp = {
   asn: string;
   asnName: string;
   asnRange: string;
-  banners: string | { [k: string]: BannersCname };
   country: string;
   countryCode: string;
   ip: string;
   ptr: string;
+  banners?: string | { [k: string]: string | BannersCname } | undefined;
 };
 
 export type Cname = {
@@ -68,26 +76,30 @@ export type Cname = {
   ips: Array<CnameIp>;
 };
 
+export type MxCn = string | Array<string>;
+
 export type BannersMx = {
   altN?: Array<string> | undefined;
   apps?: Array<string> | undefined;
-  cn?: Array<string> | undefined;
+  cn?: string | Array<string> | undefined;
   redirectLocation?: string | undefined;
   server?: string | undefined;
   title?: string | undefined;
 };
 
-export type MxBannersUnion = string | { [k: string]: BannersMx };
+export type BannersMxUnion = string | BannersMx;
+
+export type MxBannersUnion = string | { [k: string]: string | BannersMx };
 
 export type MxIp = {
   asn: string;
   asnName: string;
   asnRange: string;
-  banners: string | { [k: string]: BannersMx };
   country: string;
   countryCode: string;
   ip: string;
   ptr: string;
+  banners?: string | { [k: string]: string | BannersMx } | undefined;
 };
 
 export type Mx = {
@@ -95,26 +107,30 @@ export type Mx = {
   ips: Array<MxIp>;
 };
 
+export type NCn = string | Array<string>;
+
 export type BannersN = {
   altN?: Array<string> | undefined;
   apps?: Array<string> | undefined;
-  cn?: Array<string> | undefined;
+  cn?: string | Array<string> | undefined;
   redirectLocation?: string | undefined;
   server?: string | undefined;
   title?: string | undefined;
 };
 
-export type NBannersUnion = string | { [k: string]: BannersN };
+export type BannersNUnion = string | BannersN;
+
+export type NBannersUnion = string | { [k: string]: string | BannersN };
 
 export type NIp = {
   asn: string;
   asnName: string;
   asnRange: string;
-  banners: string | { [k: string]: BannersN };
   country: string;
   countryCode: string;
   ip: string;
   ptr: string;
+  banners?: string | { [k: string]: string | BannersN } | undefined;
 };
 
 export type N = {
@@ -164,11 +180,27 @@ export function searchDnsRequestToJSON(
 }
 
 /** @internal */
+export const ACn$inboundSchema: z.ZodMiniType<ACn, unknown> = smartUnion([
+  types.string(),
+  z.array(types.string()),
+]);
+
+export function aCnFromJSON(
+  jsonString: string,
+): SafeParseResult<ACn, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ACn$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ACn' from JSON`,
+  );
+}
+
+/** @internal */
 export const BannersA$inboundSchema: z.ZodMiniType<BannersA, unknown> = z.pipe(
   z.object({
     alt_n: types.optional(z.array(types.string())),
     apps: types.optional(z.array(types.string())),
-    cn: types.optional(z.array(types.string())),
+    cn: types.optional(smartUnion([types.string(), z.array(types.string())])),
     redirect_location: types.optional(types.string()),
     server: types.optional(types.string()),
     title: types.optional(types.string()),
@@ -192,12 +224,31 @@ export function bannersAFromJSON(
 }
 
 /** @internal */
+export const BannersAUnion$inboundSchema: z.ZodMiniType<
+  BannersAUnion,
+  unknown
+> = smartUnion([types.string(), z.lazy(() => BannersA$inboundSchema)]);
+
+export function bannersAUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<BannersAUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BannersAUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BannersAUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const ABannersUnion$inboundSchema: z.ZodMiniType<
   ABannersUnion,
   unknown
 > = smartUnion([
   types.string(),
-  z.record(z.string(), z.lazy(() => BannersA$inboundSchema)),
+  z.record(
+    z.string(),
+    smartUnion([types.string(), z.lazy(() => BannersA$inboundSchema)]),
+  ),
 ]);
 
 export function aBannersUnionFromJSON(
@@ -216,14 +267,19 @@ export const AIp$inboundSchema: z.ZodMiniType<AIp, unknown> = z.pipe(
     asn: types.string(),
     asn_name: types.string(),
     asn_range: types.string(),
-    banners: smartUnion([
-      types.string(),
-      z.record(z.string(), z.lazy(() => BannersA$inboundSchema)),
-    ]),
     country: types.string(),
     country_code: types.string(),
     ip: types.string(),
     ptr: types.string(),
+    banners: types.optional(
+      smartUnion([
+        types.string(),
+        z.record(
+          z.string(),
+          smartUnion([types.string(), z.lazy(() => BannersA$inboundSchema)]),
+        ),
+      ]),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -261,12 +317,26 @@ export function aFromJSON(
 }
 
 /** @internal */
+export const CnameCn$inboundSchema: z.ZodMiniType<CnameCn, unknown> =
+  smartUnion([types.string(), z.array(types.string())]);
+
+export function cnameCnFromJSON(
+  jsonString: string,
+): SafeParseResult<CnameCn, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CnameCn$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CnameCn' from JSON`,
+  );
+}
+
+/** @internal */
 export const BannersCname$inboundSchema: z.ZodMiniType<BannersCname, unknown> =
   z.pipe(
     z.object({
       alt_n: types.optional(z.array(types.string())),
       apps: types.optional(z.array(types.string())),
-      cn: types.optional(z.array(types.string())),
+      cn: types.optional(smartUnion([types.string(), z.array(types.string())])),
       redirect_location: types.optional(types.string()),
       server: types.optional(types.string()),
       title: types.optional(types.string()),
@@ -290,12 +360,31 @@ export function bannersCnameFromJSON(
 }
 
 /** @internal */
+export const BannersCnameUnion$inboundSchema: z.ZodMiniType<
+  BannersCnameUnion,
+  unknown
+> = smartUnion([types.string(), z.lazy(() => BannersCname$inboundSchema)]);
+
+export function bannersCnameUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<BannersCnameUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BannersCnameUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BannersCnameUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const CnameBannersUnion$inboundSchema: z.ZodMiniType<
   CnameBannersUnion,
   unknown
 > = smartUnion([
   types.string(),
-  z.record(z.string(), z.lazy(() => BannersCname$inboundSchema)),
+  z.record(
+    z.string(),
+    smartUnion([types.string(), z.lazy(() => BannersCname$inboundSchema)]),
+  ),
 ]);
 
 export function cnameBannersUnionFromJSON(
@@ -314,14 +403,22 @@ export const CnameIp$inboundSchema: z.ZodMiniType<CnameIp, unknown> = z.pipe(
     asn: types.string(),
     asn_name: types.string(),
     asn_range: types.string(),
-    banners: smartUnion([
-      types.string(),
-      z.record(z.string(), z.lazy(() => BannersCname$inboundSchema)),
-    ]),
     country: types.string(),
     country_code: types.string(),
     ip: types.string(),
     ptr: types.string(),
+    banners: types.optional(
+      smartUnion([
+        types.string(),
+        z.record(
+          z.string(),
+          smartUnion([
+            types.string(),
+            z.lazy(() => BannersCname$inboundSchema),
+          ]),
+        ),
+      ]),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -359,12 +456,28 @@ export function cnameFromJSON(
 }
 
 /** @internal */
+export const MxCn$inboundSchema: z.ZodMiniType<MxCn, unknown> = smartUnion([
+  types.string(),
+  z.array(types.string()),
+]);
+
+export function mxCnFromJSON(
+  jsonString: string,
+): SafeParseResult<MxCn, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MxCn$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MxCn' from JSON`,
+  );
+}
+
+/** @internal */
 export const BannersMx$inboundSchema: z.ZodMiniType<BannersMx, unknown> = z
   .pipe(
     z.object({
       alt_n: types.optional(z.array(types.string())),
       apps: types.optional(z.array(types.string())),
-      cn: types.optional(z.array(types.string())),
+      cn: types.optional(smartUnion([types.string(), z.array(types.string())])),
       redirect_location: types.optional(types.string()),
       server: types.optional(types.string()),
       title: types.optional(types.string()),
@@ -388,12 +501,31 @@ export function bannersMxFromJSON(
 }
 
 /** @internal */
+export const BannersMxUnion$inboundSchema: z.ZodMiniType<
+  BannersMxUnion,
+  unknown
+> = smartUnion([types.string(), z.lazy(() => BannersMx$inboundSchema)]);
+
+export function bannersMxUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<BannersMxUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BannersMxUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BannersMxUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const MxBannersUnion$inboundSchema: z.ZodMiniType<
   MxBannersUnion,
   unknown
 > = smartUnion([
   types.string(),
-  z.record(z.string(), z.lazy(() => BannersMx$inboundSchema)),
+  z.record(
+    z.string(),
+    smartUnion([types.string(), z.lazy(() => BannersMx$inboundSchema)]),
+  ),
 ]);
 
 export function mxBannersUnionFromJSON(
@@ -412,14 +544,19 @@ export const MxIp$inboundSchema: z.ZodMiniType<MxIp, unknown> = z.pipe(
     asn: types.string(),
     asn_name: types.string(),
     asn_range: types.string(),
-    banners: smartUnion([
-      types.string(),
-      z.record(z.string(), z.lazy(() => BannersMx$inboundSchema)),
-    ]),
     country: types.string(),
     country_code: types.string(),
     ip: types.string(),
     ptr: types.string(),
+    banners: types.optional(
+      smartUnion([
+        types.string(),
+        z.record(
+          z.string(),
+          smartUnion([types.string(), z.lazy(() => BannersMx$inboundSchema)]),
+        ),
+      ]),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -457,11 +594,27 @@ export function mxFromJSON(
 }
 
 /** @internal */
+export const NCn$inboundSchema: z.ZodMiniType<NCn, unknown> = smartUnion([
+  types.string(),
+  z.array(types.string()),
+]);
+
+export function nCnFromJSON(
+  jsonString: string,
+): SafeParseResult<NCn, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NCn$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NCn' from JSON`,
+  );
+}
+
+/** @internal */
 export const BannersN$inboundSchema: z.ZodMiniType<BannersN, unknown> = z.pipe(
   z.object({
     alt_n: types.optional(z.array(types.string())),
     apps: types.optional(z.array(types.string())),
-    cn: types.optional(z.array(types.string())),
+    cn: types.optional(smartUnion([types.string(), z.array(types.string())])),
     redirect_location: types.optional(types.string()),
     server: types.optional(types.string()),
     title: types.optional(types.string()),
@@ -485,12 +638,31 @@ export function bannersNFromJSON(
 }
 
 /** @internal */
+export const BannersNUnion$inboundSchema: z.ZodMiniType<
+  BannersNUnion,
+  unknown
+> = smartUnion([types.string(), z.lazy(() => BannersN$inboundSchema)]);
+
+export function bannersNUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<BannersNUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BannersNUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BannersNUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const NBannersUnion$inboundSchema: z.ZodMiniType<
   NBannersUnion,
   unknown
 > = smartUnion([
   types.string(),
-  z.record(z.string(), z.lazy(() => BannersN$inboundSchema)),
+  z.record(
+    z.string(),
+    smartUnion([types.string(), z.lazy(() => BannersN$inboundSchema)]),
+  ),
 ]);
 
 export function nBannersUnionFromJSON(
@@ -509,14 +681,19 @@ export const NIp$inboundSchema: z.ZodMiniType<NIp, unknown> = z.pipe(
     asn: types.string(),
     asn_name: types.string(),
     asn_range: types.string(),
-    banners: smartUnion([
-      types.string(),
-      z.record(z.string(), z.lazy(() => BannersN$inboundSchema)),
-    ]),
     country: types.string(),
     country_code: types.string(),
     ip: types.string(),
     ptr: types.string(),
+    banners: types.optional(
+      smartUnion([
+        types.string(),
+        z.record(
+          z.string(),
+          smartUnion([types.string(), z.lazy(() => BannersN$inboundSchema)]),
+        ),
+      ]),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {

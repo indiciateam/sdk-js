@@ -22,7 +22,7 @@ export const SearchUsernameType = {
 } as const;
 export type SearchUsernameType = OpenEnum<typeof SearchUsernameType>;
 
-export type SearchUsernameId = number | string;
+export type Id = number | string;
 
 export type Account = {
   domain?: string | undefined;
@@ -66,7 +66,7 @@ export type Socials = {
 
 export type SocialsUnion = Socials | Array<string>;
 
-export type SearchUsernameStatus = {
+export type Status = {
   isCoach?: boolean | undefined;
   isModerator?: boolean | undefined;
   isStaff?: boolean | undefined;
@@ -74,7 +74,7 @@ export type SearchUsernameStatus = {
   isTopBlogger?: boolean | undefined;
 };
 
-export type Status = string | SearchUsernameStatus;
+export type StatusUnion = string | Status;
 
 export type Url = {
   title?: string | undefined;
@@ -185,7 +185,7 @@ export type Metadata = {
   skinUrl?: string | undefined;
   socialLinks?: Array<any> | undefined;
   socials?: Socials | Array<string> | undefined;
-  status?: string | SearchUsernameStatus | undefined;
+  status?: string | Status | undefined;
   steamId64?: string | undefined;
   streak?: number | undefined;
   subscriberCount?: number | undefined;
@@ -272,18 +272,18 @@ export const SearchUsernameType$inboundSchema: z.ZodMiniType<
 > = openEnums.inboundSchema(SearchUsernameType);
 
 /** @internal */
-export const SearchUsernameId$inboundSchema: z.ZodMiniType<
-  SearchUsernameId,
-  unknown
-> = smartUnion([types.number(), types.string()]);
+export const Id$inboundSchema: z.ZodMiniType<Id, unknown> = smartUnion([
+  types.number(),
+  types.string(),
+]);
 
-export function searchUsernameIdFromJSON(
+export function idFromJSON(
   jsonString: string,
-): SafeParseResult<SearchUsernameId, SDKValidationError> {
+): SafeParseResult<Id, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SearchUsernameId$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchUsernameId' from JSON`,
+    (x) => Id$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Id' from JSON`,
   );
 }
 
@@ -465,10 +465,7 @@ export function socialsUnionFromJSON(
 }
 
 /** @internal */
-export const SearchUsernameStatus$inboundSchema: z.ZodMiniType<
-  SearchUsernameStatus,
-  unknown
-> = z.pipe(
+export const Status$inboundSchema: z.ZodMiniType<Status, unknown> = z.pipe(
   z.object({
     is_coach: types.optional(types.boolean()),
     is_moderator: types.optional(types.boolean()),
@@ -487,22 +484,6 @@ export const SearchUsernameStatus$inboundSchema: z.ZodMiniType<
   }),
 );
 
-export function searchUsernameStatusFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchUsernameStatus, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchUsernameStatus$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchUsernameStatus' from JSON`,
-  );
-}
-
-/** @internal */
-export const Status$inboundSchema: z.ZodMiniType<Status, unknown> = smartUnion([
-  types.string(),
-  z.lazy(() => SearchUsernameStatus$inboundSchema),
-]);
-
 export function statusFromJSON(
   jsonString: string,
 ): SafeParseResult<Status, SDKValidationError> {
@@ -510,6 +491,20 @@ export function statusFromJSON(
     jsonString,
     (x) => Status$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Status' from JSON`,
+  );
+}
+
+/** @internal */
+export const StatusUnion$inboundSchema: z.ZodMiniType<StatusUnion, unknown> =
+  smartUnion([types.string(), z.lazy(() => Status$inboundSchema)]);
+
+export function statusUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<StatusUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StatusUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StatusUnion' from JSON`,
   );
 }
 
@@ -645,10 +640,7 @@ export const Metadata$inboundSchema: z.ZodMiniType<Metadata, unknown> = z.pipe(
       ]),
     ),
     status: types.optional(
-      smartUnion([
-        types.string(),
-        z.lazy(() => SearchUsernameStatus$inboundSchema),
-      ]),
+      smartUnion([types.string(), z.lazy(() => Status$inboundSchema)]),
     ),
     steam_id_64: types.optional(types.string()),
     streak: types.optional(types.number()),

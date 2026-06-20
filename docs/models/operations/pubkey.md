@@ -5,15 +5,12 @@
 ```typescript
 import { Pubkey } from "@indiciaosint/sdk/models/operations";
 
-let value: Pubkey = {
-  bits: 1497.59,
-  type: "<value>",
-};
+let value: Pubkey = {};
 ```
 
 ## Fields
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `bits`             | *number*           | :heavy_check_mark: | N/A                |
-| `type`             | *string*           | :heavy_check_mark: | N/A                |
+| `bits`             | *number*           | :heavy_minus_sign: | N/A                |
+| `type`             | *string*           | :heavy_minus_sign: | N/A                |

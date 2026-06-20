@@ -10,10 +10,6 @@ let value: Results = {
   firstSeen: "<value>",
   found: 7221.32,
   lastSeen: "<value>",
-  results: {
-    id: "<id>",
-    source: {},
-  },
 };
 ```
 
@@ -25,4 +21,4 @@ let value: Results = {
 | `firstSeen`                                                             | *string*                                                                | :heavy_check_mark:                                                      | N/A                                                                     |
 | `found`                                                                 | *number*                                                                | :heavy_check_mark:                                                      | N/A                                                                     |
 | `lastSeen`                                                              | *string*                                                                | :heavy_check_mark:                                                      | N/A                                                                     |
-| `results`                                                               | [operations.ResultsResults](../../models/operations/results-results.md) | :heavy_check_mark:                                                      | N/A                                                                     |
+| `results`                                                               | [operations.ResultsResult](../../models/operations/results-result.md)[] | :heavy_minus_sign:                                                      | N/A                                                                     |

@@ -7,20 +7,11 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type SearchShodanRequest = {
   query: string;
-};
-
-export type SearchShodanLocation = {
-  city: string;
-  countryCode: string;
-  countryName: string;
-  dmaCode: number;
-  latitude: number;
-  longitude: number;
-  regionCode: string;
 };
 
 export type Components = {
@@ -30,53 +21,63 @@ export type Components = {
 };
 
 export type Favicon = {
-  data: string;
-  location: string;
+  data?: string | undefined;
+  location?: string | undefined;
 };
 
 export type Redirect = {
-  data: string;
-  host: string;
-  location: string;
+  data?: string | undefined;
+  host?: string | undefined;
+  location?: string | undefined;
 };
 
 export type Http = {
-  components: { [k: string]: Components };
-  favicon: Favicon;
-  host: string;
-  html: string;
-  location: string;
-  redirects: Array<Redirect>;
-  robots: string;
-  server: string;
-  title: string;
+  components?: { [k: string]: Components } | undefined;
+  favicon?: Favicon | undefined;
+  host?: string | null | undefined;
+  html?: string | null | undefined;
+  location?: string | undefined;
+  redirects?: Array<Redirect> | undefined;
+  robots?: string | null | undefined;
+  server?: string | null | undefined;
+  title?: string | null | undefined;
+};
+
+export type SearchShodanLocation = {
+  city?: string | undefined;
+  countryCode?: string | undefined;
+  countryName?: string | undefined;
+  dmaCode?: number | undefined;
+  latitude?: number | undefined;
+  longitude?: number | undefined;
+  regionCode?: string | undefined;
 };
 
 export type Kex = {
-  compressionAlgorithms: Array<string>;
-  encryptionAlgorithms: Array<string>;
-  kexAlgorithms: Array<string>;
-  keyFollows: boolean;
-  languages: Array<string>;
-  macAlgorithms: Array<string>;
-  serverHostKeyAlgorithms: Array<string>;
-  unused: number;
+  compressionAlgorithms?: Array<string> | undefined;
+  encryptionAlgorithms?: Array<string> | undefined;
+  kexAlgorithms?: Array<string> | undefined;
+  keyFollows?: boolean | undefined;
+  languages?: Array<string> | undefined;
+  macAlgorithms?: Array<string> | undefined;
+  serverHostKeyAlgorithms?: Array<string> | undefined;
+  unused?: number | undefined;
 };
 
 export type Ssh = {
-  cipher: string;
-  fingerprint: string;
-  hassh: string;
-  kex: Kex;
-  key: string;
-  mac: string;
-  type: string;
+  cipher?: string | undefined;
+  fingerprint?: string | undefined;
+  hassh?: string | undefined;
+  kex?: Kex | undefined;
+  key?: string | undefined;
+  mac?: string | undefined;
+  type?: string | undefined;
 };
 
 export type Extension = {
-  data: string;
-  name: string;
   critical?: boolean | undefined;
+  data?: string | undefined;
+  name?: string | undefined;
 };
 
 export type Issuer = {
@@ -86,8 +87,8 @@ export type Issuer = {
 };
 
 export type Pubkey = {
-  bits: number;
-  type: string;
+  bits?: number | undefined;
+  type?: string | undefined;
 };
 
 export type Subject = {
@@ -95,67 +96,69 @@ export type Subject = {
 };
 
 export type Cert = {
-  expired: boolean;
-  expires: string;
-  extensions: Array<Extension>;
-  fingerprint: { [k: string]: string };
-  issued: string;
-  issuer: Issuer;
-  pubkey: Pubkey;
-  serial: number;
-  sigAlg: string;
-  subject: Subject;
-  version: number;
+  expired?: boolean | undefined;
+  expires?: string | undefined;
+  extensions?: Array<Extension> | undefined;
+  fingerprint?: { [k: string]: string } | undefined;
+  issued?: string | undefined;
+  issuer?: Issuer | undefined;
+  pubkey?: Pubkey | undefined;
+  serial?: number | undefined;
+  sigAlg?: string | undefined;
+  subject?: Subject | undefined;
+  version?: number | undefined;
 };
 
 export type Cipher = {
-  bits: number;
-  name: string;
-  version: string;
+  bits?: number | undefined;
+  name?: string | undefined;
+  version?: string | undefined;
 };
 
 export type Tlstext = {
-  id: number;
-  name: string;
+  id?: number | undefined;
+  name?: string | undefined;
 };
 
 export type Trust = {
-  revoked: boolean;
+  revoked?: boolean | undefined;
 };
 
+export type Versions = string | Array<string>;
+
 export type Ssl = {
-  acceptableCas: Array<string>;
-  alpn: Array<string>;
-  cert: Cert;
-  chain: Array<string>;
-  chainSha256: Array<string>;
-  cipher: Cipher;
-  handshakeStates: Array<string>;
-  ja3s: string;
-  jarm: string;
-  tlstext: Array<Tlstext>;
-  trust: Trust;
-  versions: string;
+  acceptableCas?: Array<string> | undefined;
+  alpn?: Array<string> | undefined;
+  cert?: Cert | undefined;
+  chain?: Array<string> | undefined;
+  chainSha256?: Array<string> | undefined;
+  cipher?: Cipher | undefined;
+  handshakeStates?: Array<string> | undefined;
+  ja3s?: string | undefined;
+  jarm?: string | undefined;
+  tlstext?: Array<Tlstext> | undefined;
+  trust?: Trust | undefined;
+  versions?: string | Array<string> | undefined;
 };
 
 export type Match = {
-  asn: string;
-  cpe: Array<string>;
-  data: string;
-  domains: Array<string>;
-  hostnames: Array<string>;
-  ipStr: string;
-  isp: string;
-  location: SearchShodanLocation;
-  org: string;
-  os: string;
-  port: number;
-  product: string;
-  timestamp: string;
-  transport: string;
+  asn?: string | undefined;
+  cpe?: Array<string> | undefined;
+  data?: string | undefined;
+  domains?: Array<string> | undefined;
+  hostnames?: Array<string> | undefined;
   http?: Http | undefined;
+  ipStr?: string | undefined;
+  isp?: string | undefined;
+  location?: SearchShodanLocation | undefined;
+  org?: string | undefined;
+  os?: string | null | undefined;
+  port?: number | undefined;
+  product?: string | undefined;
   ssh?: Ssh | undefined;
   ssl?: Ssl | undefined;
+  timestamp?: string | undefined;
+  transport?: string | undefined;
 };
 
 export type SearchShodanData = {
@@ -194,18 +197,95 @@ export function searchShodanRequestToJSON(
 }
 
 /** @internal */
+export const Components$inboundSchema: z.ZodMiniType<Components, unknown> = z
+  .object({
+    categories: types.optional(z.array(types.string())),
+    confidence: types.optional(types.number()),
+    versions: types.optional(z.array(types.string())),
+  });
+
+export function componentsFromJSON(
+  jsonString: string,
+): SafeParseResult<Components, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Components$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Components' from JSON`,
+  );
+}
+
+/** @internal */
+export const Favicon$inboundSchema: z.ZodMiniType<Favicon, unknown> = z.object({
+  data: types.optional(types.string()),
+  location: types.optional(types.string()),
+});
+
+export function faviconFromJSON(
+  jsonString: string,
+): SafeParseResult<Favicon, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Favicon$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Favicon' from JSON`,
+  );
+}
+
+/** @internal */
+export const Redirect$inboundSchema: z.ZodMiniType<Redirect, unknown> = z
+  .object({
+    data: types.optional(types.string()),
+    host: types.optional(types.string()),
+    location: types.optional(types.string()),
+  });
+
+export function redirectFromJSON(
+  jsonString: string,
+): SafeParseResult<Redirect, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Redirect$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Redirect' from JSON`,
+  );
+}
+
+/** @internal */
+export const Http$inboundSchema: z.ZodMiniType<Http, unknown> = z.object({
+  components: types.optional(
+    z.record(z.string(), z.lazy(() => Components$inboundSchema)),
+  ),
+  favicon: types.optional(z.lazy(() => Favicon$inboundSchema)),
+  host: z.optional(z.nullable(types.string())),
+  html: z.optional(z.nullable(types.string())),
+  location: types.optional(types.string()),
+  redirects: types.optional(z.array(z.lazy(() => Redirect$inboundSchema))),
+  robots: z.optional(z.nullable(types.string())),
+  server: z.optional(z.nullable(types.string())),
+  title: z.optional(z.nullable(types.string())),
+});
+
+export function httpFromJSON(
+  jsonString: string,
+): SafeParseResult<Http, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Http$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Http' from JSON`,
+  );
+}
+
+/** @internal */
 export const SearchShodanLocation$inboundSchema: z.ZodMiniType<
   SearchShodanLocation,
   unknown
 > = z.pipe(
   z.object({
-    city: types.string(),
-    country_code: types.string(),
-    country_name: types.string(),
-    dma_code: types.number(),
-    latitude: types.number(),
-    longitude: types.number(),
-    region_code: types.string(),
+    city: types.optional(types.string()),
+    country_code: types.optional(types.string()),
+    country_name: types.optional(types.string()),
+    dma_code: types.optional(types.number()),
+    latitude: types.optional(types.number()),
+    longitude: types.optional(types.number()),
+    region_code: types.optional(types.string()),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -228,91 +308,16 @@ export function searchShodanLocationFromJSON(
 }
 
 /** @internal */
-export const Components$inboundSchema: z.ZodMiniType<Components, unknown> = z
-  .object({
-    categories: types.optional(z.array(types.string())),
-    confidence: types.optional(types.number()),
-    versions: types.optional(z.array(types.string())),
-  });
-
-export function componentsFromJSON(
-  jsonString: string,
-): SafeParseResult<Components, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Components$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Components' from JSON`,
-  );
-}
-
-/** @internal */
-export const Favicon$inboundSchema: z.ZodMiniType<Favicon, unknown> = z.object({
-  data: types.string(),
-  location: types.string(),
-});
-
-export function faviconFromJSON(
-  jsonString: string,
-): SafeParseResult<Favicon, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Favicon$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Favicon' from JSON`,
-  );
-}
-
-/** @internal */
-export const Redirect$inboundSchema: z.ZodMiniType<Redirect, unknown> = z
-  .object({
-    data: types.string(),
-    host: types.string(),
-    location: types.string(),
-  });
-
-export function redirectFromJSON(
-  jsonString: string,
-): SafeParseResult<Redirect, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Redirect$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Redirect' from JSON`,
-  );
-}
-
-/** @internal */
-export const Http$inboundSchema: z.ZodMiniType<Http, unknown> = z.object({
-  components: z.record(z.string(), z.lazy(() => Components$inboundSchema)),
-  favicon: z.lazy(() => Favicon$inboundSchema),
-  host: types.string(),
-  html: types.string(),
-  location: types.string(),
-  redirects: z.array(z.lazy(() => Redirect$inboundSchema)),
-  robots: types.string(),
-  server: types.string(),
-  title: types.string(),
-});
-
-export function httpFromJSON(
-  jsonString: string,
-): SafeParseResult<Http, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Http$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Http' from JSON`,
-  );
-}
-
-/** @internal */
 export const Kex$inboundSchema: z.ZodMiniType<Kex, unknown> = z.pipe(
   z.object({
-    compression_algorithms: z.array(types.string()),
-    encryption_algorithms: z.array(types.string()),
-    kex_algorithms: z.array(types.string()),
-    key_follows: types.boolean(),
-    languages: z.array(types.string()),
-    mac_algorithms: z.array(types.string()),
-    server_host_key_algorithms: z.array(types.string()),
-    unused: types.number(),
+    compression_algorithms: types.optional(z.array(types.string())),
+    encryption_algorithms: types.optional(z.array(types.string())),
+    kex_algorithms: types.optional(z.array(types.string())),
+    key_follows: types.optional(types.boolean()),
+    languages: types.optional(z.array(types.string())),
+    mac_algorithms: types.optional(z.array(types.string())),
+    server_host_key_algorithms: types.optional(z.array(types.string())),
+    unused: types.optional(types.number()),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -338,13 +343,13 @@ export function kexFromJSON(
 
 /** @internal */
 export const Ssh$inboundSchema: z.ZodMiniType<Ssh, unknown> = z.object({
-  cipher: types.string(),
-  fingerprint: types.string(),
-  hassh: types.string(),
-  kex: z.lazy(() => Kex$inboundSchema),
-  key: types.string(),
-  mac: types.string(),
-  type: types.string(),
+  cipher: types.optional(types.string()),
+  fingerprint: types.optional(types.string()),
+  hassh: types.optional(types.string()),
+  kex: types.optional(z.lazy(() => Kex$inboundSchema)),
+  key: types.optional(types.string()),
+  mac: types.optional(types.string()),
+  type: types.optional(types.string()),
 });
 
 export function sshFromJSON(
@@ -360,9 +365,9 @@ export function sshFromJSON(
 /** @internal */
 export const Extension$inboundSchema: z.ZodMiniType<Extension, unknown> = z
   .object({
-    data: types.string(),
-    name: types.string(),
     critical: types.optional(types.boolean()),
+    data: types.optional(types.string()),
+    name: types.optional(types.string()),
   });
 
 export function extensionFromJSON(
@@ -403,8 +408,8 @@ export function issuerFromJSON(
 
 /** @internal */
 export const Pubkey$inboundSchema: z.ZodMiniType<Pubkey, unknown> = z.object({
-  bits: types.number(),
-  type: types.string(),
+  bits: types.optional(types.number()),
+  type: types.optional(types.string()),
 });
 
 export function pubkeyFromJSON(
@@ -442,17 +447,17 @@ export function subjectFromJSON(
 /** @internal */
 export const Cert$inboundSchema: z.ZodMiniType<Cert, unknown> = z.pipe(
   z.object({
-    expired: types.boolean(),
-    expires: types.string(),
-    extensions: z.array(z.lazy(() => Extension$inboundSchema)),
-    fingerprint: z.record(z.string(), types.string()),
-    issued: types.string(),
-    issuer: z.lazy(() => Issuer$inboundSchema),
-    pubkey: z.lazy(() => Pubkey$inboundSchema),
-    serial: types.number(),
-    sig_alg: types.string(),
-    subject: z.lazy(() => Subject$inboundSchema),
-    version: types.number(),
+    expired: types.optional(types.boolean()),
+    expires: types.optional(types.string()),
+    extensions: types.optional(z.array(z.lazy(() => Extension$inboundSchema))),
+    fingerprint: types.optional(z.record(z.string(), types.string())),
+    issued: types.optional(types.string()),
+    issuer: types.optional(z.lazy(() => Issuer$inboundSchema)),
+    pubkey: types.optional(z.lazy(() => Pubkey$inboundSchema)),
+    serial: types.optional(types.number()),
+    sig_alg: types.optional(types.string()),
+    subject: types.optional(z.lazy(() => Subject$inboundSchema)),
+    version: types.optional(types.number()),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -473,9 +478,9 @@ export function certFromJSON(
 
 /** @internal */
 export const Cipher$inboundSchema: z.ZodMiniType<Cipher, unknown> = z.object({
-  bits: types.number(),
-  name: types.string(),
-  version: types.string(),
+  bits: types.optional(types.number()),
+  name: types.optional(types.string()),
+  version: types.optional(types.string()),
 });
 
 export function cipherFromJSON(
@@ -490,8 +495,8 @@ export function cipherFromJSON(
 
 /** @internal */
 export const Tlstext$inboundSchema: z.ZodMiniType<Tlstext, unknown> = z.object({
-  id: types.number(),
-  name: types.string(),
+  id: types.optional(types.number()),
+  name: types.optional(types.string()),
 });
 
 export function tlstextFromJSON(
@@ -506,7 +511,7 @@ export function tlstextFromJSON(
 
 /** @internal */
 export const Trust$inboundSchema: z.ZodMiniType<Trust, unknown> = z.object({
-  revoked: types.boolean(),
+  revoked: types.optional(types.boolean()),
 });
 
 export function trustFromJSON(
@@ -520,20 +525,36 @@ export function trustFromJSON(
 }
 
 /** @internal */
+export const Versions$inboundSchema: z.ZodMiniType<Versions, unknown> =
+  smartUnion([types.string(), z.array(types.string())]);
+
+export function versionsFromJSON(
+  jsonString: string,
+): SafeParseResult<Versions, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Versions$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Versions' from JSON`,
+  );
+}
+
+/** @internal */
 export const Ssl$inboundSchema: z.ZodMiniType<Ssl, unknown> = z.pipe(
   z.object({
-    acceptable_cas: z.array(types.string()),
-    alpn: z.array(types.string()),
-    cert: z.lazy(() => Cert$inboundSchema),
-    chain: z.array(types.string()),
-    chain_sha256: z.array(types.string()),
-    cipher: z.lazy(() => Cipher$inboundSchema),
-    handshake_states: z.array(types.string()),
-    ja3s: types.string(),
-    jarm: types.string(),
-    tlstext: z.array(z.lazy(() => Tlstext$inboundSchema)),
-    trust: z.lazy(() => Trust$inboundSchema),
-    versions: types.string(),
+    acceptable_cas: types.optional(z.array(types.string())),
+    alpn: types.optional(z.array(types.string())),
+    cert: types.optional(z.lazy(() => Cert$inboundSchema)),
+    chain: types.optional(z.array(types.string())),
+    chain_sha256: types.optional(z.array(types.string())),
+    cipher: types.optional(z.lazy(() => Cipher$inboundSchema)),
+    handshake_states: types.optional(z.array(types.string())),
+    ja3s: types.optional(types.string()),
+    jarm: types.optional(types.string()),
+    tlstext: types.optional(z.array(z.lazy(() => Tlstext$inboundSchema))),
+    trust: types.optional(z.lazy(() => Trust$inboundSchema)),
+    versions: types.optional(
+      smartUnion([types.string(), z.array(types.string())]),
+    ),
   }),
   z.transform((v) => {
     return remap$(v, {
@@ -557,23 +578,23 @@ export function sslFromJSON(
 /** @internal */
 export const Match$inboundSchema: z.ZodMiniType<Match, unknown> = z.pipe(
   z.object({
-    asn: types.string(),
-    cpe: z.array(types.string()),
-    data: types.string(),
-    domains: z.array(types.string()),
-    hostnames: z.array(types.string()),
-    ip_str: types.string(),
-    isp: types.string(),
-    location: z.lazy(() => SearchShodanLocation$inboundSchema),
-    org: types.string(),
-    os: types.string(),
-    port: types.number(),
-    product: types.string(),
-    timestamp: types.string(),
-    transport: types.string(),
+    asn: types.optional(types.string()),
+    cpe: types.optional(z.array(types.string())),
+    data: types.optional(types.string()),
+    domains: types.optional(z.array(types.string())),
+    hostnames: types.optional(z.array(types.string())),
     http: types.optional(z.lazy(() => Http$inboundSchema)),
+    ip_str: types.optional(types.string()),
+    isp: types.optional(types.string()),
+    location: types.optional(z.lazy(() => SearchShodanLocation$inboundSchema)),
+    org: types.optional(types.string()),
+    os: z.optional(z.nullable(types.string())),
+    port: types.optional(types.number()),
+    product: types.optional(types.string()),
     ssh: types.optional(z.lazy(() => Ssh$inboundSchema)),
     ssl: types.optional(z.lazy(() => Ssl$inboundSchema)),
+    timestamp: types.optional(types.string()),
+    transport: types.optional(types.string()),
   }),
   z.transform((v) => {
     return remap$(v, {

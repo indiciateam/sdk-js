@@ -57,8 +57,8 @@ let value: SearchHudsonRockResponse = {
 
 ## Fields
 
-| Field                                  | Type                                   | Required                               | Description                            |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| `data`                                 | *operations.SearchHudsonRockDataUnion* | :heavy_check_mark:                     | N/A                                    |
-| `success`                              | *boolean*                              | :heavy_check_mark:                     | N/A                                    |
-| `error`                                | *string*                               | :heavy_minus_sign:                     | N/A                                    |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `data`             | *operations.Data*  | :heavy_check_mark: | N/A                |
+| `success`          | *boolean*          | :heavy_check_mark: | N/A                |
+| `error`            | *string*           | :heavy_minus_sign: | N/A                |

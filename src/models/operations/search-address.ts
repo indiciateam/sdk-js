@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type SearchAddressRequest = {
@@ -17,6 +18,8 @@ export type SearchAddressRequest = {
   address2?: string | undefined;
 };
 
+export type SearchAddressDob = number | string;
+
 export type SearchAddressLocal = {
   id: number;
   startDat: number | null;
@@ -24,12 +27,12 @@ export type SearchAddressLocal = {
   aka1fullname: string | null;
   aka2fullname: string | null;
   aka3fullname: string | null;
-  alt1dob: string | null;
-  alt2dob: string | null;
-  alt3dob: string | null;
+  alt1DOB: number | null;
+  alt2DOB: number | null;
+  alt3DOB: number | null;
   city: string | null;
   countyName: string | null;
-  dob: string | null;
+  dob: number | string | null;
   firstname: string;
   lastname: string;
   middlename: string | null;
@@ -40,15 +43,16 @@ export type SearchAddressLocal = {
 };
 
 export type SearchAddressWeb = {
-  aka: Array<string>;
-  associates: Array<string>;
-  children: number;
-  currentAddress: string;
-  emails: Array<string>;
-  maritalStatus: string;
-  name: string | null;
-  pastAddresses: Array<string>;
-  phones: Array<string>;
+  aka?: Array<string> | undefined;
+  associates?: Array<string> | undefined;
+  children?: number | undefined;
+  currentAddress?: string | undefined;
+  emails?: Array<string> | undefined;
+  error?: string | undefined;
+  maritalStatus?: string | undefined;
+  name?: string | null | undefined;
+  pastAddresses?: Array<string> | undefined;
+  phones?: Array<string> | undefined;
 };
 
 export type SearchAddressData = {
@@ -94,6 +98,22 @@ export function searchAddressRequestToJSON(
 }
 
 /** @internal */
+export const SearchAddressDob$inboundSchema: z.ZodMiniType<
+  SearchAddressDob,
+  unknown
+> = smartUnion([types.number(), types.string()]);
+
+export function searchAddressDobFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchAddressDob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchAddressDob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchAddressDob' from JSON`,
+  );
+}
+
+/** @internal */
 export const SearchAddressLocal$inboundSchema: z.ZodMiniType<
   SearchAddressLocal,
   unknown
@@ -105,12 +125,12 @@ export const SearchAddressLocal$inboundSchema: z.ZodMiniType<
     aka1fullname: types.nullable(types.string()),
     aka2fullname: types.nullable(types.string()),
     aka3fullname: types.nullable(types.string()),
-    alt1dob: types.nullable(types.string()),
-    alt2dob: types.nullable(types.string()),
-    alt3dob: types.nullable(types.string()),
+    alt1DOB: types.nullable(types.number()),
+    alt2DOB: types.nullable(types.number()),
+    alt3DOB: types.nullable(types.number()),
     city: types.nullable(types.string()),
     county_name: types.nullable(types.string()),
-    dob: types.nullable(types.string()),
+    dob: types.nullable(smartUnion([types.number(), types.string()])),
     firstname: types.string(),
     lastname: types.string(),
     middlename: types.nullable(types.string()),
@@ -144,15 +164,16 @@ export const SearchAddressWeb$inboundSchema: z.ZodMiniType<
   SearchAddressWeb,
   unknown
 > = z.object({
-  aka: z.array(types.string()),
-  associates: z.array(types.string()),
-  children: types.number(),
-  currentAddress: types.string(),
-  emails: z.array(types.string()),
-  maritalStatus: types.string(),
-  name: types.nullable(types.string()),
-  pastAddresses: z.array(types.string()),
-  phones: z.array(types.string()),
+  aka: types.optional(z.array(types.string())),
+  associates: types.optional(z.array(types.string())),
+  children: types.optional(types.number()),
+  currentAddress: types.optional(types.string()),
+  emails: types.optional(z.array(types.string())),
+  error: types.optional(types.string()),
+  maritalStatus: types.optional(types.string()),
+  name: z.optional(z.nullable(types.string())),
+  pastAddresses: types.optional(z.array(types.string())),
+  phones: types.optional(z.array(types.string())),
 });
 
 export function searchAddressWebFromJSON(

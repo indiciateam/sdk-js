@@ -9,10 +9,10 @@
 const value: string = "<value>";
 ```
 
-### `{ [k: string]: operations.BannersN }`
+### `{ [k: string]: operations.BannersNUnion }`
 
 ```typescript
-const value: { [k: string]: operations.BannersN } = {
+const value: { [k: string]: operations.BannersNUnion } = {
   "key": {},
 };
 ```

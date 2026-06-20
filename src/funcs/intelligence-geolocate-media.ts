@@ -32,7 +32,7 @@ import * as types$ from "../types/primitives.js";
  * Geolocate Media
  *
  * @remarks
- * Geolocate an image or video using AI-powered analysis. Streams progress updates via Server-Sent Events.
+ * Geolocate an image using AI-powered analysis. Streams progress updates via Server-Sent Events.
  *
  *       Response type:
  *       ```ts

@@ -28,6 +28,17 @@ export type SearchHudsonRockRequest = {
   type: SearchHudsonRockTypeRequest;
 };
 
+export const SearchHudsonRockDataType2 = {
+  Domain: "domain",
+  Email: "email",
+  Ip: "ip",
+  Password: "password",
+  Username: "username",
+} as const;
+export type SearchHudsonRockDataType2 = OpenEnum<
+  typeof SearchHudsonRockDataType2
+>;
+
 export type Stealer = {
   computerName: string;
   dateCompromised: string;
@@ -41,21 +52,10 @@ export type Stealer = {
   stealerFamily?: string | undefined;
 };
 
-export const SearchHudsonRockDataType2 = {
-  Domain: "domain",
-  Email: "email",
-  Ip: "ip",
-  Password: "password",
-  Username: "username",
-} as const;
-export type SearchHudsonRockDataType2 = OpenEnum<
-  typeof SearchHudsonRockDataType2
->;
-
 export type SearchHudsonRockData2 = {
-  message: string;
-  stealers: Array<Stealer>;
   type: SearchHudsonRockDataType2;
+  message?: string | undefined;
+  stealers?: Array<Stealer> | undefined;
 };
 
 export type Application = {
@@ -97,17 +97,19 @@ export type SearchHudsonRockDataType1 = OpenEnum<
   typeof SearchHudsonRockDataType1
 >;
 
-export type SearchHudsonRockList = {
+export type List = {
   count: number;
   name: string;
 };
 
+export type Free = number | string;
+
 export type Antiviruses = {
-  found: number;
-  free: string;
-  list: Array<SearchHudsonRockList>;
-  notFound: string;
-  total: number;
+  list: Array<List>;
+  found?: number | undefined;
+  free?: number | string | undefined;
+  notFound?: string | undefined;
+  total?: number | undefined;
 };
 
 export type EmployeePasswordsMedium = {
@@ -211,9 +213,7 @@ export type SearchHudsonRockData1 = {
   userPasswords?: UserPasswords | undefined;
 };
 
-export type SearchHudsonRockDataUnion =
-  | SearchHudsonRockData1
-  | SearchHudsonRockData2;
+export type Data = SearchHudsonRockData1 | SearchHudsonRockData2;
 
 /**
  * Search successful
@@ -251,6 +251,12 @@ export function searchHudsonRockRequestToJSON(
     SearchHudsonRockRequest$outboundSchema.parse(searchHudsonRockRequest),
   );
 }
+
+/** @internal */
+export const SearchHudsonRockDataType2$inboundSchema: z.ZodMiniType<
+  SearchHudsonRockDataType2,
+  unknown
+> = openEnums.inboundSchema(SearchHudsonRockDataType2);
 
 /** @internal */
 export const Stealer$inboundSchema: z.ZodMiniType<Stealer, unknown> = z.pipe(
@@ -292,19 +298,13 @@ export function stealerFromJSON(
 }
 
 /** @internal */
-export const SearchHudsonRockDataType2$inboundSchema: z.ZodMiniType<
-  SearchHudsonRockDataType2,
-  unknown
-> = openEnums.inboundSchema(SearchHudsonRockDataType2);
-
-/** @internal */
 export const SearchHudsonRockData2$inboundSchema: z.ZodMiniType<
   SearchHudsonRockData2,
   unknown
 > = z.object({
-  message: types.string(),
-  stealers: z.array(z.lazy(() => Stealer$inboundSchema)),
   type: SearchHudsonRockDataType2$inboundSchema,
+  message: types.optional(types.string()),
+  stealers: types.optional(z.array(z.lazy(() => Stealer$inboundSchema))),
 });
 
 export function searchHudsonRockData2FromJSON(
@@ -435,21 +435,34 @@ export const SearchHudsonRockDataType1$inboundSchema: z.ZodMiniType<
 > = openEnums.inboundSchema(SearchHudsonRockDataType1);
 
 /** @internal */
-export const SearchHudsonRockList$inboundSchema: z.ZodMiniType<
-  SearchHudsonRockList,
-  unknown
-> = z.object({
+export const List$inboundSchema: z.ZodMiniType<List, unknown> = z.object({
   count: types.number(),
   name: types.string(),
 });
 
-export function searchHudsonRockListFromJSON(
+export function listFromJSON(
   jsonString: string,
-): SafeParseResult<SearchHudsonRockList, SDKValidationError> {
+): SafeParseResult<List, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SearchHudsonRockList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchHudsonRockList' from JSON`,
+    (x) => List$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'List' from JSON`,
+  );
+}
+
+/** @internal */
+export const Free$inboundSchema: z.ZodMiniType<Free, unknown> = smartUnion([
+  types.number(),
+  types.string(),
+]);
+
+export function freeFromJSON(
+  jsonString: string,
+): SafeParseResult<Free, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Free$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Free' from JSON`,
   );
 }
 
@@ -457,11 +470,11 @@ export function searchHudsonRockListFromJSON(
 export const Antiviruses$inboundSchema: z.ZodMiniType<Antiviruses, unknown> = z
   .pipe(
     z.object({
-      found: types.number(),
-      free: types.string(),
-      list: z.array(z.lazy(() => SearchHudsonRockList$inboundSchema)),
-      not_found: types.string(),
-      total: types.number(),
+      list: z.array(z.lazy(() => List$inboundSchema)),
+      found: types.optional(types.number()),
+      free: types.optional(smartUnion([types.number(), types.string()])),
+      not_found: types.optional(types.string()),
+      total: types.optional(types.number()),
     }),
     z.transform((v) => {
       return remap$(v, {
@@ -803,21 +816,18 @@ export function searchHudsonRockData1FromJSON(
 }
 
 /** @internal */
-export const SearchHudsonRockDataUnion$inboundSchema: z.ZodMiniType<
-  SearchHudsonRockDataUnion,
-  unknown
-> = smartUnion([
+export const Data$inboundSchema: z.ZodMiniType<Data, unknown> = smartUnion([
   z.lazy(() => SearchHudsonRockData1$inboundSchema),
   z.lazy(() => SearchHudsonRockData2$inboundSchema),
 ]);
 
-export function searchHudsonRockDataUnionFromJSON(
+export function dataFromJSON(
   jsonString: string,
-): SafeParseResult<SearchHudsonRockDataUnion, SDKValidationError> {
+): SafeParseResult<Data, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SearchHudsonRockDataUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchHudsonRockDataUnion' from JSON`,
+    (x) => Data$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Data' from JSON`,
   );
 }
 

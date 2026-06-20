@@ -7,10 +7,91 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type SearchGmailRequest = {
   email: string;
+};
+
+export type Emails = {
+  value: string;
+};
+
+export type EmailsUnion = Emails | any;
+
+export type SourceIds = {
+  lastUpdated: string | null;
+};
+
+export type SourceIdsUnion = SourceIds | any;
+
+export type CoverPhotos = {
+  flathash: string | null;
+  isDefault: boolean;
+  url: string;
+};
+
+export type CoverPhotosUnion = CoverPhotos | any;
+
+export type DynamiteData = {
+  customerId: string | null;
+  dndState: string;
+  entityType: string;
+  presence: string;
+};
+
+export type GplusData = {
+  contentRestriction: string;
+  isEntrepriseUser: boolean;
+};
+
+export type ExtendedData = {
+  dynamiteData: DynamiteData;
+  gplusData: GplusData;
+};
+
+export type InAppReachability = {
+  apps: Array<string>;
+};
+
+export type InAppReachabilityUnion = InAppReachability | any;
+
+export type Names = {
+  fullname: string;
+};
+
+export type NamesUnion = Names | any;
+
+export type ProfileInfos = {
+  userTypes: Array<string>;
+};
+
+export type ProfileInfosUnion = ProfileInfos | any;
+
+export type ProfilePhotos = {
+  flathash: string | null;
+  isDefault: boolean;
+  url: string;
+};
+
+export type ProfilePhotosUnion = ProfilePhotos | any;
+
+export type SearchGmailProfile = {
+  emails: { [k: string]: Emails | any };
+  personId: string;
+  sourceIds: { [k: string]: SourceIds | any };
+  coverPhotos?: { [k: string]: CoverPhotos | any } | undefined;
+  extendedData?: ExtendedData | undefined;
+  inAppReachability?: { [k: string]: InAppReachability | any } | undefined;
+  names?: { [k: string]: Names | any } | undefined;
+  profileInfos?: { [k: string]: ProfileInfos | any } | undefined;
+  profilePhotos?: { [k: string]: ProfilePhotos | any } | undefined;
+};
+
+export type Calendar = {
+  details: { [k: string]: any };
+  events: { [k: string]: any };
 };
 
 export type Position = {
@@ -41,87 +122,17 @@ export type Maps = {
   stats: { [k: string]: number };
 };
 
-export type CoverPhotos = {
-  flathash: string | null;
-  isDefault: boolean;
-  url: string;
-};
-
-export type Emails = {
-  value: string;
-};
-
-export type DynamiteData = {
-  customerId: string | null;
-  dndState: string;
-  entityType: string;
-  presence: string;
-};
-
-export type GplusData = {
-  contentRestriction: string;
-  isEntrepriseUser: boolean;
-};
-
-export type ExtendedData = {
-  dynamiteData: DynamiteData;
-  gplusData: GplusData;
-};
-
-export type InAppReachability = {
-  apps: Array<string>;
-};
-
-export type Names = {
-  fullname: string;
-};
-
-export type ProfileInfos = {
-  userTypes: Array<string>;
-};
-
-export type ProfilePhotos = {
-  flathash: string | null;
-  isDefault: boolean;
-  url: string;
-};
-
-export type SourceIds = {
-  lastUpdated: string | null;
-};
-
-export type SearchGmailProfile = {
-  coverPhotos: { [k: string]: CoverPhotos };
-  emails: { [k: string]: Emails };
-  extendedData: ExtendedData;
-  inAppReachability: { [k: string]: InAppReachability };
-  names: { [k: string]: Names };
-  personId: string;
-  profileInfos: { [k: string]: ProfileInfos };
-  profilePhotos: { [k: string]: ProfilePhotos };
-  sourceIds: { [k: string]: SourceIds };
-};
-
-export type Calendar = {
-  details: { [k: string]: any };
-  events: { [k: string]: any };
-};
-
 export type PlayGames = {
   avatarUrl: string;
   id: string;
   name: string;
 };
 
-export type ProfileContainer = {
-  maps: Maps;
-  profile: SearchGmailProfile;
-  calendar?: Calendar | undefined;
-  playGames?: PlayGames | undefined;
-};
-
 export type SearchGmailData = {
-  profileContainer?: ProfileContainer | undefined;
+  profile: SearchGmailProfile;
+  calendar?: Calendar | null | undefined;
+  maps?: Maps | undefined;
+  playGames?: PlayGames | null | undefined;
 };
 
 /**
@@ -151,6 +162,359 @@ export function searchGmailRequestToJSON(
 ): string {
   return JSON.stringify(
     SearchGmailRequest$outboundSchema.parse(searchGmailRequest),
+  );
+}
+
+/** @internal */
+export const Emails$inboundSchema: z.ZodMiniType<Emails, unknown> = z.object({
+  value: types.string(),
+});
+
+export function emailsFromJSON(
+  jsonString: string,
+): SafeParseResult<Emails, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Emails$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Emails' from JSON`,
+  );
+}
+
+/** @internal */
+export const EmailsUnion$inboundSchema: z.ZodMiniType<EmailsUnion, unknown> =
+  smartUnion([z.lazy(() => Emails$inboundSchema), z.any()]);
+
+export function emailsUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<EmailsUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EmailsUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EmailsUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const SourceIds$inboundSchema: z.ZodMiniType<SourceIds, unknown> = z
+  .object({
+    lastUpdated: types.nullable(types.string()),
+  });
+
+export function sourceIdsFromJSON(
+  jsonString: string,
+): SafeParseResult<SourceIds, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SourceIds$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SourceIds' from JSON`,
+  );
+}
+
+/** @internal */
+export const SourceIdsUnion$inboundSchema: z.ZodMiniType<
+  SourceIdsUnion,
+  unknown
+> = smartUnion([z.lazy(() => SourceIds$inboundSchema), z.any()]);
+
+export function sourceIdsUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<SourceIdsUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SourceIdsUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SourceIdsUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const CoverPhotos$inboundSchema: z.ZodMiniType<CoverPhotos, unknown> = z
+  .object({
+    flathash: types.nullable(types.string()),
+    isDefault: types.boolean(),
+    url: types.string(),
+  });
+
+export function coverPhotosFromJSON(
+  jsonString: string,
+): SafeParseResult<CoverPhotos, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CoverPhotos$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CoverPhotos' from JSON`,
+  );
+}
+
+/** @internal */
+export const CoverPhotosUnion$inboundSchema: z.ZodMiniType<
+  CoverPhotosUnion,
+  unknown
+> = smartUnion([z.lazy(() => CoverPhotos$inboundSchema), z.any()]);
+
+export function coverPhotosUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<CoverPhotosUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CoverPhotosUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CoverPhotosUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const DynamiteData$inboundSchema: z.ZodMiniType<DynamiteData, unknown> =
+  z.object({
+    customerId: types.nullable(types.string()),
+    dndState: types.string(),
+    entityType: types.string(),
+    presence: types.string(),
+  });
+
+export function dynamiteDataFromJSON(
+  jsonString: string,
+): SafeParseResult<DynamiteData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DynamiteData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DynamiteData' from JSON`,
+  );
+}
+
+/** @internal */
+export const GplusData$inboundSchema: z.ZodMiniType<GplusData, unknown> = z
+  .object({
+    contentRestriction: types.string(),
+    isEntrepriseUser: types.boolean(),
+  });
+
+export function gplusDataFromJSON(
+  jsonString: string,
+): SafeParseResult<GplusData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GplusData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GplusData' from JSON`,
+  );
+}
+
+/** @internal */
+export const ExtendedData$inboundSchema: z.ZodMiniType<ExtendedData, unknown> =
+  z.object({
+    dynamiteData: z.lazy(() => DynamiteData$inboundSchema),
+    gplusData: z.lazy(() => GplusData$inboundSchema),
+  });
+
+export function extendedDataFromJSON(
+  jsonString: string,
+): SafeParseResult<ExtendedData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtendedData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtendedData' from JSON`,
+  );
+}
+
+/** @internal */
+export const InAppReachability$inboundSchema: z.ZodMiniType<
+  InAppReachability,
+  unknown
+> = z.object({
+  apps: z.array(types.string()),
+});
+
+export function inAppReachabilityFromJSON(
+  jsonString: string,
+): SafeParseResult<InAppReachability, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InAppReachability$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InAppReachability' from JSON`,
+  );
+}
+
+/** @internal */
+export const InAppReachabilityUnion$inboundSchema: z.ZodMiniType<
+  InAppReachabilityUnion,
+  unknown
+> = smartUnion([z.lazy(() => InAppReachability$inboundSchema), z.any()]);
+
+export function inAppReachabilityUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<InAppReachabilityUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InAppReachabilityUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InAppReachabilityUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const Names$inboundSchema: z.ZodMiniType<Names, unknown> = z.object({
+  fullname: types.string(),
+});
+
+export function namesFromJSON(
+  jsonString: string,
+): SafeParseResult<Names, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Names$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Names' from JSON`,
+  );
+}
+
+/** @internal */
+export const NamesUnion$inboundSchema: z.ZodMiniType<NamesUnion, unknown> =
+  smartUnion([z.lazy(() => Names$inboundSchema), z.any()]);
+
+export function namesUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<NamesUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NamesUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NamesUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const ProfileInfos$inboundSchema: z.ZodMiniType<ProfileInfos, unknown> =
+  z.object({
+    userTypes: z.array(types.string()),
+  });
+
+export function profileInfosFromJSON(
+  jsonString: string,
+): SafeParseResult<ProfileInfos, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ProfileInfos$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProfileInfos' from JSON`,
+  );
+}
+
+/** @internal */
+export const ProfileInfosUnion$inboundSchema: z.ZodMiniType<
+  ProfileInfosUnion,
+  unknown
+> = smartUnion([z.lazy(() => ProfileInfos$inboundSchema), z.any()]);
+
+export function profileInfosUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<ProfileInfosUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ProfileInfosUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProfileInfosUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const ProfilePhotos$inboundSchema: z.ZodMiniType<
+  ProfilePhotos,
+  unknown
+> = z.object({
+  flathash: types.nullable(types.string()),
+  isDefault: types.boolean(),
+  url: types.string(),
+});
+
+export function profilePhotosFromJSON(
+  jsonString: string,
+): SafeParseResult<ProfilePhotos, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ProfilePhotos$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProfilePhotos' from JSON`,
+  );
+}
+
+/** @internal */
+export const ProfilePhotosUnion$inboundSchema: z.ZodMiniType<
+  ProfilePhotosUnion,
+  unknown
+> = smartUnion([z.lazy(() => ProfilePhotos$inboundSchema), z.any()]);
+
+export function profilePhotosUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<ProfilePhotosUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ProfilePhotosUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProfilePhotosUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchGmailProfile$inboundSchema: z.ZodMiniType<
+  SearchGmailProfile,
+  unknown
+> = z.object({
+  emails: z.record(
+    z.string(),
+    smartUnion([z.lazy(() => Emails$inboundSchema), z.any()]),
+  ),
+  personId: types.string(),
+  sourceIds: z.record(
+    z.string(),
+    smartUnion([z.lazy(() => SourceIds$inboundSchema), z.any()]),
+  ),
+  coverPhotos: types.optional(
+    z.record(
+      z.string(),
+      smartUnion([z.lazy(() => CoverPhotos$inboundSchema), z.any()]),
+    ),
+  ),
+  extendedData: types.optional(z.lazy(() => ExtendedData$inboundSchema)),
+  inAppReachability: types.optional(
+    z.record(
+      z.string(),
+      smartUnion([z.lazy(() => InAppReachability$inboundSchema), z.any()]),
+    ),
+  ),
+  names: types.optional(
+    z.record(
+      z.string(),
+      smartUnion([z.lazy(() => Names$inboundSchema), z.any()]),
+    ),
+  ),
+  profileInfos: types.optional(
+    z.record(
+      z.string(),
+      smartUnion([z.lazy(() => ProfileInfos$inboundSchema), z.any()]),
+    ),
+  ),
+  profilePhotos: types.optional(
+    z.record(
+      z.string(),
+      smartUnion([z.lazy(() => ProfilePhotos$inboundSchema), z.any()]),
+    ),
+  ),
+});
+
+export function searchGmailProfileFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchGmailProfile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchGmailProfile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchGmailProfile' from JSON`,
+  );
+}
+
+/** @internal */
+export const Calendar$inboundSchema: z.ZodMiniType<Calendar, unknown> = z
+  .object({
+    details: z.record(z.string(), z.any()),
+    events: z.record(z.string(), z.any()),
+  });
+
+export function calendarFromJSON(
+  jsonString: string,
+): SafeParseResult<Calendar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Calendar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Calendar' from JSON`,
   );
 }
 
@@ -238,226 +602,6 @@ export function mapsFromJSON(
 }
 
 /** @internal */
-export const CoverPhotos$inboundSchema: z.ZodMiniType<CoverPhotos, unknown> = z
-  .object({
-    flathash: types.nullable(types.string()),
-    isDefault: types.boolean(),
-    url: types.string(),
-  });
-
-export function coverPhotosFromJSON(
-  jsonString: string,
-): SafeParseResult<CoverPhotos, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CoverPhotos$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CoverPhotos' from JSON`,
-  );
-}
-
-/** @internal */
-export const Emails$inboundSchema: z.ZodMiniType<Emails, unknown> = z.object({
-  value: types.string(),
-});
-
-export function emailsFromJSON(
-  jsonString: string,
-): SafeParseResult<Emails, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Emails$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Emails' from JSON`,
-  );
-}
-
-/** @internal */
-export const DynamiteData$inboundSchema: z.ZodMiniType<DynamiteData, unknown> =
-  z.object({
-    customerId: types.nullable(types.string()),
-    dndState: types.string(),
-    entityType: types.string(),
-    presence: types.string(),
-  });
-
-export function dynamiteDataFromJSON(
-  jsonString: string,
-): SafeParseResult<DynamiteData, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DynamiteData$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DynamiteData' from JSON`,
-  );
-}
-
-/** @internal */
-export const GplusData$inboundSchema: z.ZodMiniType<GplusData, unknown> = z
-  .object({
-    contentRestriction: types.string(),
-    isEntrepriseUser: types.boolean(),
-  });
-
-export function gplusDataFromJSON(
-  jsonString: string,
-): SafeParseResult<GplusData, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GplusData$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GplusData' from JSON`,
-  );
-}
-
-/** @internal */
-export const ExtendedData$inboundSchema: z.ZodMiniType<ExtendedData, unknown> =
-  z.object({
-    dynamiteData: z.lazy(() => DynamiteData$inboundSchema),
-    gplusData: z.lazy(() => GplusData$inboundSchema),
-  });
-
-export function extendedDataFromJSON(
-  jsonString: string,
-): SafeParseResult<ExtendedData, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ExtendedData$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ExtendedData' from JSON`,
-  );
-}
-
-/** @internal */
-export const InAppReachability$inboundSchema: z.ZodMiniType<
-  InAppReachability,
-  unknown
-> = z.object({
-  apps: z.array(types.string()),
-});
-
-export function inAppReachabilityFromJSON(
-  jsonString: string,
-): SafeParseResult<InAppReachability, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InAppReachability$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InAppReachability' from JSON`,
-  );
-}
-
-/** @internal */
-export const Names$inboundSchema: z.ZodMiniType<Names, unknown> = z.object({
-  fullname: types.string(),
-});
-
-export function namesFromJSON(
-  jsonString: string,
-): SafeParseResult<Names, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Names$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Names' from JSON`,
-  );
-}
-
-/** @internal */
-export const ProfileInfos$inboundSchema: z.ZodMiniType<ProfileInfos, unknown> =
-  z.object({
-    userTypes: z.array(types.string()),
-  });
-
-export function profileInfosFromJSON(
-  jsonString: string,
-): SafeParseResult<ProfileInfos, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProfileInfos$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProfileInfos' from JSON`,
-  );
-}
-
-/** @internal */
-export const ProfilePhotos$inboundSchema: z.ZodMiniType<
-  ProfilePhotos,
-  unknown
-> = z.object({
-  flathash: types.nullable(types.string()),
-  isDefault: types.boolean(),
-  url: types.string(),
-});
-
-export function profilePhotosFromJSON(
-  jsonString: string,
-): SafeParseResult<ProfilePhotos, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProfilePhotos$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProfilePhotos' from JSON`,
-  );
-}
-
-/** @internal */
-export const SourceIds$inboundSchema: z.ZodMiniType<SourceIds, unknown> = z
-  .object({
-    lastUpdated: types.nullable(types.string()),
-  });
-
-export function sourceIdsFromJSON(
-  jsonString: string,
-): SafeParseResult<SourceIds, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SourceIds$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SourceIds' from JSON`,
-  );
-}
-
-/** @internal */
-export const SearchGmailProfile$inboundSchema: z.ZodMiniType<
-  SearchGmailProfile,
-  unknown
-> = z.object({
-  coverPhotos: z.record(z.string(), z.lazy(() => CoverPhotos$inboundSchema)),
-  emails: z.record(z.string(), z.lazy(() => Emails$inboundSchema)),
-  extendedData: z.lazy(() => ExtendedData$inboundSchema),
-  inAppReachability: z.record(
-    z.string(),
-    z.lazy(() => InAppReachability$inboundSchema),
-  ),
-  names: z.record(z.string(), z.lazy(() => Names$inboundSchema)),
-  personId: types.string(),
-  profileInfos: z.record(z.string(), z.lazy(() => ProfileInfos$inboundSchema)),
-  profilePhotos: z.record(
-    z.string(),
-    z.lazy(() => ProfilePhotos$inboundSchema),
-  ),
-  sourceIds: z.record(z.string(), z.lazy(() => SourceIds$inboundSchema)),
-});
-
-export function searchGmailProfileFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchGmailProfile, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchGmailProfile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchGmailProfile' from JSON`,
-  );
-}
-
-/** @internal */
-export const Calendar$inboundSchema: z.ZodMiniType<Calendar, unknown> = z
-  .object({
-    details: z.record(z.string(), z.any()),
-    events: z.record(z.string(), z.any()),
-  });
-
-export function calendarFromJSON(
-  jsonString: string,
-): SafeParseResult<Calendar, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Calendar$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Calendar' from JSON`,
-  );
-}
-
-/** @internal */
 export const PlayGames$inboundSchema: z.ZodMiniType<PlayGames, unknown> = z
   .pipe(
     z.object({
@@ -483,46 +627,19 @@ export function playGamesFromJSON(
 }
 
 /** @internal */
-export const ProfileContainer$inboundSchema: z.ZodMiniType<
-  ProfileContainer,
-  unknown
-> = z.pipe(
-  z.object({
-    maps: z.lazy(() => Maps$inboundSchema),
-    profile: z.lazy(() => SearchGmailProfile$inboundSchema),
-    calendar: types.optional(z.lazy(() => Calendar$inboundSchema)),
-    play_games: types.optional(z.lazy(() => PlayGames$inboundSchema)),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "play_games": "playGames",
-    });
-  }),
-);
-
-export function profileContainerFromJSON(
-  jsonString: string,
-): SafeParseResult<ProfileContainer, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ProfileContainer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ProfileContainer' from JSON`,
-  );
-}
-
-/** @internal */
 export const SearchGmailData$inboundSchema: z.ZodMiniType<
   SearchGmailData,
   unknown
 > = z.pipe(
   z.object({
-    PROFILE_CONTAINER: types.optional(
-      z.lazy(() => ProfileContainer$inboundSchema),
-    ),
+    profile: z.lazy(() => SearchGmailProfile$inboundSchema),
+    calendar: z.optional(z.nullable(z.lazy(() => Calendar$inboundSchema))),
+    maps: types.optional(z.lazy(() => Maps$inboundSchema)),
+    play_games: z.optional(z.nullable(z.lazy(() => PlayGames$inboundSchema))),
   }),
   z.transform((v) => {
     return remap$(v, {
-      "PROFILE_CONTAINER": "profileContainer",
+      "play_games": "playGames",
     });
   }),
 );

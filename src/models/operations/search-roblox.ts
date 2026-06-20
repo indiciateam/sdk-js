@@ -41,17 +41,17 @@ export type SearchRobloxPresence = {
   type: number;
 };
 
-export type SearchRobloxRolimons = {
-  rap: number;
-  value: number;
-  rank?: number | undefined;
-};
-
 export type SearchRobloxStats = {
   followers: number;
   following: number;
   friends: number;
   placeVisits: number;
+};
+
+export type SearchRobloxRolimons = {
+  rap: number;
+  value: number;
+  rank?: number | undefined;
 };
 
 export type SearchRobloxProfile = {
@@ -69,11 +69,11 @@ export type SearchRobloxProfile = {
   pastUsernames: Array<string>;
   platforms: SearchRobloxPlatforms;
   presence: SearchRobloxPresence;
-  rolimons: SearchRobloxRolimons;
   socials: { [k: string]: string };
   stats: SearchRobloxStats;
   username: string;
   error?: string | undefined;
+  rolimons?: SearchRobloxRolimons | undefined;
 };
 
 export type SearchRobloxData = {
@@ -184,26 +184,6 @@ export function searchRobloxPresenceFromJSON(
 }
 
 /** @internal */
-export const SearchRobloxRolimons$inboundSchema: z.ZodMiniType<
-  SearchRobloxRolimons,
-  unknown
-> = z.object({
-  rap: types.number(),
-  value: types.number(),
-  rank: types.optional(types.number()),
-});
-
-export function searchRobloxRolimonsFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchRobloxRolimons, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchRobloxRolimons$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchRobloxRolimons' from JSON`,
-  );
-}
-
-/** @internal */
 export const SearchRobloxStats$inboundSchema: z.ZodMiniType<
   SearchRobloxStats,
   unknown
@@ -221,6 +201,26 @@ export function searchRobloxStatsFromJSON(
     jsonString,
     (x) => SearchRobloxStats$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'SearchRobloxStats' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchRobloxRolimons$inboundSchema: z.ZodMiniType<
+  SearchRobloxRolimons,
+  unknown
+> = z.object({
+  rap: types.number(),
+  value: types.number(),
+  rank: types.optional(types.number()),
+});
+
+export function searchRobloxRolimonsFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchRobloxRolimons, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchRobloxRolimons$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchRobloxRolimons' from JSON`,
   );
 }
 
@@ -243,11 +243,11 @@ export const SearchRobloxProfile$inboundSchema: z.ZodMiniType<
   pastUsernames: z.array(types.string()),
   platforms: z.lazy(() => SearchRobloxPlatforms$inboundSchema),
   presence: z.lazy(() => SearchRobloxPresence$inboundSchema),
-  rolimons: z.lazy(() => SearchRobloxRolimons$inboundSchema),
   socials: z.record(z.string(), types.string()),
   stats: z.lazy(() => SearchRobloxStats$inboundSchema),
   username: types.string(),
   error: types.optional(types.string()),
+  rolimons: types.optional(z.lazy(() => SearchRobloxRolimons$inboundSchema)),
 });
 
 export function searchRobloxProfileFromJSON(

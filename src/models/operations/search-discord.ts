@@ -58,7 +58,7 @@ export type Details = {
   targetType: string;
 };
 
-export type SearchDiscordTimeline = {
+export type Timeline = {
   application: number;
   content: number;
   created: number;
@@ -71,7 +71,7 @@ export type ModAction = {
   id: string;
   status: string;
   tags: Array<string>;
-  timeline: SearchDiscordTimeline;
+  timeline: Timeline;
   title: string;
 };
 
@@ -345,22 +345,20 @@ export function detailsFromJSON(
 }
 
 /** @internal */
-export const SearchDiscordTimeline$inboundSchema: z.ZodMiniType<
-  SearchDiscordTimeline,
-  unknown
-> = z.object({
-  application: types.number(),
-  content: types.number(),
-  created: types.number(),
-});
+export const Timeline$inboundSchema: z.ZodMiniType<Timeline, unknown> = z
+  .object({
+    application: types.number(),
+    content: types.number(),
+    created: types.number(),
+  });
 
-export function searchDiscordTimelineFromJSON(
+export function timelineFromJSON(
   jsonString: string,
-): SafeParseResult<SearchDiscordTimeline, SDKValidationError> {
+): SafeParseResult<Timeline, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SearchDiscordTimeline$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchDiscordTimeline' from JSON`,
+    (x) => Timeline$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Timeline' from JSON`,
   );
 }
 
@@ -373,7 +371,7 @@ export const ModAction$inboundSchema: z.ZodMiniType<ModAction, unknown> = z
     id: types.string(),
     status: types.string(),
     tags: z.array(types.string()),
-    timeline: z.lazy(() => SearchDiscordTimeline$inboundSchema),
+    timeline: z.lazy(() => Timeline$inboundSchema),
     title: types.string(),
   });
 

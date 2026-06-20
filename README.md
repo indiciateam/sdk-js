@@ -10,6 +10,12 @@ Developer-friendly & type-safe Typescript SDK for the Indicia API.
 [![Built by Speakeasy](https://img.shields.io/badge/Built_by-SPEAKEASY-374151?style=for-the-badge&labelColor=f3f4f6)](https://www.speakeasy.com/?utm_source=@indiciaosint/sdk&utm_campaign=typescript)
 
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Indicia API: Development documentation
+<!-- End Summary [summary] -->
+
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->

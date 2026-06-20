@@ -6,52 +6,34 @@ import * as z from "zod/v4-mini";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
-import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type SearchWhoisRequest = {
   query: string;
 };
 
-export type VcardArray1 = {};
-
-export type VcardArrayUnion1 = string | { [k: string]: string } | VcardArray1;
-
-export type VcardArrayUnion2 =
-  | string
-  | Array<string | { [k: string]: string } | VcardArray1>;
-
-export type VcardArray2 = {};
-
-export type VcardArrayUnion3 = string | { [k: string]: string } | VcardArray2;
-
-export type VcardArrayUnion4 =
-  | string
-  | Array<string | { [k: string]: string } | VcardArray2>;
-
-export type Entity1 = {
-  roles: Array<string>;
-  vcardArray: Array<
-    string | Array<string | { [k: string]: string } | VcardArray2>
-  >;
+export type Dates = {
+  created?: string | undefined;
+  expires?: string | undefined;
 };
 
-export type Entity2 = {
-  handle: string;
-  links: Array<{ [k: string]: string }>;
-  roles: Array<string>;
-  vcardArray: Array<
-    string | Array<string | { [k: string]: string } | VcardArray1>
-  >;
-  entities?: Array<Entity1> | undefined;
+export type Raw = {};
+
+export type Registrar = {
+  abuseEmail: string;
+  abusePhone: string;
+  ianaId: string;
+  name: string;
+  url: string;
 };
 
 export type SearchWhoisData = {
-  entities: Array<Entity2>;
-  events: Array<{ [k: string]: string }>;
-  ldhName: string;
-  nameservers: Array<{ [k: string]: string }>;
-  secureDNS: { [k: string]: string };
+  dates: Dates;
+  dnssec: { [k: string]: any };
+  domain: string;
+  nameservers: Array<{ [k: string]: any }>;
+  raw: Raw;
+  registrar: Registrar;
   status: Array<string>;
 };
 
@@ -86,177 +68,51 @@ export function searchWhoisRequestToJSON(
 }
 
 /** @internal */
-export const VcardArray1$inboundSchema: z.ZodMiniType<VcardArray1, unknown> = z
-  .object({});
-
-export function vcardArray1FromJSON(
-  jsonString: string,
-): SafeParseResult<VcardArray1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VcardArray1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VcardArray1' from JSON`,
-  );
-}
-
-/** @internal */
-export const VcardArrayUnion1$inboundSchema: z.ZodMiniType<
-  VcardArrayUnion1,
-  unknown
-> = smartUnion([
-  types.string(),
-  z.record(z.string(), types.string()),
-  z.lazy(() => VcardArray1$inboundSchema),
-]);
-
-export function vcardArrayUnion1FromJSON(
-  jsonString: string,
-): SafeParseResult<VcardArrayUnion1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VcardArrayUnion1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VcardArrayUnion1' from JSON`,
-  );
-}
-
-/** @internal */
-export const VcardArrayUnion2$inboundSchema: z.ZodMiniType<
-  VcardArrayUnion2,
-  unknown
-> = smartUnion([
-  types.string(),
-  z.array(
-    smartUnion([
-      types.string(),
-      z.record(z.string(), types.string()),
-      z.lazy(() => VcardArray1$inboundSchema),
-    ]),
-  ),
-]);
-
-export function vcardArrayUnion2FromJSON(
-  jsonString: string,
-): SafeParseResult<VcardArrayUnion2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VcardArrayUnion2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VcardArrayUnion2' from JSON`,
-  );
-}
-
-/** @internal */
-export const VcardArray2$inboundSchema: z.ZodMiniType<VcardArray2, unknown> = z
-  .object({});
-
-export function vcardArray2FromJSON(
-  jsonString: string,
-): SafeParseResult<VcardArray2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VcardArray2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VcardArray2' from JSON`,
-  );
-}
-
-/** @internal */
-export const VcardArrayUnion3$inboundSchema: z.ZodMiniType<
-  VcardArrayUnion3,
-  unknown
-> = smartUnion([
-  types.string(),
-  z.record(z.string(), types.string()),
-  z.lazy(() => VcardArray2$inboundSchema),
-]);
-
-export function vcardArrayUnion3FromJSON(
-  jsonString: string,
-): SafeParseResult<VcardArrayUnion3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VcardArrayUnion3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VcardArrayUnion3' from JSON`,
-  );
-}
-
-/** @internal */
-export const VcardArrayUnion4$inboundSchema: z.ZodMiniType<
-  VcardArrayUnion4,
-  unknown
-> = smartUnion([
-  types.string(),
-  z.array(
-    smartUnion([
-      types.string(),
-      z.record(z.string(), types.string()),
-      z.lazy(() => VcardArray2$inboundSchema),
-    ]),
-  ),
-]);
-
-export function vcardArrayUnion4FromJSON(
-  jsonString: string,
-): SafeParseResult<VcardArrayUnion4, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VcardArrayUnion4$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VcardArrayUnion4' from JSON`,
-  );
-}
-
-/** @internal */
-export const Entity1$inboundSchema: z.ZodMiniType<Entity1, unknown> = z.object({
-  roles: z.array(types.string()),
-  vcardArray: z.array(
-    smartUnion([
-      types.string(),
-      z.array(
-        smartUnion([
-          types.string(),
-          z.record(z.string(), types.string()),
-          z.lazy(() => VcardArray2$inboundSchema),
-        ]),
-      ),
-    ]),
-  ),
+export const Dates$inboundSchema: z.ZodMiniType<Dates, unknown> = z.object({
+  created: types.optional(types.string()),
+  expires: types.optional(types.string()),
 });
 
-export function entity1FromJSON(
+export function datesFromJSON(
   jsonString: string,
-): SafeParseResult<Entity1, SDKValidationError> {
+): SafeParseResult<Dates, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Entity1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Entity1' from JSON`,
+    (x) => Dates$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Dates' from JSON`,
   );
 }
 
 /** @internal */
-export const Entity2$inboundSchema: z.ZodMiniType<Entity2, unknown> = z.object({
-  handle: types.string(),
-  links: z.array(z.record(z.string(), types.string())),
-  roles: z.array(types.string()),
-  vcardArray: z.array(
-    smartUnion([
-      types.string(),
-      z.array(
-        smartUnion([
-          types.string(),
-          z.record(z.string(), types.string()),
-          z.lazy(() => VcardArray1$inboundSchema),
-        ]),
-      ),
-    ]),
-  ),
-  entities: types.optional(z.array(z.lazy(() => Entity1$inboundSchema))),
-});
+export const Raw$inboundSchema: z.ZodMiniType<Raw, unknown> = z.object({});
 
-export function entity2FromJSON(
+export function rawFromJSON(
   jsonString: string,
-): SafeParseResult<Entity2, SDKValidationError> {
+): SafeParseResult<Raw, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Entity2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Entity2' from JSON`,
+    (x) => Raw$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Raw' from JSON`,
+  );
+}
+
+/** @internal */
+export const Registrar$inboundSchema: z.ZodMiniType<Registrar, unknown> = z
+  .object({
+    abuseEmail: types.string(),
+    abusePhone: types.string(),
+    ianaId: types.string(),
+    name: types.string(),
+    url: types.string(),
+  });
+
+export function registrarFromJSON(
+  jsonString: string,
+): SafeParseResult<Registrar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Registrar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Registrar' from JSON`,
   );
 }
 
@@ -265,11 +121,12 @@ export const SearchWhoisData$inboundSchema: z.ZodMiniType<
   SearchWhoisData,
   unknown
 > = z.object({
-  entities: z.array(z.lazy(() => Entity2$inboundSchema)),
-  events: z.array(z.record(z.string(), types.string())),
-  ldhName: types.string(),
-  nameservers: z.array(z.record(z.string(), types.string())),
-  secureDNS: z.record(z.string(), types.string()),
+  dates: z.lazy(() => Dates$inboundSchema),
+  dnssec: z.record(z.string(), z.any()),
+  domain: types.string(),
+  nameservers: z.array(z.record(z.string(), z.any())),
+  raw: z.lazy(() => Raw$inboundSchema),
+  registrar: z.lazy(() => Registrar$inboundSchema),
   status: z.array(types.string()),
 });
 

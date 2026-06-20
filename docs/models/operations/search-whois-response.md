@@ -9,34 +9,26 @@ import { SearchWhoisResponse } from "@indiciaosint/sdk/models/operations";
 
 let value: SearchWhoisResponse = {
   data: {
-    entities: [],
-    events: [
-      {
-        "key": "<value>",
-        "key1": "<value>",
-      },
-    ],
-    ldhName: "<value>",
+    dates: {},
+    dnssec: {},
+    domain: "free-merit.org",
     nameservers: [
       {
         "key": "<value>",
       },
-      {
-        "key": "<value>",
-      },
-      {
-        "key": "<value>",
-        "key1": "<value>",
-        "key2": "<value>",
-      },
     ],
-    secureDNS: {
-      "key": "<value>",
-      "key1": "<value>",
+    raw: {},
+    registrar: {
+      abuseEmail: "<value>",
+      abusePhone: "<value>",
+      ianaId: "<id>",
+      name: "<value>",
+      url: "https://busy-gloom.com",
     },
     status: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
   success: false,
