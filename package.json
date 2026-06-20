@@ -4,6 +4,7 @@
   "author": "Indicia <support@indicia.app> (https://indicia.app)",
   "type": "module",
   "main": "./esm/index.js",
+  "repository": "github:indiciateam/sdk-js",
   "exports": {
     ".": {
       "source": "./src/index.ts",
