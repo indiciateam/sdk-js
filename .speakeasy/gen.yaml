@@ -44,7 +44,7 @@ typescript:
   additionalScripts: {}
   alwaysIncludeInboundAndOutbound: false
   apiPromiseHelpers: false
-  author: Speakeasy
+  author: Indicia <support@indicia.app> (https://indicia.app)
   baseErrorName: IndiciaError
   clientServerStatusCodesAsErrors: true
   constFieldsAlwaysOptional: false
