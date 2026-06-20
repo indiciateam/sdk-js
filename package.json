@@ -1,7 +1,7 @@
 {
   "name": "@indiciaosint/sdk",
   "version": "0.0.1",
-  "author": "Speakeasy",
+  "author": "Indicia <support@indicia.app> (https://indicia.app)",
   "type": "module",
   "main": "./esm/index.js",
   "exports": {

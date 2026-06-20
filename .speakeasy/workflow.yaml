@@ -11,6 +11,9 @@ targets:
     indicia:
         target: typescript
         source: Indicia API
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/indicia/indicia/indicia-api-typescript-code-samples
