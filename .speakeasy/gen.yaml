@@ -45,10 +45,10 @@ typescript:
   alwaysIncludeInboundAndOutbound: false
   apiPromiseHelpers: false
   author: Speakeasy
-  baseErrorName: ""
+  baseErrorName: IndiciaError
   clientServerStatusCodesAsErrors: true
   constFieldsAlwaysOptional: false
-  defaultErrorName: ""
+  defaultErrorName: IndiciaDefaultError
   enableCustomCodeRegions: false
   enableMCPServer: false
   enableReactQuery: false

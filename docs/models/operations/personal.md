@@ -1,0 +1,28 @@
+# Personal
+
+## Example Usage
+
+```typescript
+import { Personal } from "@indiciaosint/sdk/models/operations";
+
+let value: Personal = {};
+```
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `adultSites`                                                                    | [operations.AdultSites](../../models/operations/adult-sites.md)                 | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `bettingAndGaming`                                                              | [operations.BettingAndGaming](../../models/operations/betting-and-gaming.md)    | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `dating`                                                                        | [operations.Dating](../../models/operations/dating.md)                          | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `delivery`                                                                      | [operations.Delivery](../../models/operations/delivery.md)                      | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `ecommerce`                                                                     | [operations.Ecommerce](../../models/operations/ecommerce.md)                    | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `emailService`                                                                  | [operations.EmailService](../../models/operations/email-service.md)             | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `entertainment`                                                                 | [operations.Entertainment](../../models/operations/entertainment.md)            | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `healthAndFitness`                                                              | [operations.HealthAndFitness](../../models/operations/health-and-fitness.md)    | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `messenger`                                                                     | [operations.Messenger](../../models/operations/messenger.md)                    | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `realEstate`                                                                    | [operations.RealEstate](../../models/operations/real-estate.md)                 | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `socialMedia`                                                                   | [operations.SocialMedia](../../models/operations/social-media.md)               | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `technology`                                                                    | [operations.PersonalTechnology](../../models/operations/personal-technology.md) | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `totalRegistration`                                                             | *number*                                                                        | :heavy_minus_sign:                                                              | N/A                                                                             |
+| `travel`                                                                        | [operations.Travel](../../models/operations/travel.md)                          | :heavy_minus_sign:                                                              | N/A                                                                             |

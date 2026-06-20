@@ -4,10 +4,6 @@ sources:
     Indicia API:
         inputs:
             - location: https://api.indicia.app/openapi
-        transformations:
-            - filterOperations:
-                operations: postV1SearchIntelligenceWebDbs
-                exclude: true
         output: .speakeasy/out.openapi.yaml
         registry:
             location: registry.speakeasyapi.dev/indicia/indicia/indicia-api
@@ -15,9 +11,6 @@ targets:
     indicia:
         target: typescript
         source: Indicia API
-        publish:
-            npm:
-                token: $npm_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/indicia/indicia/indicia-api-typescript-code-samples

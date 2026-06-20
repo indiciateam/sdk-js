@@ -1,0 +1,19 @@
+# PostV1SearchInfrastructureCertificatesInternalServerError
+
+Internal Server Error
+
+## Example Usage
+
+```typescript
+import { PostV1SearchInfrastructureCertificatesInternalServerError } from "@indiciaosint/sdk/models/errors";
+
+// No examples available for this model
+```
+
+## Fields
+
+| Field                                                                                                                                                                          | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `data`                                                                                                                                                                         | [operations.PostV1SearchInfrastructureCertificatesInternalServerErrorData](../../models/operations/post-v1-search-infrastructure-certificates-internal-server-error-data.md)[] | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `success`                                                                                                                                                                      | *boolean*                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                             | N/A                                                                                                                                                                            |
+| `error`                                                                                                                                                                        | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            |

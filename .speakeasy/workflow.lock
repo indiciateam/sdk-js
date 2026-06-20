@@ -1,0 +1,37 @@
+speakeasyVersion: 1.784.0
+sources:
+    Indicia API:
+        sourceNamespace: indicia-api
+        sourceRevisionDigest: sha256:e4f650b87f446977781392a41bd9a294b105e58443ed3acf72c1b2f4109ae894
+        sourceBlobDigest: sha256:c305ea7fcb233e9d86428b5a88181e5f7e5a443443d5de63cb4a9220a4b21adf
+        tags:
+            - latest
+            - 1.0.0
+targets:
+    indicia:
+        source: Indicia API
+        sourceNamespace: indicia-api
+        sourceRevisionDigest: sha256:e4f650b87f446977781392a41bd9a294b105e58443ed3acf72c1b2f4109ae894
+        sourceBlobDigest: sha256:c305ea7fcb233e9d86428b5a88181e5f7e5a443443d5de63cb4a9220a4b21adf
+        codeSamplesNamespace: indicia-api-typescript-code-samples
+        codeSamplesRevisionDigest: sha256:c90b24186280b5f2840984258b3bd736dcc76fd5acfb38f057b7f2034119ceeb
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Indicia API:
+            inputs:
+                - location: https://api.indicia.app/openapi
+            output: .speakeasy/out.openapi.yaml
+            registry:
+                location: registry.speakeasyapi.dev/indicia/indicia/indicia-api
+    targets:
+        indicia:
+            target: typescript
+            source: Indicia API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/indicia/indicia/indicia-api-typescript-code-samples
+                labelOverride:
+                    fixedValue: Typescript (SDK)
+                blocking: false
