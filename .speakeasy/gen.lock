@@ -5,12 +5,15 @@ management:
   docVersion: 1.0.0
   speakeasyVersion: 1.784.0
   generationVersion: 2.911.0
-  releaseVersion: 0.0.1
-  configChecksum: c9b427e6be915aeff0a9af166b78271d
+  releaseVersion: 1.0.0
+  configChecksum: d89dc913ee9c68521b936179ee3711f7
+  repoURL: https://github.com/indiciateam/sdk-js.git
+  installationURL: https://github.com/indiciateam/sdk-js
+  published: true
 persistentEdits:
-  generation_id: e1b69991-435e-4943-911d-27f346de23ab
-  pristine_commit_hash: 12aa708ae7e59f25ee3854a8b34f503f4f5e0108
-  pristine_tree_hash: 1a19a6ba98aa34aae763211a648db1338c97fb51
+  generation_id: 374879cc-e724-4954-87c7-211451be6ed7
+  pristine_commit_hash: 8ef528d8d7bd1ec2b6f7dd4b1c9dbb6e57f4b245
+  pristine_tree_hash: 5698507c8292660c66c28485e2dc1bd74e662757
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -34,8 +37,8 @@ features:
 trackedFiles:
   .devcontainer/README.md:
     id: b170c0f184ac
-    last_write_checksum: sha1:b6564d2a7c8ae764fff6d1b4666dcd787210a000
-    pristine_git_object: cdef18c30e383534a868742e1b9148f2670606f9
+    last_write_checksum: sha1:36389ea1981747e6ed4deb363315efcd6f5519e6
+    pristine_git_object: 251040cd22d91befd138dfb026be96d5061b3dff
   .devcontainer/devcontainer.json:
     id: b34062a34eb1
     last_write_checksum: sha1:d0b15193202c961e7d1875864ddb15f9d17c84dd
@@ -1722,12 +1725,12 @@ trackedFiles:
     pristine_git_object: 606be4e3aee0e7e05832a7e23e79cab97ddc6083
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:0ad487012b909540b59dbea961422a9cd50d0429
-    pristine_git_object: f769b3288acba7ce960887a2008da7508ef3a374
+    last_write_checksum: sha1:ef687c3473ebd608d737be4aca3467b68debb257
+    pristine_git_object: 4b2b6722a8baddc44de8ecafb5c6dc60f889c664
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:12cb886a451f21a6dd60bc98d98e07da615b4024
-    pristine_git_object: 9a0ab49f3d28f87f3c0b775013aa092d2bc1c953
+    last_write_checksum: sha1:20067fd73497ca247bbe62e2f2daed6cc7b8f2e8
+    pristine_git_object: 32a589899831c87249a826249428089469503ba4
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a644a2c1bdd89948cb4098800c72e115eeb77cad
@@ -1894,8 +1897,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:01063a1e798166e9e4ef39470c0a7a649f28a675
-    pristine_git_object: 2854e5dbea739aeca02ad5a4e316ebe2a03f665e
+    last_write_checksum: sha1:2704600b637a4e8a1178aaadd2c38a4fbe5dd27d
+    pristine_git_object: 3c3f61c1b649e7721a57517c6cf371e3c6993142
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
