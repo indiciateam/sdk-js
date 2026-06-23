@@ -3,26 +3,75 @@
  */
 
 import * as z from "zod/v4-mini";
+import { blobLikeSchema } from "../../types/blobs.js";
 import { ClosedEnum } from "../../types/enums.js";
 
+export type GeolocateMediaMedia = {
+  fileName: string;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
+};
+
+/**
+ * The geolocation model to use. "enhanced" provides more detailed analysis at a higher credit cost, and takes longer.
+ */
 export const Model = {
   Default: "default",
   Enhanced: "enhanced",
 } as const;
+/**
+ * The geolocation model to use. "enhanced" provides more detailed analysis at a higher credit cost, and takes longer.
+ */
 export type Model = ClosedEnum<typeof Model>;
 
 export type GeolocateMediaRequest = {
-  media: any;
+  /**
+   * The image file to be analyzed. Max size 10MB
+   */
+  media: GeolocateMediaMedia | Blob;
+  /**
+   * Optional geographic hint to narrow the search area (e.g. "NYC", "France"). Max 20 characters. The AI may override it if visual evidence disagrees.
+   */
   locationHint?: string | undefined;
+  /**
+   * The geolocation model to use. "enhanced" provides more detailed analysis at a higher credit cost, and takes longer.
+   */
   model?: Model | undefined;
 };
+
+/** @internal */
+export type GeolocateMediaMedia$Outbound = {
+  fileName: string;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
+};
+
+/** @internal */
+export const GeolocateMediaMedia$outboundSchema: z.ZodMiniType<
+  GeolocateMediaMedia$Outbound,
+  GeolocateMediaMedia
+> = z.object({
+  fileName: z.string(),
+  content: z.union([
+    z.custom<ReadableStream<Uint8Array>>(x => x instanceof ReadableStream),
+    z.custom<Blob>(x => x instanceof Blob),
+    z.custom<ArrayBuffer>(x => x instanceof ArrayBuffer),
+    z.custom<Uint8Array>(x => x instanceof Uint8Array),
+  ]),
+});
+
+export function geolocateMediaMediaToJSON(
+  geolocateMediaMedia: GeolocateMediaMedia,
+): string {
+  return JSON.stringify(
+    GeolocateMediaMedia$outboundSchema.parse(geolocateMediaMedia),
+  );
+}
 
 /** @internal */
 export const Model$outboundSchema: z.ZodMiniEnum<typeof Model> = z.enum(Model);
 
 /** @internal */
 export type GeolocateMediaRequest$Outbound = {
-  media: any;
+  media: GeolocateMediaMedia$Outbound | Blob;
   locationHint?: string | undefined;
   model?: string | undefined;
 };
@@ -32,7 +81,10 @@ export const GeolocateMediaRequest$outboundSchema: z.ZodMiniType<
   GeolocateMediaRequest$Outbound,
   GeolocateMediaRequest
 > = z.object({
-  media: z.any(),
+  media: z.union([
+    z.lazy(() => GeolocateMediaMedia$outboundSchema),
+    blobLikeSchema,
+  ]),
   locationHint: z.optional(z.string()),
   model: z.optional(Model$outboundSchema),
 });

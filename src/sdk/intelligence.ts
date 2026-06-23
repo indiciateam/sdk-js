@@ -55,6 +55,7 @@ export class Intelligence extends ClientSDK {
    * Geolocate an image using AI-powered analysis. Streams progress updates via Server-Sent Events.
    *
    *       Response type:
+   *
    *       ```ts
    *       interface GeolocationResponse {
    *         location: string | null;
@@ -166,25 +167,6 @@ export class Intelligence extends ClientSDK {
    *
    * @remarks
    * Search for faces across the internet using facial recognition. Streams progress updates via Server-Sent Events.
-   *
-   *       Response type:
-   *       ```ts
-   *       interface FacialSearchResult {
-   *         time: number;
-   *         results: {
-   *           id: string;
-   *           hash: string;
-   *           group: number;
-   *           quality: number;
-   *           imageUrl: string;
-   *           crawledAt: number;
-   *           sourceUrl: string;
-   *           thumbnailUrl: string;
-   *         }[];
-   *         searchHash: string;
-   *         numberOfResults: number;
-   *       }
-   *     ```
    */
   async searchFace(
     request: operations.SearchFaceRequest,

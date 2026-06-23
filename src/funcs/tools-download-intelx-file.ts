@@ -40,8 +40,7 @@ export function toolsDownloadIntelxFile(
 ): APIPromise<
   Result<
     operations.DownloadIntelxFileResponse,
-    | errors.DownloadIntelxFileBadRequestError
-    | errors.DownloadIntelxFileInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.DownloadIntelxFileResponse,
-      | errors.DownloadIntelxFileBadRequestError
-      | errors.DownloadIntelxFileInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -152,8 +150,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.DownloadIntelxFileResponse,
-    | errors.DownloadIntelxFileBadRequestError
-    | errors.DownloadIntelxFileInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -164,8 +161,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.DownloadIntelxFileResponse$inboundSchema),
-    M.jsonErr(400, errors.DownloadIntelxFileBadRequestError$inboundSchema),
-    M.jsonErr(500, errors.DownloadIntelxFileInternalServerError$inboundSchema),
+    M.jsonErr(400, errors.FailedResponseError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

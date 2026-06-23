@@ -4,7 +4,12 @@
 
 import * as z from "zod/v4-mini";
 import { IndiciaCore } from "../core.js";
-import { appendForm } from "../lib/encodings.js";
+import { appendForm, normalizeBlob } from "../lib/encodings.js";
+import {
+  bytesToBlob,
+  getContentTypeFromFileName,
+  readableStreamToArrayBuffer,
+} from "../lib/files.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -25,33 +30,16 @@ import { ResponseValidationError } from "../models/errors/response-validation-er
 import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
+import { isBlobLike } from "../types/blobs.js";
 import { Result } from "../types/fp.js";
 import * as types$ from "../types/primitives.js";
+import { isReadableStream } from "../types/streams.js";
 
 /**
  * Reverse Face Search
  *
  * @remarks
  * Search for faces across the internet using facial recognition. Streams progress updates via Server-Sent Events.
- *
- *       Response type:
- *       ```ts
- *       interface FacialSearchResult {
- *         time: number;
- *         results: {
- *           id: string;
- *           hash: string;
- *           group: number;
- *           quality: number;
- *           imageUrl: string;
- *           crawledAt: number;
- *           sourceUrl: string;
- *           thumbnailUrl: string;
- *         }[];
- *         searchHash: string;
- *         numberOfResults: number;
- *       }
- *     ```
  */
 export function intelligenceSearchFace(
   client: IndiciaCore,
@@ -60,9 +48,7 @@ export function intelligenceSearchFace(
 ): APIPromise<
   Result<
     string,
-    | errors.SearchFaceBadRequestError
-    | errors.SearchFacePaymentRequiredError
-    | errors.SearchFaceInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -88,9 +74,7 @@ async function $do(
   [
     Result<
       string,
-      | errors.SearchFaceBadRequestError
-      | errors.SearchFacePaymentRequiredError
-      | errors.SearchFaceInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -114,8 +98,30 @@ async function $do(
   const payload = parsed.value;
   const body = new FormData();
 
-  if (payload.media !== undefined) {
-    appendForm(body, "media", payload.media);
+  if (isBlobLike(payload.media)) {
+    const file = payload.media;
+    const blob = await normalizeBlob(file);
+    const name = "name" in file ? (file.name as string) : undefined;
+    appendForm(body, "media", blob, name);
+  } else if (isReadableStream(payload.media.content)) {
+    const buffer = await readableStreamToArrayBuffer(payload.media.content);
+    const contentType = getContentTypeFromFileName(payload.media.fileName)
+      || "application/octet-stream";
+    appendForm(
+      body,
+      "media",
+      bytesToBlob(buffer, contentType),
+      payload.media.fileName,
+    );
+  } else {
+    const contentType = getContentTypeFromFileName(payload.media.fileName)
+      || "application/octet-stream";
+    appendForm(
+      body,
+      "media",
+      bytesToBlob(payload.media.content, contentType),
+      payload.media.fileName,
+    );
   }
 
   const path = pathToFunc("/v1/search/intelligence/facial")();
@@ -176,9 +182,7 @@ async function $do(
 
   const [result] = await M.match<
     string,
-    | errors.SearchFaceBadRequestError
-    | errors.SearchFacePaymentRequiredError
-    | errors.SearchFaceInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -189,9 +193,8 @@ async function $do(
     | SDKValidationError
   >(
     M.text(200, types$.string(), { ctype: "text/event-stream" }),
-    M.jsonErr(400, errors.SearchFaceBadRequestError$inboundSchema),
-    M.jsonErr(402, errors.SearchFacePaymentRequiredError$inboundSchema),
-    M.jsonErr(500, errors.SearchFaceInternalServerError$inboundSchema),
+    M.jsonErr([400, 402], errors.FailedResponseError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

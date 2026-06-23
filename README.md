@@ -26,6 +26,7 @@ Indicia API: Development documentation
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
+  * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -252,6 +253,41 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
 
+<!-- Start File uploads [file-upload] -->
+## File uploads
+
+Certain SDK methods accept files as part of a multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
+
+> [!TIP]
+>
+> Depending on your JavaScript runtime, there are convenient utilities that return a handle to a file without reading the entire contents into memory:
+>
+> - **Node.js v20+:** Since v20, Node.js comes with a native `openAsBlob` function in [`node:fs`](https://nodejs.org/docs/latest-v20.x/api/fs.html#fsopenasblobpath-options).
+> - **Bun:** The native [`Bun.file`](https://bun.sh/docs/api/file-io#reading-files-bun-file) function produces a file handle that can be used for streaming file uploads.
+> - **Browsers:** All supported browsers return an instance to a [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) when reading the value from an `<input type="file">` element.
+> - **Node.js v18:** A file stream can be created using the `fileFrom` helper from [`fetch-blob/from.js`](https://www.npmjs.com/package/fetch-blob).
+
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+import { openAsBlob } from "node:fs";
+
+const indicia = new Indicia({
+  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.intelligence.geolocateMedia({
+    media: await openAsBlob("example.file"),
+  });
+
+  console.log(result);
+}
+
+run();
+
+```
+<!-- End File uploads [file-upload] -->
+
 <!-- Start Retries [retries] -->
 ## Retries
 
@@ -357,7 +393,7 @@ async function run() {
       console.log(error.headers);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.SearchAddressInternalServerError) {
+      if (error instanceof errors.FailedResponseError) {
         console.log(error.data$.success); // boolean
         console.log(error.data$.error); // string
       }
@@ -373,7 +409,7 @@ run();
 **Primary error:**
 * [`IndiciaError`](./src/models/errors/indicia-error.ts): The base class for HTTP error responses.
 
-<details><summary>Less common errors (38)</summary>
+<details><summary>Less common errors (7)</summary>
 
 <br />
 
@@ -386,38 +422,7 @@ run();
 
 
 **Inherit from [`IndiciaError`](./src/models/errors/indicia-error.ts)**:
-* [`GeolocateMediaBadRequestError`](./src/models/errors/geolocate-media-bad-request-error.ts): Bad Request. Status code `400`. Applicable to 1 of 35 methods.*
-* [`SearchFaceBadRequestError`](./src/models/errors/search-face-bad-request-error.ts): Bad Request. Status code `400`. Applicable to 1 of 35 methods.*
-* [`ScanPortsBadRequestError`](./src/models/errors/scan-ports-bad-request-error.ts): Bad Request. Status code `400`. Applicable to 1 of 35 methods.*
-* [`DownloadIntelxFileBadRequestError`](./src/models/errors/download-intelx-file-bad-request-error.ts): Bad Request. Status code `400`. Applicable to 1 of 35 methods.*
-* [`GeolocateMediaPaymentRequiredError`](./src/models/errors/geolocate-media-payment-required-error.ts): Payment Required - Insufficient Credits. Status code `402`. Applicable to 1 of 35 methods.*
-* [`SearchWebDatabasesPaymentRequiredError`](./src/models/errors/search-web-databases-payment-required-error.ts): Payment Required. Status code `402`. Applicable to 1 of 35 methods.*
-* [`SearchFacePaymentRequiredError`](./src/models/errors/search-face-payment-required-error.ts): Payment Required - Insufficient Credits. Status code `402`. Applicable to 1 of 35 methods.*
-* [`ScanPortsPaymentRequiredError`](./src/models/errors/scan-ports-payment-required-error.ts): Payment Required - Insufficient Credits. Status code `402`. Applicable to 1 of 35 methods.*
-* [`SearchAddressInternalServerError`](./src/models/errors/search-address-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchEmailInternalServerError`](./src/models/errors/search-email-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`GeolocateMediaInternalServerError`](./src/models/errors/geolocate-media-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchGmailInternalServerError`](./src/models/errors/search-gmail-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchPersonInternalServerError`](./src/models/errors/search-person-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchPhoneInternalServerError`](./src/models/errors/search-phone-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchSeonInternalServerError`](./src/models/errors/search-seon-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchWebDatabasesInternalServerError`](./src/models/errors/search-web-databases-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchFaceInternalServerError`](./src/models/errors/search-face-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchHudsonRockInternalServerError`](./src/models/errors/search-hudson-rock-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchDiscordInternalServerError`](./src/models/errors/search-discord-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchGithubInternalServerError`](./src/models/errors/search-github-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchRobloxInternalServerError`](./src/models/errors/search-roblox-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchTiktokInternalServerError`](./src/models/errors/search-tiktok-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchUsernameInternalServerError`](./src/models/errors/search-username-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchIpInfoInternalServerError`](./src/models/errors/search-ip-info-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchDnsInternalServerError`](./src/models/errors/search-dns-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchShodanInternalServerError`](./src/models/errors/search-shodan-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchWhoisInternalServerError`](./src/models/errors/search-whois-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`ScanPortsInternalServerError`](./src/models/errors/scan-ports-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`SearchCertificatesInternalServerError`](./src/models/errors/search-certificates-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`LookupDiscordAltInternalServerError`](./src/models/errors/lookup-discord-alt-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
-* [`BypassDoubleCounterInternalServerError`](./src/models/errors/bypass-double-counter-internal-server-error.ts): Bypass failed. Status code `500`. Applicable to 1 of 35 methods.*
-* [`DownloadIntelxFileInternalServerError`](./src/models/errors/download-intelx-file-internal-server-error.ts): Internal Server Error. Status code `500`. Applicable to 1 of 35 methods.*
+* [`FailedResponseError`](./src/models/errors/failed-response-error.ts): A failed API response. Applicable to 24 of 35 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

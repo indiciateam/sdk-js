@@ -12,34 +12,6 @@ export type LookupDiscordAltRequest = {
   query: string;
 };
 
-export type InternalServerErrorFirst = {
-  avatar: string;
-  id: string;
-  username: string;
-};
-
-export type InternalServerErrorSecond = {
-  avatar: string;
-  id: string;
-  username: string;
-};
-
-export type InternalServerErrorThird = {
-  avatar: string;
-  id: string;
-  username: string;
-};
-
-export type LookupDiscordAltInternalServerErrorData = {
-  first: Array<InternalServerErrorFirst>;
-  second: Array<InternalServerErrorSecond>;
-  third: Array<InternalServerErrorThird>;
-  tier: string;
-  totalalts: number;
-  verifications: number;
-  vpns: number;
-};
-
 export type First = {
   avatar: string;
   id: string;
@@ -95,94 +67,6 @@ export function lookupDiscordAltRequestToJSON(
 ): string {
   return JSON.stringify(
     LookupDiscordAltRequest$outboundSchema.parse(lookupDiscordAltRequest),
-  );
-}
-
-/** @internal */
-export const InternalServerErrorFirst$inboundSchema: z.ZodMiniType<
-  InternalServerErrorFirst,
-  unknown
-> = z.object({
-  avatar: types.string(),
-  id: types.string(),
-  username: types.string(),
-});
-
-export function internalServerErrorFirstFromJSON(
-  jsonString: string,
-): SafeParseResult<InternalServerErrorFirst, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InternalServerErrorFirst$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InternalServerErrorFirst' from JSON`,
-  );
-}
-
-/** @internal */
-export const InternalServerErrorSecond$inboundSchema: z.ZodMiniType<
-  InternalServerErrorSecond,
-  unknown
-> = z.object({
-  avatar: types.string(),
-  id: types.string(),
-  username: types.string(),
-});
-
-export function internalServerErrorSecondFromJSON(
-  jsonString: string,
-): SafeParseResult<InternalServerErrorSecond, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InternalServerErrorSecond$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InternalServerErrorSecond' from JSON`,
-  );
-}
-
-/** @internal */
-export const InternalServerErrorThird$inboundSchema: z.ZodMiniType<
-  InternalServerErrorThird,
-  unknown
-> = z.object({
-  avatar: types.string(),
-  id: types.string(),
-  username: types.string(),
-});
-
-export function internalServerErrorThirdFromJSON(
-  jsonString: string,
-): SafeParseResult<InternalServerErrorThird, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InternalServerErrorThird$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InternalServerErrorThird' from JSON`,
-  );
-}
-
-/** @internal */
-export const LookupDiscordAltInternalServerErrorData$inboundSchema:
-  z.ZodMiniType<LookupDiscordAltInternalServerErrorData, unknown> = z.object({
-    first: z.array(z.lazy(() => InternalServerErrorFirst$inboundSchema)),
-    second: z.array(z.lazy(() => InternalServerErrorSecond$inboundSchema)),
-    third: z.array(z.lazy(() => InternalServerErrorThird$inboundSchema)),
-    tier: types.string(),
-    totalalts: types.number(),
-    verifications: types.number(),
-    vpns: types.number(),
-  });
-
-export function lookupDiscordAltInternalServerErrorDataFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  LookupDiscordAltInternalServerErrorData,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      LookupDiscordAltInternalServerErrorData$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'LookupDiscordAltInternalServerErrorData' from JSON`,
   );
 }
 

@@ -75,7 +75,7 @@ export type ModAction = {
   title: string;
 };
 
-export type Badge = {
+export type SearchDiscordBadge = {
   description: string;
   icon: string;
   name: string;
@@ -84,7 +84,7 @@ export type Badge = {
 };
 
 export type Sender = {
-  badges: Array<Badge>;
+  badges: Array<SearchDiscordBadge>;
   discordID: string;
   id: number;
   profilePhoto: string;
@@ -148,7 +148,7 @@ export type RobloxProfile = {
   rolimons?: SearchDiscordRolimons | undefined;
 };
 
-export type Role = {
+export type SearchDiscordRole = {
   color: number;
   hoist: boolean;
   id: string;
@@ -168,7 +168,7 @@ export type Server = {
   name: string | null;
   nickname: string | null;
   totalMembers: number | null;
-  roles?: Array<Role> | undefined;
+  roles?: Array<SearchDiscordRole> | undefined;
 };
 
 export type SearchDiscordData = {
@@ -386,7 +386,10 @@ export function modActionFromJSON(
 }
 
 /** @internal */
-export const Badge$inboundSchema: z.ZodMiniType<Badge, unknown> = z.object({
+export const SearchDiscordBadge$inboundSchema: z.ZodMiniType<
+  SearchDiscordBadge,
+  unknown
+> = z.object({
   description: types.string(),
   icon: types.string(),
   name: types.string(),
@@ -394,19 +397,19 @@ export const Badge$inboundSchema: z.ZodMiniType<Badge, unknown> = z.object({
   type: types.number(),
 });
 
-export function badgeFromJSON(
+export function searchDiscordBadgeFromJSON(
   jsonString: string,
-): SafeParseResult<Badge, SDKValidationError> {
+): SafeParseResult<SearchDiscordBadge, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Badge$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Badge' from JSON`,
+    (x) => SearchDiscordBadge$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchDiscordBadge' from JSON`,
   );
 }
 
 /** @internal */
 export const Sender$inboundSchema: z.ZodMiniType<Sender, unknown> = z.object({
-  badges: z.array(z.lazy(() => Badge$inboundSchema)),
+  badges: z.array(z.lazy(() => SearchDiscordBadge$inboundSchema)),
   discordID: types.string(),
   id: types.number(),
   profilePhoto: types.string(),
@@ -562,7 +565,10 @@ export function robloxProfileFromJSON(
 }
 
 /** @internal */
-export const Role$inboundSchema: z.ZodMiniType<Role, unknown> = z.object({
+export const SearchDiscordRole$inboundSchema: z.ZodMiniType<
+  SearchDiscordRole,
+  unknown
+> = z.object({
   color: types.number(),
   hoist: types.boolean(),
   id: types.string(),
@@ -572,13 +578,13 @@ export const Role$inboundSchema: z.ZodMiniType<Role, unknown> = z.object({
   position: types.number(),
 });
 
-export function roleFromJSON(
+export function searchDiscordRoleFromJSON(
   jsonString: string,
-): SafeParseResult<Role, SDKValidationError> {
+): SafeParseResult<SearchDiscordRole, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Role$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Role' from JSON`,
+    (x) => SearchDiscordRole$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchDiscordRole' from JSON`,
   );
 }
 
@@ -593,7 +599,7 @@ export const Server$inboundSchema: z.ZodMiniType<Server, unknown> = z.object({
   name: types.nullable(types.string()),
   nickname: types.nullable(types.string()),
   totalMembers: types.nullable(types.number()),
-  roles: types.optional(z.array(z.lazy(() => Role$inboundSchema))),
+  roles: types.optional(z.array(z.lazy(() => SearchDiscordRole$inboundSchema))),
 });
 
 export function serverFromJSON(

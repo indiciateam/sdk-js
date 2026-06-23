@@ -40,7 +40,7 @@ export function infrastructureSearchShodan(
 ): APIPromise<
   Result<
     operations.SearchShodanResponse,
-    | errors.SearchShodanInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.SearchShodanResponse,
-      | errors.SearchShodanInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -149,7 +149,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.SearchShodanResponse,
-    | errors.SearchShodanInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -160,7 +160,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.SearchShodanResponse$inboundSchema),
-    M.jsonErr(500, errors.SearchShodanInternalServerError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

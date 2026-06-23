@@ -79,10 +79,10 @@ run();
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.SearchDiscordInternalServerError | 500                                     | application/json                        |
-| errors.IndiciaDefaultError              | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchGithub
 
@@ -153,10 +153,10 @@ run();
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.SearchGithubInternalServerError | 500                                    | application/json                       |
-| errors.IndiciaDefaultError             | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchRoblox
 
@@ -227,10 +227,10 @@ run();
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.SearchRobloxInternalServerError | 500                                    | application/json                       |
-| errors.IndiciaDefaultError             | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchTiktok
 
@@ -301,10 +301,10 @@ run();
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.SearchTiktokInternalServerError | 500                                    | application/json                       |
-| errors.IndiciaDefaultError             | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchUsername
 
@@ -375,7 +375,7 @@ run();
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.SearchUsernameInternalServerError | 500                                      | application/json                         |
-| errors.IndiciaDefaultError               | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |

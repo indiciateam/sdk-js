@@ -37,7 +37,7 @@ export function intelligenceSearchAddress(
 ): APIPromise<
   Result<
     operations.SearchAddressResponse,
-    | errors.SearchAddressInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -63,7 +63,7 @@ async function $do(
   [
     Result<
       operations.SearchAddressResponse,
-      | errors.SearchAddressInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -146,7 +146,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.SearchAddressResponse,
-    | errors.SearchAddressInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -157,7 +157,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.SearchAddressResponse$inboundSchema),
-    M.jsonErr(500, errors.SearchAddressInternalServerError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

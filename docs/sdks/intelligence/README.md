@@ -90,10 +90,10 @@ run();
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.SearchAddressInternalServerError | 500                                     | application/json                        |
-| errors.IndiciaDefaultError              | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchEmail
 
@@ -164,16 +164,17 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.SearchEmailInternalServerError | 500                                   | application/json                      |
-| errors.IndiciaDefaultError            | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## geolocateMedia
 
 Geolocate an image using AI-powered analysis. Streams progress updates via Server-Sent Events.
 
       Response type:
+
       ```ts
       interface GeolocationResponse {
         location: string | null;
@@ -190,6 +191,7 @@ Geolocate an image using AI-powered analysis. Streams progress updates via Serve
 <!-- UsageSnippet language="typescript" operationID="geolocateMedia" method="post" path="/v1/search/intelligence/geolocation" example="analyzing" -->
 ```typescript
 import { Indicia } from "@indiciaosint/sdk";
+import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
   apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
@@ -197,7 +199,7 @@ const indicia = new Indicia({
 
 async function run() {
   const result = await indicia.intelligence.geolocateMedia({
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
 
   console.log(result);
@@ -213,6 +215,7 @@ The standalone function version of this method:
 ```typescript
 import { IndiciaCore } from "@indiciaosint/sdk/core.js";
 import { intelligenceGeolocateMedia } from "@indiciaosint/sdk/funcs/intelligence-geolocate-media.js";
+import { openAsBlob } from "node:fs";
 
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -222,7 +225,7 @@ const indicia = new IndiciaCore({
 
 async function run() {
   const res = await intelligenceGeolocateMedia(indicia, {
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
   if (res.ok) {
     const { value: result } = res;
@@ -239,6 +242,7 @@ run();
 <!-- UsageSnippet language="typescript" operationID="geolocateMedia" method="post" path="/v1/search/intelligence/geolocation" example="complete" -->
 ```typescript
 import { Indicia } from "@indiciaosint/sdk";
+import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
   apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
@@ -246,7 +250,7 @@ const indicia = new Indicia({
 
 async function run() {
   const result = await indicia.intelligence.geolocateMedia({
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
 
   console.log(result);
@@ -262,6 +266,7 @@ The standalone function version of this method:
 ```typescript
 import { IndiciaCore } from "@indiciaosint/sdk/core.js";
 import { intelligenceGeolocateMedia } from "@indiciaosint/sdk/funcs/intelligence-geolocate-media.js";
+import { openAsBlob } from "node:fs";
 
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -271,7 +276,7 @@ const indicia = new IndiciaCore({
 
 async function run() {
   const res = await intelligenceGeolocateMedia(indicia, {
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
   if (res.ok) {
     const { value: result } = res;
@@ -288,6 +293,7 @@ run();
 <!-- UsageSnippet language="typescript" operationID="geolocateMedia" method="post" path="/v1/search/intelligence/geolocation" example="error" -->
 ```typescript
 import { Indicia } from "@indiciaosint/sdk";
+import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
   apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
@@ -295,7 +301,7 @@ const indicia = new Indicia({
 
 async function run() {
   const result = await indicia.intelligence.geolocateMedia({
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
 
   console.log(result);
@@ -311,6 +317,7 @@ The standalone function version of this method:
 ```typescript
 import { IndiciaCore } from "@indiciaosint/sdk/core.js";
 import { intelligenceGeolocateMedia } from "@indiciaosint/sdk/funcs/intelligence-geolocate-media.js";
+import { openAsBlob } from "node:fs";
 
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -320,7 +327,7 @@ const indicia = new IndiciaCore({
 
 async function run() {
   const res = await intelligenceGeolocateMedia(indicia, {
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
   if (res.ok) {
     const { value: result } = res;
@@ -348,12 +355,11 @@ run();
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.GeolocateMediaBadRequestError      | 400                                       | application/json                          |
-| errors.GeolocateMediaPaymentRequiredError | 402                                       | application/json                          |
-| errors.GeolocateMediaInternalServerError  | 500                                       | application/json                          |
-| errors.IndiciaDefaultError                | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 400, 402                   | application/json           |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchGmail
 
@@ -424,10 +430,10 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.SearchGmailInternalServerError | 500                                   | application/json                      |
-| errors.IndiciaDefaultError            | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchPerson
 
@@ -498,10 +504,10 @@ run();
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.SearchPersonInternalServerError | 500                                    | application/json                       |
-| errors.IndiciaDefaultError             | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchPhone
 
@@ -572,10 +578,10 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.SearchPhoneInternalServerError | 500                                   | application/json                      |
-| errors.IndiciaDefaultError            | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchSeon
 
@@ -648,10 +654,10 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.SearchSeonInternalServerError | 500                                  | application/json                     |
-| errors.IndiciaDefaultError           | 4XX, 5XX                             | \*/\*                                |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchWebDatabases
 
@@ -724,41 +730,22 @@ run();
 
 ### Errors
 
-| Error Type                                    | Status Code                                   | Content Type                                  |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| errors.SearchWebDatabasesPaymentRequiredError | 402                                           | application/json                              |
-| errors.SearchWebDatabasesInternalServerError  | 500                                           | application/json                              |
-| errors.IndiciaDefaultError                    | 4XX, 5XX                                      | \*/\*                                         |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 402                        | application/json           |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchFace
 
 Search for faces across the internet using facial recognition. Streams progress updates via Server-Sent Events.
-
-      Response type:
-      ```ts
-      interface FacialSearchResult {
-        time: number;
-        results: {
-          id: string;
-          hash: string;
-          group: number;
-          quality: number;
-          imageUrl: string;
-          crawledAt: number;
-          sourceUrl: string;
-          thumbnailUrl: string;
-        }[];
-        searchHash: string;
-        numberOfResults: number;
-      }
-    ```
-      
 
 ### Example Usage: error
 
 <!-- UsageSnippet language="typescript" operationID="searchFace" method="post" path="/v1/search/intelligence/facial" example="error" -->
 ```typescript
 import { Indicia } from "@indiciaosint/sdk";
+import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
   apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
@@ -766,7 +753,7 @@ const indicia = new Indicia({
 
 async function run() {
   const result = await indicia.intelligence.searchFace({
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
 
   console.log(result);
@@ -782,6 +769,7 @@ The standalone function version of this method:
 ```typescript
 import { IndiciaCore } from "@indiciaosint/sdk/core.js";
 import { intelligenceSearchFace } from "@indiciaosint/sdk/funcs/intelligence-search-face.js";
+import { openAsBlob } from "node:fs";
 
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -791,7 +779,7 @@ const indicia = new IndiciaCore({
 
 async function run() {
   const res = await intelligenceSearchFace(indicia, {
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
   if (res.ok) {
     const { value: result } = res;
@@ -808,6 +796,7 @@ run();
 <!-- UsageSnippet language="typescript" operationID="searchFace" method="post" path="/v1/search/intelligence/facial" example="faces" -->
 ```typescript
 import { Indicia } from "@indiciaosint/sdk";
+import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
   apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
@@ -815,7 +804,7 @@ const indicia = new Indicia({
 
 async function run() {
   const result = await indicia.intelligence.searchFace({
-    media: "<value>",
+    media: await openAsBlob("example.file"),
   });
 
   console.log(result);
@@ -831,6 +820,7 @@ The standalone function version of this method:
 ```typescript
 import { IndiciaCore } from "@indiciaosint/sdk/core.js";
 import { intelligenceSearchFace } from "@indiciaosint/sdk/funcs/intelligence-search-face.js";
+import { openAsBlob } from "node:fs";
 
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -840,7 +830,58 @@ const indicia = new IndiciaCore({
 
 async function run() {
   const res = await intelligenceSearchFace(indicia, {
-    media: "<value>",
+    media: await openAsBlob("example.file"),
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("intelligenceSearchFace failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: results
+
+<!-- UsageSnippet language="typescript" operationID="searchFace" method="post" path="/v1/search/intelligence/facial" example="results" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+import { openAsBlob } from "node:fs";
+
+const indicia = new Indicia({
+  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.intelligence.searchFace({
+    media: await openAsBlob("example.file"),
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { intelligenceSearchFace } from "@indiciaosint/sdk/funcs/intelligence-search-face.js";
+import { openAsBlob } from "node:fs";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await intelligenceSearchFace(indicia, {
+    media: await openAsBlob("example.file"),
   });
   if (res.ok) {
     const { value: result } = res;
@@ -868,12 +909,11 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.SearchFaceBadRequestError      | 400                                   | application/json                      |
-| errors.SearchFacePaymentRequiredError | 402                                   | application/json                      |
-| errors.SearchFaceInternalServerError  | 500                                   | application/json                      |
-| errors.IndiciaDefaultError            | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 400, 402                   | application/json           |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchHudsonRock
 
@@ -946,7 +986,7 @@ run();
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.SearchHudsonRockInternalServerError | 500                                        | application/json                           |
-| errors.IndiciaDefaultError                 | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |

@@ -80,10 +80,10 @@ run();
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.SearchIpInfoInternalServerError | 500                                    | application/json                       |
-| errors.IndiciaDefaultError             | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchDns
 
@@ -154,10 +154,10 @@ run();
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.SearchDnsInternalServerError | 500                                 | application/json                    |
-| errors.IndiciaDefaultError          | 4XX, 5XX                            | \*/\*                               |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchShodan
 
@@ -228,10 +228,10 @@ run();
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.SearchShodanInternalServerError | 500                                    | application/json                       |
-| errors.IndiciaDefaultError             | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchWhois
 
@@ -302,10 +302,10 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.SearchWhoisInternalServerError | 500                                   | application/json                      |
-| errors.IndiciaDefaultError            | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## scanPorts
 
@@ -591,6 +591,108 @@ async function run() {
 
 run();
 ```
+### Example Usage: progress
+
+<!-- UsageSnippet language="typescript" operationID="scanPorts" method="post" path="/v1/search/infrastructure/portscan" example="progress" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.infrastructure.scanPorts({
+    host: "unconscious-elevator.info",
+    options: {},
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { infrastructureScanPorts } from "@indiciaosint/sdk/funcs/infrastructure-scan-ports.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await infrastructureScanPorts(indicia, {
+    host: "unconscious-elevator.info",
+    options: {},
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("infrastructureScanPorts failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: scanning
+
+<!-- UsageSnippet language="typescript" operationID="scanPorts" method="post" path="/v1/search/infrastructure/portscan" example="scanning" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.infrastructure.scanPorts({
+    host: "unconscious-elevator.info",
+    options: {},
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { infrastructureScanPorts } from "@indiciaosint/sdk/funcs/infrastructure-scan-ports.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+});
+
+async function run() {
+  const res = await infrastructureScanPorts(indicia, {
+    host: "unconscious-elevator.info",
+    options: {},
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("infrastructureScanPorts failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -607,12 +709,11 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ScanPortsBadRequestError      | 400                                  | application/json                     |
-| errors.ScanPortsPaymentRequiredError | 402                                  | application/json                     |
-| errors.ScanPortsInternalServerError  | 500                                  | application/json                     |
-| errors.IndiciaDefaultError           | 4XX, 5XX                             | \*/\*                                |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 400, 402                   | application/json           |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## searchCertificates
 
@@ -683,7 +784,7 @@ run();
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.SearchCertificatesInternalServerError | 500                                          | application/json                             |
-| errors.IndiciaDefaultError                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |

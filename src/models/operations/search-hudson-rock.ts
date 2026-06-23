@@ -39,7 +39,7 @@ export type SearchHudsonRockDataType2 = OpenEnum<
   typeof SearchHudsonRockDataType2
 >;
 
-export type Stealer = {
+export type SearchHudsonRockStealer = {
   computerName: string;
   dateCompromised: string;
   ip: string;
@@ -55,7 +55,7 @@ export type Stealer = {
 export type SearchHudsonRockData2 = {
   type: SearchHudsonRockDataType2;
   message?: string | undefined;
-  stealers?: Array<Stealer> | undefined;
+  stealers?: Array<SearchHudsonRockStealer> | undefined;
 };
 
 export type Application = {
@@ -259,7 +259,10 @@ export const SearchHudsonRockDataType2$inboundSchema: z.ZodMiniType<
 > = openEnums.inboundSchema(SearchHudsonRockDataType2);
 
 /** @internal */
-export const Stealer$inboundSchema: z.ZodMiniType<Stealer, unknown> = z.pipe(
+export const SearchHudsonRockStealer$inboundSchema: z.ZodMiniType<
+  SearchHudsonRockStealer,
+  unknown
+> = z.pipe(
   z.object({
     computer_name: types.string(),
     date_compromised: types.string(),
@@ -287,13 +290,13 @@ export const Stealer$inboundSchema: z.ZodMiniType<Stealer, unknown> = z.pipe(
   }),
 );
 
-export function stealerFromJSON(
+export function searchHudsonRockStealerFromJSON(
   jsonString: string,
-): SafeParseResult<Stealer, SDKValidationError> {
+): SafeParseResult<SearchHudsonRockStealer, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Stealer$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Stealer' from JSON`,
+    (x) => SearchHudsonRockStealer$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchHudsonRockStealer' from JSON`,
   );
 }
 
@@ -304,7 +307,9 @@ export const SearchHudsonRockData2$inboundSchema: z.ZodMiniType<
 > = z.object({
   type: SearchHudsonRockDataType2$inboundSchema,
   message: types.optional(types.string()),
-  stealers: types.optional(z.array(z.lazy(() => Stealer$inboundSchema))),
+  stealers: types.optional(
+    z.array(z.lazy(() => SearchHudsonRockStealer$inboundSchema)),
+  ),
 });
 
 export function searchHudsonRockData2FromJSON(

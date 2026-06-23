@@ -13,18 +13,6 @@ export type SearchCertificatesRequest = {
   query: string;
 };
 
-export type SearchCertificatesInternalServerErrorData = {
-  commonName: string;
-  entryTimestamp: string;
-  id: number;
-  issuerCaId: number;
-  issuerName: string;
-  nameValue: string;
-  notAfter: string;
-  notBefore: string;
-  serialNumber: string;
-};
-
 export type SearchCertificatesData = {
   commonName: string;
   entryTimestamp: string;
@@ -64,50 +52,6 @@ export function searchCertificatesRequestToJSON(
 ): string {
   return JSON.stringify(
     SearchCertificatesRequest$outboundSchema.parse(searchCertificatesRequest),
-  );
-}
-
-/** @internal */
-export const SearchCertificatesInternalServerErrorData$inboundSchema:
-  z.ZodMiniType<SearchCertificatesInternalServerErrorData, unknown> = z.pipe(
-    z.object({
-      common_name: types.string(),
-      entry_timestamp: types.string(),
-      id: types.number(),
-      issuer_ca_id: types.number(),
-      issuer_name: types.string(),
-      name_value: types.string(),
-      not_after: types.string(),
-      not_before: types.string(),
-      serial_number: types.string(),
-    }),
-    z.transform((v) => {
-      return remap$(v, {
-        "common_name": "commonName",
-        "entry_timestamp": "entryTimestamp",
-        "issuer_ca_id": "issuerCaId",
-        "issuer_name": "issuerName",
-        "name_value": "nameValue",
-        "not_after": "notAfter",
-        "not_before": "notBefore",
-        "serial_number": "serialNumber",
-      });
-    }),
-  );
-
-export function searchCertificatesInternalServerErrorDataFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  SearchCertificatesInternalServerErrorData,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      SearchCertificatesInternalServerErrorData$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'SearchCertificatesInternalServerErrorData' from JSON`,
   );
 }
 

@@ -7,6 +7,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export const SearchRobloxType = {
@@ -76,13 +77,19 @@ export type SearchRobloxProfile = {
   rolimons?: SearchRobloxRolimons | undefined;
 };
 
+export type SearchRobloxStealer = {};
+
+export type Stealer = number | SearchRobloxStealer | string | boolean;
+
 export type SearchRobloxData = {
   type: string;
   altAccountThumbnails?: { [k: string]: string } | undefined;
   altAccounts?: AltAccounts | undefined;
   leaks?: any | undefined;
   profile?: SearchRobloxProfile | undefined;
-  stealers?: Array<any> | undefined;
+  stealers?:
+    | Array<number | SearchRobloxStealer | string | boolean | null>
+    | undefined;
   verified?: boolean | null | undefined;
 };
 
@@ -261,6 +268,41 @@ export function searchRobloxProfileFromJSON(
 }
 
 /** @internal */
+export const SearchRobloxStealer$inboundSchema: z.ZodMiniType<
+  SearchRobloxStealer,
+  unknown
+> = z.object({});
+
+export function searchRobloxStealerFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchRobloxStealer, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchRobloxStealer$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchRobloxStealer' from JSON`,
+  );
+}
+
+/** @internal */
+export const Stealer$inboundSchema: z.ZodMiniType<Stealer, unknown> =
+  smartUnion([
+    types.number(),
+    z.lazy(() => SearchRobloxStealer$inboundSchema),
+    types.string(),
+    types.boolean(),
+  ]);
+
+export function stealerFromJSON(
+  jsonString: string,
+): SafeParseResult<Stealer, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Stealer$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Stealer' from JSON`,
+  );
+}
+
+/** @internal */
 export const SearchRobloxData$inboundSchema: z.ZodMiniType<
   SearchRobloxData,
   unknown
@@ -270,7 +312,14 @@ export const SearchRobloxData$inboundSchema: z.ZodMiniType<
   altAccounts: types.optional(z.lazy(() => AltAccounts$inboundSchema)),
   leaks: types.optional(z.any()),
   profile: types.optional(z.lazy(() => SearchRobloxProfile$inboundSchema)),
-  stealers: types.optional(z.array(z.any())),
+  stealers: types.optional(
+    z.array(types.nullable(smartUnion([
+      types.number(),
+      z.lazy(() => SearchRobloxStealer$inboundSchema),
+      types.string(),
+      types.boolean(),
+    ]))),
+  ),
   verified: z.optional(z.nullable(types.boolean())),
 });
 

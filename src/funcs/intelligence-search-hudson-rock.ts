@@ -40,7 +40,7 @@ export function intelligenceSearchHudsonRock(
 ): APIPromise<
   Result<
     operations.SearchHudsonRockResponse,
-    | errors.SearchHudsonRockInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.SearchHudsonRockResponse,
-      | errors.SearchHudsonRockInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -150,7 +150,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.SearchHudsonRockResponse,
-    | errors.SearchHudsonRockInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -161,7 +161,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.SearchHudsonRockResponse$inboundSchema),
-    M.jsonErr(500, errors.SearchHudsonRockInternalServerError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

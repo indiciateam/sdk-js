@@ -167,9 +167,7 @@ export function infrastructureScanPorts(
 ): APIPromise<
   Result<
     string,
-    | errors.ScanPortsBadRequestError
-    | errors.ScanPortsPaymentRequiredError
-    | errors.ScanPortsInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -195,9 +193,7 @@ async function $do(
   [
     Result<
       string,
-      | errors.ScanPortsBadRequestError
-      | errors.ScanPortsPaymentRequiredError
-      | errors.ScanPortsInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -280,9 +276,7 @@ async function $do(
 
   const [result] = await M.match<
     string,
-    | errors.ScanPortsBadRequestError
-    | errors.ScanPortsPaymentRequiredError
-    | errors.ScanPortsInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -293,9 +287,8 @@ async function $do(
     | SDKValidationError
   >(
     M.text(200, types$.string(), { ctype: "text/event-stream" }),
-    M.jsonErr(400, errors.ScanPortsBadRequestError$inboundSchema),
-    M.jsonErr(402, errors.ScanPortsPaymentRequiredError$inboundSchema),
-    M.jsonErr(500, errors.ScanPortsInternalServerError$inboundSchema),
+    M.jsonErr([400, 402], errors.FailedResponseError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

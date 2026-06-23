@@ -40,7 +40,7 @@ export function toolsLookupDiscordAlt(
 ): APIPromise<
   Result<
     operations.LookupDiscordAltResponse,
-    | errors.LookupDiscordAltInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.LookupDiscordAltResponse,
-      | errors.LookupDiscordAltInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -150,7 +150,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.LookupDiscordAltResponse,
-    | errors.LookupDiscordAltInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -161,7 +161,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.LookupDiscordAltResponse$inboundSchema),
-    M.jsonErr(500, errors.LookupDiscordAltInternalServerError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

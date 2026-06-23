@@ -4,7 +4,12 @@
 
 import * as z from "zod/v4-mini";
 import { IndiciaCore } from "../core.js";
-import { appendForm } from "../lib/encodings.js";
+import { appendForm, normalizeBlob } from "../lib/encodings.js";
+import {
+  bytesToBlob,
+  getContentTypeFromFileName,
+  readableStreamToArrayBuffer,
+} from "../lib/files.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -25,8 +30,10 @@ import { ResponseValidationError } from "../models/errors/response-validation-er
 import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
+import { isBlobLike } from "../types/blobs.js";
 import { Result } from "../types/fp.js";
 import * as types$ from "../types/primitives.js";
+import { isReadableStream } from "../types/streams.js";
 
 /**
  * Geolocate Media
@@ -35,6 +42,7 @@ import * as types$ from "../types/primitives.js";
  * Geolocate an image using AI-powered analysis. Streams progress updates via Server-Sent Events.
  *
  *       Response type:
+ *
  *       ```ts
  *       interface GeolocationResponse {
  *         location: string | null;
@@ -52,9 +60,7 @@ export function intelligenceGeolocateMedia(
 ): APIPromise<
   Result<
     string,
-    | errors.GeolocateMediaBadRequestError
-    | errors.GeolocateMediaPaymentRequiredError
-    | errors.GeolocateMediaInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -80,9 +86,7 @@ async function $do(
   [
     Result<
       string,
-      | errors.GeolocateMediaBadRequestError
-      | errors.GeolocateMediaPaymentRequiredError
-      | errors.GeolocateMediaInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -106,11 +110,33 @@ async function $do(
   const payload = parsed.value;
   const body = new FormData();
 
+  if (isBlobLike(payload.media)) {
+    const file = payload.media;
+    const blob = await normalizeBlob(file);
+    const name = "name" in file ? (file.name as string) : undefined;
+    appendForm(body, "media", blob, name);
+  } else if (isReadableStream(payload.media.content)) {
+    const buffer = await readableStreamToArrayBuffer(payload.media.content);
+    const contentType = getContentTypeFromFileName(payload.media.fileName)
+      || "application/octet-stream";
+    appendForm(
+      body,
+      "media",
+      bytesToBlob(buffer, contentType),
+      payload.media.fileName,
+    );
+  } else {
+    const contentType = getContentTypeFromFileName(payload.media.fileName)
+      || "application/octet-stream";
+    appendForm(
+      body,
+      "media",
+      bytesToBlob(payload.media.content, contentType),
+      payload.media.fileName,
+    );
+  }
   if (payload.locationHint !== undefined) {
     appendForm(body, "locationHint", payload.locationHint);
-  }
-  if (payload.media !== undefined) {
-    appendForm(body, "media", payload.media);
   }
   if (payload.model !== undefined) {
     appendForm(body, "model", payload.model);
@@ -174,9 +200,7 @@ async function $do(
 
   const [result] = await M.match<
     string,
-    | errors.GeolocateMediaBadRequestError
-    | errors.GeolocateMediaPaymentRequiredError
-    | errors.GeolocateMediaInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -187,9 +211,8 @@ async function $do(
     | SDKValidationError
   >(
     M.text(200, types$.string(), { ctype: "text/event-stream" }),
-    M.jsonErr(400, errors.GeolocateMediaBadRequestError$inboundSchema),
-    M.jsonErr(402, errors.GeolocateMediaPaymentRequiredError$inboundSchema),
-    M.jsonErr(500, errors.GeolocateMediaInternalServerError$inboundSchema),
+    M.jsonErr([400, 402], errors.FailedResponseError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

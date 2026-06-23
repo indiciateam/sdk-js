@@ -31,7 +31,23 @@ export type Account = {
   verified?: boolean | undefined;
 };
 
+export type Award = {};
+
+export type AwardUnion = number | Award | string | boolean;
+
+export type SearchUsernameBadge = {};
+
+export type Badge = number | SearchUsernameBadge | string | boolean;
+
 export type Bands = number | string;
+
+export type BioLink = {};
+
+export type BioLinkUnion = number | BioLink | string | boolean;
+
+export type Club = {};
+
+export type ClubUnion = number | Club | string | boolean;
 
 export type Collections = number | string;
 
@@ -46,16 +62,44 @@ export type Course = {
   xp?: number | undefined;
 };
 
+export type CryptoAddress = {};
+
+export type CryptoAddressUnion = number | CryptoAddress | string | boolean;
+
 export type Followers = number | string;
 
 export type Following = number | string;
+
+export type LatestPaste = {};
+
+export type LatestPasteUnion = number | LatestPaste | string | boolean;
+
+export type Link = {};
+
+export type LinkUnion = number | Link | string | boolean;
 
 export type SearchUsernameOrganization = {
   name?: string | undefined;
   url?: string | undefined;
 };
 
+export type Platform = {};
+
+export type PlatformUnion = number | Platform | string | boolean;
+
 export type Plays = number | string;
+
+export type Proof = {};
+
+export type ProofUnion = number | Proof | string | boolean;
+
+export type SearchUsernameRole = {};
+
+export type Role = number | SearchUsernameRole | string | boolean;
+
+export type SocialLink = {};
+
+export type SocialLinkUnion = number | SocialLink | string | boolean;
 
 export type Socials = {
   facebook?: string | undefined;
@@ -76,6 +120,10 @@ export type Status = {
 
 export type StatusUnion = string | Status;
 
+export type UrlEntity = {};
+
+export type UrlEntityUnion = number | UrlEntity | string | boolean;
+
 export type Url = {
   title?: string | undefined;
   value?: string | undefined;
@@ -88,18 +136,20 @@ export type Metadata = {
   address?: string | undefined;
   awardeeKarma?: number | undefined;
   awarderKarma?: number | undefined;
-  awards?: Array<any> | undefined;
+  awards?: Array<number | Award | string | boolean | null> | undefined;
   backgroundPicture?: string | undefined;
-  badges?: Array<any> | undefined;
+  badges?:
+    | Array<number | SearchUsernameBadge | string | boolean | null>
+    | undefined;
   bands?: number | string | undefined;
-  bioLinks?: Array<any> | undefined;
+  bioLinks?: Array<number | BioLink | string | boolean | null> | undefined;
   blog?: string | undefined;
   boardCount?: number | undefined;
   broadcasterType?: string | undefined;
   capeUrl?: string | undefined;
   cashtagUrl?: string | undefined;
   channelId?: string | undefined;
-  clubs?: Array<any> | undefined;
+  clubs?: Array<number | Club | string | boolean | null> | undefined;
   collections?: number | string | undefined;
   company?: string | undefined;
   connections?: Array<Connection> | undefined;
@@ -109,7 +159,9 @@ export type Metadata = {
   createdDate?: string | undefined;
   createdOn?: string | undefined;
   createdUtc?: number | undefined;
-  cryptoAddresses?: Array<any> | undefined;
+  cryptoAddresses?:
+    | Array<number | CryptoAddress | string | boolean | null>
+    | undefined;
   currency?: string | undefined;
   currentStreak?: number | undefined;
   devices?: Array<string> | undefined;
@@ -145,11 +197,13 @@ export type Metadata = {
   keywords?: Array<string> | undefined;
   lastModified?: string | undefined;
   lastSeen?: string | undefined;
-  latestPastes?: Array<any> | undefined;
+  latestPastes?:
+    | Array<number | LatestPaste | string | boolean | null>
+    | undefined;
   learningLanguage?: string | undefined;
   likes?: number | undefined;
   likesReceived?: number | undefined;
-  links?: Array<any> | undefined;
+  links?: Array<number | Link | string | boolean | null> | undefined;
   listedCount?: number | undefined;
   mediaCount?: number | undefined;
   memberType?: string | undefined;
@@ -159,14 +213,14 @@ export type Metadata = {
   pasteViews?: number | undefined;
   pins?: number | undefined;
   platformId?: string | undefined;
-  platforms?: Array<any> | undefined;
+  platforms?: Array<number | Platform | string | boolean | null> | undefined;
   playlistCount?: number | undefined;
   plays?: number | string | undefined;
   posts?: number | undefined;
   postsCount?: number | undefined;
   primaryTeam?: string | undefined;
   profileViews?: number | undefined;
-  proofs?: Array<any> | undefined;
+  proofs?: Array<number | Proof | string | boolean | null> | undefined;
   provider?: string | undefined;
   providerId?: string | undefined;
   publicGists?: number | undefined;
@@ -179,11 +233,15 @@ export type Metadata = {
   registeredSince?: string | undefined;
   reputation?: number | undefined;
   reputationLabel?: string | undefined;
-  roles?: Array<any> | undefined;
+  roles?:
+    | Array<number | SearchUsernameRole | string | boolean | null>
+    | undefined;
   scratchTeam?: boolean | undefined;
   skills?: Array<string> | undefined;
   skinUrl?: string | undefined;
-  socialLinks?: Array<any> | undefined;
+  socialLinks?:
+    | Array<number | SocialLink | string | boolean | null>
+    | undefined;
   socials?: Socials | Array<string> | undefined;
   status?: string | Status | undefined;
   steamId64?: string | undefined;
@@ -204,7 +262,7 @@ export type Metadata = {
   twitterUsername?: string | undefined;
   updatedAt?: string | undefined;
   upvotes?: number | undefined;
-  urlEntities?: Array<any> | undefined;
+  urlEntities?: Array<number | UrlEntity | string | boolean | null> | undefined;
   urls?: Array<Url> | undefined;
   uuid?: string | undefined;
   videoCount?: number | undefined;
@@ -306,6 +364,72 @@ export function accountFromJSON(
 }
 
 /** @internal */
+export const Award$inboundSchema: z.ZodMiniType<Award, unknown> = z.object({});
+
+export function awardFromJSON(
+  jsonString: string,
+): SafeParseResult<Award, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Award$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Award' from JSON`,
+  );
+}
+
+/** @internal */
+export const AwardUnion$inboundSchema: z.ZodMiniType<AwardUnion, unknown> =
+  smartUnion([
+    types.number(),
+    z.lazy(() => Award$inboundSchema),
+    types.string(),
+    types.boolean(),
+  ]);
+
+export function awardUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<AwardUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AwardUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AwardUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchUsernameBadge$inboundSchema: z.ZodMiniType<
+  SearchUsernameBadge,
+  unknown
+> = z.object({});
+
+export function searchUsernameBadgeFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchUsernameBadge, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchUsernameBadge$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchUsernameBadge' from JSON`,
+  );
+}
+
+/** @internal */
+export const Badge$inboundSchema: z.ZodMiniType<Badge, unknown> = smartUnion([
+  types.number(),
+  z.lazy(() => SearchUsernameBadge$inboundSchema),
+  types.string(),
+  types.boolean(),
+]);
+
+export function badgeFromJSON(
+  jsonString: string,
+): SafeParseResult<Badge, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Badge$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Badge' from JSON`,
+  );
+}
+
+/** @internal */
 export const Bands$inboundSchema: z.ZodMiniType<Bands, unknown> = smartUnion([
   types.number(),
   types.string(),
@@ -318,6 +442,72 @@ export function bandsFromJSON(
     jsonString,
     (x) => Bands$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Bands' from JSON`,
+  );
+}
+
+/** @internal */
+export const BioLink$inboundSchema: z.ZodMiniType<BioLink, unknown> = z.object(
+  {},
+);
+
+export function bioLinkFromJSON(
+  jsonString: string,
+): SafeParseResult<BioLink, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BioLink$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BioLink' from JSON`,
+  );
+}
+
+/** @internal */
+export const BioLinkUnion$inboundSchema: z.ZodMiniType<BioLinkUnion, unknown> =
+  smartUnion([
+    types.number(),
+    z.lazy(() => BioLink$inboundSchema),
+    types.string(),
+    types.boolean(),
+  ]);
+
+export function bioLinkUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<BioLinkUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => BioLinkUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'BioLinkUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const Club$inboundSchema: z.ZodMiniType<Club, unknown> = z.object({});
+
+export function clubFromJSON(
+  jsonString: string,
+): SafeParseResult<Club, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Club$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Club' from JSON`,
+  );
+}
+
+/** @internal */
+export const ClubUnion$inboundSchema: z.ZodMiniType<ClubUnion, unknown> =
+  smartUnion([
+    types.number(),
+    z.lazy(() => Club$inboundSchema),
+    types.string(),
+    types.boolean(),
+  ]);
+
+export function clubUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<ClubUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ClubUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ClubUnion' from JSON`,
   );
 }
 
@@ -370,6 +560,43 @@ export function courseFromJSON(
 }
 
 /** @internal */
+export const CryptoAddress$inboundSchema: z.ZodMiniType<
+  CryptoAddress,
+  unknown
+> = z.object({});
+
+export function cryptoAddressFromJSON(
+  jsonString: string,
+): SafeParseResult<CryptoAddress, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CryptoAddress$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CryptoAddress' from JSON`,
+  );
+}
+
+/** @internal */
+export const CryptoAddressUnion$inboundSchema: z.ZodMiniType<
+  CryptoAddressUnion,
+  unknown
+> = smartUnion([
+  types.number(),
+  z.lazy(() => CryptoAddress$inboundSchema),
+  types.string(),
+  types.boolean(),
+]);
+
+export function cryptoAddressUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<CryptoAddressUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CryptoAddressUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CryptoAddressUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const Followers$inboundSchema: z.ZodMiniType<Followers, unknown> =
   smartUnion([types.number(), types.string()]);
 
@@ -398,6 +625,73 @@ export function followingFromJSON(
 }
 
 /** @internal */
+export const LatestPaste$inboundSchema: z.ZodMiniType<LatestPaste, unknown> = z
+  .object({});
+
+export function latestPasteFromJSON(
+  jsonString: string,
+): SafeParseResult<LatestPaste, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LatestPaste$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LatestPaste' from JSON`,
+  );
+}
+
+/** @internal */
+export const LatestPasteUnion$inboundSchema: z.ZodMiniType<
+  LatestPasteUnion,
+  unknown
+> = smartUnion([
+  types.number(),
+  z.lazy(() => LatestPaste$inboundSchema),
+  types.string(),
+  types.boolean(),
+]);
+
+export function latestPasteUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<LatestPasteUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LatestPasteUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LatestPasteUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const Link$inboundSchema: z.ZodMiniType<Link, unknown> = z.object({});
+
+export function linkFromJSON(
+  jsonString: string,
+): SafeParseResult<Link, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Link$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Link' from JSON`,
+  );
+}
+
+/** @internal */
+export const LinkUnion$inboundSchema: z.ZodMiniType<LinkUnion, unknown> =
+  smartUnion([
+    types.number(),
+    z.lazy(() => Link$inboundSchema),
+    types.string(),
+    types.boolean(),
+  ]);
+
+export function linkUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<LinkUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LinkUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LinkUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const SearchUsernameOrganization$inboundSchema: z.ZodMiniType<
   SearchUsernameOrganization,
   unknown
@@ -417,6 +711,41 @@ export function searchUsernameOrganizationFromJSON(
 }
 
 /** @internal */
+export const Platform$inboundSchema: z.ZodMiniType<Platform, unknown> = z
+  .object({});
+
+export function platformFromJSON(
+  jsonString: string,
+): SafeParseResult<Platform, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Platform$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Platform' from JSON`,
+  );
+}
+
+/** @internal */
+export const PlatformUnion$inboundSchema: z.ZodMiniType<
+  PlatformUnion,
+  unknown
+> = smartUnion([
+  types.number(),
+  z.lazy(() => Platform$inboundSchema),
+  types.string(),
+  types.boolean(),
+]);
+
+export function platformUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PlatformUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PlatformUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PlatformUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const Plays$inboundSchema: z.ZodMiniType<Plays, unknown> = smartUnion([
   types.number(),
   types.string(),
@@ -429,6 +758,107 @@ export function playsFromJSON(
     jsonString,
     (x) => Plays$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Plays' from JSON`,
+  );
+}
+
+/** @internal */
+export const Proof$inboundSchema: z.ZodMiniType<Proof, unknown> = z.object({});
+
+export function proofFromJSON(
+  jsonString: string,
+): SafeParseResult<Proof, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Proof$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Proof' from JSON`,
+  );
+}
+
+/** @internal */
+export const ProofUnion$inboundSchema: z.ZodMiniType<ProofUnion, unknown> =
+  smartUnion([
+    types.number(),
+    z.lazy(() => Proof$inboundSchema),
+    types.string(),
+    types.boolean(),
+  ]);
+
+export function proofUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<ProofUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ProofUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProofUnion' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchUsernameRole$inboundSchema: z.ZodMiniType<
+  SearchUsernameRole,
+  unknown
+> = z.object({});
+
+export function searchUsernameRoleFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchUsernameRole, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchUsernameRole$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchUsernameRole' from JSON`,
+  );
+}
+
+/** @internal */
+export const Role$inboundSchema: z.ZodMiniType<Role, unknown> = smartUnion([
+  types.number(),
+  z.lazy(() => SearchUsernameRole$inboundSchema),
+  types.string(),
+  types.boolean(),
+]);
+
+export function roleFromJSON(
+  jsonString: string,
+): SafeParseResult<Role, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Role$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Role' from JSON`,
+  );
+}
+
+/** @internal */
+export const SocialLink$inboundSchema: z.ZodMiniType<SocialLink, unknown> = z
+  .object({});
+
+export function socialLinkFromJSON(
+  jsonString: string,
+): SafeParseResult<SocialLink, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SocialLink$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SocialLink' from JSON`,
+  );
+}
+
+/** @internal */
+export const SocialLinkUnion$inboundSchema: z.ZodMiniType<
+  SocialLinkUnion,
+  unknown
+> = smartUnion([
+  types.number(),
+  z.lazy(() => SocialLink$inboundSchema),
+  types.string(),
+  types.boolean(),
+]);
+
+export function socialLinkUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<SocialLinkUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SocialLinkUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SocialLinkUnion' from JSON`,
   );
 }
 
@@ -509,6 +939,41 @@ export function statusUnionFromJSON(
 }
 
 /** @internal */
+export const UrlEntity$inboundSchema: z.ZodMiniType<UrlEntity, unknown> = z
+  .object({});
+
+export function urlEntityFromJSON(
+  jsonString: string,
+): SafeParseResult<UrlEntity, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UrlEntity$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UrlEntity' from JSON`,
+  );
+}
+
+/** @internal */
+export const UrlEntityUnion$inboundSchema: z.ZodMiniType<
+  UrlEntityUnion,
+  unknown
+> = smartUnion([
+  types.number(),
+  z.lazy(() => UrlEntity$inboundSchema),
+  types.string(),
+  types.boolean(),
+]);
+
+export function urlEntityUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<UrlEntityUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UrlEntityUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UrlEntityUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const Url$inboundSchema: z.ZodMiniType<Url, unknown> = z.object({
   title: types.optional(types.string()),
   value: types.optional(types.string()),
@@ -533,18 +998,46 @@ export const Metadata$inboundSchema: z.ZodMiniType<Metadata, unknown> = z.pipe(
     address: types.optional(types.string()),
     awardee_karma: types.optional(types.number()),
     awarder_karma: types.optional(types.number()),
-    awards: types.optional(z.array(z.any())),
+    awards: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => Award$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     background_picture: types.optional(types.string()),
-    badges: types.optional(z.array(z.any())),
+    badges: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => SearchUsernameBadge$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     bands: types.optional(smartUnion([types.number(), types.string()])),
-    bio_links: types.optional(z.array(z.any())),
+    bio_links: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => BioLink$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     blog: types.optional(types.string()),
     board_count: types.optional(types.number()),
     broadcaster_type: types.optional(types.string()),
     cape_url: types.optional(types.string()),
     cashtag_url: types.optional(types.string()),
     channel_id: types.optional(types.string()),
-    clubs: types.optional(z.array(z.any())),
+    clubs: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => Club$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     collections: types.optional(smartUnion([types.number(), types.string()])),
     company: types.optional(types.string()),
     connections: types.optional(
@@ -556,7 +1049,14 @@ export const Metadata$inboundSchema: z.ZodMiniType<Metadata, unknown> = z.pipe(
     created_date: types.optional(types.string()),
     created_on: types.optional(types.string()),
     created_utc: types.optional(types.number()),
-    crypto_addresses: types.optional(z.array(z.any())),
+    crypto_addresses: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => CryptoAddress$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     currency: types.optional(types.string()),
     current_streak: types.optional(types.number()),
     devices: types.optional(z.array(types.string())),
@@ -592,11 +1092,25 @@ export const Metadata$inboundSchema: z.ZodMiniType<Metadata, unknown> = z.pipe(
     keywords: types.optional(z.array(types.string())),
     last_modified: types.optional(types.string()),
     last_seen: types.optional(types.string()),
-    latest_pastes: types.optional(z.array(z.any())),
+    latest_pastes: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => LatestPaste$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     learning_language: types.optional(types.string()),
     likes: types.optional(types.number()),
     likes_received: types.optional(types.number()),
-    links: types.optional(z.array(z.any())),
+    links: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => Link$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     listed_count: types.optional(types.number()),
     media_count: types.optional(types.number()),
     member_type: types.optional(types.string()),
@@ -608,14 +1122,28 @@ export const Metadata$inboundSchema: z.ZodMiniType<Metadata, unknown> = z.pipe(
     paste_views: types.optional(types.number()),
     pins: types.optional(types.number()),
     platform_id: types.optional(types.string()),
-    platforms: types.optional(z.array(z.any())),
+    platforms: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => Platform$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     playlist_count: types.optional(types.number()),
     plays: types.optional(smartUnion([types.number(), types.string()])),
     posts: types.optional(types.number()),
     posts_count: types.optional(types.number()),
     primary_team: types.optional(types.string()),
     profile_views: types.optional(types.number()),
-    proofs: types.optional(z.array(z.any())),
+    proofs: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => Proof$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     provider: types.optional(types.string()),
     provider_id: types.optional(types.string()),
     public_gists: types.optional(types.number()),
@@ -628,11 +1156,25 @@ export const Metadata$inboundSchema: z.ZodMiniType<Metadata, unknown> = z.pipe(
     registered_since: types.optional(types.string()),
     reputation: types.optional(types.number()),
     reputation_label: types.optional(types.string()),
-    roles: types.optional(z.array(z.any())),
+    roles: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => SearchUsernameRole$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     scratch_team: types.optional(types.boolean()),
     skills: types.optional(z.array(types.string())),
     skin_url: types.optional(types.string()),
-    social_links: types.optional(z.array(z.any())),
+    social_links: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => SocialLink$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     socials: types.optional(
       smartUnion([
         z.lazy(() => Socials$inboundSchema),
@@ -660,7 +1202,14 @@ export const Metadata$inboundSchema: z.ZodMiniType<Metadata, unknown> = z.pipe(
     twitter_username: types.optional(types.string()),
     updated_at: types.optional(types.string()),
     upvotes: types.optional(types.number()),
-    url_entities: types.optional(z.array(z.any())),
+    url_entities: types.optional(
+      z.array(types.nullable(smartUnion([
+        types.number(),
+        z.lazy(() => UrlEntity$inboundSchema),
+        types.string(),
+        types.boolean(),
+      ]))),
+    ),
     urls: types.optional(z.array(z.lazy(() => Url$inboundSchema))),
     uuid: types.optional(types.string()),
     video_count: types.optional(types.number()),

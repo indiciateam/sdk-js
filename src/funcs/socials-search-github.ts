@@ -40,7 +40,7 @@ export function socialsSearchGithub(
 ): APIPromise<
   Result<
     operations.SearchGithubResponse,
-    | errors.SearchGithubInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.SearchGithubResponse,
-      | errors.SearchGithubInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -149,7 +149,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.SearchGithubResponse,
-    | errors.SearchGithubInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -160,7 +160,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.SearchGithubResponse$inboundSchema),
-    M.jsonErr(500, errors.SearchGithubInternalServerError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

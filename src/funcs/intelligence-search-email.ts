@@ -40,7 +40,7 @@ export function intelligenceSearchEmail(
 ): APIPromise<
   Result<
     operations.SearchEmailResponse,
-    | errors.SearchEmailInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -66,7 +66,7 @@ async function $do(
   [
     Result<
       operations.SearchEmailResponse,
-      | errors.SearchEmailInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -149,7 +149,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.SearchEmailResponse,
-    | errors.SearchEmailInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -160,7 +160,7 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.SearchEmailResponse$inboundSchema),
-    M.jsonErr(500, errors.SearchEmailInternalServerError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

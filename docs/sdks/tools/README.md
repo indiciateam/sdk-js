@@ -77,10 +77,10 @@ run();
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.LookupDiscordAltInternalServerError | 500                                        | application/json                           |
-| errors.IndiciaDefaultError                 | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## bypassDoubleCounter
 
@@ -151,10 +151,10 @@ run();
 
 ### Errors
 
-| Error Type                                    | Status Code                                   | Content Type                                  |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| errors.BypassDoubleCounterInternalServerError | 500                                           | application/json                              |
-| errors.IndiciaDefaultError                    | 4XX, 5XX                                      | \*/\*                                         |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
 ## downloadIntelxFile
 
@@ -227,8 +227,8 @@ run();
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.DownloadIntelxFileBadRequestError     | 400                                          | application/json                             |
-| errors.DownloadIntelxFileInternalServerError | 500                                          | application/json                             |
-| errors.IndiciaDefaultError                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 400                        | application/json           |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |

@@ -3,14 +3,49 @@
  */
 
 import * as z from "zod/v4-mini";
+import { blobLikeSchema } from "../../types/blobs.js";
+
+export type SearchFaceMedia = {
+  fileName: string;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
+};
 
 export type SearchFaceRequest = {
-  media: any;
+  /**
+   * The image file to be analyzed. Max size 10MB
+   */
+  media: SearchFaceMedia | Blob;
 };
 
 /** @internal */
+export type SearchFaceMedia$Outbound = {
+  fileName: string;
+  content: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
+};
+
+/** @internal */
+export const SearchFaceMedia$outboundSchema: z.ZodMiniType<
+  SearchFaceMedia$Outbound,
+  SearchFaceMedia
+> = z.object({
+  fileName: z.string(),
+  content: z.union([
+    z.custom<ReadableStream<Uint8Array>>(x => x instanceof ReadableStream),
+    z.custom<Blob>(x => x instanceof Blob),
+    z.custom<ArrayBuffer>(x => x instanceof ArrayBuffer),
+    z.custom<Uint8Array>(x => x instanceof Uint8Array),
+  ]),
+});
+
+export function searchFaceMediaToJSON(
+  searchFaceMedia: SearchFaceMedia,
+): string {
+  return JSON.stringify(SearchFaceMedia$outboundSchema.parse(searchFaceMedia));
+}
+
+/** @internal */
 export type SearchFaceRequest$Outbound = {
-  media: any;
+  media: SearchFaceMedia$Outbound | Blob;
 };
 
 /** @internal */
@@ -18,7 +53,10 @@ export const SearchFaceRequest$outboundSchema: z.ZodMiniType<
   SearchFaceRequest$Outbound,
   SearchFaceRequest
 > = z.object({
-  media: z.any(),
+  media: z.union([
+    z.lazy(() => SearchFaceMedia$outboundSchema),
+    blobLikeSchema,
+  ]),
 });
 
 export function searchFaceRequestToJSON(

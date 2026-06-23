@@ -40,8 +40,7 @@ export function intelligenceSearchWebDatabases(
 ): APIPromise<
   Result<
     operations.SearchWebDatabasesResponse,
-    | errors.SearchWebDatabasesPaymentRequiredError
-    | errors.SearchWebDatabasesInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -67,8 +66,7 @@ async function $do(
   [
     Result<
       operations.SearchWebDatabasesResponse,
-      | errors.SearchWebDatabasesPaymentRequiredError
-      | errors.SearchWebDatabasesInternalServerError
+      | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
       | ConnectionError
@@ -152,8 +150,7 @@ async function $do(
 
   const [result] = await M.match<
     operations.SearchWebDatabasesResponse,
-    | errors.SearchWebDatabasesPaymentRequiredError
-    | errors.SearchWebDatabasesInternalServerError
+    | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
     | ConnectionError
@@ -164,8 +161,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.SearchWebDatabasesResponse$inboundSchema),
-    M.jsonErr(402, errors.SearchWebDatabasesPaymentRequiredError$inboundSchema),
-    M.jsonErr(500, errors.SearchWebDatabasesInternalServerError$inboundSchema),
+    M.jsonErr(402, errors.FailedResponseError$inboundSchema),
+    M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

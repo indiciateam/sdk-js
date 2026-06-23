@@ -1,5 +1,7 @@
 # Model
 
+The geolocation model to use. "enhanced" provides more detailed analysis at a higher credit cost, and takes longer.
+
 ## Example Usage
 
 ```typescript
