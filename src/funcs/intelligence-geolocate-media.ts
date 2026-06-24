@@ -40,18 +40,6 @@ import { isReadableStream } from "../types/streams.js";
  *
  * @remarks
  * Geolocate an image using AI-powered analysis. Streams progress updates via Server-Sent Events.
- *
- *       Response type:
- *
- *       ```ts
- *       interface GeolocationResponse {
- *         location: string | null;
- *         coordinates: string | null;
- *         certainty: string;
- *         reasoning: string;
- *         mapsUrl?: `https://www.google.com/maps/search/?api=1&query=${string}`;
- *       }
- *     ```
  */
 export function intelligenceGeolocateMedia(
   client: IndiciaCore,
@@ -148,8 +136,8 @@ async function $do(
     Accept: "text/event-stream",
   }));
 
-  const secConfig = await extractSecurity(client._options.apiKeyAuth);
-  const securityInput = secConfig == null ? {} : { apiKeyAuth: secConfig };
+  const secConfig = await extractSecurity(client._options.apiKey);
+  const securityInput = secConfig == null ? {} : { apiKey: secConfig };
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
@@ -160,7 +148,7 @@ async function $do(
 
     resolvedSecurity: requestSecurity,
 
-    securitySource: client._options.apiKeyAuth,
+    securitySource: client._options.apiKey,
     retryConfig: options?.retries
       || client._options.retryConfig
       || { strategy: "none" },

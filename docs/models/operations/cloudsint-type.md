@@ -5,11 +5,11 @@
 ```typescript
 import { CloudsintType } from "@indiciaosint/sdk/models/operations";
 
-let value: CloudsintType = "ip";
+let value: CloudsintType = "name";
 ```
 
 ## Values
 
 ```typescript
-"discordid" | "email" | "ip" | "name" | "password" | "phone" | "steamid" | "url" | "username"
+"email" | "ip" | "name" | "password" | "phone" | "steamid" | "url" | "username"
 ```

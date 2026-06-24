@@ -21,7 +21,7 @@ Search Discord users for profile and server info
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -46,7 +46,7 @@ import { socialsSearchDiscord } from "@indiciaosint/sdk/funcs/socials-search-dis
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -95,7 +95,7 @@ Search GitHub profiles, info, and commit emails
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -120,7 +120,7 @@ import { socialsSearchGithub } from "@indiciaosint/sdk/funcs/socials-search-gith
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -169,7 +169,7 @@ Lookup Roblox users, game statistics, and profile information
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -194,7 +194,7 @@ import { socialsSearchRoblox } from "@indiciaosint/sdk/funcs/socials-search-robl
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -243,7 +243,7 @@ Aggregate intelligence and data of a TikTok account
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -268,7 +268,7 @@ import { socialsSearchTiktok } from "@indiciaosint/sdk/funcs/socials-search-tikt
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -317,7 +317,7 @@ Search various sites for a specific username
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -342,7 +342,7 @@ import { socialsSearchUsername } from "@indiciaosint/sdk/funcs/socials-search-us
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {

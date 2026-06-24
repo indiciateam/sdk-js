@@ -13,7 +13,9 @@ Developer-friendly & type-safe Typescript SDK for the Indicia API.
 <!-- Start Summary [summary] -->
 ## Summary
 
-Indicia API: Development documentation
+Indicia API: Programmatically access Indicia's features via API keys.
+        Get started by creating an API key in the [Indicia Dashboard](https://indicia.app/dashboard/account).
+       A JavaScript SDK is also available at [`@indiciaosint/sdk`](https://www.npmjs.com/package/@indiciaosint/sdk)
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -87,7 +89,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -108,16 +110,16 @@ run();
 
 This SDK supports the following security scheme globally:
 
-| Name         | Type   | Scheme  | Environment Variable   |
-| ------------ | ------ | ------- | ---------------------- |
-| `apiKeyAuth` | apiKey | API key | `INDICIA_API_KEY_AUTH` |
+| Name     | Type   | Scheme  | Environment Variable |
+| -------- | ------ | ------- | -------------------- |
+| `apiKey` | apiKey | API key | `INDICIA_API_KEY`    |
 
-To authenticate with the API the `apiKeyAuth` parameter must be set when initializing the SDK client instance. For example:
+To authenticate with the API the `apiKey` parameter must be set when initializing the SDK client instance. For example:
 ```typescript
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -272,7 +274,7 @@ import { Indicia } from "@indiciaosint/sdk";
 import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -298,7 +300,7 @@ To change the default retry strategy for a single API call, simply provide a ret
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -337,7 +339,7 @@ const indicia = new Indicia({
     },
     retryConnectionErrors: false,
   },
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -371,7 +373,7 @@ import { Indicia } from "@indiciaosint/sdk";
 import * as errors from "@indiciaosint/sdk/models/errors";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -441,7 +443,7 @@ import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
   serverURL: "https://api.indicia.app",
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {

@@ -22,7 +22,7 @@ Analyze details of an IP Address.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -47,7 +47,7 @@ import { infrastructureSearchIpInfo } from "@indiciaosint/sdk/funcs/infrastructu
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -96,7 +96,7 @@ Perform deep DNS analysis and find hidden subdomains
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -121,7 +121,7 @@ import { infrastructureSearchDns } from "@indiciaosint/sdk/funcs/infrastructure-
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -170,7 +170,7 @@ IP service and software intelligence
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -195,7 +195,7 @@ import { infrastructureSearchShodan } from "@indiciaosint/sdk/funcs/infrastructu
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -244,7 +244,7 @@ Return information on a domain and its registration
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -269,7 +269,7 @@ import { infrastructureSearchWhois } from "@indiciaosint/sdk/funcs/infrastructur
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -311,133 +311,6 @@ run();
 
 Perform a port scan on a given IP address or domain.
 
-  Response type:
-  ```ts
-  interface NmapScanResult {
-    $: {
-      scanner: string;
-      args: string;
-      start: string;
-      startstr: string;
-      version: string;
-      xmloutputversion: string;
-    };
-    scaninfo: Array<{
-      $: {
-        type: string;
-        protocol: string;
-        numservices: string;
-        services: string;
-      };
-    }>;
-    verbose: Array<{ $: { level: string } }>;
-    debugging: Array<{ $: { level: string } }>;
-    taskprogress?: Array<{
-      $: {
-        task: string;
-        time: string;
-        percent: string;
-        remaining: string;
-        etc: string;
-      };
-    }>;
-    host?: Array<{
-      $: {
-        starttime: string;
-        endtime: string;
-      };
-      status: Array<{
-        $: {
-          state: string;
-          reason: string;
-          reason_ttl: string;
-        };
-      }>;
-      address: Array<{
-        $: {
-          addr: string;
-          addrtype: string;
-        };
-      }>;
-      hostnames?: Array<{
-        hostname: Array<{
-          $: {
-            name: string;
-            type: string;
-          };
-        }>;
-      }>;
-      ports?: Array<{
-        extraports?: Array<{
-          $: {
-            state: string;
-            count: string;
-          };
-          extrareasons: Array<{
-            $: {
-              reason: string;
-              count: string;
-              proto: string;
-              ports: string;
-            };
-          }>;
-        }>;
-        port?: Array<{
-          $: {
-            protocol: string;
-            portid: string;
-          };
-          state: Array<{
-            $: {
-              state: string;
-              reason: string;
-              reason_ttl: string;
-            };
-          }>;
-          service?: Array<{
-            $: {
-              name: string;
-              product?: string;
-              version?: string;
-              extrainfo?: string;
-              ostype?: string;
-              method: string;
-              conf: string;
-            };
-            cpe?: string[];
-          }>;
-        }>;
-      }>;
-      times?: Array<{
-        $: {
-          srtt: string;
-          rttvar: string;
-          to: string;
-        };
-      }>;
-    }>;
-    runstats: Array<{
-      finished: Array<{
-        $: {
-          time: string;
-          timestr: string;
-          summary: string;
-          elapsed: string;
-          exit: string;
-        };
-      }>;
-      hosts: Array<{
-        $: {
-          up: string;
-          down: string;
-          total: string;
-        };
-      }>;
-    }>;
-  }
-```
-  
-
 ### Example Usage: analyzing
 
 <!-- UsageSnippet language="typescript" operationID="scanPorts" method="post" path="/v1/search/infrastructure/portscan" example="analyzing" -->
@@ -445,7 +318,7 @@ Perform a port scan on a given IP address or domain.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -471,7 +344,7 @@ import { infrastructureScanPorts } from "@indiciaosint/sdk/funcs/infrastructure-
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -496,7 +369,7 @@ run();
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -522,7 +395,7 @@ import { infrastructureScanPorts } from "@indiciaosint/sdk/funcs/infrastructure-
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -547,7 +420,7 @@ run();
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -573,7 +446,7 @@ import { infrastructureScanPorts } from "@indiciaosint/sdk/funcs/infrastructure-
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -598,7 +471,7 @@ run();
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -624,7 +497,7 @@ import { infrastructureScanPorts } from "@indiciaosint/sdk/funcs/infrastructure-
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -649,7 +522,7 @@ run();
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -675,7 +548,7 @@ import { infrastructureScanPorts } from "@indiciaosint/sdk/funcs/infrastructure-
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -726,7 +599,7 @@ Lookup details about a TLS certificate by domain.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -751,7 +624,7 @@ import { infrastructureSearchCertificates } from "@indiciaosint/sdk/funcs/infras
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {

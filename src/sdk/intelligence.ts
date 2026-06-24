@@ -53,18 +53,6 @@ export class Intelligence extends ClientSDK {
    *
    * @remarks
    * Geolocate an image using AI-powered analysis. Streams progress updates via Server-Sent Events.
-   *
-   *       Response type:
-   *
-   *       ```ts
-   *       interface GeolocationResponse {
-   *         location: string | null;
-   *         coordinates: string | null;
-   *         certainty: string;
-   *         reasoning: string;
-   *         mapsUrl?: `https://www.google.com/maps/search/?api=1&query=${string}`;
-   *       }
-   *     ```
    */
   async geolocateMedia(
     request: operations.GeolocateMediaRequest,

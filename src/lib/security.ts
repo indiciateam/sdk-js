@@ -247,7 +247,7 @@ export function resolveGlobalSecurity(
       {
         fieldName: "x-api-key",
         type: "apiKey:header",
-        value: security?.apiKeyAuth ?? env().INDICIA_API_KEY_AUTH,
+        value: security?.apiKey ?? env().INDICIA_API_KEY,
       },
     ],
   ];

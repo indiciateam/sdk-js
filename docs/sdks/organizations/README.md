@@ -22,7 +22,7 @@ List organizations the authenticated user belongs to.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -45,7 +45,7 @@ import { organizationsListOrganizations } from "@indiciaosint/sdk/funcs/organiza
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -90,7 +90,7 @@ Get details for a specific organization you are a member of.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -115,7 +115,7 @@ import { organizationsGetOrganization } from "@indiciaosint/sdk/funcs/organizati
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -163,7 +163,7 @@ List members of an organization you belong to.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -188,7 +188,7 @@ import { organizationsListOrganizationMembers } from "@indiciaosint/sdk/funcs/or
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -236,7 +236,7 @@ Get the audit log for an organization. Requires owner or admin role.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -261,7 +261,7 @@ import { organizationsGetOrganizationAuditLog } from "@indiciaosint/sdk/funcs/or
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -309,7 +309,7 @@ List cases shared with an organization (filtered by your visibility settings).
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -334,7 +334,7 @@ import { organizationsListOrganizationCases } from "@indiciaosint/sdk/funcs/orga
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -382,7 +382,7 @@ Send credits from your balance to one or more organization members. Requires own
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -413,7 +413,7 @@ import { organizationsSendOrganizationCredits } from "@indiciaosint/sdk/funcs/or
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {

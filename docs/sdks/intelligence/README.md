@@ -26,7 +26,7 @@ Address Search (US Only)
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -54,7 +54,7 @@ import { intelligenceSearchAddress } from "@indiciaosint/sdk/funcs/intelligence-
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -106,7 +106,7 @@ Search for individuals by email address.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -131,7 +131,7 @@ import { intelligenceSearchEmail } from "@indiciaosint/sdk/funcs/intelligence-se
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -173,19 +173,6 @@ run();
 
 Geolocate an image using AI-powered analysis. Streams progress updates via Server-Sent Events.
 
-      Response type:
-
-      ```ts
-      interface GeolocationResponse {
-        location: string | null;
-        coordinates: string | null;
-        certainty: string;
-        reasoning: string;
-        mapsUrl?: `https://www.google.com/maps/search/?api=1&query=${string}`;
-      }
-    ```
-      
-
 ### Example Usage: analyzing
 
 <!-- UsageSnippet language="typescript" operationID="geolocateMedia" method="post" path="/v1/search/intelligence/geolocation" example="analyzing" -->
@@ -194,7 +181,7 @@ import { Indicia } from "@indiciaosint/sdk";
 import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -220,7 +207,7 @@ import { openAsBlob } from "node:fs";
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -245,7 +232,7 @@ import { Indicia } from "@indiciaosint/sdk";
 import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -271,7 +258,7 @@ import { openAsBlob } from "node:fs";
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -296,7 +283,7 @@ import { Indicia } from "@indiciaosint/sdk";
 import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -322,7 +309,7 @@ import { openAsBlob } from "node:fs";
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -372,7 +359,7 @@ Fetches Gmail account information based on the provided email address using the 
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -397,7 +384,7 @@ import { intelligenceSearchGmail } from "@indiciaosint/sdk/funcs/intelligence-se
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -446,7 +433,7 @@ Search for individuals by name and state.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -471,7 +458,7 @@ import { intelligenceSearchPerson } from "@indiciaosint/sdk/funcs/intelligence-s
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -520,7 +507,7 @@ Search for individuals by phone number.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -545,7 +532,7 @@ import { intelligenceSearchPhone } from "@indiciaosint/sdk/funcs/intelligence-se
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -594,7 +581,7 @@ Evaluate potential threats with SEON’s counter fraud intelligence systems.
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -620,7 +607,7 @@ import { intelligenceSearchSeon } from "@indiciaosint/sdk/funcs/intelligence-sea
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -670,7 +657,7 @@ Deep web intelligence gathering and comprehensive data breach analysis
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -696,7 +683,7 @@ import { intelligenceSearchWebDatabases } from "@indiciaosint/sdk/funcs/intellig
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -748,7 +735,7 @@ import { Indicia } from "@indiciaosint/sdk";
 import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -774,7 +761,7 @@ import { openAsBlob } from "node:fs";
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -799,7 +786,7 @@ import { Indicia } from "@indiciaosint/sdk";
 import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -825,7 +812,7 @@ import { openAsBlob } from "node:fs";
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -850,7 +837,7 @@ import { Indicia } from "@indiciaosint/sdk";
 import { openAsBlob } from "node:fs";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -876,7 +863,7 @@ import { openAsBlob } from "node:fs";
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -926,7 +913,7 @@ Search for compromised data on Hudson Rock
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -952,7 +939,7 @@ import { intelligenceSearchHudsonRock } from "@indiciaosint/sdk/funcs/intelligen
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {

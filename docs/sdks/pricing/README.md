@@ -17,7 +17,7 @@ Gives credit pricing for all Indicia services
 import { Indicia } from "@indiciaosint/sdk";
 
 const indicia = new Indicia({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {
@@ -40,7 +40,7 @@ import { pricingGetPricing } from "@indiciaosint/sdk/funcs/pricing-get-pricing.j
 // Use `IndiciaCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const indicia = new IndiciaCore({
-  apiKeyAuth: process.env["INDICIA_API_KEY_AUTH"] ?? "",
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
 });
 
 async function run() {

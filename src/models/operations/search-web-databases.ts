@@ -24,7 +24,6 @@ export const Service = {
 export type Service = ClosedEnum<typeof Service>;
 
 export const CloudsintType = {
-  Discordid: "discordid",
   Email: "email",
   Ip: "ip",
   Name: "name",

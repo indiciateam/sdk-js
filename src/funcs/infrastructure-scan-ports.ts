@@ -33,132 +33,6 @@ import * as types$ from "../types/primitives.js";
  *
  * @remarks
  * Perform a port scan on a given IP address or domain.
- *
- *   Response type:
- *   ```ts
- *   interface NmapScanResult {
- *     $: {
- *       scanner: string;
- *       args: string;
- *       start: string;
- *       startstr: string;
- *       version: string;
- *       xmloutputversion: string;
- *     };
- *     scaninfo: Array<{
- *       $: {
- *         type: string;
- *         protocol: string;
- *         numservices: string;
- *         services: string;
- *       };
- *     }>;
- *     verbose: Array<{ $: { level: string } }>;
- *     debugging: Array<{ $: { level: string } }>;
- *     taskprogress?: Array<{
- *       $: {
- *         task: string;
- *         time: string;
- *         percent: string;
- *         remaining: string;
- *         etc: string;
- *       };
- *     }>;
- *     host?: Array<{
- *       $: {
- *         starttime: string;
- *         endtime: string;
- *       };
- *       status: Array<{
- *         $: {
- *           state: string;
- *           reason: string;
- *           reason_ttl: string;
- *         };
- *       }>;
- *       address: Array<{
- *         $: {
- *           addr: string;
- *           addrtype: string;
- *         };
- *       }>;
- *       hostnames?: Array<{
- *         hostname: Array<{
- *           $: {
- *             name: string;
- *             type: string;
- *           };
- *         }>;
- *       }>;
- *       ports?: Array<{
- *         extraports?: Array<{
- *           $: {
- *             state: string;
- *             count: string;
- *           };
- *           extrareasons: Array<{
- *             $: {
- *               reason: string;
- *               count: string;
- *               proto: string;
- *               ports: string;
- *             };
- *           }>;
- *         }>;
- *         port?: Array<{
- *           $: {
- *             protocol: string;
- *             portid: string;
- *           };
- *           state: Array<{
- *             $: {
- *               state: string;
- *               reason: string;
- *               reason_ttl: string;
- *             };
- *           }>;
- *           service?: Array<{
- *             $: {
- *               name: string;
- *               product?: string;
- *               version?: string;
- *               extrainfo?: string;
- *               ostype?: string;
- *               method: string;
- *               conf: string;
- *             };
- *             cpe?: string[];
- *           }>;
- *         }>;
- *       }>;
- *       times?: Array<{
- *         $: {
- *           srtt: string;
- *           rttvar: string;
- *           to: string;
- *         };
- *       }>;
- *     }>;
- *     runstats: Array<{
- *       finished: Array<{
- *         $: {
- *           time: string;
- *           timestr: string;
- *           summary: string;
- *           elapsed: string;
- *           exit: string;
- *         };
- *       }>;
- *       hosts: Array<{
- *         $: {
- *           up: string;
- *           down: string;
- *           total: string;
- *         };
- *       }>;
- *     }>;
- *   }
- * ```
  */
 export function infrastructureScanPorts(
   client: IndiciaCore,
@@ -224,8 +98,8 @@ async function $do(
     Accept: "text/event-stream",
   }));
 
-  const secConfig = await extractSecurity(client._options.apiKeyAuth);
-  const securityInput = secConfig == null ? {} : { apiKeyAuth: secConfig };
+  const secConfig = await extractSecurity(client._options.apiKey);
+  const securityInput = secConfig == null ? {} : { apiKey: secConfig };
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
@@ -236,7 +110,7 @@ async function $do(
 
     resolvedSecurity: requestSecurity,
 
-    securitySource: client._options.apiKeyAuth,
+    securitySource: client._options.apiKey,
     retryConfig: options?.retries
       || client._options.retryConfig
       || { strategy: "none" },

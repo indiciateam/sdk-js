@@ -5,13 +5,13 @@
 import * as z from "zod/v4-mini";
 
 export interface Env {
-  INDICIA_API_KEY_AUTH?: string | undefined;
+  INDICIA_API_KEY?: string | undefined;
 
   INDICIA_DEBUG?: boolean | undefined;
 }
 
 export const envSchema: z.ZodMiniType<Env, unknown> = z.object({
-  INDICIA_API_KEY_AUTH: z.optional(z.string()),
+  INDICIA_API_KEY: z.optional(z.string()),
 
   INDICIA_DEBUG: z.optional(z.coerce.boolean()),
 });
