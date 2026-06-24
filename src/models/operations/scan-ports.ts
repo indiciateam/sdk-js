@@ -3,6 +3,13 @@
  */
 
 import * as z from "zod/v4-mini";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
+import { discriminatedUnion } from "../../types/discriminated-union.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type Options = {
   scanAll?: boolean | undefined;
@@ -13,6 +20,282 @@ export type Options = {
 export type ScanPortsRequest = {
   host: string;
   options: Options;
+};
+
+/**
+ * Terminal event indicating the scan failed.
+ */
+export type ScanPortsErrorEvent = {
+  status: "error";
+  success: false;
+  /**
+   * Human-readable error message.
+   */
+  error: string;
+};
+
+export type Dollar = {
+  scanner: string;
+  args: string;
+  start: string;
+  startstr: string;
+  version: string;
+  xmloutputversion: string;
+};
+
+export type ScaninfoDollar = {
+  type: string;
+  protocol: string;
+  numservices: string;
+  services: string;
+};
+
+export type Scaninfo = {
+  dollar: ScaninfoDollar;
+};
+
+export type VerboseDollar = {
+  level: string;
+};
+
+export type Verbose = {
+  dollar: VerboseDollar;
+};
+
+export type DebuggingDollar = {
+  level: string;
+};
+
+export type Debugging = {
+  dollar: DebuggingDollar;
+};
+
+export type TaskprogressDollar = {
+  task: string;
+  time: string;
+  percent: string;
+  remaining: string;
+  etc: string;
+};
+
+export type Taskprogress = {
+  dollar: TaskprogressDollar;
+};
+
+export type HostDollar = {
+  starttime: string;
+  endtime: string;
+};
+
+export type StatusDollar = {
+  state: string;
+  reason: string;
+  reasonTtl: string;
+};
+
+export type ScanPortsStatus = {
+  dollar: StatusDollar;
+};
+
+export type AddressDollar = {
+  addr: string;
+  addrtype: string;
+};
+
+export type Address = {
+  dollar: AddressDollar;
+};
+
+export type HostnameDollar = {
+  name: string;
+  type: string;
+};
+
+export type Hostname1 = {
+  dollar: HostnameDollar;
+};
+
+export type Hostname2 = {
+  hostname: Array<Hostname1>;
+};
+
+export type ExtraportDollar = {
+  state: string;
+  count: string;
+};
+
+export type ExtrareasonDollar = {
+  reason: string;
+  count: string;
+  proto: string;
+  ports: string;
+};
+
+export type Extrareason = {
+  dollar: ExtrareasonDollar;
+};
+
+export type Extraport = {
+  dollar: ExtraportDollar;
+  extrareasons: Array<Extrareason>;
+};
+
+export type PortDollar = {
+  protocol: string;
+  portid: string;
+};
+
+export type StateDollar = {
+  state: string;
+  reason: string;
+  reasonTtl: string;
+};
+
+export type State = {
+  dollar: StateDollar;
+};
+
+export type ServiceDollar = {
+  name: string;
+  product?: string | undefined;
+  version?: string | undefined;
+  extrainfo?: string | undefined;
+  ostype?: string | undefined;
+  method: string;
+  conf: string;
+};
+
+export type ScanPortsService = {
+  dollar: ServiceDollar;
+  cpe?: Array<string> | undefined;
+};
+
+export type Port1 = {
+  dollar: PortDollar;
+  state: Array<State>;
+  service?: Array<ScanPortsService> | undefined;
+};
+
+export type Port2 = {
+  extraports?: Array<Extraport> | undefined;
+  port?: Array<Port1> | undefined;
+};
+
+export type TimeDollar = {
+  srtt: string;
+  rttvar: string;
+  to: string;
+};
+
+export type Time = {
+  dollar: TimeDollar;
+};
+
+export type Host = {
+  dollar: HostDollar;
+  status: Array<ScanPortsStatus>;
+  address: Array<Address>;
+  hostnames?: Array<Hostname2> | undefined;
+  ports?: Array<Port2> | undefined;
+  times?: Array<Time> | undefined;
+};
+
+export type FinishedDollar = {
+  time: string;
+  timestr: string;
+  summary: string;
+  elapsed: string;
+  exit: string;
+};
+
+export type Finished = {
+  dollar: FinishedDollar;
+};
+
+export type RunstatHostDollar = {
+  up: string;
+  down: string;
+  total: string;
+};
+
+export type RunstatHost = {
+  dollar: RunstatHostDollar;
+};
+
+export type Runstat = {
+  finished: Array<Finished>;
+  hosts: Array<RunstatHost>;
+};
+
+/**
+ * Parsed nmap scan result.
+ */
+export type ScanPortsData = {
+  dollar: Dollar;
+  scaninfo: Array<Scaninfo>;
+  verbose: Array<Verbose>;
+  debugging: Array<Debugging>;
+  taskprogress?: Array<Taskprogress> | undefined;
+  host?: Array<Host> | undefined;
+  runstats: Array<Runstat>;
+};
+
+/**
+ * Terminal event containing the parsed scan result.
+ */
+export type ScanPortsCompleteEvent = {
+  status: "complete";
+  /**
+   * Parsed nmap scan result.
+   */
+  data: ScanPortsData;
+};
+
+/**
+ * Progress update emitted periodically during the scan.
+ */
+export type ProgressEvent = {
+  status: "progress";
+  /**
+   * Name of the running nmap task.
+   */
+  task: string;
+  /**
+   * Completion percentage of the current task.
+   */
+  percent: number;
+};
+
+/**
+ * Emitted immediately once the scan has started.
+ */
+export type ScanningEvent = {
+  status: "scanning";
+};
+
+/**
+ * JSON `data` payload of a port-scan Server-Sent Event. Discriminated by `status`.
+ */
+export type PortscanEventData =
+  | ScanningEvent
+  | ProgressEvent
+  | ScanPortsCompleteEvent
+  | ScanPortsErrorEvent
+  | discriminatedUnionTypes.Unknown<"status">;
+
+/**
+ * A Server-Sent Event whose `data` field carries the event payload.
+ */
+export type PortscanEvent = {
+  /**
+   * JSON `data` payload of a port-scan Server-Sent Event. Discriminated by `status`.
+   */
+  data:
+    | ScanningEvent
+    | ProgressEvent
+    | ScanPortsCompleteEvent
+    | ScanPortsErrorEvent
+    | discriminatedUnionTypes.Unknown<"status">;
 };
 
 /** @internal */
@@ -54,5 +337,945 @@ export function scanPortsRequestToJSON(
 ): string {
   return JSON.stringify(
     ScanPortsRequest$outboundSchema.parse(scanPortsRequest),
+  );
+}
+
+/** @internal */
+export const ScanPortsErrorEvent$inboundSchema: z.ZodMiniType<
+  ScanPortsErrorEvent,
+  unknown
+> = z.object({
+  status: types.literal("error"),
+  success: types.literal(false),
+  error: types.string(),
+});
+
+export function scanPortsErrorEventFromJSON(
+  jsonString: string,
+): SafeParseResult<ScanPortsErrorEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ScanPortsErrorEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ScanPortsErrorEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const Dollar$inboundSchema: z.ZodMiniType<Dollar, unknown> = z.object({
+  scanner: types.string(),
+  args: types.string(),
+  start: types.string(),
+  startstr: types.string(),
+  version: types.string(),
+  xmloutputversion: types.string(),
+});
+
+export function dollarFromJSON(
+  jsonString: string,
+): SafeParseResult<Dollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Dollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Dollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const ScaninfoDollar$inboundSchema: z.ZodMiniType<
+  ScaninfoDollar,
+  unknown
+> = z.object({
+  type: types.string(),
+  protocol: types.string(),
+  numservices: types.string(),
+  services: types.string(),
+});
+
+export function scaninfoDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<ScaninfoDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ScaninfoDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ScaninfoDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Scaninfo$inboundSchema: z.ZodMiniType<Scaninfo, unknown> = z.pipe(
+  z.object({
+    $: z.lazy(() => ScaninfoDollar$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function scaninfoFromJSON(
+  jsonString: string,
+): SafeParseResult<Scaninfo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Scaninfo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Scaninfo' from JSON`,
+  );
+}
+
+/** @internal */
+export const VerboseDollar$inboundSchema: z.ZodMiniType<
+  VerboseDollar,
+  unknown
+> = z.object({
+  level: types.string(),
+});
+
+export function verboseDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<VerboseDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => VerboseDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VerboseDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Verbose$inboundSchema: z.ZodMiniType<Verbose, unknown> = z.pipe(
+  z.object({
+    $: z.lazy(() => VerboseDollar$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function verboseFromJSON(
+  jsonString: string,
+): SafeParseResult<Verbose, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Verbose$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Verbose' from JSON`,
+  );
+}
+
+/** @internal */
+export const DebuggingDollar$inboundSchema: z.ZodMiniType<
+  DebuggingDollar,
+  unknown
+> = z.object({
+  level: types.string(),
+});
+
+export function debuggingDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<DebuggingDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DebuggingDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DebuggingDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Debugging$inboundSchema: z.ZodMiniType<Debugging, unknown> = z
+  .pipe(
+    z.object({
+      $: z.lazy(() => DebuggingDollar$inboundSchema),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "$": "dollar",
+      });
+    }),
+  );
+
+export function debuggingFromJSON(
+  jsonString: string,
+): SafeParseResult<Debugging, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Debugging$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Debugging' from JSON`,
+  );
+}
+
+/** @internal */
+export const TaskprogressDollar$inboundSchema: z.ZodMiniType<
+  TaskprogressDollar,
+  unknown
+> = z.object({
+  task: types.string(),
+  time: types.string(),
+  percent: types.string(),
+  remaining: types.string(),
+  etc: types.string(),
+});
+
+export function taskprogressDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<TaskprogressDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TaskprogressDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TaskprogressDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Taskprogress$inboundSchema: z.ZodMiniType<Taskprogress, unknown> =
+  z.pipe(
+    z.object({
+      $: z.lazy(() => TaskprogressDollar$inboundSchema),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "$": "dollar",
+      });
+    }),
+  );
+
+export function taskprogressFromJSON(
+  jsonString: string,
+): SafeParseResult<Taskprogress, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Taskprogress$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Taskprogress' from JSON`,
+  );
+}
+
+/** @internal */
+export const HostDollar$inboundSchema: z.ZodMiniType<HostDollar, unknown> = z
+  .object({
+    starttime: types.string(),
+    endtime: types.string(),
+  });
+
+export function hostDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<HostDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const StatusDollar$inboundSchema: z.ZodMiniType<StatusDollar, unknown> =
+  z.pipe(
+    z.object({
+      state: types.string(),
+      reason: types.string(),
+      reason_ttl: types.string(),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "reason_ttl": "reasonTtl",
+      });
+    }),
+  );
+
+export function statusDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<StatusDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StatusDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StatusDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const ScanPortsStatus$inboundSchema: z.ZodMiniType<
+  ScanPortsStatus,
+  unknown
+> = z.pipe(
+  z.object({
+    $: z.lazy(() => StatusDollar$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function scanPortsStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<ScanPortsStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ScanPortsStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ScanPortsStatus' from JSON`,
+  );
+}
+
+/** @internal */
+export const AddressDollar$inboundSchema: z.ZodMiniType<
+  AddressDollar,
+  unknown
+> = z.object({
+  addr: types.string(),
+  addrtype: types.string(),
+});
+
+export function addressDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<AddressDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AddressDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AddressDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Address$inboundSchema: z.ZodMiniType<Address, unknown> = z.pipe(
+  z.object({
+    $: z.lazy(() => AddressDollar$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function addressFromJSON(
+  jsonString: string,
+): SafeParseResult<Address, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Address$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Address' from JSON`,
+  );
+}
+
+/** @internal */
+export const HostnameDollar$inboundSchema: z.ZodMiniType<
+  HostnameDollar,
+  unknown
+> = z.object({
+  name: types.string(),
+  type: types.string(),
+});
+
+export function hostnameDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<HostnameDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostnameDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostnameDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Hostname1$inboundSchema: z.ZodMiniType<Hostname1, unknown> = z
+  .pipe(
+    z.object({
+      $: z.lazy(() => HostnameDollar$inboundSchema),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "$": "dollar",
+      });
+    }),
+  );
+
+export function hostname1FromJSON(
+  jsonString: string,
+): SafeParseResult<Hostname1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Hostname1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Hostname1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Hostname2$inboundSchema: z.ZodMiniType<Hostname2, unknown> = z
+  .object({
+    hostname: z.array(z.lazy(() => Hostname1$inboundSchema)),
+  });
+
+export function hostname2FromJSON(
+  jsonString: string,
+): SafeParseResult<Hostname2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Hostname2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Hostname2' from JSON`,
+  );
+}
+
+/** @internal */
+export const ExtraportDollar$inboundSchema: z.ZodMiniType<
+  ExtraportDollar,
+  unknown
+> = z.object({
+  state: types.string(),
+  count: types.string(),
+});
+
+export function extraportDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<ExtraportDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtraportDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtraportDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const ExtrareasonDollar$inboundSchema: z.ZodMiniType<
+  ExtrareasonDollar,
+  unknown
+> = z.object({
+  reason: types.string(),
+  count: types.string(),
+  proto: types.string(),
+  ports: types.string(),
+});
+
+export function extrareasonDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<ExtrareasonDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtrareasonDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtrareasonDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Extrareason$inboundSchema: z.ZodMiniType<Extrareason, unknown> = z
+  .pipe(
+    z.object({
+      $: z.lazy(() => ExtrareasonDollar$inboundSchema),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "$": "dollar",
+      });
+    }),
+  );
+
+export function extrareasonFromJSON(
+  jsonString: string,
+): SafeParseResult<Extrareason, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Extrareason$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Extrareason' from JSON`,
+  );
+}
+
+/** @internal */
+export const Extraport$inboundSchema: z.ZodMiniType<Extraport, unknown> = z
+  .pipe(
+    z.object({
+      $: z.lazy(() => ExtraportDollar$inboundSchema),
+      extrareasons: z.array(z.lazy(() => Extrareason$inboundSchema)),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "$": "dollar",
+      });
+    }),
+  );
+
+export function extraportFromJSON(
+  jsonString: string,
+): SafeParseResult<Extraport, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Extraport$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Extraport' from JSON`,
+  );
+}
+
+/** @internal */
+export const PortDollar$inboundSchema: z.ZodMiniType<PortDollar, unknown> = z
+  .object({
+    protocol: types.string(),
+    portid: types.string(),
+  });
+
+export function portDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<PortDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PortDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PortDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const StateDollar$inboundSchema: z.ZodMiniType<StateDollar, unknown> = z
+  .pipe(
+    z.object({
+      state: types.string(),
+      reason: types.string(),
+      reason_ttl: types.string(),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "reason_ttl": "reasonTtl",
+      });
+    }),
+  );
+
+export function stateDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<StateDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StateDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StateDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const State$inboundSchema: z.ZodMiniType<State, unknown> = z.pipe(
+  z.object({
+    $: z.lazy(() => StateDollar$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function stateFromJSON(
+  jsonString: string,
+): SafeParseResult<State, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => State$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'State' from JSON`,
+  );
+}
+
+/** @internal */
+export const ServiceDollar$inboundSchema: z.ZodMiniType<
+  ServiceDollar,
+  unknown
+> = z.object({
+  name: types.string(),
+  product: types.optional(types.string()),
+  version: types.optional(types.string()),
+  extrainfo: types.optional(types.string()),
+  ostype: types.optional(types.string()),
+  method: types.string(),
+  conf: types.string(),
+});
+
+export function serviceDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<ServiceDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ServiceDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ServiceDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const ScanPortsService$inboundSchema: z.ZodMiniType<
+  ScanPortsService,
+  unknown
+> = z.pipe(
+  z.object({
+    $: z.lazy(() => ServiceDollar$inboundSchema),
+    cpe: types.optional(z.array(types.string())),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function scanPortsServiceFromJSON(
+  jsonString: string,
+): SafeParseResult<ScanPortsService, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ScanPortsService$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ScanPortsService' from JSON`,
+  );
+}
+
+/** @internal */
+export const Port1$inboundSchema: z.ZodMiniType<Port1, unknown> = z.pipe(
+  z.object({
+    $: z.lazy(() => PortDollar$inboundSchema),
+    state: z.array(z.lazy(() => State$inboundSchema)),
+    service: types.optional(z.array(z.lazy(() =>
+      ScanPortsService$inboundSchema
+    ))),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function port1FromJSON(
+  jsonString: string,
+): SafeParseResult<Port1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Port1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Port1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Port2$inboundSchema: z.ZodMiniType<Port2, unknown> = z.object({
+  extraports: types.optional(z.array(z.lazy(() => Extraport$inboundSchema))),
+  port: types.optional(z.array(z.lazy(() => Port1$inboundSchema))),
+});
+
+export function port2FromJSON(
+  jsonString: string,
+): SafeParseResult<Port2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Port2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Port2' from JSON`,
+  );
+}
+
+/** @internal */
+export const TimeDollar$inboundSchema: z.ZodMiniType<TimeDollar, unknown> = z
+  .object({
+    srtt: types.string(),
+    rttvar: types.string(),
+    to: types.string(),
+  });
+
+export function timeDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<TimeDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => TimeDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TimeDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Time$inboundSchema: z.ZodMiniType<Time, unknown> = z.pipe(
+  z.object({
+    $: z.lazy(() => TimeDollar$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function timeFromJSON(
+  jsonString: string,
+): SafeParseResult<Time, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Time$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Time' from JSON`,
+  );
+}
+
+/** @internal */
+export const Host$inboundSchema: z.ZodMiniType<Host, unknown> = z.pipe(
+  z.object({
+    $: z.lazy(() => HostDollar$inboundSchema),
+    status: z.array(z.lazy(() => ScanPortsStatus$inboundSchema)),
+    address: z.array(z.lazy(() => Address$inboundSchema)),
+    hostnames: types.optional(z.array(z.lazy(() => Hostname2$inboundSchema))),
+    ports: types.optional(z.array(z.lazy(() => Port2$inboundSchema))),
+    times: types.optional(z.array(z.lazy(() => Time$inboundSchema))),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function hostFromJSON(
+  jsonString: string,
+): SafeParseResult<Host, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Host$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Host' from JSON`,
+  );
+}
+
+/** @internal */
+export const FinishedDollar$inboundSchema: z.ZodMiniType<
+  FinishedDollar,
+  unknown
+> = z.object({
+  time: types.string(),
+  timestr: types.string(),
+  summary: types.string(),
+  elapsed: types.string(),
+  exit: types.string(),
+});
+
+export function finishedDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<FinishedDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FinishedDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FinishedDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const Finished$inboundSchema: z.ZodMiniType<Finished, unknown> = z.pipe(
+  z.object({
+    $: z.lazy(() => FinishedDollar$inboundSchema),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function finishedFromJSON(
+  jsonString: string,
+): SafeParseResult<Finished, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Finished$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Finished' from JSON`,
+  );
+}
+
+/** @internal */
+export const RunstatHostDollar$inboundSchema: z.ZodMiniType<
+  RunstatHostDollar,
+  unknown
+> = z.object({
+  up: types.string(),
+  down: types.string(),
+  total: types.string(),
+});
+
+export function runstatHostDollarFromJSON(
+  jsonString: string,
+): SafeParseResult<RunstatHostDollar, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RunstatHostDollar$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunstatHostDollar' from JSON`,
+  );
+}
+
+/** @internal */
+export const RunstatHost$inboundSchema: z.ZodMiniType<RunstatHost, unknown> = z
+  .pipe(
+    z.object({
+      $: z.lazy(() => RunstatHostDollar$inboundSchema),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "$": "dollar",
+      });
+    }),
+  );
+
+export function runstatHostFromJSON(
+  jsonString: string,
+): SafeParseResult<RunstatHost, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RunstatHost$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunstatHost' from JSON`,
+  );
+}
+
+/** @internal */
+export const Runstat$inboundSchema: z.ZodMiniType<Runstat, unknown> = z.object({
+  finished: z.array(z.lazy(() => Finished$inboundSchema)),
+  hosts: z.array(z.lazy(() => RunstatHost$inboundSchema)),
+});
+
+export function runstatFromJSON(
+  jsonString: string,
+): SafeParseResult<Runstat, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Runstat$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Runstat' from JSON`,
+  );
+}
+
+/** @internal */
+export const ScanPortsData$inboundSchema: z.ZodMiniType<
+  ScanPortsData,
+  unknown
+> = z.pipe(
+  z.object({
+    $: z.lazy(() => Dollar$inboundSchema),
+    scaninfo: z.array(z.lazy(() => Scaninfo$inboundSchema)),
+    verbose: z.array(z.lazy(() => Verbose$inboundSchema)),
+    debugging: z.array(z.lazy(() => Debugging$inboundSchema)),
+    taskprogress: types.optional(
+      z.array(z.lazy(() => Taskprogress$inboundSchema)),
+    ),
+    host: types.optional(z.array(z.lazy(() => Host$inboundSchema))),
+    runstats: z.array(z.lazy(() => Runstat$inboundSchema)),
+  }),
+  z.transform((v) => {
+    return remap$(v, {
+      "$": "dollar",
+    });
+  }),
+);
+
+export function scanPortsDataFromJSON(
+  jsonString: string,
+): SafeParseResult<ScanPortsData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ScanPortsData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ScanPortsData' from JSON`,
+  );
+}
+
+/** @internal */
+export const ScanPortsCompleteEvent$inboundSchema: z.ZodMiniType<
+  ScanPortsCompleteEvent,
+  unknown
+> = z.object({
+  status: types.literal("complete"),
+  data: z.lazy(() => ScanPortsData$inboundSchema),
+});
+
+export function scanPortsCompleteEventFromJSON(
+  jsonString: string,
+): SafeParseResult<ScanPortsCompleteEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ScanPortsCompleteEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ScanPortsCompleteEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const ProgressEvent$inboundSchema: z.ZodMiniType<
+  ProgressEvent,
+  unknown
+> = z.object({
+  status: types.literal("progress"),
+  task: types.string(),
+  percent: types.number(),
+});
+
+export function progressEventFromJSON(
+  jsonString: string,
+): SafeParseResult<ProgressEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ProgressEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ProgressEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const ScanningEvent$inboundSchema: z.ZodMiniType<
+  ScanningEvent,
+  unknown
+> = z.object({
+  status: types.literal("scanning"),
+});
+
+export function scanningEventFromJSON(
+  jsonString: string,
+): SafeParseResult<ScanningEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ScanningEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ScanningEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const PortscanEventData$inboundSchema: z.ZodMiniType<
+  PortscanEventData,
+  unknown
+> = discriminatedUnion("status", {
+  scanning: z.lazy(() => ScanningEvent$inboundSchema),
+  progress: z.lazy(() => ProgressEvent$inboundSchema),
+  complete: z.lazy(() => ScanPortsCompleteEvent$inboundSchema),
+  error: z.lazy(() => ScanPortsErrorEvent$inboundSchema),
+});
+
+export function portscanEventDataFromJSON(
+  jsonString: string,
+): SafeParseResult<PortscanEventData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PortscanEventData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PortscanEventData' from JSON`,
+  );
+}
+
+/** @internal */
+export const PortscanEvent$inboundSchema: z.ZodMiniType<
+  PortscanEvent,
+  unknown
+> = z.object({
+  data: z.pipe(
+    z.pipe(
+      z.unknown(),
+      z.transform((v, ctx) => {
+        if (typeof v !== "string") return v;
+        try {
+          return JSON.parse(v);
+        } catch (err) {
+          ctx.issues.push({
+            input: v,
+            code: "custom",
+            message: `malformed json: ${err}`,
+          });
+          return z.NEVER;
+        }
+      }),
+    ),
+    discriminatedUnion("status", {
+      scanning: z.lazy(() => ScanningEvent$inboundSchema),
+      progress: z.lazy(() => ProgressEvent$inboundSchema),
+      complete: z.lazy(() => ScanPortsCompleteEvent$inboundSchema),
+      error: z.lazy(() => ScanPortsErrorEvent$inboundSchema),
+    }),
+  ),
+});
+
+export function portscanEventFromJSON(
+  jsonString: string,
+): SafeParseResult<PortscanEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PortscanEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PortscanEvent' from JSON`,
   );
 }

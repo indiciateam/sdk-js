@@ -3,7 +3,12 @@
  */
 
 import * as z from "zod/v4-mini";
+import { safeParse } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
+import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type SearchFaceMedia = {
   fileName: string;
@@ -16,6 +21,88 @@ export type SearchFaceRequest = {
    */
   media: SearchFaceMedia | Blob;
 };
+
+export type DataError = {
+  status: "error";
+  success: false;
+  /**
+   * Human-readable error message.
+   */
+  error: string;
+};
+
+/**
+ * A data-only event indicating the search failed.
+ */
+export type SearchFaceErrorEvent = {
+  data: DataError;
+};
+
+export type SearchFaceResult = {
+  id: string;
+  hash: string;
+  group: number;
+  quality: number;
+  imageUrl: string;
+  /**
+   * Unix epoch milliseconds the source was crawled.
+   */
+  crawledAt: number;
+  sourceUrl: string;
+  thumbnailUrl: string;
+};
+
+/**
+ * Completed facial search result set.
+ */
+export type SearchFaceData = {
+  /**
+   * Time the search took, in seconds.
+   */
+  time: number;
+  /**
+   * Matched faces found across the internet.
+   */
+  results: Array<SearchFaceResult>;
+  /**
+   * Hash identifying this search.
+   */
+  searchHash: string;
+  /**
+   * Total number of matched faces.
+   */
+  numberOfResults: number;
+};
+
+/**
+ * Emitted as the `results` event with the completed matches.
+ */
+export type ResultsEvent = {
+  /**
+   * Completed facial search result set.
+   */
+  data: SearchFaceData;
+  event: "results";
+};
+
+/**
+ * Emitted as the `faces` event once detection completes.
+ */
+export type FacesEvent = {
+  /**
+   * Number of faces detected in the uploaded image, as a decimal string (5 credits charged per face). "0" means no face was detected.
+   */
+  data: string;
+  event: "faces";
+};
+
+/**
+ * A Server-Sent Event. The `event:` field names the type ("faces" or "results"); errors are delivered as a data-only event.
+ */
+export type FacialSearchEvent =
+  | FacesEvent
+  | ResultsEvent
+  | SearchFaceErrorEvent;
 
 /** @internal */
 export type SearchFaceMedia$Outbound = {
@@ -64,5 +151,177 @@ export function searchFaceRequestToJSON(
 ): string {
   return JSON.stringify(
     SearchFaceRequest$outboundSchema.parse(searchFaceRequest),
+  );
+}
+
+/** @internal */
+export const DataError$inboundSchema: z.ZodMiniType<DataError, unknown> = z
+  .object({
+    status: types.literal("error"),
+    success: types.literal(false),
+    error: types.string(),
+  });
+
+export function dataErrorFromJSON(
+  jsonString: string,
+): SafeParseResult<DataError, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DataError$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DataError' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchFaceErrorEvent$inboundSchema: z.ZodMiniType<
+  SearchFaceErrorEvent,
+  unknown
+> = z.object({
+  data: z.pipe(
+    z.pipe(
+      z.unknown(),
+      z.transform((v, ctx) => {
+        if (typeof v !== "string") return v;
+        try {
+          return JSON.parse(v);
+        } catch (err) {
+          ctx.issues.push({
+            input: v,
+            code: "custom",
+            message: `malformed json: ${err}`,
+          });
+          return z.NEVER;
+        }
+      }),
+    ),
+    z.lazy(() => DataError$inboundSchema),
+  ),
+});
+
+export function searchFaceErrorEventFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchFaceErrorEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchFaceErrorEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchFaceErrorEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchFaceResult$inboundSchema: z.ZodMiniType<
+  SearchFaceResult,
+  unknown
+> = z.object({
+  id: types.string(),
+  hash: types.string(),
+  group: types.number(),
+  quality: types.number(),
+  imageUrl: types.string(),
+  crawledAt: types.number(),
+  sourceUrl: types.string(),
+  thumbnailUrl: types.string(),
+});
+
+export function searchFaceResultFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchFaceResult, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchFaceResult$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchFaceResult' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchFaceData$inboundSchema: z.ZodMiniType<
+  SearchFaceData,
+  unknown
+> = z.object({
+  time: types.number(),
+  results: z.array(z.lazy(() => SearchFaceResult$inboundSchema)),
+  searchHash: types.string(),
+  numberOfResults: types.number(),
+});
+
+export function searchFaceDataFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchFaceData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchFaceData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchFaceData' from JSON`,
+  );
+}
+
+/** @internal */
+export const ResultsEvent$inboundSchema: z.ZodMiniType<ResultsEvent, unknown> =
+  z.object({
+    data: z.pipe(
+      z.pipe(
+        z.unknown(),
+        z.transform((v, ctx) => {
+          if (typeof v !== "string") return v;
+          try {
+            return JSON.parse(v);
+          } catch (err) {
+            ctx.issues.push({
+              input: v,
+              code: "custom",
+              message: `malformed json: ${err}`,
+            });
+            return z.NEVER;
+          }
+        }),
+      ),
+      z.lazy(() => SearchFaceData$inboundSchema),
+    ),
+    event: types.literal("results"),
+  });
+
+export function resultsEventFromJSON(
+  jsonString: string,
+): SafeParseResult<ResultsEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ResultsEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ResultsEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const FacesEvent$inboundSchema: z.ZodMiniType<FacesEvent, unknown> = z
+  .object({
+    data: types.string(),
+    event: types.literal("faces"),
+  });
+
+export function facesEventFromJSON(
+  jsonString: string,
+): SafeParseResult<FacesEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FacesEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FacesEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const FacialSearchEvent$inboundSchema: z.ZodMiniType<
+  FacialSearchEvent,
+  unknown
+> = smartUnion([
+  z.lazy(() => FacesEvent$inboundSchema),
+  z.lazy(() => ResultsEvent$inboundSchema),
+  z.lazy(() => SearchFaceErrorEvent$inboundSchema),
+]);
+
+export function facialSearchEventFromJSON(
+  jsonString: string,
+): SafeParseResult<FacialSearchEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FacialSearchEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FacialSearchEvent' from JSON`,
   );
 }

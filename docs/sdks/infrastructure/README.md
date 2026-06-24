@@ -327,7 +327,9 @@ async function run() {
     options: {},
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -354,7 +356,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("infrastructureScanPorts failed:", res.error);
   }
@@ -378,7 +382,9 @@ async function run() {
     options: {},
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -405,7 +411,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("infrastructureScanPorts failed:", res.error);
   }
@@ -429,7 +437,9 @@ async function run() {
     options: {},
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -456,7 +466,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("infrastructureScanPorts failed:", res.error);
   }
@@ -480,7 +492,9 @@ async function run() {
     options: {},
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -507,7 +521,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("infrastructureScanPorts failed:", res.error);
   }
@@ -531,7 +547,9 @@ async function run() {
     options: {},
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -558,7 +576,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("infrastructureScanPorts failed:", res.error);
   }
@@ -578,7 +598,7 @@ run();
 
 ### Response
 
-**Promise\<[string](../../models/.md)\>**
+**Promise\<[EventStream<operations.PortscanEvent>](../../models/.md)\>**
 
 ### Errors
 

@@ -189,7 +189,9 @@ async function run() {
     media: await openAsBlob("example.file"),
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -216,7 +218,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("intelligenceGeolocateMedia failed:", res.error);
   }
@@ -240,7 +244,9 @@ async function run() {
     media: await openAsBlob("example.file"),
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -267,7 +273,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("intelligenceGeolocateMedia failed:", res.error);
   }
@@ -291,7 +299,9 @@ async function run() {
     media: await openAsBlob("example.file"),
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -318,7 +328,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("intelligenceGeolocateMedia failed:", res.error);
   }
@@ -338,7 +350,7 @@ run();
 
 ### Response
 
-**Promise\<[string](../../models/.md)\>**
+**Promise\<[EventStream<operations.GeolocationEvent>](../../models/.md)\>**
 
 ### Errors
 
@@ -743,7 +755,9 @@ async function run() {
     media: await openAsBlob("example.file"),
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -770,7 +784,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("intelligenceSearchFace failed:", res.error);
   }
@@ -794,7 +810,9 @@ async function run() {
     media: await openAsBlob("example.file"),
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -821,7 +839,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("intelligenceSearchFace failed:", res.error);
   }
@@ -845,7 +865,9 @@ async function run() {
     media: await openAsBlob("example.file"),
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -872,7 +894,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("intelligenceSearchFace failed:", res.error);
   }
@@ -892,7 +916,7 @@ run();
 
 ### Response
 
-**Promise\<[string](../../models/.md)\>**
+**Promise\<[EventStream<operations.FacialSearchEvent>](../../models/.md)\>**
 
 ### Errors
 

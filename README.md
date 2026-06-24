@@ -28,6 +28,7 @@ Indicia API: Programmatically access Indicia's features via API keys.
   * [Authentication](#authentication)
   * [Available Resources and Operations](#available-resources-and-operations)
   * [Standalone functions](#standalone-functions)
+  * [Server-sent event streaming](#server-sent-event-streaming)
   * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
@@ -255,6 +256,41 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
 
+<!-- Start Server-sent event streaming [eventstream] -->
+## Server-sent event streaming
+
+[Server-sent events][mdn-sse] are used to stream content from certain
+operations. These operations will expose the stream as an async iterable that
+can be consumed using a [`for await...of`][mdn-for-await-of] loop. The loop will
+terminate when the server no longer has any events to send and closes the
+underlying connection.
+
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+import { openAsBlob } from "node:fs";
+
+const indicia = new Indicia({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.intelligence.geolocateMedia({
+    media: await openAsBlob("example.file"),
+  });
+
+  for await (const event of result) {
+    console.log(event);
+  }
+}
+
+run();
+
+```
+
+[mdn-sse]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+[mdn-for-await-of]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
+<!-- End Server-sent event streaming [eventstream] -->
+
 <!-- Start File uploads [file-upload] -->
 ## File uploads
 
@@ -282,7 +318,9 @@ async function run() {
     media: await openAsBlob("example.file"),
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();

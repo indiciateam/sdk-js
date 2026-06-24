@@ -5,6 +5,7 @@
 import * as z from "zod/v4-mini";
 import { IndiciaCore } from "../core.js";
 import { appendForm, normalizeBlob } from "../lib/encodings.js";
+import { EventStream } from "../lib/event-streams.js";
 import {
   bytesToBlob,
   getContentTypeFromFileName,
@@ -32,7 +33,6 @@ import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { isBlobLike } from "../types/blobs.js";
 import { Result } from "../types/fp.js";
-import * as types$ from "../types/primitives.js";
 import { isReadableStream } from "../types/streams.js";
 
 /**
@@ -47,7 +47,7 @@ export function intelligenceSearchFace(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    string,
+    EventStream<operations.FacialSearchEvent>,
     | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
@@ -73,7 +73,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      string,
+      EventStream<operations.FacialSearchEvent>,
       | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
@@ -181,7 +181,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    string,
+    EventStream<operations.FacialSearchEvent>,
     | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
@@ -192,7 +192,20 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.text(200, types$.string(), { ctype: "text/event-stream" }),
+    M.sse(
+      200,
+      z.pipe(
+        z.custom<ReadableStream<Uint8Array>>(x => x instanceof ReadableStream),
+        z.transform(stream => {
+          return new EventStream(stream, rawEvent => {
+            return {
+              done: false,
+              value: operations.FacialSearchEvent$inboundSchema.parse(rawEvent),
+            };
+          });
+        }),
+      ),
+    ),
     M.jsonErr([400, 402], errors.FailedResponseError$inboundSchema),
     M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),

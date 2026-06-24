@@ -15,13 +15,15 @@ import * as types from "../../types/primitives.js";
 import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
-export const Service = {
+export const SearchWebDatabasesService = {
   Cloudsint: "cloudsint",
   IntelligencexIdentityportal: "intelligencex.identityportal",
   Leakcheck: "leakcheck",
   Snusbase: "snusbase",
 } as const;
-export type Service = ClosedEnum<typeof Service>;
+export type SearchWebDatabasesService = ClosedEnum<
+  typeof SearchWebDatabasesService
+>;
 
 export const CloudsintType = {
   Email: "email",
@@ -73,7 +75,7 @@ export type SnusbaseType = ClosedEnum<typeof SnusbaseType>;
 
 export type SearchWebDatabasesRequest = {
   query: string;
-  services: Array<Service>;
+  services: Array<SearchWebDatabasesService>;
   cloudsintType?: CloudsintType | undefined;
   intelxType?: IntelxType | undefined;
   leakCheckType?: LeakCheckType | undefined;
@@ -317,9 +319,9 @@ export type SearchWebDatabasesResponse = {
 };
 
 /** @internal */
-export const Service$outboundSchema: z.ZodMiniEnum<typeof Service> = z.enum(
-  Service,
-);
+export const SearchWebDatabasesService$outboundSchema: z.ZodMiniEnum<
+  typeof SearchWebDatabasesService
+> = z.enum(SearchWebDatabasesService);
 
 /** @internal */
 export const CloudsintType$outboundSchema: z.ZodMiniEnum<typeof CloudsintType> =
@@ -353,7 +355,7 @@ export const SearchWebDatabasesRequest$outboundSchema: z.ZodMiniType<
   SearchWebDatabasesRequest
 > = z.object({
   query: z.string(),
-  services: z.array(Service$outboundSchema),
+  services: z.array(SearchWebDatabasesService$outboundSchema),
   cloudsintType: z.optional(CloudsintType$outboundSchema),
   intelxType: z.optional(IntelxType$outboundSchema),
   leakCheckType: z.optional(LeakCheckType$outboundSchema),

@@ -12,6 +12,7 @@ import { intelligenceSearchPerson } from "../funcs/intelligence-search-person.js
 import { intelligenceSearchPhone } from "../funcs/intelligence-search-phone.js";
 import { intelligenceSearchSeon } from "../funcs/intelligence-search-seon.js";
 import { intelligenceSearchWebDatabases } from "../funcs/intelligence-search-web-databases.js";
+import { EventStream } from "../lib/event-streams.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -57,7 +58,7 @@ export class Intelligence extends ClientSDK {
   async geolocateMedia(
     request: operations.GeolocateMediaRequest,
     options?: RequestOptions,
-  ): Promise<string> {
+  ): Promise<EventStream<operations.GeolocationEvent>> {
     return unwrapAsync(intelligenceGeolocateMedia(
       this,
       request,
@@ -159,7 +160,7 @@ export class Intelligence extends ClientSDK {
   async searchFace(
     request: operations.SearchFaceRequest,
     options?: RequestOptions,
-  ): Promise<string> {
+  ): Promise<EventStream<operations.FacialSearchEvent>> {
     return unwrapAsync(intelligenceSearchFace(
       this,
       request,

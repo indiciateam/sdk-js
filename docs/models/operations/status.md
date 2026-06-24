@@ -1,19 +1,17 @@
 # Status
 
-## Example Usage
+
+## Supported Types
+
+### `string`
 
 ```typescript
-import { Status } from "@indiciaosint/sdk/models/operations";
-
-let value: Status = {};
+const value: string = "<value>";
 ```
 
-## Fields
+### `operations.SearchUsernameStatus`
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `isCoach`          | *boolean*          | :heavy_minus_sign: | N/A                |
-| `isModerator`      | *boolean*          | :heavy_minus_sign: | N/A                |
-| `isStaff`          | *boolean*          | :heavy_minus_sign: | N/A                |
-| `isStreamer`       | *boolean*          | :heavy_minus_sign: | N/A                |
-| `isTopBlogger`     | *boolean*          | :heavy_minus_sign: | N/A                |
+```typescript
+const value: operations.SearchUsernameStatus = {};
+```
+

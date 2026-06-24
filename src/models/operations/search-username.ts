@@ -110,7 +110,7 @@ export type Socials = {
 
 export type SocialsUnion = Socials | Array<string>;
 
-export type Status = {
+export type SearchUsernameStatus = {
   isCoach?: boolean | undefined;
   isModerator?: boolean | undefined;
   isStaff?: boolean | undefined;
@@ -118,7 +118,7 @@ export type Status = {
   isTopBlogger?: boolean | undefined;
 };
 
-export type StatusUnion = string | Status;
+export type Status = string | SearchUsernameStatus;
 
 export type UrlEntity = {};
 
@@ -243,7 +243,7 @@ export type Metadata = {
     | Array<number | SocialLink | string | boolean | null>
     | undefined;
   socials?: Socials | Array<string> | undefined;
-  status?: string | Status | undefined;
+  status?: string | SearchUsernameStatus | undefined;
   steamId64?: string | undefined;
   streak?: number | undefined;
   subscriberCount?: number | undefined;
@@ -895,7 +895,10 @@ export function socialsUnionFromJSON(
 }
 
 /** @internal */
-export const Status$inboundSchema: z.ZodMiniType<Status, unknown> = z.pipe(
+export const SearchUsernameStatus$inboundSchema: z.ZodMiniType<
+  SearchUsernameStatus,
+  unknown
+> = z.pipe(
   z.object({
     is_coach: types.optional(types.boolean()),
     is_moderator: types.optional(types.boolean()),
@@ -914,6 +917,22 @@ export const Status$inboundSchema: z.ZodMiniType<Status, unknown> = z.pipe(
   }),
 );
 
+export function searchUsernameStatusFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchUsernameStatus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchUsernameStatus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchUsernameStatus' from JSON`,
+  );
+}
+
+/** @internal */
+export const Status$inboundSchema: z.ZodMiniType<Status, unknown> = smartUnion([
+  types.string(),
+  z.lazy(() => SearchUsernameStatus$inboundSchema),
+]);
+
 export function statusFromJSON(
   jsonString: string,
 ): SafeParseResult<Status, SDKValidationError> {
@@ -921,20 +940,6 @@ export function statusFromJSON(
     jsonString,
     (x) => Status$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Status' from JSON`,
-  );
-}
-
-/** @internal */
-export const StatusUnion$inboundSchema: z.ZodMiniType<StatusUnion, unknown> =
-  smartUnion([types.string(), z.lazy(() => Status$inboundSchema)]);
-
-export function statusUnionFromJSON(
-  jsonString: string,
-): SafeParseResult<StatusUnion, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => StatusUnion$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'StatusUnion' from JSON`,
   );
 }
 
@@ -1182,7 +1187,10 @@ export const Metadata$inboundSchema: z.ZodMiniType<Metadata, unknown> = z.pipe(
       ]),
     ),
     status: types.optional(
-      smartUnion([types.string(), z.lazy(() => Status$inboundSchema)]),
+      smartUnion([
+        types.string(),
+        z.lazy(() => SearchUsernameStatus$inboundSchema),
+      ]),
     ),
     steam_id_64: types.optional(types.string()),
     streak: types.optional(types.number()),

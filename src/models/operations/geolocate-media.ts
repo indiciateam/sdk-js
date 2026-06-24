@@ -3,8 +3,14 @@
  */
 
 import * as z from "zod/v4-mini";
+import { safeParse } from "../../lib/schemas.js";
 import { blobLikeSchema } from "../../types/blobs.js";
+import * as discriminatedUnionTypes from "../../types/discriminated-union.js";
+import { discriminatedUnion } from "../../types/discriminated-union.js";
 import { ClosedEnum } from "../../types/enums.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type GeolocateMediaMedia = {
   fileName: string;
@@ -36,6 +42,90 @@ export type GeolocateMediaRequest = {
    * The geolocation model to use. "enhanced" provides more detailed analysis at a higher credit cost, and takes longer.
    */
   model?: Model | undefined;
+};
+
+/**
+ * Terminal event indicating the analysis failed.
+ */
+export type GeolocateMediaErrorEvent = {
+  status: "error";
+  success: false;
+  /**
+   * Human-readable error message.
+   */
+  error: string;
+};
+
+/**
+ * Geolocation analysis result.
+ */
+export type GeolocateMediaData = {
+  /**
+   * Human-readable location name, or null if undetermined.
+   */
+  location: string | null;
+  /**
+   * Comma-separated "latitude,longitude" pair, or null if undetermined.
+   */
+  coordinates: string | null;
+  /**
+   * Confidence level of the geolocation result.
+   */
+  certainty: string;
+  /**
+   * Explanation of how the location was determined.
+   */
+  reasoning: string;
+  /**
+   * Google Maps URL for the determined coordinates.
+   */
+  mapsUrl?: string | undefined;
+};
+
+/**
+ * Terminal event containing the geolocation result.
+ */
+export type GeolocateMediaCompleteEvent = {
+  status: "complete";
+  success: true;
+  /**
+   * Geolocation analysis result.
+   */
+  data: GeolocateMediaData;
+};
+
+/**
+ * Progress heartbeat emitted while analysis is in progress. Sent immediately on connection and then roughly every 10 seconds to keep the connection alive.
+ */
+export type AnalyzingEvent = {
+  status: "analyzing";
+  /**
+   * Unix epoch milliseconds of the heartbeat.
+   */
+  timestamp?: number | undefined;
+};
+
+/**
+ * JSON `data` payload of a geolocation Server-Sent Event. Discriminated by `status`.
+ */
+export type GeolocationEventData =
+  | AnalyzingEvent
+  | GeolocateMediaCompleteEvent
+  | GeolocateMediaErrorEvent
+  | discriminatedUnionTypes.Unknown<"status">;
+
+/**
+ * A Server-Sent Event whose `data` field carries the event payload.
+ */
+export type GeolocationEvent = {
+  /**
+   * JSON `data` payload of a geolocation Server-Sent Event. Discriminated by `status`.
+   */
+  data:
+    | AnalyzingEvent
+    | GeolocateMediaCompleteEvent
+    | GeolocateMediaErrorEvent
+    | discriminatedUnionTypes.Unknown<"status">;
 };
 
 /** @internal */
@@ -94,5 +184,146 @@ export function geolocateMediaRequestToJSON(
 ): string {
   return JSON.stringify(
     GeolocateMediaRequest$outboundSchema.parse(geolocateMediaRequest),
+  );
+}
+
+/** @internal */
+export const GeolocateMediaErrorEvent$inboundSchema: z.ZodMiniType<
+  GeolocateMediaErrorEvent,
+  unknown
+> = z.object({
+  status: types.literal("error"),
+  success: types.literal(false),
+  error: types.string(),
+});
+
+export function geolocateMediaErrorEventFromJSON(
+  jsonString: string,
+): SafeParseResult<GeolocateMediaErrorEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GeolocateMediaErrorEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GeolocateMediaErrorEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const GeolocateMediaData$inboundSchema: z.ZodMiniType<
+  GeolocateMediaData,
+  unknown
+> = z.object({
+  location: types.nullable(types.string()),
+  coordinates: types.nullable(types.string()),
+  certainty: types.string(),
+  reasoning: types.string(),
+  mapsUrl: types.optional(types.string()),
+});
+
+export function geolocateMediaDataFromJSON(
+  jsonString: string,
+): SafeParseResult<GeolocateMediaData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GeolocateMediaData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GeolocateMediaData' from JSON`,
+  );
+}
+
+/** @internal */
+export const GeolocateMediaCompleteEvent$inboundSchema: z.ZodMiniType<
+  GeolocateMediaCompleteEvent,
+  unknown
+> = z.object({
+  status: types.literal("complete"),
+  success: types.literal(true),
+  data: z.lazy(() => GeolocateMediaData$inboundSchema),
+});
+
+export function geolocateMediaCompleteEventFromJSON(
+  jsonString: string,
+): SafeParseResult<GeolocateMediaCompleteEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GeolocateMediaCompleteEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GeolocateMediaCompleteEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const AnalyzingEvent$inboundSchema: z.ZodMiniType<
+  AnalyzingEvent,
+  unknown
+> = z.object({
+  status: types.literal("analyzing"),
+  timestamp: types.optional(types.number()),
+});
+
+export function analyzingEventFromJSON(
+  jsonString: string,
+): SafeParseResult<AnalyzingEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AnalyzingEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AnalyzingEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const GeolocationEventData$inboundSchema: z.ZodMiniType<
+  GeolocationEventData,
+  unknown
+> = discriminatedUnion("status", {
+  analyzing: z.lazy(() => AnalyzingEvent$inboundSchema),
+  complete: z.lazy(() => GeolocateMediaCompleteEvent$inboundSchema),
+  error: z.lazy(() => GeolocateMediaErrorEvent$inboundSchema),
+});
+
+export function geolocationEventDataFromJSON(
+  jsonString: string,
+): SafeParseResult<GeolocationEventData, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GeolocationEventData$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GeolocationEventData' from JSON`,
+  );
+}
+
+/** @internal */
+export const GeolocationEvent$inboundSchema: z.ZodMiniType<
+  GeolocationEvent,
+  unknown
+> = z.object({
+  data: z.pipe(
+    z.pipe(
+      z.unknown(),
+      z.transform((v, ctx) => {
+        if (typeof v !== "string") return v;
+        try {
+          return JSON.parse(v);
+        } catch (err) {
+          ctx.issues.push({
+            input: v,
+            code: "custom",
+            message: `malformed json: ${err}`,
+          });
+          return z.NEVER;
+        }
+      }),
+    ),
+    discriminatedUnion("status", {
+      analyzing: z.lazy(() => AnalyzingEvent$inboundSchema),
+      complete: z.lazy(() => GeolocateMediaCompleteEvent$inboundSchema),
+      error: z.lazy(() => GeolocateMediaErrorEvent$inboundSchema),
+    }),
+  ),
+});
+
+export function geolocationEventFromJSON(
+  jsonString: string,
+): SafeParseResult<GeolocationEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GeolocationEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GeolocationEvent' from JSON`,
   );
 }

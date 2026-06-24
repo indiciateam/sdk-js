@@ -5,6 +5,7 @@
 import * as z from "zod/v4-mini";
 import { IndiciaCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
+import { EventStream } from "../lib/event-streams.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -26,7 +27,6 @@ import { SDKValidationError } from "../models/errors/sdk-validation-error.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
-import * as types$ from "../types/primitives.js";
 
 /**
  * Port Scan
@@ -40,7 +40,7 @@ export function infrastructureScanPorts(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    string,
+    EventStream<operations.PortscanEvent>,
     | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
@@ -66,7 +66,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      string,
+      EventStream<operations.PortscanEvent>,
       | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
@@ -149,7 +149,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    string,
+    EventStream<operations.PortscanEvent>,
     | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
@@ -160,7 +160,20 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.text(200, types$.string(), { ctype: "text/event-stream" }),
+    M.sse(
+      200,
+      z.pipe(
+        z.custom<ReadableStream<Uint8Array>>(x => x instanceof ReadableStream),
+        z.transform(stream => {
+          return new EventStream(stream, rawEvent => {
+            return {
+              done: false,
+              value: operations.PortscanEvent$inboundSchema.parse(rawEvent),
+            };
+          });
+        }),
+      ),
+    ),
     M.jsonErr([400, 402], errors.FailedResponseError$inboundSchema),
     M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
