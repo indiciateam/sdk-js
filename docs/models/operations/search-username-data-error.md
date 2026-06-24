@@ -1,11 +1,11 @@
-# DataError
+# SearchUsernameDataError
 
 ## Example Usage
 
 ```typescript
-import { DataError } from "@indiciaosint/sdk/models/operations";
+import { SearchUsernameDataError } from "@indiciaosint/sdk/models/operations";
 
-let value: DataError = {
+let value: SearchUsernameDataError = {
   status: "error",
   success: false,
   error: "<value>",

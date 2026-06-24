@@ -7,6 +7,7 @@ import { socialsSearchGithub } from "../funcs/socials-search-github.js";
 import { socialsSearchRoblox } from "../funcs/socials-search-roblox.js";
 import { socialsSearchTiktok } from "../funcs/socials-search-tiktok.js";
 import { socialsSearchUsername } from "../funcs/socials-search-username.js";
+import { EventStream } from "../lib/event-streams.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
@@ -33,12 +34,12 @@ export class Socials extends ClientSDK {
    * GitHub Search
    *
    * @remarks
-   * Search GitHub profiles, info, and commit emails
+   * Search GitHub profiles, info, and commit emails. Streams progress updates via Server-Sent Events.
    */
   async searchGithub(
     request: operations.SearchGithubRequest,
     options?: RequestOptions,
-  ): Promise<operations.SearchGithubResponse> {
+  ): Promise<EventStream<operations.GithubSearchEvent>> {
     return unwrapAsync(socialsSearchGithub(
       this,
       request,
@@ -84,12 +85,12 @@ export class Socials extends ClientSDK {
    * Username Search V2
    *
    * @remarks
-   * Search various sites for a specific username
+   * Search various sites for a specific username. Streams progress updates via Server-Sent Events.
    */
   async searchUsername(
     request: operations.SearchUsernameRequest,
     options?: RequestOptions,
-  ): Promise<operations.SearchUsernameResponse> {
+  ): Promise<EventStream<operations.UsernameSearchEvent>> {
     return unwrapAsync(socialsSearchUsername(
       this,
       request,

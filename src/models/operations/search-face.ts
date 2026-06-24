@@ -22,7 +22,7 @@ export type SearchFaceRequest = {
   media: SearchFaceMedia | Blob;
 };
 
-export type DataError = {
+export type SearchFaceDataError = {
   status: "error";
   success: false;
   /**
@@ -35,7 +35,7 @@ export type DataError = {
  * A data-only event indicating the search failed.
  */
 export type SearchFaceErrorEvent = {
-  data: DataError;
+  data: SearchFaceDataError;
 };
 
 export type SearchFaceResult = {
@@ -155,20 +155,22 @@ export function searchFaceRequestToJSON(
 }
 
 /** @internal */
-export const DataError$inboundSchema: z.ZodMiniType<DataError, unknown> = z
-  .object({
-    status: types.literal("error"),
-    success: types.literal(false),
-    error: types.string(),
-  });
+export const SearchFaceDataError$inboundSchema: z.ZodMiniType<
+  SearchFaceDataError,
+  unknown
+> = z.object({
+  status: types.literal("error"),
+  success: types.literal(false),
+  error: types.string(),
+});
 
-export function dataErrorFromJSON(
+export function searchFaceDataErrorFromJSON(
   jsonString: string,
-): SafeParseResult<DataError, SDKValidationError> {
+): SafeParseResult<SearchFaceDataError, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => DataError$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DataError' from JSON`,
+    (x) => SearchFaceDataError$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchFaceDataError' from JSON`,
   );
 }
 
@@ -194,7 +196,7 @@ export const SearchFaceErrorEvent$inboundSchema: z.ZodMiniType<
         }
       }),
     ),
-    z.lazy(() => DataError$inboundSchema),
+    z.lazy(() => SearchFaceDataError$inboundSchema),
   ),
 });
 

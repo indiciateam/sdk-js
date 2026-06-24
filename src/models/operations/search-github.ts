@@ -7,6 +7,7 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
+import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type SearchGithubRequest = {
@@ -14,6 +15,25 @@ export type SearchGithubRequest = {
 };
 
 export type SearchGithubData = {
+  status: "error";
+  success: false;
+  /**
+   * Human-readable error message.
+   */
+  error: string;
+};
+
+/**
+ * A data-only event indicating the search failed.
+ */
+export type SearchGithubErrorEvent = {
+  data: SearchGithubData;
+};
+
+/**
+ * Completed GitHub profile, commit stats, and discovered emails.
+ */
+export type GithubInfo = {
   avatarUrl: string | null;
   bio: string | null;
   commitEmails: { [k: string]: Array<string> };
@@ -30,16 +50,53 @@ export type SearchGithubData = {
   publicGists: number;
   publicRepos: number;
   username: string;
+  /**
+   * Activity log id for this search, or null.
+   */
+  activityId?: string | null | undefined;
 };
 
 /**
- * Search successful
+ * Terminal `result` event with the completed GitHub profile.
  */
-export type SearchGithubResponse = {
-  data: SearchGithubData;
-  success: boolean;
-  error?: string | undefined;
+export type ResultEvent = {
+  /**
+   * Completed GitHub profile, commit stats, and discovered emails.
+   */
+  data: GithubInfo;
+  event: "result";
 };
+
+/**
+ * Keep-alive emitted roughly every 15s as the `heartbeat` event.
+ */
+export type HeartbeatEvent = {
+  /**
+   * Keep-alive heartbeat. Always an empty string.
+   */
+  data: string;
+  event: "heartbeat";
+};
+
+/**
+ * Progress update emitted as the `status` event.
+ */
+export type StatusEvent = {
+  /**
+   * Human-readable progress message (e.g. "Fetching commit history").
+   */
+  data: string;
+  event: "status";
+};
+
+/**
+ * A Server-Sent Event. The `event:` field names the type ("status", "heartbeat", or "result"); errors are delivered as a data-only event.
+ */
+export type GithubSearchEvent =
+  | StatusEvent
+  | HeartbeatEvent
+  | ResultEvent
+  | SearchGithubErrorEvent;
 
 /** @internal */
 export type SearchGithubRequest$Outbound = {
@@ -66,33 +123,11 @@ export function searchGithubRequestToJSON(
 export const SearchGithubData$inboundSchema: z.ZodMiniType<
   SearchGithubData,
   unknown
-> = z.pipe(
-  z.object({
-    avatar_url: types.nullable(types.string()),
-    bio: types.nullable(types.string()),
-    commitEmails: z.record(z.string(), z.array(types.string())),
-    commitRepoCount: types.number(),
-    commits: types.number(),
-    company: types.nullable(types.string()),
-    createdAt: types.nullable(types.string()),
-    followers: types.number(),
-    following: types.number(),
-    id: types.number(),
-    lastSeen: types.nullable(types.string()),
-    location: types.nullable(types.string()),
-    name: types.nullable(types.string()),
-    public_gists: types.number(),
-    public_repos: types.number(),
-    username: types.string(),
-  }),
-  z.transform((v) => {
-    return remap$(v, {
-      "avatar_url": "avatarUrl",
-      "public_gists": "publicGists",
-      "public_repos": "publicRepos",
-    });
-  }),
-);
+> = z.object({
+  status: types.literal("error"),
+  success: types.literal(false),
+  error: types.string(),
+});
 
 export function searchGithubDataFromJSON(
   jsonString: string,
@@ -105,21 +140,170 @@ export function searchGithubDataFromJSON(
 }
 
 /** @internal */
-export const SearchGithubResponse$inboundSchema: z.ZodMiniType<
-  SearchGithubResponse,
+export const SearchGithubErrorEvent$inboundSchema: z.ZodMiniType<
+  SearchGithubErrorEvent,
   unknown
 > = z.object({
-  data: z.lazy(() => SearchGithubData$inboundSchema),
-  success: types.boolean(),
-  error: types.optional(types.string()),
+  data: z.pipe(
+    z.pipe(
+      z.unknown(),
+      z.transform((v, ctx) => {
+        if (typeof v !== "string") return v;
+        try {
+          return JSON.parse(v);
+        } catch (err) {
+          ctx.issues.push({
+            input: v,
+            code: "custom",
+            message: `malformed json: ${err}`,
+          });
+          return z.NEVER;
+        }
+      }),
+    ),
+    z.lazy(() => SearchGithubData$inboundSchema),
+  ),
 });
 
-export function searchGithubResponseFromJSON(
+export function searchGithubErrorEventFromJSON(
   jsonString: string,
-): SafeParseResult<SearchGithubResponse, SDKValidationError> {
+): SafeParseResult<SearchGithubErrorEvent, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SearchGithubResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchGithubResponse' from JSON`,
+    (x) => SearchGithubErrorEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchGithubErrorEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const GithubInfo$inboundSchema: z.ZodMiniType<GithubInfo, unknown> = z
+  .pipe(
+    z.object({
+      avatar_url: types.nullable(types.string()),
+      bio: types.nullable(types.string()),
+      commitEmails: z.record(z.string(), z.array(types.string())),
+      commitRepoCount: types.number(),
+      commits: types.number(),
+      company: types.nullable(types.string()),
+      createdAt: types.nullable(types.string()),
+      followers: types.number(),
+      following: types.number(),
+      id: types.number(),
+      lastSeen: types.nullable(types.string()),
+      location: types.nullable(types.string()),
+      name: types.nullable(types.string()),
+      public_gists: types.number(),
+      public_repos: types.number(),
+      username: types.string(),
+      activityId: z.optional(z.nullable(types.string())),
+    }),
+    z.transform((v) => {
+      return remap$(v, {
+        "avatar_url": "avatarUrl",
+        "public_gists": "publicGists",
+        "public_repos": "publicRepos",
+      });
+    }),
+  );
+
+export function githubInfoFromJSON(
+  jsonString: string,
+): SafeParseResult<GithubInfo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GithubInfo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GithubInfo' from JSON`,
+  );
+}
+
+/** @internal */
+export const ResultEvent$inboundSchema: z.ZodMiniType<ResultEvent, unknown> = z
+  .object({
+    data: z.pipe(
+      z.pipe(
+        z.unknown(),
+        z.transform((v, ctx) => {
+          if (typeof v !== "string") return v;
+          try {
+            return JSON.parse(v);
+          } catch (err) {
+            ctx.issues.push({
+              input: v,
+              code: "custom",
+              message: `malformed json: ${err}`,
+            });
+            return z.NEVER;
+          }
+        }),
+      ),
+      z.lazy(() => GithubInfo$inboundSchema),
+    ),
+    event: types.literal("result"),
+  });
+
+export function resultEventFromJSON(
+  jsonString: string,
+): SafeParseResult<ResultEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ResultEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ResultEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const HeartbeatEvent$inboundSchema: z.ZodMiniType<
+  HeartbeatEvent,
+  unknown
+> = z.object({
+  data: types.string(),
+  event: types.literal("heartbeat"),
+});
+
+export function heartbeatEventFromJSON(
+  jsonString: string,
+): SafeParseResult<HeartbeatEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HeartbeatEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HeartbeatEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const StatusEvent$inboundSchema: z.ZodMiniType<StatusEvent, unknown> = z
+  .object({
+    data: types.string(),
+    event: types.literal("status"),
+  });
+
+export function statusEventFromJSON(
+  jsonString: string,
+): SafeParseResult<StatusEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StatusEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StatusEvent' from JSON`,
+  );
+}
+
+/** @internal */
+export const GithubSearchEvent$inboundSchema: z.ZodMiniType<
+  GithubSearchEvent,
+  unknown
+> = smartUnion([
+  z.lazy(() => StatusEvent$inboundSchema),
+  z.lazy(() => HeartbeatEvent$inboundSchema),
+  z.lazy(() => ResultEvent$inboundSchema),
+  z.lazy(() => SearchGithubErrorEvent$inboundSchema),
+]);
+
+export function githubSearchEventFromJSON(
+  jsonString: string,
+): SafeParseResult<GithubSearchEvent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GithubSearchEvent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GithubSearchEvent' from JSON`,
   );
 }

@@ -5,21 +5,20 @@
 ```typescript
 import { SearchUsernameData } from "@indiciaosint/sdk/models/operations";
 
-let value: SearchUsernameData = {
-  durationMs: 5119.71,
-  exists: true,
-  service: "<value>",
-  type: "username",
-};
+let value: SearchUsernameData = {};
 ```
 
 ## Fields
 
-| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `durationMs`                                                                              | *number*                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `exists`                                                                                  | *boolean*                                                                                 | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `service`                                                                                 | *string*                                                                                  | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `type`                                                                                    | [operations.SearchUsernameType](../../models/operations/search-username-type.md)          | :heavy_check_mark:                                                                        | N/A                                                                                       |
-| `data`                                                                                    | [operations.SearchUsernameDataData](../../models/operations/search-username-data-data.md) | :heavy_minus_sign:                                                                        | N/A                                                                                       |
-| `error`                                                                                   | *string*                                                                                  | :heavy_minus_sign:                                                                        | N/A                                                                                       |
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `avatar`                                                   | *string*                                                   | :heavy_minus_sign:                                         | N/A                                                        |
+| `bio`                                                      | *string*                                                   | :heavy_minus_sign:                                         | N/A                                                        |
+| `country`                                                  | *string*                                                   | :heavy_minus_sign:                                         | N/A                                                        |
+| `displayName`                                              | *string*                                                   | :heavy_minus_sign:                                         | N/A                                                        |
+| `id`                                                       | *operations.Id*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `isPrivate`                                                | *boolean*                                                  | :heavy_minus_sign:                                         | N/A                                                        |
+| `isVerified`                                               | *boolean*                                                  | :heavy_minus_sign:                                         | N/A                                                        |
+| `metadata`                                                 | [operations.Metadata](../../models/operations/metadata.md) | :heavy_minus_sign:                                         | N/A                                                        |
+| `url`                                                      | *string*                                                   | :heavy_minus_sign:                                         | N/A                                                        |
+| `username`                                                 | *string*                                                   | :heavy_minus_sign:                                         | N/A                                                        |

@@ -86,11 +86,11 @@ run();
 
 ## searchGithub
 
-Search GitHub profiles, info, and commit emails
+Search GitHub profiles, info, and commit emails. Streams progress updates via Server-Sent Events.
 
-### Example Usage
+### Example Usage: error
 
-<!-- UsageSnippet language="typescript" operationID="searchGithub" method="post" path="/v1/search/socials/github" -->
+<!-- UsageSnippet language="typescript" operationID="searchGithub" method="post" path="/v1/search/socials/github" example="error" -->
 ```typescript
 import { Indicia } from "@indiciaosint/sdk";
 
@@ -103,7 +103,9 @@ async function run() {
     query: "<value>",
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -129,7 +131,168 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
+  } else {
+    console.log("socialsSearchGithub failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: heartbeat
+
+<!-- UsageSnippet language="typescript" operationID="searchGithub" method="post" path="/v1/search/socials/github" example="heartbeat" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.socials.searchGithub({
+    query: "<value>",
+  });
+
+  for await (const event of result) {
+    console.log(event);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { socialsSearchGithub } from "@indiciaosint/sdk/funcs/socials-search-github.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const res = await socialsSearchGithub(indicia, {
+    query: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const event of result) {
+    console.log(event);
+  }
+  } else {
+    console.log("socialsSearchGithub failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: result
+
+<!-- UsageSnippet language="typescript" operationID="searchGithub" method="post" path="/v1/search/socials/github" example="result" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.socials.searchGithub({
+    query: "<value>",
+  });
+
+  for await (const event of result) {
+    console.log(event);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { socialsSearchGithub } from "@indiciaosint/sdk/funcs/socials-search-github.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const res = await socialsSearchGithub(indicia, {
+    query: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const event of result) {
+    console.log(event);
+  }
+  } else {
+    console.log("socialsSearchGithub failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: status
+
+<!-- UsageSnippet language="typescript" operationID="searchGithub" method="post" path="/v1/search/socials/github" example="status" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.socials.searchGithub({
+    query: "<value>",
+  });
+
+  for await (const event of result) {
+    console.log(event);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { socialsSearchGithub } from "@indiciaosint/sdk/funcs/socials-search-github.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const res = await socialsSearchGithub(indicia, {
+    query: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("socialsSearchGithub failed:", res.error);
   }
@@ -149,12 +312,13 @@ run();
 
 ### Response
 
-**Promise\<[operations.SearchGithubResponse](../../models/operations/search-github-response.md)\>**
+**Promise\<[EventStream<operations.GithubSearchEvent>](../../models/.md)\>**
 
 ### Errors
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 400, 402                   | application/json           |
 | errors.FailedResponseError | 500                        | application/json           |
 | errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 
@@ -308,11 +472,11 @@ run();
 
 ## searchUsername
 
-Search various sites for a specific username
+Search various sites for a specific username. Streams progress updates via Server-Sent Events.
 
-### Example Usage
+### Example Usage: all
 
-<!-- UsageSnippet language="typescript" operationID="searchUsername" method="post" path="/v2/search/socials/username" -->
+<!-- UsageSnippet language="typescript" operationID="searchUsername" method="post" path="/v2/search/socials/username" example="all" -->
 ```typescript
 import { Indicia } from "@indiciaosint/sdk";
 
@@ -325,7 +489,9 @@ async function run() {
     query: "<value>",
   });
 
-  console.log(result);
+  for await (const event of result) {
+    console.log(event);
+  }
 }
 
 run();
@@ -351,7 +517,115 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const event of result) {
+    console.log(event);
+  }
+  } else {
+    console.log("socialsSearchUsername failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: error
+
+<!-- UsageSnippet language="typescript" operationID="searchUsername" method="post" path="/v2/search/socials/username" example="error" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.socials.searchUsername({
+    query: "<value>",
+  });
+
+  for await (const event of result) {
+    console.log(event);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { socialsSearchUsername } from "@indiciaosint/sdk/funcs/socials-search-username.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const res = await socialsSearchUsername(indicia, {
+    query: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const event of result) {
+    console.log(event);
+  }
+  } else {
+    console.log("socialsSearchUsername failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: individual
+
+<!-- UsageSnippet language="typescript" operationID="searchUsername" method="post" path="/v2/search/socials/username" example="individual" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.socials.searchUsername({
+    query: "<value>",
+  });
+
+  for await (const event of result) {
+    console.log(event);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { socialsSearchUsername } from "@indiciaosint/sdk/funcs/socials-search-username.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const res = await socialsSearchUsername(indicia, {
+    query: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const event of result) {
+    console.log(event);
+  }
   } else {
     console.log("socialsSearchUsername failed:", res.error);
   }
@@ -371,11 +645,12 @@ run();
 
 ### Response
 
-**Promise\<[operations.SearchUsernameResponse](../../models/operations/search-username-response.md)\>**
+**Promise\<[EventStream<operations.UsernameSearchEvent>](../../models/.md)\>**
 
 ### Errors
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 400, 402                   | application/json           |
 | errors.FailedResponseError | 500                        | application/json           |
 | errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |

@@ -5,6 +5,7 @@
 import * as z from "zod/v4-mini";
 import { IndiciaCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
+import { EventStream } from "../lib/event-streams.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -31,7 +32,7 @@ import { Result } from "../types/fp.js";
  * GitHub Search
  *
  * @remarks
- * Search GitHub profiles, info, and commit emails
+ * Search GitHub profiles, info, and commit emails. Streams progress updates via Server-Sent Events.
  */
 export function socialsSearchGithub(
   client: IndiciaCore,
@@ -39,7 +40,7 @@ export function socialsSearchGithub(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.SearchGithubResponse,
+    EventStream<operations.GithubSearchEvent>,
     | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
@@ -65,7 +66,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.SearchGithubResponse,
+      EventStream<operations.GithubSearchEvent>,
       | errors.FailedResponseError
       | IndiciaError
       | ResponseValidationError
@@ -94,7 +95,7 @@ async function $do(
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
-    Accept: "application/json",
+    Accept: "text/event-stream",
   }));
 
   const secConfig = await extractSecurity(client._options.apiKey);
@@ -148,7 +149,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.SearchGithubResponse,
+    EventStream<operations.GithubSearchEvent>,
     | errors.FailedResponseError
     | IndiciaError
     | ResponseValidationError
@@ -159,7 +160,21 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.SearchGithubResponse$inboundSchema),
+    M.sse(
+      200,
+      z.pipe(
+        z.custom<ReadableStream<Uint8Array>>(x => x instanceof ReadableStream),
+        z.transform(stream => {
+          return new EventStream(stream, rawEvent => {
+            return {
+              done: false,
+              value: operations.GithubSearchEvent$inboundSchema.parse(rawEvent),
+            };
+          });
+        }),
+      ),
+    ),
+    M.jsonErr([400, 402], errors.FailedResponseError$inboundSchema),
     M.jsonErr(500, errors.FailedResponseError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
