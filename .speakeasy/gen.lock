@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 52196f51-6114-4cc4-ab05-251f3515c88f
 management:
-  docChecksum: cdba64304f6b4ac9e36b8073ee268cc5
+  docChecksum: 382e24eed057651fb7b044afca6997b2
   docVersion: 1.0.0
   speakeasyVersion: 1.785.0
   generationVersion: 2.912.1
-  releaseVersion: 1.2.1
-  configChecksum: 9391717bc72ac213bca8adf1f82cfa02
+  releaseVersion: 1.2.2
+  configChecksum: 32e38d77c108c9788aec0c864b6bd614
   repoURL: https://github.com/indiciateam/sdk-js.git
   installationURL: https://github.com/indiciateam/sdk-js
   published: true
 persistentEdits:
-  generation_id: 04947871-af33-4ceb-b325-0f452a08ac11
-  pristine_commit_hash: 95b9830c0d4f96bdbfb1ddcfc3b409ca69a6ae2f
-  pristine_tree_hash: a4db1152040d1fcaa3b305fbc96d93c26506731e
+  generation_id: b420bb19-97b3-4b81-bde8-33917652fe5d
+  pristine_commit_hash: c511897c9d5d6585e5574decc5844573c5bef555
+  pristine_tree_hash: 83f4c107a236b5f546bfac65776f212fb5896bfb
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -283,8 +283,8 @@ trackedFiles:
     pristine_git_object: 1f7479b721ee79a1b44abb56b0898f837b540904
   docs/models/operations/cloudsint-type.md:
     id: 1dead7ce272e
-    last_write_checksum: sha1:fa35c27ed4af8eab61a7ebb03b8d4002f18410e8
-    pristine_git_object: 7f909d1ea3ee471f5d1cb923ee9babcbf56c9884
+    last_write_checksum: sha1:2371a4fa12628aef662102bc9212f90537277daf
+    pristine_git_object: 96e1a946e20a339da1695f6896994cc8e169d296
   docs/models/operations/cloudsint.md:
     id: b672d79ef4a9
     last_write_checksum: sha1:afb3ff7ae7d162f3af4cb601d993bdb2ca13bad6
@@ -433,6 +433,18 @@ trackedFiles:
     id: 7932d0d4971e
     last_write_checksum: sha1:af83aeacab7b65a1f4fba444ae17af3c4e0c8dda
     pristine_git_object: 1e827c56a735414b64e189d621122d05cf21b2f5
+  docs/models/operations/download-virus-total-file-data.md:
+    id: 419478ea35ad
+    last_write_checksum: sha1:a9b6346298fcf4310c28230a9af40c8b56d1b908
+    pristine_git_object: d5bc819588a095632309b8459699ee97ebd7c47a
+  docs/models/operations/download-virus-total-file-request.md:
+    id: 6e97417dac6e
+    last_write_checksum: sha1:4d14d1539f4a5054bf8582961530207065365521
+    pristine_git_object: 13ca1c02f505c446f3122d2a41beee507f2e2903
+  docs/models/operations/download-virus-total-file-response.md:
+    id: 0c7ba7969fd9
+    last_write_checksum: sha1:3be3f4e65154441083691efaae549f34d5d992c3
+    pristine_git_object: 6723b4e1870ef9b6892189ff6a0ca7750747f644
   docs/models/operations/dynamite-data.md:
     id: b0c7a6e59e19
     last_write_checksum: sha1:27057c0d0ea35a9c232ebbc3a49cf93d1375ba52
@@ -489,6 +501,10 @@ trackedFiles:
     id: 3ba944a0f9db
     last_write_checksum: sha1:1ed502c3454d445337cca7e79b2279af36fe0495
     pristine_git_object: 1c2ae30f2dc33d579706d7630d82e0dc983cba82
+  docs/models/operations/entity.md:
+    id: 364a867f5f02
+    last_write_checksum: sha1:5d33776268fc934b3f3a30ecde1ed043715a6d88
+    pristine_git_object: ee5d26e29bc2661a3d6faef68cc881be6df7780e
   docs/models/operations/entry.md:
     id: e3756dff957e
     last_write_checksum: sha1:dce8bb9c0fab8c1958ca04c10cdea22caee127df
@@ -583,16 +599,16 @@ trackedFiles:
     pristine_git_object: f8be2fcc5ff200dc7ad79edb395e865fed083861
   docs/models/operations/get-activity-activity.md:
     id: 0f6c38f15967
-    last_write_checksum: sha1:1d704bc5b578c24240ebc84bcabd08ffe6ac124d
-    pristine_git_object: a777419e9318374d9c03c51cb5e2651e4b8d2db4
+    last_write_checksum: sha1:76b2be6da8e4f14c7f790288c514230df7281c44
+    pristine_git_object: ab35525e85121b316d97b549d40cb58e6ecc5cb8
   docs/models/operations/get-activity-request.md:
     id: 0c244d751c0b
     last_write_checksum: sha1:37c2610d5f998a39cbbe24a3f16a0010007e1ce6
     pristine_git_object: 9fa033b251f1431efadc0ef213188835831e7b22
   docs/models/operations/get-activity-response.md:
     id: d9328352c2e7
-    last_write_checksum: sha1:28ecb543693ed65b5db406b000fc04e4ebb42831
-    pristine_git_object: 9b79a0ac5169637b8ea68fda30ba30cec28d64ab
+    last_write_checksum: sha1:c1fd09967d5c81a4b6671923785ccecb6102c133
+    pristine_git_object: 379bb0627ea2878bca01d7c1ac9a19e1e64b3aae
   docs/models/operations/get-activity-result-union.md:
     id: 90e54f829ed8
     last_write_checksum: sha1:998be7b600e9792041fb6d8a7ffd9323bf5d4e5c
@@ -603,12 +619,12 @@ trackedFiles:
     pristine_git_object: ca1ad0fd0b19d08177c3ad471c4da49a205ec05d
   docs/models/operations/get-activity-type.md:
     id: 195fc9c5708d
-    last_write_checksum: sha1:f294ce58a41f2176747a16179ac1ce0cbaa35d4c
-    pristine_git_object: 9f9cedbfe813fa28fa0b4fbb59d6c569e57e4529
+    last_write_checksum: sha1:0e18eee6192b1a8efc83c25bd85c126649051816
+    pristine_git_object: 675e99a498cfa4cb38a685f63424ac32cd83e05f
   docs/models/operations/get-info-response.md:
     id: 0737272eb174
-    last_write_checksum: sha1:95aeb9c8706975cd74876e492a216ce46a83e0eb
-    pristine_git_object: 84160f13600fb618111626fa9a040f0c7a539bbc
+    last_write_checksum: sha1:f7c72f8c7f0b5be6fb9b90a74101bb5bb8b4df98
+    pristine_git_object: 4835b6bf1198ccb9f3494b181336548ef2ad009c
   docs/models/operations/get-organization-audit-log-request.md:
     id: 80a726b1294b
     last_write_checksum: sha1:d825bc533ab579638c29f71a53f00bf0afb3302e
@@ -791,16 +807,16 @@ trackedFiles:
     pristine_git_object: 1fe937c935b12f244dfb277a52eb3c2ea791b8d1
   docs/models/operations/list-activities-activity.md:
     id: 9207360c0a08
-    last_write_checksum: sha1:93bedbf4bd25469a4a1b6f33a5eac39983309f3a
-    pristine_git_object: 96bbd9caa60c8529477e628cec58bc8b125e4804
+    last_write_checksum: sha1:bab58457e7671cf624f8af039ad1eca9d6b4fda9
+    pristine_git_object: 2d88876e80eebffb546457a1a25acd6ec46bd2e0
   docs/models/operations/list-activities-request.md:
     id: 3271c580f81e
     last_write_checksum: sha1:b1ab518865eef4246d70b0c1c6d64c886e1a6ea3
     pristine_git_object: 39482c1234477a4cd3f066f8b30d181f07f6f83a
   docs/models/operations/list-activities-response.md:
     id: bf197a769186
-    last_write_checksum: sha1:9e5113c6164e7c75787c349b6cfd295d9705897a
-    pristine_git_object: 36e3bb1e382c87cc6563e48135e29fcca27d5e04
+    last_write_checksum: sha1:f1fb92dcb4c3a70a543d6481dbc7f974e7c79e92
+    pristine_git_object: fe4c85a19a127450ea31e24f17d8453c7cfc2d3c
   docs/models/operations/list-activities-result-union.md:
     id: 44a19d05ba1c
     last_write_checksum: sha1:cdd47a229a9469cfb770fb05f39f1d4619b48cdc
@@ -811,8 +827,8 @@ trackedFiles:
     pristine_git_object: 36b9614f946bdab8fd5ae998587537945c26adb0
   docs/models/operations/list-activities-type.md:
     id: bca04bd7c8b4
-    last_write_checksum: sha1:dbf65d4c9f522e0a2180fe36ee62b71e25966c6f
-    pristine_git_object: 7d74e497ef972e5701d4a64ebb600352219675eb
+    last_write_checksum: sha1:7d3fa214e401cde017aa3db0980d6735edc62335
+    pristine_git_object: 80d90a2db1abe4cfaae273ee8e59adf5b79dfc55
   docs/models/operations/list-organization-cases-request.md:
     id: e8022b24100d
     last_write_checksum: sha1:5f46fc67aff352a758c06ca71aa8aff988626e7f
@@ -1067,8 +1083,8 @@ trackedFiles:
     pristine_git_object: fbe71d932c36b17d62057df1c28ff2334fb84972
   docs/models/operations/restricted-features.md:
     id: 21b11ab75144
-    last_write_checksum: sha1:85fd47db1598185d818d67bcd33b10c09b595dd3
-    pristine_git_object: ce85ce11f90c0a174e784f93456e326576e568ff
+    last_write_checksum: sha1:809646023bc6e462e7bb1efde11d77314dcbb240
+    pristine_git_object: 2935cabbf5916ac3d365263c8b8925058dc60fad
   docs/models/operations/result-account.md:
     id: d315083a8abe
     last_write_checksum: sha1:77347ec74f1b8d9e2aeabd231ab6680c21713032
@@ -1625,6 +1641,10 @@ trackedFiles:
     id: f32f7af81389
     last_write_checksum: sha1:3cb4b4cb2365c5004c9660f69ef5f8612dba46d2
     pristine_git_object: 754706d363e60618f2c2bfaf80c48c8c65cfa26d
+  docs/models/operations/search-stats.md:
+    id: 5ad8bd09a34e
+    last_write_checksum: sha1:7a9099af9ccf5941560878806a5437039b7dd7d4
+    pristine_git_object: 53c3002eb4151e69009cbd9ee982fa368cb77f80
   docs/models/operations/search-tiktok-data.md:
     id: 2dc942e56643
     last_write_checksum: sha1:ef624da21e5f7e7288be1c49d3decbdf63b65b67
@@ -1935,8 +1955,8 @@ trackedFiles:
     pristine_git_object: 5443a8d7f566e8bda3e18527119d3badf57aac02
   docs/models/operations/user.md:
     id: 11e33f99f19d
-    last_write_checksum: sha1:254671539ecb64877072fbecaf385dc724159d3a
-    pristine_git_object: 12f548caf43ec3eee48c885a30b01969b56f5fae
+    last_write_checksum: sha1:0e0b92e03edc3e0a536313399a4a051a81bf2e02
+    pristine_git_object: c52ae9ab0ae37a2d61d07c1b11d5715630534d4e
   docs/models/operations/username-search-complete.md:
     id: 5cf643095751
     last_write_checksum: sha1:7a9f65df9cc769eb185bf465f5208062da97575e
@@ -1957,6 +1977,38 @@ trackedFiles:
     id: 355b3d966db0
     last_write_checksum: sha1:72c2a5714464de7ad8166ba6f5ed50a2dc63ffeb
     pristine_git_object: 15fc18cef7e8e78de3fa51a04c0605f8d86c8bbf
+  docs/models/operations/virus-total-content-data.md:
+    id: b509ab05abd5
+    last_write_checksum: sha1:0bba4d4d4efcdbe10cc250ba592e66c8ef6f9d59
+    pristine_git_object: be6ca1873cc267bbbf19473a8ddcc942481b8b1c
+  docs/models/operations/virus-total-content-file.md:
+    id: 9b3ae2c0f3ce
+    last_write_checksum: sha1:5a5a66d9e9bda03836db9a1b08714f06ba6b8b0e
+    pristine_git_object: 0a340765fc479fd80252059277fb47d709cbdb7c
+  docs/models/operations/virus-total-content-request.md:
+    id: 62f527d50f0b
+    last_write_checksum: sha1:4e763ab521e21dea299a48d6610c4eb2bb5881fd
+    pristine_git_object: d0ae4a6c0c237c523ea46e10a57dfe596b94f16f
+  docs/models/operations/virus-total-content-response.md:
+    id: 342231fdec7b
+    last_write_checksum: sha1:f4618d3567a089db1075bb00dbe4fa730147724f
+    pristine_git_object: 24cf681adb5989af08ca8935e0390187d9b4e5ed
+  docs/models/operations/virus-total-intelligence-data.md:
+    id: 9c57d36cd356
+    last_write_checksum: sha1:3f2c664923d1f8e136410279a1261f81b8ab9a47
+    pristine_git_object: 2f3cc0ad87499a766ad72373af8f5e21d9045263
+  docs/models/operations/virus-total-intelligence-file.md:
+    id: 09c460825607
+    last_write_checksum: sha1:af9e63a3b5e1a6d7a1b2862b9d77b5b36567b89c
+    pristine_git_object: 35c35f7f80e149259b3c8963b6de54e3ce3b0468
+  docs/models/operations/virus-total-intelligence-request.md:
+    id: dc19933d32a6
+    last_write_checksum: sha1:4f94223d0832d6bb1fee8236f4820684ac1e2cf4
+    pristine_git_object: a2fa842f1b099e50c853f41b4f040bc7267ba3ca
+  docs/models/operations/virus-total-intelligence-response.md:
+    id: 96f9a2f6aad0
+    last_write_checksum: sha1:20b3f84ccbf409191da3ed71ffbfb41dbdb7b17c
+    pristine_git_object: f011b1caa4cf40bddc1bf6f2248928a341e7dd98
   docs/models/security.md:
     id: 452e4d4eb67a
     last_write_checksum: sha1:bd0d6cfa3161121b91d1607fa4569f9856326de5
@@ -1967,12 +2019,12 @@ trackedFiles:
     pristine_git_object: 650237817cb58d1562eb047f33bede98f17b4e14
   docs/sdks/infrastructure/README.md:
     id: 59ed34a7043e
-    last_write_checksum: sha1:57b27cd924997dbbc9da4e0eb405d5d4649cf305
-    pristine_git_object: 7ae89cc558943a9570054279d1a73c7599438fcf
+    last_write_checksum: sha1:9646bec8256c406db779112fb60ed896e488bf02
+    pristine_git_object: 9bcf76360753317bd6a92231a6c117b82d660ad6
   docs/sdks/intelligence/README.md:
     id: 349caed2fe8e
-    last_write_checksum: sha1:d3ee11385327fc0ded6be3294d9ec6acbea268db
-    pristine_git_object: 6f5b2381813c2aa75b5c5ada73ed73c198cfb457
+    last_write_checksum: sha1:115e426e18088dc5a4d2c8acc5fccebda0f3a6db
+    pristine_git_object: 1686de77ebd9ada21e6483a025dede380927350f
   docs/sdks/organizations/README.md:
     id: 3425667a2db5
     last_write_checksum: sha1:713a1f7ebe57d972bcfa694b84eb91879233353d
@@ -1987,8 +2039,8 @@ trackedFiles:
     pristine_git_object: 8be81ccdb61a363b20e45404f79513044b23eba8
   docs/sdks/tools/README.md:
     id: 044286549bac
-    last_write_checksum: sha1:c21f7e00e63b0150da2d7bf79ebed30b0d080818
-    pristine_git_object: 59aee3d43efa3c76f6c66481534f80bb04bb1836
+    last_write_checksum: sha1:24cd8bbf5158e0e5bbfd06902df81ea5eca03bc3
+    pristine_git_object: 8a2fb49c90af8d0b50d17527d18fce18b77a86c7
   docs/sdks/users/README.md:
     id: 5d80027045fe
     last_write_checksum: sha1:5b99045e69cabb695f3e2997b1d24fa8fef6d7e3
@@ -2011,12 +2063,12 @@ trackedFiles:
     pristine_git_object: f78da2c4c3fed817b69fdfdadeafb1cb050f1de8
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:5191d4c61c921caf8a2eda5e835405d1a95a919d
-    pristine_git_object: 7076d3ea2e4242902a3b305ea38a33f7b335defe
+    last_write_checksum: sha1:a379c31bcc8f08cc2757126468a97b7811fc1a6d
+    pristine_git_object: 9ada4fe8f34ae38edb38c3a26cb756ae5fc64233
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:57a5edb0dc540b5e4f0201d7426d4e666eff71a9
-    pristine_git_object: fb3b6141282fb2f89a3599b4d8451d78a01d9077
+    last_write_checksum: sha1:50cf007461780783de0052017abddc0de43faaa1
+    pristine_git_object: 3c09a144c0fc4c38c0ffbf2e9b6f349e1188dd0a
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a644a2c1bdd89948cb4098800c72e115eeb77cad
@@ -2057,6 +2109,10 @@ trackedFiles:
     id: 7a2e48ca0a43
     last_write_checksum: sha1:7edb9db496ab7da026f1683a5c4d3967d9039aad
     pristine_git_object: f5c3be74de4c2a4ad4eb4fc0964e3267e51a8c56
+  src/funcs/infrastructure-virus-total-content.ts:
+    id: 5410a1e27621
+    last_write_checksum: sha1:7b4ad83946bd0c252ad2caf7dca635b34871cc8d
+    pristine_git_object: e65113235c025c4b4da9ddddf5b6a32c0df0349a
   src/funcs/intelligence-geolocate-media.ts:
     id: f95e3f0e6c32
     last_write_checksum: sha1:630f3f8007ac4aef4e73ef483d1e79af2e9ca925
@@ -2097,6 +2153,10 @@ trackedFiles:
     id: 252134a79358
     last_write_checksum: sha1:aac21393fe35d474f70f9e722a599808e632132d
     pristine_git_object: e2004455790bc226d91acc50642b27a575e29b0f
+  src/funcs/intelligence-virus-total-intelligence.ts:
+    id: c951d0677210
+    last_write_checksum: sha1:32a38e1d7440fb641a31894f092aeee62722a4d2
+    pristine_git_object: 97cdc67d85f9b9d6c8ec3eb87a1fcafcfa40071e
   src/funcs/organizations-get-organization-audit-log.ts:
     id: a1f5ffb4aeeb
     last_write_checksum: sha1:5652b6d38fdd2522d94a3a289821f007d37ec4ad
@@ -2153,6 +2213,10 @@ trackedFiles:
     id: 958df5496080
     last_write_checksum: sha1:13dc40bb1bb1190f81a22fe0173a6ee4a7d8e8b7
     pristine_git_object: 5490cee8b2b7701894ccc74cc4ad897384b6866c
+  src/funcs/tools-download-virus-total-file.ts:
+    id: 36689515d339
+    last_write_checksum: sha1:34d4dd055141729742adb5c443a246bd567694b7
+    pristine_git_object: d11eb83323dae5a161c218cfa16de6abce38d34d
   src/funcs/tools-lookup-discord-alt.ts:
     id: 13ef4ea66fb3
     last_write_checksum: sha1:11016030a8a838dd27e47b6c4af369631e671ae5
@@ -2183,8 +2247,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:fe9b81958da8081ec0fc052893f46de95eb8d2ef
-    pristine_git_object: 29d73453e89e1622ea50042f0124438977211fb3
+    last_write_checksum: sha1:ea40f0f93fa2d2023d27aaa192a98aa448a30957
+    pristine_git_object: a3dc7abaa164510f950827fa7de9f4634588ce2a
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
@@ -2281,18 +2345,22 @@ trackedFiles:
     id: 25fe9afb7c3c
     last_write_checksum: sha1:c72c85fe875025619bb861e34d3e20fbb320a2a0
     pristine_git_object: 02f7de9c4007366222d12ec15d741456154a146f
+  src/models/operations/download-virus-total-file.ts:
+    id: 3a16bb95229e
+    last_write_checksum: sha1:26c1612f6be6fbbd9aefc7974b7e4f1f73bc6247
+    pristine_git_object: d85de5a07ffc14619a191a619c4b22846a6f749f
   src/models/operations/geolocate-media.ts:
     id: 5acc755aaa05
     last_write_checksum: sha1:08bef50d9e78750cc3cf49e0a0d720597bd61456
     pristine_git_object: 43a80a30a337e4689995a15bac36e69b4fb320c1
   src/models/operations/get-activity.ts:
     id: e8ce62eb0e93
-    last_write_checksum: sha1:059edc1f00985b9229f2aecd780ea81e45e21aa4
-    pristine_git_object: 70a199aeff7e3fd19f593fa4b2ee88a8b70fb0c4
+    last_write_checksum: sha1:81dfae649959966b6641a2d199264a566df18714
+    pristine_git_object: 265558de8232d1a15d33005c59a79ea8facf3e87
   src/models/operations/get-info.ts:
     id: bac617815e87
-    last_write_checksum: sha1:d0c7ffcadffdddfd9f3f3ec3cad7d8f78b675fca
-    pristine_git_object: 98db2f765ba84286501b8c10bf4ca03217f10eee
+    last_write_checksum: sha1:8faa86c554fb64cb346b61a59786e7692e617359
+    pristine_git_object: 51c9002e460109bd517a879ba4b5446953fa4447
   src/models/operations/get-organization-audit-log.ts:
     id: fddb38b99d99
     last_write_checksum: sha1:25f4bd16f4dafcd2a63e5d38f8fb345ec1c61c60
@@ -2307,12 +2375,12 @@ trackedFiles:
     pristine_git_object: c9660e5869eb50a5e566312f2881efd063d46d31
   src/models/operations/index.ts:
     id: 0d9ffaf774d2
-    last_write_checksum: sha1:c616b2bb3adf1945d3659ae4cead38a0e7c1e528
-    pristine_git_object: 755839a9f28da59f732acf726052d7febd5d0d26
+    last_write_checksum: sha1:8d806370ead8391481935f97cac815ac8830b02a
+    pristine_git_object: 43c3ecd83bf1766da38cb077258ec9f494273062
   src/models/operations/list-activities.ts:
     id: d70dc01cbd79
-    last_write_checksum: sha1:9401a23cf995f672ea98c31a643f3a5d63987742
-    pristine_git_object: 3f18b791bf904c6d5999cb1e84872aee39756990
+    last_write_checksum: sha1:c7cf9f1cb288ae34fc4db44abb85d0f4d222ccb3
+    pristine_git_object: 33d0a750fa25573ba054123af6080ac915db2fdf
   src/models/operations/list-organization-cases.ts:
     id: 56e0b027c620
     last_write_checksum: sha1:82a7559461d799353202477992b20e019ebd9f23
@@ -2403,8 +2471,8 @@ trackedFiles:
     pristine_git_object: 42e9ae12a3cc1dba5f4a01a9847583958b148630
   src/models/operations/search-web-databases.ts:
     id: 55fbbb56e5ed
-    last_write_checksum: sha1:4966667201a9ca236159ee8fb0dd048c1871745a
-    pristine_git_object: 8098e7404bc3a9d3ee64eed03415d2add97da8a7
+    last_write_checksum: sha1:840901045485d4b1d6b8f2601cda912d94177117
+    pristine_git_object: ab8aca55830c6c83f1041d39fa473636a4a8fe9b
   src/models/operations/search-whois.ts:
     id: 8d012bdd6c1b
     last_write_checksum: sha1:10dff75a04580a189d295244158d9c4ee1cd577a
@@ -2413,6 +2481,14 @@ trackedFiles:
     id: eec7b29d9d1a
     last_write_checksum: sha1:5049a731d8e1d4959d0b92fc3d20a8318a59fd1e
     pristine_git_object: d7c704fadf9cc050b1535478a71ed96eae02b1ef
+  src/models/operations/virus-total-content.ts:
+    id: b2d2082ca0ba
+    last_write_checksum: sha1:2b80b4439a72c57ebc74ebd967a358f059b8a5a1
+    pristine_git_object: d29d94bae87037740afb65c5bf33dbac03fa0150
+  src/models/operations/virus-total-intelligence.ts:
+    id: 14fb19ee41f5
+    last_write_checksum: sha1:fc7bd87fa13d62e16c9650779e9ba56eb64952b5
+    pristine_git_object: aa50a3967724fe4ee805ce6e987f17d66bba2c3b
   src/models/security.ts:
     id: d90c6c784ca5
     last_write_checksum: sha1:d1636c2aed85df8c0e29a0bfd08ada700e280457
@@ -2427,12 +2503,12 @@ trackedFiles:
     pristine_git_object: ecac2264817bb369ff2dbf0f0e9029807e67ff77
   src/sdk/infrastructure.ts:
     id: 8d5a4617cb20
-    last_write_checksum: sha1:3db1b1e016dd2c623c5b4ced27213f985853011c
-    pristine_git_object: 4272766ea97300624ad07ef04ebc70686a5dd9d0
+    last_write_checksum: sha1:66def1266ec86cab8cfb4c25840bd7a336dcb6b1
+    pristine_git_object: 67d8409a48927edc1458a99b8cd38bed62d89e00
   src/sdk/intelligence.ts:
     id: 81de6e43bc75
-    last_write_checksum: sha1:29070fe31528ccefa6debff19edd51367dbfe3e7
-    pristine_git_object: 6b44d1f946c31bb1ef3b8f66fc840e34f4d3240d
+    last_write_checksum: sha1:954810d1764292d9409cb5e611563cf5e6a39c2e
+    pristine_git_object: 532d7445498ae671c1df9740d483f2fb4fdfae9d
   src/sdk/organizations.ts:
     id: 727404ccd4e9
     last_write_checksum: sha1:f1e2865f33836d1c08c86cf6899c53dc129af648
@@ -2451,8 +2527,8 @@ trackedFiles:
     pristine_git_object: 64276e67a623e32e92de67a318fe1495819cb1ae
   src/sdk/tools.ts:
     id: f997ccdd9dd9
-    last_write_checksum: sha1:9bfb907ee6863b8404e0d5fc41656b016242fb1f
-    pristine_git_object: 6b0c2c19215d7838c62cef6008d24a01e08cbaf8
+    last_write_checksum: sha1:60045670e6a65df402bda83a71edd6a041ff4905
+    pristine_git_object: 4557fcd9304b033fcf3777601a163f551b8cdb70
   src/sdk/users.ts:
     id: 2df5828eed03
     last_write_checksum: sha1:745d0554aa8dca06b01abf577ac3430afc3bd89c
@@ -3216,5 +3292,38 @@ examples:
       responses:
         "200":
           application/json: {"sent": 5440.13, "success": false, "totalCost": 9306.08}
+  virusTotalIntelligence:
+    speakeasy-default-virus-total-intelligence:
+      requestBody:
+        application/json: {"entity": "ips", "query": "<value>"}
+      responses:
+        "200":
+          application/json: {"data": {"entity": "<value>", "files": [{"id": "<id>"}], "query": "<value>", "total_results": 5115.63}, "success": false}
+        "402":
+          application/json: {"success": false}
+        "500":
+          application/json: {"success": false}
+  virusTotalContent:
+    speakeasy-default-virus-total-content:
+      requestBody:
+        application/json: {"content": "<value>"}
+      responses:
+        "200":
+          application/json: {"data": {"files": [], "search_query": "<value>", "total_results": 8745.04}, "success": false}
+        "402":
+          application/json: {"success": true}
+        "500":
+          application/json: {"success": true}
+  downloadVirusTotalFile:
+    speakeasy-default-download-virus-total-file:
+      requestBody:
+        application/json: {"id": "<id>"}
+      responses:
+        "200":
+          application/json: {"success": false}
+        "402":
+          application/json: {"success": false}
+        "500":
+          application/json: {"success": false}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `indicia.socials.searchGithub()`: \n  *  `response.status[200]` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `indicia.socials.searchUsername()`: \n  *  `response.status[200]` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `indicia.intelligence.searchWebDatabases()`: \n  *  `request.cloudsintType` **Changed** (Breaking ⚠️)\n* `indicia.intelligence.virusTotalIntelligence()`: **Added**\n* `indicia.infrastructure.virusTotalContent()`: **Added**\n* `indicia.tools.downloadVirusTotalFile()`: **Added**\n* `indicia.users.getInfo()`:  `response.user.restrictedFeatures[]` **Changed**\n* `indicia.activity.listActivities()`:  `response.activities[].type` **Changed**\n* `indicia.activity.getActivity()`:  `response.activity.type` **Changed**\n"

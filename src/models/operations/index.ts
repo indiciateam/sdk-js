@@ -5,6 +5,7 @@
 export * from "./bypass-double-counter.js";
 export * from "./delete-activity.js";
 export * from "./download-intelx-file.js";
+export * from "./download-virus-total-file.js";
 export * from "./geolocate-media.js";
 export * from "./get-activity.js";
 export * from "./get-info.js";
@@ -37,3 +38,5 @@ export * from "./search-username.js";
 export * from "./search-web-databases.js";
 export * from "./search-whois.js";
 export * from "./send-organization-credits.js";
+export * from "./virus-total-content.js";
+export * from "./virus-total-intelligence.js";

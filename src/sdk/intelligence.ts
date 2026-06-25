@@ -12,6 +12,7 @@ import { intelligenceSearchPerson } from "../funcs/intelligence-search-person.js
 import { intelligenceSearchPhone } from "../funcs/intelligence-search-phone.js";
 import { intelligenceSearchSeon } from "../funcs/intelligence-search-seon.js";
 import { intelligenceSearchWebDatabases } from "../funcs/intelligence-search-web-databases.js";
+import { intelligenceVirusTotalIntelligence } from "../funcs/intelligence-virus-total-intelligence.js";
 import { EventStream } from "../lib/event-streams.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -128,6 +129,23 @@ export class Intelligence extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.SearchSeonResponse> {
     return unwrapAsync(intelligenceSearchSeon(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * VirusTotal File Intelligence
+   *
+   * @remarks
+   * Look up VirusTotal reputation and antivirus detection data for a URL, domain, IP address, or file hash.
+   */
+  async virusTotalIntelligence(
+    request: operations.VirusTotalIntelligenceRequest,
+    options?: RequestOptions,
+  ): Promise<operations.VirusTotalIntelligenceResponse> {
+    return unwrapAsync(intelligenceVirusTotalIntelligence(
       this,
       request,
       options,

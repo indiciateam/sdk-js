@@ -7,6 +7,7 @@
 * [searchIpInfo](#searchipinfo) - IP Info
 * [searchDns](#searchdns) - DNS Reconnaissance
 * [searchShodan](#searchshodan) - Shodan Search
+* [virusTotalContent](#virustotalcontent) - VirusTotal Content Search
 * [searchWhois](#searchwhois) - Whois
 * [scanPorts](#scanports) - Port Scan
 * [searchCertificates](#searchcertificates) - Certificate Lookup
@@ -230,6 +231,81 @@ run();
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## virusTotalContent
+
+Search VirusTotal for files whose content matches a given string.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="virusTotalContent" method="post" path="/v1/search/infrastructure/virustotal" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.infrastructure.virusTotalContent({
+    content: "<value>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { infrastructureVirusTotalContent } from "@indiciaosint/sdk/funcs/infrastructure-virus-total-content.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const res = await infrastructureVirusTotalContent(indicia, {
+    content: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("infrastructureVirusTotalContent failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.VirusTotalContentRequest](../../models/operations/virus-total-content-request.md)                                                                                  | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.VirusTotalContentResponse](../../models/operations/virus-total-content-response.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 402                        | application/json           |
 | errors.FailedResponseError | 500                        | application/json           |
 | errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
 

@@ -14,7 +14,7 @@ let value: ListActivitiesActivity = {
   query: "<value>",
   result: false,
   time: 619996,
-  type: "shodan",
+  type: "tiktok",
   user: "Yvonne_Rau66",
 };
 ```

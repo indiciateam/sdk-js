@@ -26,13 +26,13 @@ export type SearchWebDatabasesService = ClosedEnum<
 >;
 
 export const CloudsintType = {
+  Any: "any",
+  Domain: "domain",
   Email: "email",
   Ip: "ip",
   Name: "name",
   Password: "password",
   Phone: "phone",
-  Steamid: "steamid",
-  Url: "url",
   Username: "username",
 } as const;
 export type CloudsintType = ClosedEnum<typeof CloudsintType>;

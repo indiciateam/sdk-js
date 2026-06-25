@@ -7,6 +7,7 @@
 * [lookupDiscordAlt](#lookupdiscordalt) - Discord Alt Lookup
 * [bypassDoubleCounter](#bypassdoublecounter) - Bypass Double Counter URL
 * [downloadIntelxFile](#downloadintelxfile) - Download IntelX file
+* [downloadVirusTotalFile](#downloadvirustotalfile) - Download VirusTotal file
 
 ## lookupDiscordAlt
 
@@ -230,5 +231,80 @@ run();
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.FailedResponseError | 400                        | application/json           |
+| errors.FailedResponseError | 500                        | application/json           |
+| errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |
+
+## downloadVirusTotalFile
+
+Download a file from VirusTotal by its id. The file is returned base64-encoded.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="downloadVirusTotalFile" method="post" path="/v1/tools/virustotal" -->
+```typescript
+import { Indicia } from "@indiciaosint/sdk";
+
+const indicia = new Indicia({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await indicia.tools.downloadVirusTotalFile({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { IndiciaCore } from "@indiciaosint/sdk/core.js";
+import { toolsDownloadVirusTotalFile } from "@indiciaosint/sdk/funcs/tools-download-virus-total-file.js";
+
+// Use `IndiciaCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const indicia = new IndiciaCore({
+  apiKey: process.env["INDICIA_API_KEY"] ?? "",
+});
+
+async function run() {
+  const res = await toolsDownloadVirusTotalFile(indicia, {
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("toolsDownloadVirusTotalFile failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DownloadVirusTotalFileRequest](../../models/operations/download-virus-total-file-request.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.DownloadVirusTotalFileResponse](../../models/operations/download-virus-total-file-response.md)\>**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| errors.FailedResponseError | 402                        | application/json           |
 | errors.FailedResponseError | 500                        | application/json           |
 | errors.IndiciaDefaultError | 4XX, 5XX                   | \*/\*                      |

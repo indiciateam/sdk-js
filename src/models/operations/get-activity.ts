@@ -68,6 +68,9 @@ export const GetActivityType = {
   Username: "username",
   Usernames: "usernames",
   Vehicle: "vehicle",
+  VirustotalContent: "virustotal.content",
+  VirustotalDownload: "virustotal.download",
+  VirustotalIntelligence: "virustotal.intelligence",
   WebDbs: "web-dbs",
   Whois: "whois",
 } as const;

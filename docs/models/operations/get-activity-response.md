@@ -17,7 +17,7 @@ let value: GetActivityResponse = {
     query: "<value>",
     result: {},
     time: 609147,
-    type: "vehicle",
+    type: "virustotal.intelligence",
     user: "Chad.Hilpert",
   },
   success: false,

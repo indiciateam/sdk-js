@@ -18,7 +18,7 @@ let value: ListActivitiesResponse = {
       query: "<value>",
       result: "<value>",
       time: 737729,
-      type: "seon",
+      type: "snusbase",
       user: "Lura_Cormier34",
     },
   ],

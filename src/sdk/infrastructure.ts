@@ -8,6 +8,7 @@ import { infrastructureSearchDns } from "../funcs/infrastructure-search-dns.js";
 import { infrastructureSearchIpInfo } from "../funcs/infrastructure-search-ip-info.js";
 import { infrastructureSearchShodan } from "../funcs/infrastructure-search-shodan.js";
 import { infrastructureSearchWhois } from "../funcs/infrastructure-search-whois.js";
+import { infrastructureVirusTotalContent } from "../funcs/infrastructure-virus-total-content.js";
 import { EventStream } from "../lib/event-streams.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -59,6 +60,23 @@ export class Infrastructure extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.SearchShodanResponse> {
     return unwrapAsync(infrastructureSearchShodan(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * VirusTotal Content Search
+   *
+   * @remarks
+   * Search VirusTotal for files whose content matches a given string.
+   */
+  async virusTotalContent(
+    request: operations.VirusTotalContentRequest,
+    options?: RequestOptions,
+  ): Promise<operations.VirusTotalContentResponse> {
+    return unwrapAsync(infrastructureVirusTotalContent(
       this,
       request,
       options,

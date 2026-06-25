@@ -4,6 +4,7 @@
 
 import { toolsBypassDoubleCounter } from "../funcs/tools-bypass-double-counter.js";
 import { toolsDownloadIntelxFile } from "../funcs/tools-download-intelx-file.js";
+import { toolsDownloadVirusTotalFile } from "../funcs/tools-download-virus-total-file.js";
 import { toolsLookupDiscordAlt } from "../funcs/tools-lookup-discord-alt.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
@@ -55,6 +56,23 @@ export class Tools extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.DownloadIntelxFileResponse> {
     return unwrapAsync(toolsDownloadIntelxFile(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Download VirusTotal file
+   *
+   * @remarks
+   * Download a file from VirusTotal by its id. The file is returned base64-encoded.
+   */
+  async downloadVirusTotalFile(
+    request: operations.DownloadVirusTotalFileRequest,
+    options?: RequestOptions,
+  ): Promise<operations.DownloadVirusTotalFileResponse> {
+    return unwrapAsync(toolsDownloadVirusTotalFile(
       this,
       request,
       options,

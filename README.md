@@ -151,6 +151,7 @@ run();
 * [searchIpInfo](docs/sdks/infrastructure/README.md#searchipinfo) - IP Info
 * [searchDns](docs/sdks/infrastructure/README.md#searchdns) - DNS Reconnaissance
 * [searchShodan](docs/sdks/infrastructure/README.md#searchshodan) - Shodan Search
+* [virusTotalContent](docs/sdks/infrastructure/README.md#virustotalcontent) - VirusTotal Content Search
 * [searchWhois](docs/sdks/infrastructure/README.md#searchwhois) - Whois
 * [scanPorts](docs/sdks/infrastructure/README.md#scanports) - Port Scan
 * [searchCertificates](docs/sdks/infrastructure/README.md#searchcertificates) - Certificate Lookup
@@ -164,6 +165,7 @@ run();
 * [searchPerson](docs/sdks/intelligence/README.md#searchperson) - Person Search (US Only)
 * [searchPhone](docs/sdks/intelligence/README.md#searchphone) - Phone Search (Individual data US only)
 * [searchSeon](docs/sdks/intelligence/README.md#searchseon) - SEON Lookup
+* [virusTotalIntelligence](docs/sdks/intelligence/README.md#virustotalintelligence) - VirusTotal File Intelligence
 * [searchWebDatabases](docs/sdks/intelligence/README.md#searchwebdatabases) - Web Databases
 * [searchFace](docs/sdks/intelligence/README.md#searchface) - Reverse Face Search
 * [searchHudsonRock](docs/sdks/intelligence/README.md#searchhudsonrock) - Hudson Rock Search
@@ -194,6 +196,7 @@ run();
 * [lookupDiscordAlt](docs/sdks/tools/README.md#lookupdiscordalt) - Discord Alt Lookup
 * [bypassDoubleCounter](docs/sdks/tools/README.md#bypassdoublecounter) - Bypass Double Counter URL
 * [downloadIntelxFile](docs/sdks/tools/README.md#downloadintelxfile) - Download IntelX file
+* [downloadVirusTotalFile](docs/sdks/tools/README.md#downloadvirustotalfile) - Download VirusTotal file
 
 ### [Users](docs/sdks/users/README.md)
 
@@ -226,6 +229,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`infrastructureSearchIpInfo`](docs/sdks/infrastructure/README.md#searchipinfo) - IP Info
 - [`infrastructureSearchShodan`](docs/sdks/infrastructure/README.md#searchshodan) - Shodan Search
 - [`infrastructureSearchWhois`](docs/sdks/infrastructure/README.md#searchwhois) - Whois
+- [`infrastructureVirusTotalContent`](docs/sdks/infrastructure/README.md#virustotalcontent) - VirusTotal Content Search
 - [`intelligenceGeolocateMedia`](docs/sdks/intelligence/README.md#geolocatemedia) - Geolocate Media
 - [`intelligenceSearchAddress`](docs/sdks/intelligence/README.md#searchaddress) - Address Search (US Only)
 - [`intelligenceSearchEmail`](docs/sdks/intelligence/README.md#searchemail) - Email Search (US Only)
@@ -236,6 +240,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`intelligenceSearchPhone`](docs/sdks/intelligence/README.md#searchphone) - Phone Search (Individual data US only)
 - [`intelligenceSearchSeon`](docs/sdks/intelligence/README.md#searchseon) - SEON Lookup
 - [`intelligenceSearchWebDatabases`](docs/sdks/intelligence/README.md#searchwebdatabases) - Web Databases
+- [`intelligenceVirusTotalIntelligence`](docs/sdks/intelligence/README.md#virustotalintelligence) - VirusTotal File Intelligence
 - [`organizationsGetOrganization`](docs/sdks/organizations/README.md#getorganization) - Get details for a specific organization you are a member of.
 - [`organizationsGetOrganizationAuditLog`](docs/sdks/organizations/README.md#getorganizationauditlog) - Get the audit log for an organization. Requires owner or admin role.
 - [`organizationsListOrganizationCases`](docs/sdks/organizations/README.md#listorganizationcases) - List cases shared with an organization (filtered by your visibility settings).
@@ -250,6 +255,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`socialsSearchUsername`](docs/sdks/socials/README.md#searchusername) - Username Search V2
 - [`toolsBypassDoubleCounter`](docs/sdks/tools/README.md#bypassdoublecounter) - Bypass Double Counter URL
 - [`toolsDownloadIntelxFile`](docs/sdks/tools/README.md#downloadintelxfile) - Download IntelX file
+- [`toolsDownloadVirusTotalFile`](docs/sdks/tools/README.md#downloadvirustotalfile) - Download VirusTotal file
 - [`toolsLookupDiscordAlt`](docs/sdks/tools/README.md#lookupdiscordalt) - Discord Alt Lookup
 - [`usersGetInfo`](docs/sdks/users/README.md#getinfo) - Get information about the user, also healthcheck endpoint.
 
@@ -462,7 +468,7 @@ run();
 
 
 **Inherit from [`IndiciaError`](./src/models/errors/indicia-error.ts)**:
-* [`FailedResponseError`](./src/models/errors/failed-response-error.ts): A failed API response. Applicable to 24 of 35 methods.*
+* [`FailedResponseError`](./src/models/errors/failed-response-error.ts): A failed API response. Applicable to 27 of 38 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

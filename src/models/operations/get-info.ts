@@ -79,6 +79,9 @@ export const RestrictedFeatures = {
   Uk: "uk",
   Username: "username",
   Vehicle: "vehicle",
+  VirustotalContent: "virustotal.content",
+  VirustotalDownload: "virustotal.download",
+  VirustotalIntelligence: "virustotal.intelligence",
   WebDbs: "web-dbs",
   Whois: "whois",
 } as const;

@@ -53,7 +53,7 @@ let value: GetInfoResponse = {
     referralLink: "<value>",
     referred: "<value>",
     restrictedFeatures: [
-      "roblox",
+      "seon",
     ],
     role: "<value>",
     stripeConnectedId: "<id>",

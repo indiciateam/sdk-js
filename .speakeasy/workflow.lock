@@ -2,8 +2,8 @@ speakeasyVersion: 1.785.0
 sources:
     Indicia API:
         sourceNamespace: indicia-api
-        sourceRevisionDigest: sha256:9856a3df3d4903cab1461a6de919615edb62dbc24c9f77d84e946a0673b5bc7c
-        sourceBlobDigest: sha256:59750febf6b40f1140b913e3caa07fecd595309842205cac0b8139808b8d6c1e
+        sourceRevisionDigest: sha256:e379e9fd3d25e02bb5e21888761fa1c78a6f334f6a376c7344c8b0814429bc59
+        sourceBlobDigest: sha256:fd74f61e87aaa7b3409299763f4527b90d1129317697e5b4915cfba9e4d25a43
         tags:
             - latest
             - 1.0.0
@@ -11,10 +11,10 @@ targets:
     indicia:
         source: Indicia API
         sourceNamespace: indicia-api
-        sourceRevisionDigest: sha256:9856a3df3d4903cab1461a6de919615edb62dbc24c9f77d84e946a0673b5bc7c
-        sourceBlobDigest: sha256:59750febf6b40f1140b913e3caa07fecd595309842205cac0b8139808b8d6c1e
+        sourceRevisionDigest: sha256:e379e9fd3d25e02bb5e21888761fa1c78a6f334f6a376c7344c8b0814429bc59
+        sourceBlobDigest: sha256:fd74f61e87aaa7b3409299763f4527b90d1129317697e5b4915cfba9e4d25a43
         codeSamplesNamespace: indicia-api-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:2c4a270fe4dedadf10b76ba5d3e79849fabe9f196af351c32b698283215b9c01
+        codeSamplesRevisionDigest: sha256:4f11ad44f47e6e85e5cef367dd11aeac3bb1388fbc2e1e46f82727f1080c3be6
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
