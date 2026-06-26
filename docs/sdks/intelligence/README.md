@@ -661,7 +661,7 @@ run();
 
 ## virusTotalIntelligence
 
-Look up VirusTotal reputation and antivirus detection data for a URL, domain, IP address, or file hash.
+Look up VirusTotal reputation and antivirus detection data for a URL, domain, IP address, or file (including content).
 
 ### Example Usage
 

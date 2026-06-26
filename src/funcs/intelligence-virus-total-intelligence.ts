@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * VirusTotal File Intelligence
  *
  * @remarks
- * Look up VirusTotal reputation and antivirus detection data for a URL, domain, IP address, or file hash.
+ * Look up VirusTotal reputation and antivirus detection data for a URL, domain, IP address, or file (including content).
  */
 export function intelligenceVirusTotalIntelligence(
   client: IndiciaCore,

@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 52196f51-6114-4cc4-ab05-251f3515c88f
 management:
-  docChecksum: 382e24eed057651fb7b044afca6997b2
+  docChecksum: a144f0e3fb5f810a293160d911755698
   docVersion: 1.0.0
   speakeasyVersion: 1.785.0
   generationVersion: 2.912.1
-  releaseVersion: 1.2.2
-  configChecksum: 32e38d77c108c9788aec0c864b6bd614
+  releaseVersion: 1.2.3
+  configChecksum: ecc372164605f9e3439e1f54cd779496
   repoURL: https://github.com/indiciateam/sdk-js.git
   installationURL: https://github.com/indiciateam/sdk-js
   published: true
 persistentEdits:
-  generation_id: b420bb19-97b3-4b81-bde8-33917652fe5d
-  pristine_commit_hash: c511897c9d5d6585e5574decc5844573c5bef555
-  pristine_tree_hash: 83f4c107a236b5f546bfac65776f212fb5896bfb
+  generation_id: ffacadaf-6357-47aa-9a5c-cf9325f13422
+  pristine_commit_hash: ccd3f6c6ce87e1b795f215f8443620c3c949848b
+  pristine_tree_hash: 81b3fbd066879eb4a537210387193577d19e8970
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -2023,8 +2023,8 @@ trackedFiles:
     pristine_git_object: 9bcf76360753317bd6a92231a6c117b82d660ad6
   docs/sdks/intelligence/README.md:
     id: 349caed2fe8e
-    last_write_checksum: sha1:115e426e18088dc5a4d2c8acc5fccebda0f3a6db
-    pristine_git_object: 1686de77ebd9ada21e6483a025dede380927350f
+    last_write_checksum: sha1:1495e1202877c4730cb6eccfc232b0e6c0c707e5
+    pristine_git_object: c858541eab6238ddb9c4502c9dbba1905d2fd3f6
   docs/sdks/organizations/README.md:
     id: 3425667a2db5
     last_write_checksum: sha1:713a1f7ebe57d972bcfa694b84eb91879233353d
@@ -2063,12 +2063,12 @@ trackedFiles:
     pristine_git_object: f78da2c4c3fed817b69fdfdadeafb1cb050f1de8
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:a379c31bcc8f08cc2757126468a97b7811fc1a6d
-    pristine_git_object: 9ada4fe8f34ae38edb38c3a26cb756ae5fc64233
+    last_write_checksum: sha1:1f013b36c93af24f3cb80ebc0518f8c4f658d8d1
+    pristine_git_object: a9efab0f70bec8f95dbb9851cc2a79cd532e3de1
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:50cf007461780783de0052017abddc0de43faaa1
-    pristine_git_object: 3c09a144c0fc4c38c0ffbf2e9b6f349e1188dd0a
+    last_write_checksum: sha1:d0e9cf1881174554667975fde6173f825c4d3a9d
+    pristine_git_object: 67285739e3f6d7f0415d347ce78fe8820fafd0ee
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a644a2c1bdd89948cb4098800c72e115eeb77cad
@@ -2155,8 +2155,8 @@ trackedFiles:
     pristine_git_object: e2004455790bc226d91acc50642b27a575e29b0f
   src/funcs/intelligence-virus-total-intelligence.ts:
     id: c951d0677210
-    last_write_checksum: sha1:32a38e1d7440fb641a31894f092aeee62722a4d2
-    pristine_git_object: 97cdc67d85f9b9d6c8ec3eb87a1fcafcfa40071e
+    last_write_checksum: sha1:ca7e49e121232e2540bd54f0862b5bfae479a9d9
+    pristine_git_object: 60e005c7b2c7893846c3c9996069d5cc80c894cb
   src/funcs/organizations-get-organization-audit-log.ts:
     id: a1f5ffb4aeeb
     last_write_checksum: sha1:5652b6d38fdd2522d94a3a289821f007d37ec4ad
@@ -2247,8 +2247,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:ea40f0f93fa2d2023d27aaa192a98aa448a30957
-    pristine_git_object: a3dc7abaa164510f950827fa7de9f4634588ce2a
+    last_write_checksum: sha1:f30b22b080b652a201b0807a3074349886914028
+    pristine_git_object: 9836fa644cb7a0ee142fcd0fd71cb85ce2e0fe13
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
@@ -2507,8 +2507,8 @@ trackedFiles:
     pristine_git_object: 67d8409a48927edc1458a99b8cd38bed62d89e00
   src/sdk/intelligence.ts:
     id: 81de6e43bc75
-    last_write_checksum: sha1:954810d1764292d9409cb5e611563cf5e6a39c2e
-    pristine_git_object: 532d7445498ae671c1df9740d483f2fb4fdfae9d
+    last_write_checksum: sha1:60d5491cb9926c1a437d23be268b3f647794a24a
+    pristine_git_object: 436b5b737dcca5b7748c7fab811b73b60c400fb6
   src/sdk/organizations.ts:
     id: 727404ccd4e9
     last_write_checksum: sha1:f1e2865f33836d1c08c86cf6899c53dc129af648
@@ -3326,4 +3326,3 @@ examples:
         "500":
           application/json: {"success": false}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `indicia.intelligence.searchWebDatabases()`: \n  *  `request.cloudsintType` **Changed** (Breaking ⚠️)\n* `indicia.intelligence.virusTotalIntelligence()`: **Added**\n* `indicia.infrastructure.virusTotalContent()`: **Added**\n* `indicia.tools.downloadVirusTotalFile()`: **Added**\n* `indicia.users.getInfo()`:  `response.user.restrictedFeatures[]` **Changed**\n* `indicia.activity.listActivities()`:  `response.activities[].type` **Changed**\n* `indicia.activity.getActivity()`:  `response.activity.type` **Changed**\n"

@@ -139,7 +139,7 @@ export class Intelligence extends ClientSDK {
    * VirusTotal File Intelligence
    *
    * @remarks
-   * Look up VirusTotal reputation and antivirus detection data for a URL, domain, IP address, or file hash.
+   * Look up VirusTotal reputation and antivirus detection data for a URL, domain, IP address, or file (including content).
    */
   async virusTotalIntelligence(
     request: operations.VirusTotalIntelligenceRequest,
