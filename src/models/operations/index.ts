@@ -19,6 +19,7 @@ export * from "./list-organizations.js";
 export * from "./lookup-discord-alt.js";
 export * from "./scan-ports.js";
 export * from "./search-address.js";
+export * from "./search-app-store.js";
 export * from "./search-certificates.js";
 export * from "./search-discord.js";
 export * from "./search-dns.js";

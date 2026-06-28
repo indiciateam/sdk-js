@@ -28,6 +28,7 @@ export type GetActivityResultUnion =
 
 export const GetActivityType = {
   Address: "address",
+  Appstore: "appstore",
   Breachvip: "breachvip",
   Certificates: "certificates",
   Cloudsint: "cloudsint",
@@ -49,6 +50,7 @@ export const GetActivityType = {
   Ipinfo: "ipinfo",
   Leakcheck: "leakcheck",
   Leakosint: "leakosint",
+  Linkedin: "linkedin",
   Melissa: "melissa",
   Minecraft: "minecraft",
   Osintindustries: "osintindustries",

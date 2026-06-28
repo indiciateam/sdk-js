@@ -26,6 +26,7 @@ export type ListActivitiesResultUnion =
 
 export const ListActivitiesType = {
   Address: "address",
+  Appstore: "appstore",
   Breachvip: "breachvip",
   Certificates: "certificates",
   Cloudsint: "cloudsint",
@@ -47,6 +48,7 @@ export const ListActivitiesType = {
   Ipinfo: "ipinfo",
   Leakcheck: "leakcheck",
   Leakosint: "leakosint",
+  Linkedin: "linkedin",
   Melissa: "melissa",
   Minecraft: "minecraft",
   Osintindustries: "osintindustries",

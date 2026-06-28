@@ -6,11 +6,29 @@ import { toolsBypassDoubleCounter } from "../funcs/tools-bypass-double-counter.j
 import { toolsDownloadIntelxFile } from "../funcs/tools-download-intelx-file.js";
 import { toolsDownloadVirusTotalFile } from "../funcs/tools-download-virus-total-file.js";
 import { toolsLookupDiscordAlt } from "../funcs/tools-lookup-discord-alt.js";
+import { toolsSearchAppStore } from "../funcs/tools-search-app-store.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Tools extends ClientSDK {
+  /**
+   * App Store Search
+   *
+   * @remarks
+   * Scrape app and developer information from the Google Play Store or Apple App Store. Pass an app/package ID (e.g. com.whatsapp) for full developer contact details, or a name to search.
+   */
+  async searchAppStore(
+    request: operations.SearchAppStoreRequest,
+    options?: RequestOptions,
+  ): Promise<operations.SearchAppStoreResponse> {
+    return unwrapAsync(toolsSearchAppStore(
+      this,
+      request,
+      options,
+    ));
+  }
+
   /**
    * Discord Alt Lookup
    *

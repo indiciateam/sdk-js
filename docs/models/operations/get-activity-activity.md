@@ -14,7 +14,7 @@ let value: GetActivityActivity = {
   query: "<value>",
   result: "<value>",
   time: 774928,
-  type: "discord",
+  type: "courtrecords",
   user: "Richie.Ritchie79",
 };
 ```
