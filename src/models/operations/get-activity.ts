@@ -33,6 +33,7 @@ export const GetActivityType = {
   Certificates: "certificates",
   Cloudsint: "cloudsint",
   Courtrecords: "courtrecords",
+  Crypto: "crypto",
   Discord: "discord",
   Dnsdumpster: "dnsdumpster",
   Doogle: "doogle",

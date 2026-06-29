@@ -23,7 +23,7 @@ let value: User = {
   referralLink: null,
   referred: "<value>",
   restrictedFeatures: [
-    "phone",
+    "person",
   ],
   role: "<value>",
   stripeConnectedId: "<id>",

@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 52196f51-6114-4cc4-ab05-251f3515c88f
 management:
-  docChecksum: 21be2d0573db3b8ce2419e6ca71d9d50
+  docChecksum: e671270f9f9b7d689bd5095fd7b4e3cf
   docVersion: 1.0.0
   speakeasyVersion: 1.786.1
   generationVersion: 2.913.3
-  releaseVersion: 1.2.4
-  configChecksum: a1800818e41ce888c373ecac0fc4fc7f
+  releaseVersion: 1.2.5
+  configChecksum: 8f0ce14a5a72c9182300a0c85c6d072a
   repoURL: https://github.com/indiciateam/sdk-js.git
   installationURL: https://github.com/indiciateam/sdk-js
   published: true
 persistentEdits:
-  generation_id: 21073ca1-413b-4786-b0cb-961e6760a0b6
-  pristine_commit_hash: 5af2a52f30ef427542a46a53a0b750d6d999099c
-  pristine_tree_hash: 308a34b96a1af7bec61abc61c7683ed6d41016c0
+  generation_id: f2ee24ed-1403-4eca-8c3c-7fb6b38bc27a
+  pristine_commit_hash: 612e73293a95b4398678e6677d302c5766bcf7ce
+  pristine_tree_hash: 489577efc3921b838ec2ce962637eec1e1d1c078
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -125,6 +125,18 @@ trackedFiles:
     id: b8114f65e3cc
     last_write_checksum: sha1:74604b49cad0684fee0f3a73fe868041cce1a217
     pristine_git_object: 551f8baeb1d7541856b2a049849a8fa1877e8031
+  docs/models/operations/analyze-crypto-address-data.md:
+    id: c2fe6648f802
+    last_write_checksum: sha1:646b02e795d0c86d6536cbb530497cf2a7dc9849
+    pristine_git_object: 787e96cd56994dd476991519b8c9f21d2bde2ece
+  docs/models/operations/analyze-crypto-address-request.md:
+    id: 1125bbeb8023
+    last_write_checksum: sha1:761477755021e49683febd74d89534b617d55622
+    pristine_git_object: 41ef37ffe47f802b87eff1ab5e613605522ed496
+  docs/models/operations/analyze-crypto-address-response.md:
+    id: a1977b018bef
+    last_write_checksum: sha1:56cca279f7798c39017ebe15ad4bb274a543287b
+    pristine_git_object: 504bbd0cb77c4a9aa8f2bb7d840e8c588c99e2a0
   docs/models/operations/analyzing-event.md:
     id: 09b35c094335
     last_write_checksum: sha1:e6f30ac73d68a5c8fd6ee9059564081b7eef9248
@@ -425,6 +437,10 @@ trackedFiles:
     id: 887302470b83
     last_write_checksum: sha1:7fd42bbe02ecc3ae219157b14149b0e4331f9286
     pristine_git_object: c882553651eeac74e9094263123b20603eb2b5be
+  docs/models/operations/direction.md:
+    id: 9a36eca7275b
+    last_write_checksum: sha1:8be737880e86b0cdbcb4762d8ecb9661d232b516
+    pristine_git_object: 67654c1b8437acc0bf911651cec0576902e5b6d7
   docs/models/operations/dollar.md:
     id: 92199e07748e
     last_write_checksum: sha1:f3aa18951b0e588ee94f7ea67d415f9d521e8df3
@@ -627,8 +643,8 @@ trackedFiles:
     pristine_git_object: ca1ad0fd0b19d08177c3ad471c4da49a205ec05d
   docs/models/operations/get-activity-type.md:
     id: 195fc9c5708d
-    last_write_checksum: sha1:27d33bf241ec00727680dac2943971185e770ecb
-    pristine_git_object: e6c2b554faec5a638b3d63ecf394185293375378
+    last_write_checksum: sha1:c33c568ee3341e4680dbd84f38716c65a3c15935
+    pristine_git_object: e06bb2b42f52d2f5b6ee245e9c4082672a7fd781
   docs/models/operations/get-info-response.md:
     id: 0737272eb174
     last_write_checksum: sha1:f7c72f8c7f0b5be6fb9b90a74101bb5bb8b4df98
@@ -835,8 +851,8 @@ trackedFiles:
     pristine_git_object: 36b9614f946bdab8fd5ae998587537945c26adb0
   docs/models/operations/list-activities-type.md:
     id: bca04bd7c8b4
-    last_write_checksum: sha1:4dca601419a1e874cd01f85cb4a57eece7e77f6f
-    pristine_git_object: 7035fc4d3e7bcb4c91c6e408255c7f254510bc86
+    last_write_checksum: sha1:272cd56059d74014fbaad94c6211106f5004d98e
+    pristine_git_object: c791f93e0271a03990ac353af201d9d59bb44f9e
   docs/models/operations/list-organization-cases-request.md:
     id: e8022b24100d
     last_write_checksum: sha1:5f46fc67aff352a758c06ca71aa8aff988626e7f
@@ -1091,8 +1107,8 @@ trackedFiles:
     pristine_git_object: fbe71d932c36b17d62057df1c28ff2334fb84972
   docs/models/operations/restricted-features.md:
     id: 21b11ab75144
-    last_write_checksum: sha1:43b0a2b00ef4e87c00321bd2cd92818ae7435831
-    pristine_git_object: 0c0ee7c907f405ca91bc4b46ce4d2fad81fbef2f
+    last_write_checksum: sha1:401eccd8cdb6e276b3b8adbae393efe4877e9c26
+    pristine_git_object: 22cd2083a0e051b48e69821ae5b728e6a9efab09
   docs/models/operations/result-account.md:
     id: d315083a8abe
     last_write_checksum: sha1:77347ec74f1b8d9e2aeabd231ab6680c21713032
@@ -1929,10 +1945,18 @@ trackedFiles:
     id: 2091bc2548ad
     last_write_checksum: sha1:b0dfaab5a2dd3a6182d855fd9a661fa7616ef436
     pristine_git_object: a669807507c9fc057a73d2722fc909e5fcd72544
+  docs/models/operations/token.md:
+    id: ecd77bab84cd
+    last_write_checksum: sha1:024f328e306bb7db912d46c9de6e8f4910adffdc
+    pristine_git_object: 9e552fa06e72560607ccd90b51a5385a1c4366e9
   docs/models/operations/traits.md:
     id: 44c01f1d2953
     last_write_checksum: sha1:a14ad45908ae0d53a3d42bd94d70af3887195719
     pristine_git_object: 21198a23b0c17ee280257012984eb4c5e4c9c7f3
+  docs/models/operations/transaction.md:
+    id: 3d3c6792fa61
+    last_write_checksum: sha1:0b255d0f2abbf87492819fc3c0905100ec82c02a
+    pristine_git_object: ceecb82674d21060af9b7e7414a4bdd1b9599bc7
   docs/models/operations/travel.md:
     id: 2f272bc3bd7b
     last_write_checksum: sha1:51134ab5099431014df3e764a527e9b1f6f982f0
@@ -1983,8 +2007,8 @@ trackedFiles:
     pristine_git_object: 5443a8d7f566e8bda3e18527119d3badf57aac02
   docs/models/operations/user.md:
     id: 11e33f99f19d
-    last_write_checksum: sha1:0a8eb89c4a8afee936acc700d85050e17eea8123
-    pristine_git_object: 84df9db1fdde1c1fab008af44386a35144475981
+    last_write_checksum: sha1:254671539ecb64877072fbecaf385dc724159d3a
+    pristine_git_object: 12f548caf43ec3eee48c885a30b01969b56f5fae
   docs/models/operations/username-search-complete.md:
     id: 5cf643095751
     last_write_checksum: sha1:7a9f65df9cc769eb185bf465f5208062da97575e
@@ -2067,8 +2091,8 @@ trackedFiles:
     pristine_git_object: 8be81ccdb61a363b20e45404f79513044b23eba8
   docs/sdks/tools/README.md:
     id: 044286549bac
-    last_write_checksum: sha1:fc76c56829d297de98223e2d07903a884b238547
-    pristine_git_object: 6244e2eadb30167ba955b7e7cfcb4ca93f42a6de
+    last_write_checksum: sha1:1dbf32155a198b040df485e2410145645fe7478b
+    pristine_git_object: 1f5b8844988a76d2044649c94a6ab809e2e933b9
   docs/sdks/users/README.md:
     id: 5d80027045fe
     last_write_checksum: sha1:5b99045e69cabb695f3e2997b1d24fa8fef6d7e3
@@ -2091,12 +2115,12 @@ trackedFiles:
     pristine_git_object: f78da2c4c3fed817b69fdfdadeafb1cb050f1de8
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:59a277d6d8fb0cb1387fb5aa1f6745f423410041
-    pristine_git_object: 8d23da7d8e2f99fc6886145a6530e65810e77296
+    last_write_checksum: sha1:d89bbee8f3f07aab1a253c0cf638e83648c7e2b9
+    pristine_git_object: baae76c258a5f8bd4e500effe0bb711a6a6b7943
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:4c0583a88dd922b4318a4ff6cd7f328e1072981f
-    pristine_git_object: a6d35e321301bb348d73662f5932299eddba3133
+    last_write_checksum: sha1:62255ef021a76cb8f05e265c27eaf5b924af982f
+    pristine_git_object: 200c9d2c8e6ca16313aa2c1db6964d5e7515d4ae
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a644a2c1bdd89948cb4098800c72e115eeb77cad
@@ -2233,6 +2257,10 @@ trackedFiles:
     id: 017c57412b55
     last_write_checksum: sha1:1de518a04cf56b3d18a3b39c26ad60741fbc09c1
     pristine_git_object: 7455e29ff010b410340ef4bae210ced8c0181bdc
+  src/funcs/tools-analyze-crypto-address.ts:
+    id: 96b1a9b4a7bc
+    last_write_checksum: sha1:fe42caba67c818ee16bf4b2a876ba5701a633be1
+    pristine_git_object: 75504dd12d404a593f9a6c88b64900e6822c308c
   src/funcs/tools-bypass-double-counter.ts:
     id: 1e28b937a8d4
     last_write_checksum: sha1:9cc915407125e308205c0d8bc516411fb5c3bbd5
@@ -2279,8 +2307,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:a5efc1d347ba06a4baba4348246780078d5eaf95
-    pristine_git_object: 711d22d83a782fe873fadfe5518810cc0248b9ae
+    last_write_checksum: sha1:0e5af502cdab60233044ea4dcd40286dcc2bd8d8
+    pristine_git_object: ae2a5cd63df3bcd037bbae870e98ff566d833c09
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
@@ -2365,6 +2393,10 @@ trackedFiles:
     id: f93644b0f37e
     last_write_checksum: sha1:a445498c6a67166ab0fd15bc7a3f890780f560eb
     pristine_git_object: 2edb51c4860cdd2d34f0e40b67aa4d2aed7af6af
+  src/models/operations/analyze-crypto-address.ts:
+    id: 77fd99775c6b
+    last_write_checksum: sha1:8d9c872e4d2c51c8b12521749280c16ef5e0b8cc
+    pristine_git_object: 691847443c1032f7dd76ae9df398c0f60e7e16ca
   src/models/operations/bypass-double-counter.ts:
     id: 34a08017adca
     last_write_checksum: sha1:c8683664a4389cdc6df0803b7814973bbec7e99f
@@ -2387,12 +2419,12 @@ trackedFiles:
     pristine_git_object: 43a80a30a337e4689995a15bac36e69b4fb320c1
   src/models/operations/get-activity.ts:
     id: e8ce62eb0e93
-    last_write_checksum: sha1:d67ec937657d06816813cf59159a2f9ea50af2be
-    pristine_git_object: d00b7d8bfce64734732465b885660ec5f03386a8
+    last_write_checksum: sha1:ad7657823541c541b3de55d0c0d163d23241bbe6
+    pristine_git_object: 551acfc41d3815b295ac0f1d90ae19709f245c2d
   src/models/operations/get-info.ts:
     id: bac617815e87
-    last_write_checksum: sha1:71d9af9ebf7aa62041187a3755e1b3aea99cadae
-    pristine_git_object: f59eb9ac6a3019acac5a69d71c85acb4adda63a7
+    last_write_checksum: sha1:a45d2bfa9a14e8881731be31c933fb2e12d6c71d
+    pristine_git_object: 8764edac1fd9823e0b4e01d7c772f23b5fbc3775
   src/models/operations/get-organization-audit-log.ts:
     id: fddb38b99d99
     last_write_checksum: sha1:25f4bd16f4dafcd2a63e5d38f8fb345ec1c61c60
@@ -2407,12 +2439,12 @@ trackedFiles:
     pristine_git_object: c9660e5869eb50a5e566312f2881efd063d46d31
   src/models/operations/index.ts:
     id: 0d9ffaf774d2
-    last_write_checksum: sha1:d46787d12952bbe257c924ad4c95ddc6b16b786a
-    pristine_git_object: 213aca28ed91324d64f08c0f170b8edf2bdbfef9
+    last_write_checksum: sha1:a2c3165a2b973d3ff716d0ccda3b5a3627f90ebb
+    pristine_git_object: 3e5b009fcccb27ebee72a99e5172c29c255426a8
   src/models/operations/list-activities.ts:
     id: d70dc01cbd79
-    last_write_checksum: sha1:a65d14105ba3f3f2f86f34b72a787c00ff10c962
-    pristine_git_object: 844f58d6b44f7d3d66bbf5cfdacf9db1aec0f4de
+    last_write_checksum: sha1:b686e1955628a380d982907d6c08a406a6171765
+    pristine_git_object: 686abdf6f3f7927a7af884ab2b8c189954b5bbad
   src/models/operations/list-organization-cases.ts:
     id: 56e0b027c620
     last_write_checksum: sha1:82a7559461d799353202477992b20e019ebd9f23
@@ -2563,8 +2595,8 @@ trackedFiles:
     pristine_git_object: 64276e67a623e32e92de67a318fe1495819cb1ae
   src/sdk/tools.ts:
     id: f997ccdd9dd9
-    last_write_checksum: sha1:94708176663a32f17877c627fab89a47a7dd6bd1
-    pristine_git_object: a2c592579b5e66f67d7f4a31cce217ee81e220e4
+    last_write_checksum: sha1:ab778b756ad68292e9e846307336ab53d54c9b01
+    pristine_git_object: e7ea652a80fe74445dcca13b08fb7470069886a2
   src/sdk/users.ts:
     id: 2df5828eed03
     last_write_checksum: sha1:745d0554aa8dca06b01abf577ac3430afc3bd89c
@@ -3370,10 +3402,19 @@ examples:
           application/json: {"success": true}
         "500":
           application/json: {"success": false}
+  analyzeCryptoAddress:
+    speakeasy-default-analyze-crypto-address:
+      requestBody:
+        application/json: {"address": "791 Wood Street"}
+      responses:
+        "200":
+          application/json: {"success": false}
+        "500":
+          application/json: {"success": true}
 examplesVersion: 1.0.2
 releaseNotes: |
   ## Typescript SDK Changes:
-  * `indicia.tools.searchAppStore()`: **Added**
-  * `indicia.users.getInfo()`:  `response.user.restrictedFeatures[]` **Changed**
-  * `indicia.activity.listActivities()`:  `response.activities[].type` **Changed**
-  * `indicia.activity.getActivity()`:  `response.activity.type` **Changed**
+  * `indicia.tools.analyzeCryptoAddress()`: **Added**
+  * `indicia.users.getInfo()`:  `response.user.restrictedFeatures[].enum(crypto)` **Added**
+  * `indicia.activity.listActivities()`:  `response.activities[].type.enum(crypto)` **Added**
+  * `indicia.activity.getActivity()`:  `response.activity.type.enum(crypto)` **Added**

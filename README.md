@@ -194,6 +194,7 @@ run();
 ### [Tools](docs/sdks/tools/README.md)
 
 * [searchAppStore](docs/sdks/tools/README.md#searchappstore) - App Store Search
+* [analyzeCryptoAddress](docs/sdks/tools/README.md#analyzecryptoaddress) - Crypto Address Analyzer
 * [lookupDiscordAlt](docs/sdks/tools/README.md#lookupdiscordalt) - Discord Alt Lookup
 * [bypassDoubleCounter](docs/sdks/tools/README.md#bypassdoublecounter) - Bypass Double Counter URL
 * [downloadIntelxFile](docs/sdks/tools/README.md#downloadintelxfile) - Download IntelX file
@@ -254,6 +255,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`socialsSearchRoblox`](docs/sdks/socials/README.md#searchroblox) - Roblox Search
 - [`socialsSearchTiktok`](docs/sdks/socials/README.md#searchtiktok) - TikTok Search
 - [`socialsSearchUsername`](docs/sdks/socials/README.md#searchusername) - Username Search V2
+- [`toolsAnalyzeCryptoAddress`](docs/sdks/tools/README.md#analyzecryptoaddress) - Crypto Address Analyzer
 - [`toolsBypassDoubleCounter`](docs/sdks/tools/README.md#bypassdoublecounter) - Bypass Double Counter URL
 - [`toolsDownloadIntelxFile`](docs/sdks/tools/README.md#downloadintelxfile) - Download IntelX file
 - [`toolsDownloadVirusTotalFile`](docs/sdks/tools/README.md#downloadvirustotalfile) - Download VirusTotal file
@@ -470,7 +472,7 @@ run();
 
 
 **Inherit from [`IndiciaError`](./src/models/errors/indicia-error.ts)**:
-* [`FailedResponseError`](./src/models/errors/failed-response-error.ts): A failed API response. Applicable to 28 of 39 methods.*
+* [`FailedResponseError`](./src/models/errors/failed-response-error.ts): A failed API response. Applicable to 29 of 40 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
