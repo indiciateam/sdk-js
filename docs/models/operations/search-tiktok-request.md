@@ -12,6 +12,7 @@ let value: SearchTiktokRequest = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `query`            | *string*           | :heavy_check_mark: | N/A                |
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `query`                                                                      | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `type`                                                                       | [operations.SearchTiktokType](../../models/operations/search-tiktok-type.md) | :heavy_minus_sign:                                                           | N/A                                                                          |

@@ -1,25 +1,25 @@
 lockVersion: 2.0.0
 id: 52196f51-6114-4cc4-ab05-251f3515c88f
 management:
-  docChecksum: e671270f9f9b7d689bd5095fd7b4e3cf
+  docChecksum: 64d8f0671c507f25945980814d989a8a
   docVersion: 1.0.0
-  speakeasyVersion: 1.786.1
-  generationVersion: 2.913.3
-  releaseVersion: 1.2.5
-  configChecksum: 8f0ce14a5a72c9182300a0c85c6d072a
+  speakeasyVersion: 1.788.0
+  generationVersion: 2.915.0
+  releaseVersion: 1.2.6
+  configChecksum: da092d396ed5ed90a2f18efbe7a300de
   repoURL: https://github.com/indiciateam/sdk-js.git
   installationURL: https://github.com/indiciateam/sdk-js
   published: true
 persistentEdits:
-  generation_id: f2ee24ed-1403-4eca-8c3c-7fb6b38bc27a
-  pristine_commit_hash: 612e73293a95b4398678e6677d302c5766bcf7ce
-  pristine_tree_hash: 489577efc3921b838ec2ce962637eec1e1d1c078
+  generation_id: 9fd9d86d-7480-4872-aa3c-31509cebc651
+  pristine_commit_hash: 8ad5cb0afdd1968b365e6451855c58a95cab457e
+  pristine_tree_hash: 2ff92df9f46a661d36366e80f6e84af67f1b051d
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
     constsAndDefaults: 0.1.14
-    core: 3.31.2
+    core: 3.31.3
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -1683,16 +1683,20 @@ trackedFiles:
     pristine_git_object: 53c3002eb4151e69009cbd9ee982fa368cb77f80
   docs/models/operations/search-tiktok-data.md:
     id: 2dc942e56643
-    last_write_checksum: sha1:ef624da21e5f7e7288be1c49d3decbdf63b65b67
-    pristine_git_object: 81dff608baa48db9286c3cc553af83ddc1a5bee4
+    last_write_checksum: sha1:f02cea449c55acfd3c60874034fb046fa4c6cbc5
+    pristine_git_object: 7b78bcde95cdd8528726abffdc60908864269d2d
   docs/models/operations/search-tiktok-request.md:
     id: 5ca8070a5fe7
-    last_write_checksum: sha1:192148c9b2029e04677e5b70b9dd4e737bed6e3a
-    pristine_git_object: 112cadb10f8e2162f6d4ab25ed4ebf4665099a3a
+    last_write_checksum: sha1:3b442fc47b42bfee245cf96b99511793a68a2ed0
+    pristine_git_object: 5ee4d4eb4c00dda80ef566738107ae17ff1fd6a8
   docs/models/operations/search-tiktok-response.md:
     id: e0ed6f97d342
     last_write_checksum: sha1:e88799227af0582f698d26b40393da37cd37747c
     pristine_git_object: 46ffd6afa1791c744eac5bf3ca4368e6756926fa
+  docs/models/operations/search-tiktok-type.md:
+    id: f3aafcae680a
+    last_write_checksum: sha1:c73d8e82e6ccf061df70e6f8f4e9e9fc5cb42474
+    pristine_git_object: 3925d9f2fe9c22de74b3d6e008dfda4c01a9ca47
   docs/models/operations/search-username-badge.md:
     id: ed6c4fc77f04
     last_write_checksum: sha1:49d6607e53c2f21c49a1e5e98c31a5093b0e8905
@@ -1769,6 +1773,10 @@ trackedFiles:
     id: ac5affac4198
     last_write_checksum: sha1:65b9e9b2ddd6693c4166a944392b81d7c2ca9188
     pristine_git_object: 7660635dc9c029e71977264d0a4d680aeb3a0122
+  docs/models/operations/security-info.md:
+    id: fd54b33c9eb6
+    last_write_checksum: sha1:6f188c4851f316a307285d860e654344634b2872
+    pristine_git_object: cfd0dfd28eca90f06605ba428246312c59225c62
   docs/models/operations/send-organization-credits-request-body.md:
     id: bb8b765755aa
     last_write_checksum: sha1:e11dfb380636627356b60f55830459509a88cd0a
@@ -2115,12 +2123,12 @@ trackedFiles:
     pristine_git_object: f78da2c4c3fed817b69fdfdadeafb1cb050f1de8
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:d89bbee8f3f07aab1a253c0cf638e83648c7e2b9
-    pristine_git_object: baae76c258a5f8bd4e500effe0bb711a6a6b7943
+    last_write_checksum: sha1:68e28b8ca1a76c4a9e282585d8dac8a03dfa1286
+    pristine_git_object: 9d437138b8ca2d1a2517a4ce5db0c8b8a5c089c1
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:62255ef021a76cb8f05e265c27eaf5b924af982f
-    pristine_git_object: 200c9d2c8e6ca16313aa2c1db6964d5e7515d4ae
+    last_write_checksum: sha1:81570c171720da7581779bcdbdef63933eb8a27f
+    pristine_git_object: a26bf91d1a2fa5128f913ce65561bbd59f88aea2
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a644a2c1bdd89948cb4098800c72e115eeb77cad
@@ -2307,8 +2315,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:0e5af502cdab60233044ea4dcd40286dcc2bd8d8
-    pristine_git_object: ae2a5cd63df3bcd037bbae870e98ff566d833c09
+    last_write_checksum: sha1:d369e0cdcaa209a574a8d2bb1f86b52a4a1842a9
+    pristine_git_object: f126f0b850da2e682e56fe6e5c70d594f3b4bb66
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
@@ -2531,8 +2539,8 @@ trackedFiles:
     pristine_git_object: 5f46f03ed4ed9dd402e6c341b9434daf7eec8e60
   src/models/operations/search-tiktok.ts:
     id: 0826c14cce37
-    last_write_checksum: sha1:8fa98ede581c5b0f22f05cee12be456209e5b502
-    pristine_git_object: 3a39d1ad4b5302244b8be3cf914cf65a36320986
+    last_write_checksum: sha1:3f6a0aeef447dea0ab448ffc99ad68b358818367
+    pristine_git_object: 4df0ce75e6863da78c79b2d8fd4e32a3f70fbe26
   src/models/operations/search-username.ts:
     id: 092673284d13
     last_write_checksum: sha1:8245d28846044d2537fc4f9c1b2e58a710623cba
@@ -3412,9 +3420,4 @@ examples:
         "500":
           application/json: {"success": true}
 examplesVersion: 1.0.2
-releaseNotes: |
-  ## Typescript SDK Changes:
-  * `indicia.tools.analyzeCryptoAddress()`: **Added**
-  * `indicia.users.getInfo()`:  `response.user.restrictedFeatures[].enum(crypto)` **Added**
-  * `indicia.activity.listActivities()`:  `response.activities[].type.enum(crypto)` **Added**
-  * `indicia.activity.getActivity()`:  `response.activity.type.enum(crypto)` **Added**
+releaseNotes: "## Typescript SDK Changes:\n* `indicia.socials.searchTiktok()`: \n  *  `request.type` **Added**\n  *  `response.data` **Changed**\n"

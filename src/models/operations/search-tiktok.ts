@@ -4,13 +4,24 @@
 
 import * as z from "zod/v4-mini";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
+export const SearchTiktokType = {
+  Email: "email",
+  Phone: "phone",
+  Username: "username",
+} as const;
+export type SearchTiktokType = ClosedEnum<typeof SearchTiktokType>;
+
 export type SearchTiktokRequest = {
   query: string;
+  type?: SearchTiktokType | undefined;
 };
+
+export type SecurityInfo = {};
 
 export type SearchTiktokData = {
   bio?: string | undefined;
@@ -27,7 +38,11 @@ export type SearchTiktokData = {
   picture?: string | undefined;
   private?: boolean | undefined;
   region?: string | undefined;
+  resolvedFrom?: string | undefined;
+  secUid?: string | undefined;
+  securityInfo?: SecurityInfo | undefined;
   ttseller?: boolean | undefined;
+  userId?: string | undefined;
   username?: string | undefined;
   verified?: boolean | undefined;
   videos?: string | undefined;
@@ -43,8 +58,14 @@ export type SearchTiktokResponse = {
 };
 
 /** @internal */
+export const SearchTiktokType$outboundSchema: z.ZodMiniEnum<
+  typeof SearchTiktokType
+> = z.enum(SearchTiktokType);
+
+/** @internal */
 export type SearchTiktokRequest$Outbound = {
   query: string;
+  type?: string | undefined;
 };
 
 /** @internal */
@@ -53,6 +74,7 @@ export const SearchTiktokRequest$outboundSchema: z.ZodMiniType<
   SearchTiktokRequest
 > = z.object({
   query: z.string(),
+  type: z.optional(SearchTiktokType$outboundSchema),
 });
 
 export function searchTiktokRequestToJSON(
@@ -60,6 +82,20 @@ export function searchTiktokRequestToJSON(
 ): string {
   return JSON.stringify(
     SearchTiktokRequest$outboundSchema.parse(searchTiktokRequest),
+  );
+}
+
+/** @internal */
+export const SecurityInfo$inboundSchema: z.ZodMiniType<SecurityInfo, unknown> =
+  z.object({});
+
+export function securityInfoFromJSON(
+  jsonString: string,
+): SafeParseResult<SecurityInfo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SecurityInfo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SecurityInfo' from JSON`,
   );
 }
 
@@ -82,7 +118,11 @@ export const SearchTiktokData$inboundSchema: z.ZodMiniType<
   picture: types.optional(types.string()),
   private: types.optional(types.boolean()),
   region: types.optional(types.string()),
+  resolvedFrom: types.optional(types.string()),
+  secUid: types.optional(types.string()),
+  securityInfo: types.optional(z.lazy(() => SecurityInfo$inboundSchema)),
   ttseller: types.optional(types.boolean()),
+  userId: types.optional(types.string()),
   username: types.optional(types.string()),
   verified: types.optional(types.boolean()),
   videos: types.optional(types.string()),
