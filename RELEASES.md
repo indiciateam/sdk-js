@@ -119,3 +119,13 @@ Based on:
 - [typescript v1.2.6] .
 ### Releases
 - [NPM v1.2.6] https://www.npmjs.com/package/@indiciaosint/sdk/v/1.2.6 - .
+
+## 2026-07-05 02:07:40
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.788.1 (2.915.1) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [typescript v1.2.7] .
+### Releases
+- [NPM v1.2.7] https://www.npmjs.com/package/@indiciaosint/sdk/v/1.2.7 - .

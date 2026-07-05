@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 52196f51-6114-4cc4-ab05-251f3515c88f
 management:
-  docChecksum: 64d8f0671c507f25945980814d989a8a
+  docChecksum: d62306250bb6017e4d8a1963dde4c58b
   docVersion: 1.0.0
-  speakeasyVersion: 1.788.0
-  generationVersion: 2.915.0
-  releaseVersion: 1.2.6
-  configChecksum: da092d396ed5ed90a2f18efbe7a300de
+  speakeasyVersion: 1.788.1
+  generationVersion: 2.915.1
+  releaseVersion: 1.2.7
+  configChecksum: 31e44dbf637b55c2384924c86b0b0b60
   repoURL: https://github.com/indiciateam/sdk-js.git
   installationURL: https://github.com/indiciateam/sdk-js
   published: true
 persistentEdits:
-  generation_id: 9fd9d86d-7480-4872-aa3c-31509cebc651
-  pristine_commit_hash: 8ad5cb0afdd1968b365e6451855c58a95cab457e
-  pristine_tree_hash: 2ff92df9f46a661d36366e80f6e84af67f1b051d
+  generation_id: c169067d-4e6b-4ac4-a9e3-c6ef268839c4
+  pristine_commit_hash: 1fb9dadc164b861e7decd53ca320a1540042a0ea
+  pristine_tree_hash: 74e132ee188a79adf9966355c42e7985ddfec057
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -647,8 +647,8 @@ trackedFiles:
     pristine_git_object: e06bb2b42f52d2f5b6ee245e9c4082672a7fd781
   docs/models/operations/get-info-response.md:
     id: 0737272eb174
-    last_write_checksum: sha1:f7c72f8c7f0b5be6fb9b90a74101bb5bb8b4df98
-    pristine_git_object: 4835b6bf1198ccb9f3494b181336548ef2ad009c
+    last_write_checksum: sha1:9138cf3e85e1e6ef147b11144a92cddeaac02bfe
+    pristine_git_object: 69f72dedefba892800c28133e3d4338b9d9fa00e
   docs/models/operations/get-organization-audit-log-request.md:
     id: 80a726b1294b
     last_write_checksum: sha1:d825bc533ab579638c29f71a53f00bf0afb3302e
@@ -2015,8 +2015,8 @@ trackedFiles:
     pristine_git_object: 5443a8d7f566e8bda3e18527119d3badf57aac02
   docs/models/operations/user.md:
     id: 11e33f99f19d
-    last_write_checksum: sha1:254671539ecb64877072fbecaf385dc724159d3a
-    pristine_git_object: 12f548caf43ec3eee48c885a30b01969b56f5fae
+    last_write_checksum: sha1:614df8de69793369b7e165262dc398a6683b6894
+    pristine_git_object: 4e27545105e7122dc07a720d82c545d4a5e4e3f9
   docs/models/operations/username-search-complete.md:
     id: 5cf643095751
     last_write_checksum: sha1:7a9f65df9cc769eb185bf465f5208062da97575e
@@ -2123,12 +2123,12 @@ trackedFiles:
     pristine_git_object: f78da2c4c3fed817b69fdfdadeafb1cb050f1de8
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:68e28b8ca1a76c4a9e282585d8dac8a03dfa1286
-    pristine_git_object: 9d437138b8ca2d1a2517a4ce5db0c8b8a5c089c1
+    last_write_checksum: sha1:52d9a4a516d03cf04de37bf0488c247ec92d0935
+    pristine_git_object: 9aa04db7d5ab6094c80b32956384aa12412a799a
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:81570c171720da7581779bcdbdef63933eb8a27f
-    pristine_git_object: a26bf91d1a2fa5128f913ce65561bbd59f88aea2
+    last_write_checksum: sha1:1ef551f73da084820d6f2f405fc0580d9e538ece
+    pristine_git_object: ea2c25e95fa331471eb63c06f4c4f75071e14447
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a644a2c1bdd89948cb4098800c72e115eeb77cad
@@ -2315,8 +2315,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:d369e0cdcaa209a574a8d2bb1f86b52a4a1842a9
-    pristine_git_object: f126f0b850da2e682e56fe6e5c70d594f3b4bb66
+    last_write_checksum: sha1:ed528c5b931fddeba9f8890f1e6ce7e8d6bb7c94
+    pristine_git_object: f248d484903c80b13cf08f4e00982088489c9a2c
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
@@ -2431,8 +2431,8 @@ trackedFiles:
     pristine_git_object: 551acfc41d3815b295ac0f1d90ae19709f245c2d
   src/models/operations/get-info.ts:
     id: bac617815e87
-    last_write_checksum: sha1:a45d2bfa9a14e8881731be31c933fb2e12d6c71d
-    pristine_git_object: 8764edac1fd9823e0b4e01d7c772f23b5fbc3775
+    last_write_checksum: sha1:216c532734336d81f5a37fcce1778c5b03b1a550
+    pristine_git_object: 7d57be31b5ce9ac831cc66e6e5b225889c06e689
   src/models/operations/get-organization-audit-log.ts:
     id: fddb38b99d99
     last_write_checksum: sha1:25f4bd16f4dafcd2a63e5d38f8fb345ec1c61c60
@@ -2993,7 +2993,7 @@ examples:
     speakeasy-default-get-info:
       responses:
         "200":
-          application/json: {"key": {"createdAt": 362996, "enabled": true, "expiresAt": 776358, "id": "<id>", "lastRefillAt": 990969, "lastRequest": 522842, "metadata": {}, "name": "<value>", "permissions": {"key": [], "key1": ["<value 1>", "<value 2>", "<value 3>"], "key2": ["<value 1>", "<value 2>"]}, "prefix": "<value>", "rateLimitEnabled": false, "rateLimitMax": 9262.52, "rateLimitTimeWindow": null, "refillAmount": 9815.67, "refillInterval": 5910.58, "remaining": 2560.96, "requestCount": 7340.2, "start": "<value>", "updatedAt": 930013, "userId": "<id>"}, "success": true, "user": {"acceptOrgInvites": true, "acceptedLegalHash": null, "banExpires": 124378, "banReason": "<value>", "banned": true, "boughtCreditsAfterReferral": true, "createdAt": 744831, "displayUsername": "<value>", "email": "Thomas_DuBuque3@yahoo.com", "emailVerified": true, "flagged": true, "id": "<id>", "image": null, "name": "<value>", "referralLink": "<value>", "referred": "<value>", "restrictedFeatures": [], "role": "<value>", "stripeConnectedId": "<id>", "stripeId": "<id>", "taxState": "<value>", "tokens": 440155, "twoFactorEnabled": true, "updatedAt": 46011, "username": "Lon_Rogahn"}}
+          application/json: {"key": {"createdAt": 362996, "enabled": true, "expiresAt": 776358, "id": "<id>", "lastRefillAt": 990969, "lastRequest": 522842, "metadata": {}, "name": "<value>", "permissions": {"key": [], "key1": ["<value 1>", "<value 2>", "<value 3>"], "key2": ["<value 1>", "<value 2>"]}, "prefix": "<value>", "rateLimitEnabled": false, "rateLimitMax": 9262.52, "rateLimitTimeWindow": null, "refillAmount": 9815.67, "refillInterval": 5910.58, "remaining": 2560.96, "requestCount": 7340.2, "start": "<value>", "updatedAt": 930013, "userId": "<id>"}, "success": true, "user": {"acceptOrgInvites": true, "acceptedLegalHash": null, "banExpires": 124378, "banReason": "<value>", "banned": true, "boughtCreditsAfterReferral": true, "createdAt": 744831, "displayUsername": "<value>", "email": "Thomas_DuBuque3@yahoo.com", "emailVerified": true, "flagged": true, "id": "<id>", "image": null, "lockedCredits": 362996, "name": "<value>", "referralLink": "<value>", "referred": "<value>", "restrictedFeatures": [], "role": "<value>", "stripeConnectedId": "<id>", "stripeId": "<id>", "taxState": "<value>", "tokens": 440155, "twoFactorEnabled": true, "updatedAt": 46011, "username": "Lon_Rogahn"}}
   getPricing:
     speakeasy-default-get-pricing:
       responses:
@@ -3420,4 +3420,6 @@ examples:
         "500":
           application/json: {"success": true}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `indicia.socials.searchTiktok()`: \n  *  `request.type` **Added**\n  *  `response.data` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `indicia.users.getInfo()`:  `response.user.lockedCredits` **Added**

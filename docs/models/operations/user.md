@@ -19,17 +19,18 @@ let value: User = {
   flagged: false,
   id: "<id>",
   image: "https://picsum.photos/seed/0q6lk/3586/1701",
+  lockedCredits: 47431,
   name: "<value>",
-  referralLink: null,
+  referralLink: "<value>",
   referred: "<value>",
   restrictedFeatures: [
-    "person",
+    "roblox",
   ],
   role: "<value>",
   stripeConnectedId: "<id>",
-  stripeId: "<id>",
-  taxState: null,
-  tokens: 49852,
+  stripeId: null,
+  taxState: "<value>",
+  tokens: null,
   twoFactorEnabled: false,
   updatedAt: 702115,
   username: "Johnnie.Torp54",
@@ -53,6 +54,7 @@ let value: User = {
 | `flagged`                                                                         | *boolean*                                                                         | :heavy_check_mark:                                                                | N/A                                                                               |
 | `id`                                                                              | *string*                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |
 | `image`                                                                           | *string*                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |
+| `lockedCredits`                                                                   | *number*                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |
 | `name`                                                                            | *string*                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |
 | `referralLink`                                                                    | *string*                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |
 | `referred`                                                                        | *string*                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |

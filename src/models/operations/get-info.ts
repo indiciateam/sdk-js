@@ -110,6 +110,7 @@ export type User = {
   flagged: boolean | null;
   id: string;
   image: string | null;
+  lockedCredits: number;
   name: string;
   referralLink: string | null;
   referred: string | null;
@@ -191,6 +192,7 @@ export const User$inboundSchema: z.ZodMiniType<User, unknown> = z.object({
   flagged: types.nullable(types.boolean()),
   id: types.string(),
   image: types.nullable(types.string()),
+  lockedCredits: types.number(),
   name: types.string(),
   referralLink: types.nullable(types.string()),
   referred: types.nullable(types.string()),
