@@ -5,11 +5,11 @@
 ```typescript
 import { IntelxType } from "@indiciaosint/sdk/models/operations";
 
-let value: IntelxType = "ip";
+let value: IntelxType = "email";
 ```
 
 ## Values
 
 ```typescript
-"domain" | "email" | "ip" | "phone" | "url"
+"domain" | "email"
 ```

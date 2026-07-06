@@ -1,12 +1,12 @@
-# ItemTag
+# RawTag
 
 ## Example Usage
 
 ```typescript
-import { ItemTag } from "@indiciaosint/sdk/models/operations";
+import { RawTag } from "@indiciaosint/sdk/models/operations";
 
-let value: ItemTag = {
-  class: 6216.85,
+let value: RawTag = {
+  class: 7605,
   value: "<value>",
 };
 ```

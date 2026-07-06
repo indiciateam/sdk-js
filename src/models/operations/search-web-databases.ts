@@ -40,9 +40,6 @@ export type CloudsintType = ClosedEnum<typeof CloudsintType>;
 export const IntelxType = {
   Domain: "domain",
   Email: "email",
-  Ip: "ip",
-  Phone: "phone",
-  Url: "url",
 } as const;
 export type IntelxType = ClosedEnum<typeof IntelxType>;
 
@@ -91,15 +88,29 @@ export type Breachvip = {
   password?: string | undefined;
 };
 
+export type Breach = string | any;
+
 export type SearchWebDatabasesBreach = {
   id: string;
+  address?: string | undefined;
+  city?: string | undefined;
+  county?: string | undefined;
+  dob?: string | undefined;
   email?: string | undefined;
+  firstname?: string | undefined;
   importedAt?: string | undefined;
+  lastname?: string | undefined;
+  middlename?: string | undefined;
   password?: string | undefined;
+  phone?: string | undefined;
   source?: string | undefined;
   sourceDate?: string | undefined;
   sourceName?: string | undefined;
+  ssn?: string | undefined;
+  state?: string | undefined;
   username?: string | undefined;
+  zip?: string | undefined;
+  additionalProperties?: { [k: string]: string | any } | undefined;
 };
 
 export type CloudsintData = {
@@ -145,7 +156,47 @@ export type Hackcheck = {
   results?: Results | undefined;
 };
 
-export type ItemTag = {
+export type RawTag = {
+  class: number;
+  value: string;
+};
+
+export type RawType = number | string;
+
+export type RawItem = {
+  accesslevel?: number | undefined;
+  added?: string | undefined;
+  bucket?: string | undefined;
+  date?: string | undefined;
+  description?: string | undefined;
+  instore?: boolean | undefined;
+  keyvalues?: any | undefined;
+  media?: number | undefined;
+  name?: string | undefined;
+  owner?: string | undefined;
+  relations?: any | undefined;
+  simhash?: number | undefined;
+  size?: number | undefined;
+  storageid?: string | undefined;
+  systemid?: string | undefined;
+  tags?: Array<RawTag> | undefined;
+  type?: number | string | undefined;
+  xscore?: number | undefined;
+};
+
+export type SearchWebDatabasesRaw = {
+  item?: RawItem | undefined;
+  linea?: string | undefined;
+  lineraw?: string | undefined;
+  linesafterraw?: string | null | undefined;
+  linesbeforeraw?: string | null | undefined;
+  positionabsolute?: number | undefined;
+  positionline?: number | undefined;
+  positionsize?: number | undefined;
+  [additionalProperties: string]: unknown;
+};
+
+export type Tag = {
   class: number;
   value: string;
 };
@@ -168,46 +219,38 @@ export type Item = {
   size?: number | undefined;
   storageid?: string | undefined;
   systemid?: string | undefined;
-  tags?: Array<ItemTag> | undefined;
+  tags?: Array<Tag> | undefined;
   type?: number | string | undefined;
   xscore?: number | undefined;
-};
-
-export type Tag = {
-  class: number;
-  value: string;
 };
 
 export type SearchWebDatabasesType = number | string;
 
 export type Identityportal = {
-  accesslevel?: number | undefined;
-  added?: string | undefined;
+  raw?: SearchWebDatabasesRaw | undefined;
   bucket?: string | undefined;
-  date?: string | undefined;
-  description?: string | undefined;
+  fileDate?: string | undefined;
+  fileName?: string | undefined;
+  fileSize?: number | undefined;
   instore?: boolean | undefined;
   item?: Item | undefined;
-  keyvalues?: any | undefined;
   line?: string | undefined;
+  lineRaw?: string | null | undefined;
   linea?: string | undefined;
   lineraw?: string | undefined;
-  linesafterraw?: string | null | undefined;
-  linesbeforeraw?: string | null | undefined;
-  media?: number | undefined;
-  name?: string | undefined;
-  owner?: string | undefined;
-  positionabsolute?: number | undefined;
-  positionline?: number | undefined;
-  positionsize?: number | undefined;
-  relations?: any | undefined;
-  simhash?: number | undefined;
-  size?: number | undefined;
+  positionAbsolute?: number | undefined;
+  positionLine?: number | undefined;
+  query?: string | undefined;
+  source?: string | undefined;
+  sourceDb?: string | undefined;
   storageid?: string | undefined;
   systemid?: string | undefined;
-  tags?: Array<Tag> | undefined;
+  tags?: Array<string> | undefined;
+  timestamp?: string | undefined;
+  totalResults?: number | undefined;
   type?: number | string | undefined;
   xscore?: number | undefined;
+  [additionalProperties: string]: unknown;
 };
 
 export type Intelligencex = {
@@ -399,20 +442,54 @@ export function breachvipFromJSON(
 }
 
 /** @internal */
+export const Breach$inboundSchema: z.ZodMiniType<Breach, unknown> = smartUnion([
+  types.string(),
+  z.any(),
+]);
+
+export function breachFromJSON(
+  jsonString: string,
+): SafeParseResult<Breach, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Breach$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Breach' from JSON`,
+  );
+}
+
+/** @internal */
 export const SearchWebDatabasesBreach$inboundSchema: z.ZodMiniType<
   SearchWebDatabasesBreach,
   unknown
 > = z.pipe(
-  z.object({
-    id: types.string(),
-    email: types.optional(types.string()),
-    imported_at: types.optional(types.string()),
-    password: types.optional(types.string()),
-    source: types.optional(types.string()),
-    source_date: types.optional(types.string()),
-    source_name: types.optional(types.string()),
-    username: types.optional(types.string()),
-  }),
+  collectExtraKeys$(
+    z.catchall(
+      z.object({
+        id: types.string(),
+        address: types.optional(types.string()),
+        city: types.optional(types.string()),
+        county: types.optional(types.string()),
+        dob: types.optional(types.string()),
+        email: types.optional(types.string()),
+        firstname: types.optional(types.string()),
+        imported_at: types.optional(types.string()),
+        lastname: types.optional(types.string()),
+        middlename: types.optional(types.string()),
+        password: types.optional(types.string()),
+        phone: types.optional(types.string()),
+        source: types.optional(types.string()),
+        source_date: types.optional(types.string()),
+        source_name: types.optional(types.string()),
+        ssn: types.optional(types.string()),
+        state: types.optional(types.string()),
+        username: types.optional(types.string()),
+        zip: types.optional(types.string()),
+      }),
+      smartUnion([types.string(), z.any()]),
+    ),
+    "additionalProperties",
+    true,
+  ),
   z.transform((v) => {
     return remap$(v, {
       "imported_at": "importedAt",
@@ -579,18 +656,108 @@ export function hackcheckFromJSON(
 }
 
 /** @internal */
-export const ItemTag$inboundSchema: z.ZodMiniType<ItemTag, unknown> = z.object({
+export const RawTag$inboundSchema: z.ZodMiniType<RawTag, unknown> = z.object({
   class: types.number(),
   value: types.string(),
 });
 
-export function itemTagFromJSON(
+export function rawTagFromJSON(
   jsonString: string,
-): SafeParseResult<ItemTag, SDKValidationError> {
+): SafeParseResult<RawTag, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ItemTag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ItemTag' from JSON`,
+    (x) => RawTag$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RawTag' from JSON`,
+  );
+}
+
+/** @internal */
+export const RawType$inboundSchema: z.ZodMiniType<RawType, unknown> =
+  smartUnion([types.number(), types.string()]);
+
+export function rawTypeFromJSON(
+  jsonString: string,
+): SafeParseResult<RawType, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RawType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RawType' from JSON`,
+  );
+}
+
+/** @internal */
+export const RawItem$inboundSchema: z.ZodMiniType<RawItem, unknown> = z.object({
+  accesslevel: types.optional(types.number()),
+  added: types.optional(types.string()),
+  bucket: types.optional(types.string()),
+  date: types.optional(types.string()),
+  description: types.optional(types.string()),
+  instore: types.optional(types.boolean()),
+  keyvalues: types.optional(z.any()),
+  media: types.optional(types.number()),
+  name: types.optional(types.string()),
+  owner: types.optional(types.string()),
+  relations: types.optional(z.any()),
+  simhash: types.optional(types.number()),
+  size: types.optional(types.number()),
+  storageid: types.optional(types.string()),
+  systemid: types.optional(types.string()),
+  tags: types.optional(z.array(z.lazy(() => RawTag$inboundSchema))),
+  type: types.optional(smartUnion([types.number(), types.string()])),
+  xscore: types.optional(types.number()),
+});
+
+export function rawItemFromJSON(
+  jsonString: string,
+): SafeParseResult<RawItem, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RawItem$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RawItem' from JSON`,
+  );
+}
+
+/** @internal */
+export const SearchWebDatabasesRaw$inboundSchema: z.ZodMiniType<
+  SearchWebDatabasesRaw,
+  unknown
+> = z.catchall(
+  z.object({
+    item: types.optional(z.lazy(() => RawItem$inboundSchema)),
+    linea: types.optional(types.string()),
+    lineraw: types.optional(types.string()),
+    linesafterraw: z.optional(z.nullable(types.string())),
+    linesbeforeraw: z.optional(z.nullable(types.string())),
+    positionabsolute: types.optional(types.number()),
+    positionline: types.optional(types.number()),
+    positionsize: types.optional(types.number()),
+  }),
+  z.any(),
+);
+
+export function searchWebDatabasesRawFromJSON(
+  jsonString: string,
+): SafeParseResult<SearchWebDatabasesRaw, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SearchWebDatabasesRaw$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchWebDatabasesRaw' from JSON`,
+  );
+}
+
+/** @internal */
+export const Tag$inboundSchema: z.ZodMiniType<Tag, unknown> = z.object({
+  class: types.number(),
+  value: types.string(),
+});
+
+export function tagFromJSON(
+  jsonString: string,
+): SafeParseResult<Tag, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Tag$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Tag' from JSON`,
   );
 }
 
@@ -625,7 +792,7 @@ export const Item$inboundSchema: z.ZodMiniType<Item, unknown> = z.object({
   size: types.optional(types.number()),
   storageid: types.optional(types.string()),
   systemid: types.optional(types.string()),
-  tags: types.optional(z.array(z.lazy(() => ItemTag$inboundSchema))),
+  tags: types.optional(z.array(z.lazy(() => Tag$inboundSchema))),
   type: types.optional(smartUnion([types.number(), types.string()])),
   xscore: types.optional(types.number()),
 });
@@ -637,22 +804,6 @@ export function itemFromJSON(
     jsonString,
     (x) => Item$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Item' from JSON`,
-  );
-}
-
-/** @internal */
-export const Tag$inboundSchema: z.ZodMiniType<Tag, unknown> = z.object({
-  class: types.number(),
-  value: types.string(),
-});
-
-export function tagFromJSON(
-  jsonString: string,
-): SafeParseResult<Tag, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Tag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Tag' from JSON`,
   );
 }
 
@@ -676,35 +827,48 @@ export function searchWebDatabasesTypeFromJSON(
 export const Identityportal$inboundSchema: z.ZodMiniType<
   Identityportal,
   unknown
-> = z.object({
-  accesslevel: types.optional(types.number()),
-  added: types.optional(types.string()),
-  bucket: types.optional(types.string()),
-  date: types.optional(types.string()),
-  description: types.optional(types.string()),
-  instore: types.optional(types.boolean()),
-  item: types.optional(z.lazy(() => Item$inboundSchema)),
-  keyvalues: types.optional(z.any()),
-  line: types.optional(types.string()),
-  linea: types.optional(types.string()),
-  lineraw: types.optional(types.string()),
-  linesafterraw: z.optional(z.nullable(types.string())),
-  linesbeforeraw: z.optional(z.nullable(types.string())),
-  media: types.optional(types.number()),
-  name: types.optional(types.string()),
-  owner: types.optional(types.string()),
-  positionabsolute: types.optional(types.number()),
-  positionline: types.optional(types.number()),
-  positionsize: types.optional(types.number()),
-  relations: types.optional(z.any()),
-  simhash: types.optional(types.number()),
-  size: types.optional(types.number()),
-  storageid: types.optional(types.string()),
-  systemid: types.optional(types.string()),
-  tags: types.optional(z.array(z.lazy(() => Tag$inboundSchema))),
-  type: types.optional(smartUnion([types.number(), types.string()])),
-  xscore: types.optional(types.number()),
-});
+> = z.pipe(
+  z.catchall(
+    z.object({
+      _raw: types.optional(z.lazy(() => SearchWebDatabasesRaw$inboundSchema)),
+      bucket: types.optional(types.string()),
+      file_date: types.optional(types.string()),
+      file_name: types.optional(types.string()),
+      file_size: types.optional(types.number()),
+      instore: types.optional(types.boolean()),
+      item: types.optional(z.lazy(() => Item$inboundSchema)),
+      line: types.optional(types.string()),
+      line_raw: z.optional(z.nullable(types.string())),
+      linea: types.optional(types.string()),
+      lineraw: types.optional(types.string()),
+      position_absolute: types.optional(types.number()),
+      position_line: types.optional(types.number()),
+      query: types.optional(types.string()),
+      source: types.optional(types.string()),
+      source_db: types.optional(types.string()),
+      storageid: types.optional(types.string()),
+      systemid: types.optional(types.string()),
+      tags: types.optional(z.array(types.string())),
+      timestamp: types.optional(types.string()),
+      totalResults: types.optional(types.number()),
+      type: types.optional(smartUnion([types.number(), types.string()])),
+      xscore: types.optional(types.number()),
+    }),
+    z.any(),
+  ),
+  z.transform((v) => {
+    return remap$(v, {
+      "_raw": "raw",
+      "file_date": "fileDate",
+      "file_name": "fileName",
+      "file_size": "fileSize",
+      "line_raw": "lineRaw",
+      "position_absolute": "positionAbsolute",
+      "position_line": "positionLine",
+      "source_db": "sourceDb",
+    });
+  }),
+);
 
 export function identityportalFromJSON(
   jsonString: string,

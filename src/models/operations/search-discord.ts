@@ -4,13 +4,35 @@
 
 import * as z from "zod/v4-mini";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { smartUnion } from "../../types/smart-union.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
+export const SearchDiscordField = {
+  Banner: "banner",
+  Bio: "bio",
+  Clan: "clan",
+  ConnectedAccounts: "connectedAccounts",
+  DisplayName: "displayName",
+  LegacyName: "legacyName",
+  ModActions: "modActions",
+  Pfp: "pfp",
+  Presence: "presence",
+  Pronouns: "pronouns",
+  ReviewCount: "reviewCount",
+  Reviews: "reviews",
+  RobloxProfiles: "robloxProfiles",
+  Servers: "servers",
+  UserId: "userId",
+  Username: "username",
+} as const;
+export type SearchDiscordField = ClosedEnum<typeof SearchDiscordField>;
+
 export type SearchDiscordRequest = {
   query: string;
+  fields?: Array<SearchDiscordField> | undefined;
 };
 
 export type Traits = {
@@ -172,25 +194,25 @@ export type Server = {
 };
 
 export type SearchDiscordData = {
-  banner: string | null;
-  bio: string | null;
-  clan: Clan | null;
-  connectedAccounts: {
-    [k: string]: ConnectedAccounts1 | Array<ConnectedAccounts2>;
-  };
-  displayName: string | null;
   internalErrors: Array<string>;
-  legacyName: string | null;
-  modActions: Array<ModAction>;
-  pfp: string;
-  presence: string | null;
-  pronouns: string | null;
-  reviewCount: number;
-  reviews: Array<Review>;
-  robloxProfiles: Array<RobloxProfile>;
-  servers: Array<Server>;
-  userId: string;
-  username: string;
+  banner?: string | null | undefined;
+  bio?: string | null | undefined;
+  clan?: Clan | null | undefined;
+  connectedAccounts?: {
+    [k: string]: ConnectedAccounts1 | Array<ConnectedAccounts2>;
+  } | undefined;
+  displayName?: string | null | undefined;
+  legacyName?: string | null | undefined;
+  modActions?: Array<ModAction> | undefined;
+  pfp?: string | undefined;
+  presence?: string | null | undefined;
+  pronouns?: string | null | undefined;
+  reviewCount?: number | undefined;
+  reviews?: Array<Review> | undefined;
+  robloxProfiles?: Array<RobloxProfile> | undefined;
+  servers?: Array<Server> | undefined;
+  userId?: string | undefined;
+  username?: string | undefined;
 };
 
 /**
@@ -203,8 +225,14 @@ export type SearchDiscordResponse = {
 };
 
 /** @internal */
+export const SearchDiscordField$outboundSchema: z.ZodMiniEnum<
+  typeof SearchDiscordField
+> = z.enum(SearchDiscordField);
+
+/** @internal */
 export type SearchDiscordRequest$Outbound = {
   query: string;
+  fields?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -213,6 +241,7 @@ export const SearchDiscordRequest$outboundSchema: z.ZodMiniType<
   SearchDiscordRequest
 > = z.object({
   query: z.string(),
+  fields: z.optional(z.array(SearchDiscordField$outboundSchema)),
 });
 
 export function searchDiscordRequestToJSON(
@@ -617,29 +646,33 @@ export const SearchDiscordData$inboundSchema: z.ZodMiniType<
   SearchDiscordData,
   unknown
 > = z.object({
-  banner: types.nullable(types.string()),
-  bio: types.nullable(types.string()),
-  clan: types.nullable(z.lazy(() => Clan$inboundSchema)),
-  connectedAccounts: z.record(
-    z.string(),
-    smartUnion([
-      z.lazy(() => ConnectedAccounts1$inboundSchema),
-      z.array(z.lazy(() => ConnectedAccounts2$inboundSchema)),
-    ]),
-  ),
-  displayName: types.nullable(types.string()),
   internalErrors: z.array(types.string()),
-  legacyName: types.nullable(types.string()),
-  modActions: z.array(z.lazy(() => ModAction$inboundSchema)),
-  pfp: types.string(),
-  presence: types.nullable(types.string()),
-  pronouns: types.nullable(types.string()),
-  reviewCount: types.number(),
-  reviews: z.array(z.lazy(() => Review$inboundSchema)),
-  robloxProfiles: z.array(z.lazy(() => RobloxProfile$inboundSchema)),
-  servers: z.array(z.lazy(() => Server$inboundSchema)),
-  userId: types.string(),
-  username: types.string(),
+  banner: z.optional(z.nullable(types.string())),
+  bio: z.optional(z.nullable(types.string())),
+  clan: z.optional(z.nullable(z.lazy(() => Clan$inboundSchema))),
+  connectedAccounts: types.optional(
+    z.record(
+      z.string(),
+      smartUnion([
+        z.lazy(() => ConnectedAccounts1$inboundSchema),
+        z.array(z.lazy(() => ConnectedAccounts2$inboundSchema)),
+      ]),
+    ),
+  ),
+  displayName: z.optional(z.nullable(types.string())),
+  legacyName: z.optional(z.nullable(types.string())),
+  modActions: types.optional(z.array(z.lazy(() => ModAction$inboundSchema))),
+  pfp: types.optional(types.string()),
+  presence: z.optional(z.nullable(types.string())),
+  pronouns: z.optional(z.nullable(types.string())),
+  reviewCount: types.optional(types.number()),
+  reviews: types.optional(z.array(z.lazy(() => Review$inboundSchema))),
+  robloxProfiles: types.optional(
+    z.array(z.lazy(() => RobloxProfile$inboundSchema)),
+  ),
+  servers: types.optional(z.array(z.lazy(() => Server$inboundSchema))),
+  userId: types.optional(types.string()),
+  username: types.optional(types.string()),
 });
 
 export function searchDiscordDataFromJSON(

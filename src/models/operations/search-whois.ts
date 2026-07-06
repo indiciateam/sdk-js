@@ -17,7 +17,7 @@ export type Dates = {
   expires?: string | undefined;
 };
 
-export type Raw = {};
+export type SearchWhoisRaw = {};
 
 export type Registrar = {
   abuseEmail: string;
@@ -32,7 +32,7 @@ export type SearchWhoisData = {
   dnssec: { [k: string]: any };
   domain: string;
   nameservers: Array<{ [k: string]: any }>;
-  raw: Raw;
+  raw: SearchWhoisRaw;
   registrar: Registrar;
   status: Array<string>;
 };
@@ -84,15 +84,18 @@ export function datesFromJSON(
 }
 
 /** @internal */
-export const Raw$inboundSchema: z.ZodMiniType<Raw, unknown> = z.object({});
+export const SearchWhoisRaw$inboundSchema: z.ZodMiniType<
+  SearchWhoisRaw,
+  unknown
+> = z.object({});
 
-export function rawFromJSON(
+export function searchWhoisRawFromJSON(
   jsonString: string,
-): SafeParseResult<Raw, SDKValidationError> {
+): SafeParseResult<SearchWhoisRaw, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Raw$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Raw' from JSON`,
+    (x) => SearchWhoisRaw$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SearchWhoisRaw' from JSON`,
   );
 }
 
@@ -125,7 +128,7 @@ export const SearchWhoisData$inboundSchema: z.ZodMiniType<
   dnssec: z.record(z.string(), z.any()),
   domain: types.string(),
   nameservers: z.array(z.record(z.string(), z.any())),
-  raw: z.lazy(() => Raw$inboundSchema),
+  raw: z.lazy(() => SearchWhoisRaw$inboundSchema),
   registrar: z.lazy(() => Registrar$inboundSchema),
   status: z.array(types.string()),
 });

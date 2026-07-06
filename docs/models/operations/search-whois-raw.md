@@ -1,11 +1,11 @@
-# Raw
+# SearchWhoisRaw
 
 ## Example Usage
 
 ```typescript
-import { Raw } from "@indiciaosint/sdk/models/operations";
+import { SearchWhoisRaw } from "@indiciaosint/sdk/models/operations";
 
-let value: Raw = {};
+let value: SearchWhoisRaw = {};
 ```
 
 ## Fields
