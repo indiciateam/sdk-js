@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: 52196f51-6114-4cc4-ab05-251f3515c88f
 management:
-  docChecksum: a70083dac9d8e41fcbc903ebfaf82960
+  docChecksum: 59d41ec0c5132b91a46d5dc78ce7ec04
   docVersion: 1.0.0
-  speakeasyVersion: 1.788.1
-  generationVersion: 2.915.1
-  releaseVersion: 1.2.8
-  configChecksum: c211560e55fb3eb263eed8add867b522
+  speakeasyVersion: 1.789.0
+  generationVersion: 2.916.2
+  releaseVersion: 1.2.9
+  configChecksum: 75686b08a57d5425b0a5c418bfa9c81c
   repoURL: https://github.com/indiciateam/sdk-js.git
   installationURL: https://github.com/indiciateam/sdk-js
   published: true
 persistentEdits:
-  generation_id: e28553d4-73a8-4374-9f7f-b320edc9e7a0
-  pristine_commit_hash: 00d0c1b460c067ecf924537e52ca3b2aa54ac333
-  pristine_tree_hash: 8a280fa8a6aa323a8d1f18b2cd929dc861857760
+  generation_id: 08db8a70-bee4-4550-ab60-b4235f4236f8
+  pristine_commit_hash: d5924a9a84225bb8a48e46dd80333936fb70ea5e
+  pristine_tree_hash: 623088e631678885b9c26c0574a82d0f1deb9464
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -755,8 +755,8 @@ trackedFiles:
     pristine_git_object: ee31cfeee9170ed2fad84194f77a57f287a88528
   docs/models/operations/intelx-type.md:
     id: d24270ac7d78
-    last_write_checksum: sha1:b1d7355e30a40d4456e420be1160635d3f18db97
-    pristine_git_object: 2430ce4599f27a2d3d9da288c6ca306a7c0ddcb4
+    last_write_checksum: sha1:ad8b7a33ed43e7bd0ba92e460d32a81577811eb5
+    pristine_git_object: 0acbd0859ebb06bebb40f576e6727da6588cdb01
   docs/models/operations/issuer.md:
     id: 9705ad03b1af
     last_write_checksum: sha1:1c3cc77764785a41a03a92d7fde0abf3f9f1f8ef
@@ -2155,12 +2155,12 @@ trackedFiles:
     pristine_git_object: f78da2c4c3fed817b69fdfdadeafb1cb050f1de8
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:7aedda003c957ce241db99f9e804d518c5b2e72d
-    pristine_git_object: 4c43112dcc7a1ff0572c721ba69b3308e68d426a
+    last_write_checksum: sha1:36838666699a6a0c5da66a8c5ceb396b4b4cca03
+    pristine_git_object: c04c9ca1b9dea3807309b8dfe42b289f91386f64
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:854d1d0bb403b621a68c0283a507ffbffee1438a
-    pristine_git_object: a23219e2680ca23ca10e7a2a7721e72cd4d995ac
+    last_write_checksum: sha1:5e1f9f403ea4701f4d28abfdf32270bc3592fe67
+    pristine_git_object: 85ff4e8697dd76e192339af09fa10fe7da9a4a89
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:a644a2c1bdd89948cb4098800c72e115eeb77cad
@@ -2347,8 +2347,8 @@ trackedFiles:
     pristine_git_object: 44be0eae8246521b230e8e711a88eff738fc015d
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:c3728945820aa1cd554b5e1e0f5a91f4bcf66170
-    pristine_git_object: c2568ee926455c27a963d1cf1f4b76564de6d836
+    last_write_checksum: sha1:aeb8a663414b3f729b7a1800e3b673d4d5b9a220
+    pristine_git_object: cc39236e6a84a5f40fc35612a7dec0bbe44a67d3
   src/lib/encodings.ts:
     id: 3bd8ead98afd
     last_write_checksum: sha1:7533dcb79b22b8c84ac7b90aec94317d12bad5f8
@@ -2579,8 +2579,8 @@ trackedFiles:
     pristine_git_object: 42e9ae12a3cc1dba5f4a01a9847583958b148630
   src/models/operations/search-web-databases.ts:
     id: 55fbbb56e5ed
-    last_write_checksum: sha1:03d1d4a02a25739695bddd8c3002088c7e85fed0
-    pristine_git_object: 74886fb98ed84d9fb95050a40482689c825f0b05
+    last_write_checksum: sha1:e8cad8f2464d7c442e7adc8a07c99e6015652d22
+    pristine_git_object: 6041ad342a663407ed4dd2e364d91dbcf4ae9e7f
   src/models/operations/search-whois.ts:
     id: 8d012bdd6c1b
     last_write_checksum: sha1:1150138efbef4c3448b938cb55ce86d815d523a0
@@ -3452,4 +3452,4 @@ examples:
         "500":
           application/json: {"success": true}
 examplesVersion: 1.0.2
-releaseNotes: "## Typescript SDK Changes:\n* `indicia.intelligence.searchWebDatabases()`: \n  *  `request.intelxType` **Changed** (Breaking ⚠️)\n  *  `response.data` **Changed** (Breaking ⚠️)\n* `indicia.socials.searchDiscord()`: \n  *  `request.fields` **Added**\n  *  `response.data` **Changed**\n* `indicia.socials.searchRoblox()`: \n  *  `request.fields` **Added**\n  *  `response.data.leakcheckStealers` **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `indicia.intelligence.searchWebDatabases()`: \n  *  `request.intelxType` **Changed**\n"

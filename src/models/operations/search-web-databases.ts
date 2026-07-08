@@ -40,6 +40,9 @@ export type CloudsintType = ClosedEnum<typeof CloudsintType>;
 export const IntelxType = {
   Domain: "domain",
   Email: "email",
+  Ip: "ip",
+  Phone: "phone",
+  Url: "url",
 } as const;
 export type IntelxType = ClosedEnum<typeof IntelxType>;
 
