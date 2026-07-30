@@ -3,6 +3,7 @@ generation:
   devContainers:
     enabled: true
     schemaPath: .speakeasy/out.openapi.yaml
+  baseServerUrl: h
   sdkClassName: Indicia
   maintainOpenAPIOrder: true
   usageSnippets:
