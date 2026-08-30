@@ -84,8 +84,4 @@ jobs:
             npm publish --access public
           fi
 
-      - name: Push generated SDK via Fern GitHub App
-        continue-on-error: true
-        env:
-          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
-        run: fern generate --group ts-github --force --version "${{ env.version }}" --log-level info --no-prompt
+

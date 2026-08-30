@@ -57,8 +57,8 @@ Failed HTTP responses throw `IndiciaError` (`statusCode`, `body`). Timeouts thro
 
 ## Generate
 
-This repository holds the Fern config. CI pulls `https://api.indicia.app/openapi`,
-pushes generated client code via the Fern GitHub App, and publishes `@indiciaosint/sdk`.
+This repository holds the Fern config. GitHub Actions pulls
+`https://api.indicia.app/openapi` and publishes `@indiciaosint/sdk` to npm.
 
 ```bash
 fern check
