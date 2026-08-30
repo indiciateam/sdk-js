@@ -63,7 +63,6 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_ENV"
           fern generate --group ts-sdk --force --version "$VERSION" --log-level info --no-prompt
           python3 fern/scripts/pack-sdk.py sdks/typescript "$VERSION"
-          fern generate --group ts-github --force --version "$VERSION" --log-level info --no-prompt
 
       - name: Build SDK
         working-directory: sdks/typescript
@@ -71,6 +70,7 @@ jobs:
           npm install
           npx tsc --pretty false
           test -f dist/index.js
+          test -f README.md
 
       - name: Publish to npm
         working-directory: sdks/typescript
@@ -83,3 +83,9 @@ jobs:
           else
             npm publish --access public
           fi
+
+      - name: Push generated SDK via Fern GitHub App
+        continue-on-error: true
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
+        run: fern generate --group ts-github --force --version "${{ env.version }}" --log-level info --no-prompt
