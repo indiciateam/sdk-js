@@ -1,5 +1,9 @@
-# Preserve Fern source config when generating into this repository.
+# Keep Fern source and repo metadata when generated SDK is pushed.
 fern/
 .fernignore
-.github/workflows/generate.yml
-LICENSE
+.github/
+test/
+CONTRIBUTING.md
+.gitignore
+package.json
+README.md

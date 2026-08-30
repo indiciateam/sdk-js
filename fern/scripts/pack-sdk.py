@@ -57,9 +57,16 @@ def main() -> None:
             if existing.get("name") in (None, "", "api", "sdk"):
                 existing["name"] = "@indiciaosint/sdk"
             pkg = existing
+    files = list(pkg.get("files") or ["dist"])
+    if "README.md" not in files:
+        files.append("README.md")
+    pkg["files"] = files
     pkg_path.write_text(json.dumps(pkg, indent=2) + "\n")
 
     shutil.copyfile(TEMPLATES / "tsconfig.json", out / "tsconfig.json")
+    readme = ROOT.parent / "README.md"
+    if readme.exists():
+        shutil.copyfile(readme, out / "README.md")
 
     version_ts = out / "version.ts"
     if version_ts.exists():

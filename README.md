@@ -57,11 +57,12 @@ Failed HTTP responses throw `IndiciaError` (`statusCode`, `body`). Timeouts thro
 
 ## Generate
 
-This repository holds the Fern config. CI pulls `https://api.indicia.app/openapi` and publishes `@indiciaosint/sdk` to npm.
+This repository holds the Fern config. CI pulls `https://api.indicia.app/openapi`,
+pushes generated client code via the Fern GitHub App, and publishes `@indiciaosint/sdk`.
 
 ```bash
 fern check
-fern generate --group ts-sdk --local --force --version <semver>
+fern generate --group ts-sdk --force --version <semver>
 python3 fern/scripts/pack-sdk.py sdks/typescript <semver>
 ```
 

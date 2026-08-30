@@ -37,6 +37,11 @@ groups:
         output:
           location: local-file-system
           path: ../sdks/typescript
+        github:
+          repository: indiciateam/sdk-js
+          mode: push
+          branch: main
+          license: MIT
         config:
           namespaceExport: Indicia
           naming:
