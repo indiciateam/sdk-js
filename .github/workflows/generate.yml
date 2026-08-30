@@ -75,4 +75,10 @@ jobs:
         working-directory: sdks/typescript
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public
+        run: |
+          CURRENT="$(node -p "require('./package.json').version")"
+          if npm view "@indiciaosint/sdk@$CURRENT" version >/dev/null 2>&1; then
+            echo "already published @indiciaosint/sdk@$CURRENT"
+          else
+            npm publish --access public
+          fi
