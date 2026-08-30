@@ -1,0 +1,49 @@
+name: Regen
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+concurrency:
+  group: sdk-regen
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  regen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Fern CLI
+        uses: fern-api/setup-fern-cli@v1
+        with:
+          version: "5.108.0"
+
+      - name: Sync OpenAPI
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
+        run: |
+          fern api update || curl -fsSL -A "Mozilla/5.0" -o fern/openapi.json https://api.indicia.app/openapi
+          python3 fern/scripts/normalize-openapi.py fern/openapi.json
+          fern check
+
+      - name: Verify generate
+        env:
+          FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
+        run: |
+          fern generate --group ts-sdk --force --version 0.0.0-dev --log-level info --no-prompt
+          python3 fern/scripts/pack-sdk.py sdks/typescript 0.0.0-dev
+
+      - name: Commit OpenAPI
+        run: |
+          git add fern/openapi.json
+          git diff --staged --quiet && echo "openapi unchanged" && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: sync OpenAPI from api.indicia.app"
+          git push

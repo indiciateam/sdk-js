@@ -57,10 +57,13 @@ Failed HTTP responses throw `IndiciaError` (`statusCode`, `body`). Timeouts thro
 
 ## Generate
 
-This repository holds the Fern config. Publishing is GitHub Actions:
-a GitHub release `vX.Y.Z` generates that version and publishes
-`@indiciaosint/sdk@X.Y.Z`. `workflow_dispatch` does the same and
-creates the matching release so npm and GitHub stay in sync.
+This repository holds the Fern config.
+
+- **Publish:** a GitHub release `vX.Y.Z` is the only automatic npm publish
+  (`@indiciaosint/sdk@X.Y.Z`).
+- **Regen:** daily (and `workflow_dispatch`) pulls
+  `https://api.indicia.app/openapi`, checks it, and commits the snapshot if
+  it changed. It does not publish.
 
 ```bash
 fern check

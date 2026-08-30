@@ -1,45 +1,32 @@
-name: Generate
+name: Publish
 
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      version:
-        description: SDK version to generate, publish, and release (semver)
-        required: true
-        type: string
 
 concurrency:
-  group: fern-generate
+  group: sdk-publish
   cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: read
   id-token: write
 
 jobs:
-  generate:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Resolve version
-        id: version
         run: |
-          if [ "${{ github.event_name }}" = "release" ]; then
-            VERSION="${{ github.event.release.tag_name }}"
-            VERSION="${VERSION#v}"
-          else
-            VERSION="${{ github.event.inputs.version }}"
-            VERSION="${VERSION#v}"
-          fi
+          VERSION="${{ github.event.release.tag_name }}"
+          VERSION="${VERSION#v}"
           if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-].*)?$ ]]; then
             echo "invalid version: $VERSION"
             exit 1
           fi
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_ENV"
 
       - name: Setup Node
@@ -90,16 +77,4 @@ jobs:
             echo "already published @indiciaosint/sdk@$CURRENT"
           else
             npm publish --access public
-          fi
-
-      - name: Create GitHub release
-        if: github.event_name != 'release'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TAG="v$VERSION"
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "release $TAG already exists"
-          else
-            gh release create "$TAG" --title "typescript - v$VERSION" --generate-notes
           fi
