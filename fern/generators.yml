@@ -1,14 +1,57 @@
 # yaml-language-server: $schema=https://schema.buildwithfern.dev/generators-yml.json
+
+auth-schemes:
+  ApiKey:
+    name: API Key
+    header: x-api-key
+    env: INDICIA_API_KEY
+
 api:
+  auth: ApiKey
   specs:
-    - openapi: >-
-        ../../../../private/var/folders/nb/stv3m85d7f72j48kd4m0pr8c0000gn/T/tmp-75523-8TiKj3pxow6r/openapi.yaml
-default-group: local
+    - openapi: ./openapi.json
+      origin: https://api.indicia.app/openapi
+
+metadata:
+  description: Developer-friendly TypeScript SDK for the Indicia API.
+  authors:
+    - name: Indicia
+      email: support@indicia.app
+
+readme:
+  introduction: >-
+    Developer-friendly & type-safe TypeScript SDK for the Indicia API. Get
+    started by creating an API key in the Indicia Dashboard.
+  apiReferenceLink: https://indicia.app/dashboard/account
+  defaultEndpoint:
+    method: GET
+    path: /v1/info
+
+default-group: ts-sdk
+
 groups:
-  local:
+  ts-sdk:
     generators:
       - name: fern-typescript-sdk
+        version: 3.88.3
         output:
           location: local-file-system
           path: ../sdks/typescript
-        version: 3.85.2
+        config:
+          namespaceExport: Indicia
+          naming:
+            namespace: Indicia
+            client: Indicia
+            error: IndiciaError
+          generateSubpackageExports: true
+          fetchSupport: native
+          formDataSupport: Node18
+          defaultTimeout: infinity
+          inlineFileProperties: true
+          packageJson:
+            name: "@indiciaosint/sdk"
+            author: "Indicia <support@indicia.app> (https://indicia.app)"
+            repository:
+              type: git
+              url: https://github.com/indiciateam/sdk-js.git
+            homepage: https://indicia.app

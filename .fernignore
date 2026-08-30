@@ -1,0 +1,5 @@
+# Preserve Fern source config when generating into this repository.
+fern/
+.fernignore
+.github/workflows/generate.yml
+LICENSE
