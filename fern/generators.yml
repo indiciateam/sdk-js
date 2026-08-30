@@ -37,6 +37,28 @@ groups:
         output:
           location: local-file-system
           path: ../sdks/typescript
+        config:
+          namespaceExport: Indicia
+          naming:
+            namespace: Indicia
+            client: Indicia
+            error: IndiciaError
+          generateSubpackageExports: true
+          fetchSupport: native
+          formDataSupport: Node18
+          defaultTimeout: infinity
+          inlineFileProperties: true
+          packageJson:
+            name: "@indiciaosint/sdk"
+            author: "Indicia <support@indicia.app> (https://indicia.app)"
+            repository:
+              type: git
+              url: https://github.com/indiciateam/sdk-js.git
+            homepage: https://indicia.app
+  ts-github:
+    generators:
+      - name: fern-typescript-sdk
+        version: 3.88.3
         github:
           repository: indiciateam/sdk-js
           mode: push

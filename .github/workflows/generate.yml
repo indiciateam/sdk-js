@@ -63,6 +63,7 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_ENV"
           fern generate --group ts-sdk --force --version "$VERSION" --log-level info --no-prompt
           python3 fern/scripts/pack-sdk.py sdks/typescript "$VERSION"
+          fern generate --group ts-github --force --version "$VERSION" --log-level info --no-prompt
 
       - name: Build SDK
         working-directory: sdks/typescript
