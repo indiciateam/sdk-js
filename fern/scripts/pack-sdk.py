@@ -40,6 +40,11 @@ def main() -> None:
         snusbase.write_text(
             snusbase.read_text().replace("Data.Snusbase.Item[]", "Data.Snusbase.Value[]")
         )
+    headers = out / "core/fetcher/Headers.ts"
+    if headers.exists():
+        headers.write_text("export const Headers = globalThis.Headers;\n")
+
+
 
 
     pkg_path = out / "package.json"

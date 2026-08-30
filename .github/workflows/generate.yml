@@ -7,7 +7,7 @@ on:
         description: SDK version to generate and publish (semver)
         required: true
         type: string
-        default: "2.0.0"
+        default: "2.0.1"
   schedule:
     - cron: "0 0 * * *"
   push:
@@ -58,7 +58,7 @@ jobs:
         run: |
           VERSION="${{ github.event.inputs.version }}"
           if [ -z "$VERSION" ]; then
-            VERSION="2.0.0"
+            VERSION="2.0.1"
           fi
           echo "version=$VERSION" >> "$GITHUB_ENV"
           fern generate --group ts-sdk --local --force --version "$VERSION" --log-level info --no-prompt
@@ -68,7 +68,7 @@ jobs:
         working-directory: sdks/typescript
         run: |
           npm install
-          npx tsc --pretty false --noEmitOnError false || true
+          npx tsc --pretty false
           test -f dist/index.js
 
       - name: Publish to npm

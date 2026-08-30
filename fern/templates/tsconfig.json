@@ -15,7 +15,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "noEmitOnError": false
+    "noEmitOnError": true
   },
   "exclude": ["dist", "node_modules"]
 }
