@@ -62,6 +62,14 @@ jobs:
           fi
           echo "version=$VERSION" >> "$GITHUB_ENV"
           fern generate --group ts-sdk --local --force --version "$VERSION" --log-level info --no-prompt
+          python3 fern/scripts/pack-sdk.py sdks/typescript "$VERSION"
+
+      - name: Build SDK
+        working-directory: sdks/typescript
+        run: |
+          npm install
+          npx tsc --pretty false --noEmitOnError false || true
+          test -f dist/index.js
 
       - name: Publish to npm
         working-directory: sdks/typescript

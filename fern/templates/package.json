@@ -1,0 +1,32 @@
+{
+  "name": "@indiciaosint/sdk",
+  "version": "0.0.0",
+  "description": "Developer-friendly TypeScript SDK for the Indicia API",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "~5.8.3"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/indiciateam/sdk-js.git"
+  },
+  "homepage": "https://indicia.app",
+  "publishConfig": {
+    "access": "public"
+  }
+}
