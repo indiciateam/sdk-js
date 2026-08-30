@@ -20,14 +20,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Resolve version
+        id: version
         run: |
-          VERSION="${{ github.event.release.tag_name }}"
-          VERSION="${VERSION#v}"
+          TAG="${{ github.event.release.tag_name }}"
+          VERSION="${TAG#v}"
           if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-].*)?$ ]]; then
             echo "invalid version: $VERSION"
             exit 1
           fi
-          echo "version=$VERSION" >> "$GITHUB_ENV"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "Resolved $VERSION"
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -52,6 +54,7 @@ jobs:
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
+          echo "generating $VERSION"
           fern generate --group ts-sdk --force --version "$VERSION" --log-level info --no-prompt
           python3 fern/scripts/pack-sdk.py sdks/typescript "$VERSION"
 

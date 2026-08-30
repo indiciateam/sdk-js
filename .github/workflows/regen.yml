@@ -19,6 +19,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
       - name: Setup Fern CLI
         uses: fern-api/setup-fern-cli@v1
         with:
@@ -36,8 +41,8 @@ jobs:
         env:
           FERN_TOKEN: ${{ secrets.FERN_TOKEN }}
         run: |
-          fern generate --group ts-sdk --force --version 0.0.0-dev --log-level info --no-prompt
-          python3 fern/scripts/pack-sdk.py sdks/typescript 0.0.0-dev
+          fern generate --group ts-sdk --force --version 0.0.0 --log-level info --no-prompt
+          python3 fern/scripts/pack-sdk.py sdks/typescript 0.0.0
 
       - name: Commit OpenAPI
         run: |
