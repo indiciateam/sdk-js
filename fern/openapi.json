@@ -1869,7 +1869,6 @@
             }
           }
         },
-        "x-speakeasy-ignore": true,
         "requestBody": {
           "required": true,
           "content": {
@@ -5353,7 +5352,6 @@
             }
           }
         },
-        "x-speakeasy-ignore": true,
         "requestBody": {
           "required": true,
           "content": {
@@ -8020,7 +8018,6 @@
             }
           }
         },
-        "x-speakeasy-ignore": true,
         "requestBody": {
           "required": true,
           "content": {
@@ -15658,7 +15655,6 @@
             }
           }
         },
-        "x-speakeasy-ignore": true,
         "requestBody": {
           "required": true,
           "content": {

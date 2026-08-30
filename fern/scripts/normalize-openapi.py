@@ -10,6 +10,8 @@ from pathlib import Path
 
 def convert(node: object) -> None:
     if isinstance(node, dict):
+        for key in [k for k in node if str(k).startswith("x-speakeasy")]:
+            node.pop(key)
         if "itemSchema" in node and "schema" not in node:
             node["schema"] = node.pop("itemSchema")
         elif "itemSchema" in node:
