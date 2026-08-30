@@ -57,8 +57,10 @@ Failed HTTP responses throw `IndiciaError` (`statusCode`, `body`). Timeouts thro
 
 ## Generate
 
-This repository holds the Fern config. GitHub Actions pulls
-`https://api.indicia.app/openapi` and publishes `@indiciaosint/sdk` to npm.
+This repository holds the Fern config. Publishing is GitHub Actions:
+a GitHub release `vX.Y.Z` generates that version and publishes
+`@indiciaosint/sdk@X.Y.Z`. `workflow_dispatch` does the same and
+creates the matching release so npm and GitHub stay in sync.
 
 ```bash
 fern check
