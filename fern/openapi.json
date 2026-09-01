@@ -743,6 +743,9 @@
                               }
                             ]
                           },
+                          "hidden": {
+                            "type": "boolean"
+                          },
                           "id": {
                             "type": "string",
                             "description": "a RFC-4122-compliant UUID",
@@ -857,6 +860,7 @@
                           "case",
                           "detail",
                           "groupId",
+                          "hidden",
                           "id",
                           "query",
                           "result",
@@ -959,6 +963,9 @@
                               "type": "null"
                             }
                           ]
+                        },
+                        "hidden": {
+                          "type": "boolean"
                         },
                         "id": {
                           "type": "string",
@@ -1074,6 +1081,7 @@
                         "case",
                         "detail",
                         "groupId",
+                        "hidden",
                         "id",
                         "query",
                         "result",
