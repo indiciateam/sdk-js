@@ -9143,14 +9143,8 @@
                         "region": {
                           "type": "string"
                         },
-                        "resolvedFrom": {
-                          "type": "string"
-                        },
                         "secUid": {
                           "type": "string"
-                        },
-                        "securityInfo": {
-                          "type": "object"
                         },
                         "ttseller": {
                           "type": "boolean"
@@ -9206,11 +9200,7 @@
                     "type": "string"
                   },
                   "type": {
-                    "enum": [
-                      "email",
-                      "phone",
-                      "username"
-                    ]
+                    "const": "username"
                   }
                 },
                 "required": [
@@ -11744,7 +11734,7 @@
           "unified"
         ],
         "summary": "Unified Search",
-        "description": "Search across multiple sources with a single query. Fans out to every feature that supports the given selector type, always including the breach databases (web-dbs) that support it; username searches automatically follow up with GitHub, Roblox, and TikTok deep-dives when the username exists on those sites. email/phone/ip searches always include SEON; ip and domain searches always include VirusTotal intelligence; email searches whose domain is Google-hosted (MX check) also run Gmail (GHunt) intel. `usIntel` is only meaningful for `type: \"email\"`; `tiktok` is only meaningful for `type: \"email\"` and `type: \"phone\"` (username searches run TikTok automatically when a TikTok account is found); phone searches require a country code, and include US intel if the country code is +1. Results are keyed per feature, with per-feature `error` entries on partial failure.",
+        "description": "Search across multiple sources with a single query. Fans out to every feature that supports the given selector type, always including the breach databases (web-dbs) that support it; username searches automatically follow up with GitHub, Roblox, and TikTok deep-dives when the username exists on those sites. email/phone/ip searches always include SEON; ip and domain searches always include VirusTotal intelligence; email searches whose domain is Google-hosted (MX check) also run Gmail (GHunt) intel. `usIntel` is only meaningful for `type: \"email\"`; phone searches require a country code, and include US intel if the country code is +1. Results are keyed per feature, with per-feature `error` entries on partial failure.",
         "responses": {
           "200": {
             "description": "Search completed (partial failures reported per feature)",
@@ -11819,9 +11809,6 @@
                       "phone",
                       "username"
                     ]
-                  },
-                  "tiktok": {
-                    "type": "boolean"
                   },
                   "usIntel": {
                     "type": "boolean"
@@ -12555,159 +12542,6 @@
                 },
                 "required": [
                   "address"
-                ]
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/tools/doogle": {
-      "post": {
-        "operationId": "lookupDiscordAlt",
-        "tags": [
-          "tools"
-        ],
-        "summary": "Discord Alt Lookup",
-        "description": "Correlate and identify alternative Discord accounts of a user.",
-        "responses": {
-          "200": {
-            "description": "Search successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "first": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "avatar": {
-                                "type": "string"
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "username": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "avatar",
-                              "id",
-                              "username"
-                            ]
-                          }
-                        },
-                        "second": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "avatar": {
-                                "type": "string"
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "username": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "avatar",
-                              "id",
-                              "username"
-                            ]
-                          }
-                        },
-                        "third": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "avatar": {
-                                "type": "string"
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "username": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "avatar",
-                              "id",
-                              "username"
-                            ]
-                          }
-                        },
-                        "tier": {
-                          "type": "string"
-                        },
-                        "totalalts": {
-                          "type": "number"
-                        },
-                        "verifications": {
-                          "type": "number"
-                        },
-                        "vpns": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "first",
-                        "second",
-                        "third",
-                        "tier",
-                        "totalalts",
-                        "verifications",
-                        "vpns"
-                      ]
-                    },
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "success"
-                  ]
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FailedResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "query": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "query"
                 ]
               }
             }
