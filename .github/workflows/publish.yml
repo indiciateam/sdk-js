@@ -3,6 +3,12 @@ name: Publish
 on:
   release:
     types: [published]
+  workflow_call:
+    inputs:
+      version:
+        description: SDK version to generate and publish (semver, no v prefix)
+        required: true
+        type: string
 
 concurrency:
   group: sdk-publish
@@ -22,8 +28,12 @@ jobs:
       - name: Resolve version
         id: version
         run: |
-          TAG="${{ github.event.release.tag_name }}"
-          VERSION="${TAG#v}"
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+          else
+            VERSION="${{ inputs.version }}"
+          fi
+          VERSION="${VERSION#v}"
           if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-].*)?$ ]]; then
             echo "invalid version: $VERSION"
             exit 1

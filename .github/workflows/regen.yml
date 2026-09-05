@@ -2,19 +2,36 @@ name: Regen
 
 on:
   workflow_dispatch:
+    inputs:
+      force:
+        description: Create a release even if OpenAPI is unchanged
+        type: boolean
+        default: true
   schedule:
     - cron: "0 0 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - fern/**
+      - README.md
+      - .github/workflows/regen.yml
+      - .github/workflows/publish.yml
 
 concurrency:
   group: sdk-regen
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   regen:
     runs-on: ubuntu-latest
+    outputs:
+      should_release: ${{ steps.release.outputs.should_release }}
+      version: ${{ steps.release.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,10 +62,63 @@ jobs:
           python3 fern/scripts/pack-sdk.py sdks/typescript 0.0.0
 
       - name: Commit OpenAPI
+        id: openapi
         run: |
           git add fern/openapi.json
-          git diff --staged --quiet && echo "openapi unchanged" && exit 0
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "openapi unchanged"
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore: sync OpenAPI from api.indicia.app"
           git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SHOULD=false
+          if [ "${{ steps.openapi.outputs.changed }}" = "true" ]; then
+            SHOULD=true
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.force }}" != "false" ]; then
+            SHOULD=true
+          elif [ "${{ github.event_name }}" = "push" ] && [ "${{ github.actor }}" != "github-actions[bot]" ]; then
+            SHOULD=true
+          fi
+          if [ "$SHOULD" != "true" ]; then
+            echo "should_release=false" >> "$GITHUB_OUTPUT"
+            echo "no release"
+            exit 0
+          fi
+          LATEST="$(npm view @indiciaosint/sdk version)"
+          if [[ ! "$LATEST" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+) ]]; then
+            echo "unexpected npm version: $LATEST"
+            exit 1
+          fi
+          VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.$((BASH_REMATCH[3] + 1))"
+          while git ls-remote --tags origin "refs/tags/v${VERSION}" | grep -q .; do
+            if [[ ! "$VERSION" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+              echo "invalid version while bumping: $VERSION"
+              exit 1
+            fi
+            VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.$((BASH_REMATCH[3] + 1))"
+          done
+          gh release create "v${VERSION}" --title "v${VERSION}" --notes "Generated from the current Indicia OpenAPI spec."
+          echo "should_release=true" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "releasing ${VERSION}"
+
+  publish:
+    needs: regen
+    if: needs.regen.outputs.should_release == 'true'
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/publish.yml
+    with:
+      version: ${{ needs.regen.outputs.version }}
+    secrets: inherit
