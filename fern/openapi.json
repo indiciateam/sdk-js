@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Indicia API",
-    "description": "Programmatically access Indicia's features with an API key or OAuth 2.1.\n\n**API keys** \u2014 create one in the [Indicia Dashboard](https://indicia.app/dashboard/account) and send it as `x-api-key`.\n\n**OAuth** \u2014 register a public client (or use the CLI), send the user through the [authorization code](https://indicia.app/.well-known/oauth-authorization-server) or [device code](https://indicia.app/device) flow, then send the access token as `Authorization: Bearer`. Request `resource=https://api.indicia.app` at the token endpoint so the JWT is audience-bound to this API.\n\nA JavaScript SDK is available at [`@indiciaosint/sdk`](https://www.npmjs.com/package/@indiciaosint/sdk). The CLI is [`@indiciaosint/cli`](https://www.npmjs.com/package/@indiciaosint/cli) (`indicia login`).\n        ",
+    "description": "Programmatically access Indicia's features with an API key or OAuth 2.1.\n\n**API keys** - create one in the [Indicia Dashboard](https://indicia.app/dashboard/account) and send it as `x-api-key`.\n\n**OAuth** - register a public client (or use the CLI), send the user through the [authorization code](https://indicia.app/.well-known/oauth-authorization-server) or [device code](https://indicia.app/device) flow, then send the access token as `Authorization: Bearer`. Request `resource=https://api.indicia.app` at the token endpoint so the JWT is audience-bound to this API.\n\nA JavaScript SDK is available at [`@indiciaosint/sdk`](https://www.npmjs.com/package/@indiciaosint/sdk). The CLI is [`@indiciaosint/cli`](https://www.npmjs.com/package/@indiciaosint/cli) (`indicia login`).\n        ",
     "version": "1.0.0"
   },
   "servers": [
@@ -456,6 +456,7 @@
                                   "github",
                                   "gmail",
                                   "hudsonrock",
+                                  "instagram",
                                   "intelligencex.identityportal",
                                   "intelx",
                                   "intelx.stealerlogs",
@@ -801,6 +802,7 @@
                               "github",
                               "gmail",
                               "hudsonrock",
+                              "instagram",
                               "intelligencex.identityportal",
                               "intelx",
                               "intelx.stealerlogs",
@@ -1022,6 +1024,7 @@
                             "github",
                             "gmail",
                             "hudsonrock",
+                            "instagram",
                             "intelligencex.identityportal",
                             "intelx",
                             "intelx.stealerlogs",
@@ -7006,6 +7009,9 @@
                               "displayName": {
                                 "type": "string"
                               },
+                              "hasPlus": {
+                                "type": "boolean"
+                              },
                               "hasPremium": {
                                 "type": "boolean"
                               },
@@ -7099,6 +7105,21 @@
                               "error": {
                                 "type": "string"
                               },
+                              "passkeys": {
+                                "type": "object",
+                                "properties": {
+                                  "count": {
+                                    "type": "number"
+                                  },
+                                  "registered": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "count",
+                                  "registered"
+                                ]
+                              },
                               "rolimons": {
                                 "type": "object",
                                 "properties": {
@@ -7124,6 +7145,7 @@
                               "created",
                               "description",
                               "displayName",
+                              "hasPlus",
                               "hasPremium",
                               "id",
                               "isAdmin",
@@ -8046,6 +8068,215 @@
         }
       }
     },
+    "/v1/search/socials/instagram": {
+      "post": {
+        "operationId": "searchInstagram",
+        "tags": [
+          "socials"
+        ],
+        "summary": "Instagram Search",
+        "description": "Lookup an Instagram account and return followers and following. Optionally supply a session cookie to access private lists the cookie can see; otherwise the inspection account is used.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "bio": {
+                          "type": "string"
+                        },
+                        "biographyLinks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "url": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "url"
+                            ]
+                          }
+                        },
+                        "error": {
+                          "type": "string"
+                        },
+                        "externalUrl": {
+                          "type": "string"
+                        },
+                        "followedByViewer": {
+                          "type": "boolean"
+                        },
+                        "followerCount": {
+                          "type": "number"
+                        },
+                        "followers": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "username": {
+                                "type": "string"
+                              },
+                              "fullName": {
+                                "type": "string"
+                              },
+                              "isPrivate": {
+                                "type": "boolean"
+                              },
+                              "isVerified": {
+                                "type": "boolean"
+                              },
+                              "picture": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "username"
+                            ]
+                          }
+                        },
+                        "followersTruncated": {
+                          "type": "boolean"
+                        },
+                        "following": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "username": {
+                                "type": "string"
+                              },
+                              "fullName": {
+                                "type": "string"
+                              },
+                              "isPrivate": {
+                                "type": "boolean"
+                              },
+                              "isVerified": {
+                                "type": "boolean"
+                              },
+                              "picture": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "username"
+                            ]
+                          }
+                        },
+                        "followingCount": {
+                          "type": "number"
+                        },
+                        "followingTruncated": {
+                          "type": "boolean"
+                        },
+                        "fullName": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "isBusiness": {
+                          "type": "boolean"
+                        },
+                        "isPrivate": {
+                          "type": "boolean"
+                        },
+                        "isVerified": {
+                          "type": "boolean"
+                        },
+                        "listAccess": {
+                          "enum": [
+                            "denied",
+                            "full",
+                            "limited",
+                            "unauthenticated"
+                          ]
+                        },
+                        "mediaCount": {
+                          "type": "number"
+                        },
+                        "picture": {
+                          "type": "string"
+                        },
+                        "sessionSource": {
+                          "enum": [
+                            "inspection",
+                            "user"
+                          ]
+                        },
+                        "username": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "cookie": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search/socials/playstation": {
       "post": {
         "operationId": "searchPlaystation",
@@ -8509,7 +8740,7 @@
           "socials"
         ],
         "summary": "Roblox Search",
-        "description": "Lookup Roblox users, game statistics, and profile information",
+        "description": "Lookup Roblox users, game statistics, profile information, and whether the account has registered passkeys",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -8611,6 +8842,9 @@
                             "displayName": {
                               "type": "string"
                             },
+                            "hasPlus": {
+                              "type": "boolean"
+                            },
                             "hasPremium": {
                               "type": "boolean"
                             },
@@ -8704,6 +8938,24 @@
                             "error": {
                               "type": "string"
                             },
+                            "idVerified": {
+                              "type": "boolean"
+                            },
+                            "passkeys": {
+                              "type": "object",
+                              "properties": {
+                                "count": {
+                                  "type": "number"
+                                },
+                                "registered": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "count",
+                                "registered"
+                              ]
+                            },
                             "rolimons": {
                               "type": "object",
                               "properties": {
@@ -8729,6 +8981,7 @@
                             "created",
                             "description",
                             "displayName",
+                            "hasPlus",
                             "hasPremium",
                             "id",
                             "isAdmin",
@@ -11734,7 +11987,7 @@
           "unified"
         ],
         "summary": "Unified Search",
-        "description": "Search across multiple sources with a single query. Fans out to every feature that supports the given selector type, always including the breach databases (web-dbs) that support it; username searches automatically follow up with GitHub, Roblox, and TikTok deep-dives when the username exists on those sites. email/phone/ip searches always include SEON; ip and domain searches always include VirusTotal intelligence; email searches whose domain is Google-hosted (MX check) also run Gmail (GHunt) intel. `usIntel` is only meaningful for `type: \"email\"`; phone searches require a country code, and include US intel if the country code is +1. Results are keyed per feature, with per-feature `error` entries on partial failure.",
+        "description": "Search across multiple sources with a single query. Fans out to every feature that supports the given selector type, always including the breach databases (web-dbs) that support it; username searches automatically follow up with GitHub, Roblox, and TikTok deep-dives when the username exists on those sites, and Instagram when the account exists and is public. email/phone/ip searches always include SEON; ip and domain searches always include VirusTotal intelligence; email searches whose domain is Google-hosted (MX check) also run Gmail (GHunt) intel. `usIntel` is only meaningful for `type: \"email\"`; phone searches require a country code, and include US intel if the country code is +1. Results are keyed per feature, with per-feature `error` entries on partial failure.",
         "responses": {
           "200": {
             "description": "Search completed (partial failures reported per feature)",
