@@ -8935,11 +8935,11 @@
                             "username": {
                               "type": "string"
                             },
+                            "ageVerified": {
+                              "type": "boolean"
+                            },
                             "error": {
                               "type": "string"
-                            },
-                            "idVerified": {
-                              "type": "boolean"
                             },
                             "passkeys": {
                               "type": "object",
