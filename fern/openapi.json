@@ -455,6 +455,10 @@
                                   "ghosint.search",
                                   "github",
                                   "gmail",
+                                  "horus.forums",
+                                  "horus.stealer",
+                                  "horus.telegram",
+                                  "horus.ulp",
                                   "hudsonrock",
                                   "instagram",
                                   "intelligencex.identityportal",
@@ -801,6 +805,10 @@
                               "ghosint.search",
                               "github",
                               "gmail",
+                              "horus.forums",
+                              "horus.stealer",
+                              "horus.telegram",
+                              "horus.ulp",
                               "hudsonrock",
                               "instagram",
                               "intelligencex.identityportal",
@@ -1023,6 +1031,10 @@
                             "ghosint.search",
                             "github",
                             "gmail",
+                            "horus.forums",
+                            "horus.stealer",
+                            "horus.telegram",
+                            "horus.ulp",
                             "hudsonrock",
                             "instagram",
                             "intelligencex.identityportal",
@@ -4513,6 +4525,66 @@
                             }
                           }
                         },
+                        "horus": {
+                          "type": "object",
+                          "properties": {
+                            "ulp": {
+                              "type": "object",
+                              "properties": {
+                                "count": {
+                                  "type": "number"
+                                },
+                                "field": {
+                                  "type": "string"
+                                },
+                                "hasMore": {
+                                  "type": "boolean"
+                                },
+                                "limit": {
+                                  "type": "number"
+                                },
+                                "nextCursor": {
+                                  "type": "string"
+                                },
+                                "offset": {
+                                  "type": "number"
+                                },
+                                "query": {
+                                  "type": "string"
+                                },
+                                "results": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "domain": {
+                                        "type": "string"
+                                      },
+                                      "login": {
+                                        "type": "string"
+                                      },
+                                      "password": {
+                                        "type": "string"
+                                      },
+                                      "protocol": {
+                                        "type": "string"
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "total": {
+                                  "type": "number"
+                                },
+                                "totalRelation": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        },
                         "intelligencex": {
                           "type": "object",
                           "properties": {
@@ -5072,6 +5144,7 @@
                     "items": {
                       "enum": [
                         "cloudsint",
+                        "horus.ulp",
                         "intelligencex.identityportal",
                         "leakcheck",
                         "snusbase"
@@ -5084,6 +5157,14 @@
                       "domain",
                       "email",
                       "ip"
+                    ]
+                  },
+                  "horusType": {
+                    "enum": [
+                      "domain",
+                      "keyword",
+                      "login",
+                      "password"
                     ]
                   },
                   "intelxType": {
@@ -5984,6 +6065,452 @@
         }
       }
     },
+    "/v1/search/intelligence/horus-stealer": {
+      "post": {
+        "operationId": "searchHorusStealer",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Horus Stealer Logs",
+        "description": "Search stealer logs on Horus by domain, email, username, IP, or other field",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "number"
+                        },
+                        "credentialHits": {
+                          "type": "number"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "nextCursor": {
+                          "type": "string"
+                        },
+                        "page": {
+                          "type": "number"
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "archive_name": {
+                                "type": "string"
+                              },
+                              "credential_count": {
+                                "type": "number"
+                              },
+                              "email_count": {
+                                "type": "number"
+                              },
+                              "file_count": {
+                                "type": "number"
+                              },
+                              "ingested_at": {
+                                "type": "string"
+                              },
+                              "malware_family": {
+                                "type": "string"
+                              },
+                              "matched_fields": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "matched_values": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "field": {
+                                      "type": "string"
+                                    },
+                                    "value": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "metadata": {
+                                "type": "object"
+                              },
+                              "password_count": {
+                                "type": "number"
+                              },
+                              "pc_key": {
+                                "type": "string"
+                              },
+                              "pc_name": {
+                                "type": "string"
+                              },
+                              "pc_prefix": {
+                                "type": "string"
+                              },
+                              "sample_domains": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "username_count": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        },
+                        "totalHits": {
+                          "type": "number"
+                        },
+                        "totalPages": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "dateFrom": {
+                    "type": "string"
+                  },
+                  "dateTo": {
+                    "type": "string"
+                  },
+                  "field": {
+                    "enum": [
+                      "all",
+                      "archive",
+                      "domain",
+                      "email",
+                      "fullname",
+                      "ip",
+                      "password",
+                      "phone",
+                      "url",
+                      "username",
+                      "uuid"
+                    ]
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/horus-forums": {
+      "post": {
+        "operationId": "searchHorusForums",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Forums Search",
+        "description": "Search indexed forums on Horus by content, thread title or author, across every source Horus crawls",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "author": {
+                          "type": "string"
+                        },
+                        "count": {
+                          "type": "number"
+                        },
+                        "ignore_casing": {
+                          "type": "boolean"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "nextCursor": {
+                          "type": "string"
+                        },
+                        "offset": {
+                          "type": "number"
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "actorJoined": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "actorPosts": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "actorRank": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "actorReputation": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "actorThreads": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "author": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "board": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "forum": {
+                                "type": "string"
+                              },
+                              "forumDomain": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "forumSection": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "hasHiddenContent": {
+                                "type": "boolean"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "network": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "published": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "replies": {
+                                "type": "number"
+                              },
+                              "sourceDisplayName": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "number"
+                        },
+                        "total_relation": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "author": {
+                    "type": "string"
+                  },
+                  "dateFrom": {
+                    "type": "string"
+                  },
+                  "dateTo": {
+                    "type": "string"
+                  },
+                  "forum": {
+                    "type": "string"
+                  },
+                  "ignoreCasing": {
+                    "type": "boolean"
+                  },
+                  "query": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search/intelligence/location-to-bssid": {
       "post": {
         "operationId": "searchLocationToBssid",
@@ -6463,6 +6990,160 @@
                 "required": [
                   "url"
                 ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/socials/telegram": {
+      "post": {
+        "operationId": "searchHorusTelegram",
+        "tags": [
+          "socials"
+        ],
+        "summary": "Telegram",
+        "description": "Search Telegram messages on Horus by text, username, chat title, or domain",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "number"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "messages": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "chat": {
+                                "type": "object"
+                              },
+                              "content": {
+                                "type": "object"
+                              },
+                              "extracted": {
+                                "anyOf": [
+                                  {
+                                    "type": "object"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "messageId": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "sender": {
+                                "anyOf": [
+                                  {
+                                    "type": "object"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "threat": {
+                                "anyOf": [
+                                  {
+                                    "type": "object"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "timestamp": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "nextCursor": {
+                          "type": "string"
+                        },
+                        "offset": {
+                          "type": "number"
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "severitySummary": {
+                          "type": "object"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "chatTitle": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "string"
+                  },
+                  "query": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  }
+                }
               }
             }
           }
@@ -8791,6 +9472,50 @@
                             "updatedAt"
                           ]
                         },
+                        "horusStealers": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "object"
+                              },
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
+                        "horusUlp": {
+                          "type": "array",
+                          "items": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "object"
+                              },
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
+                          }
+                        },
                         "leakcheckStealers": {
                           "type": "array",
                           "items": {
@@ -9083,6 +9808,8 @@
                       "enum": [
                         "altAccountThumbnails",
                         "altAccounts",
+                        "horusStealers",
+                        "horusUlp",
                         "leakcheckStealers",
                         "leaks",
                         "profile",
