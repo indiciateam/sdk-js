@@ -457,6 +457,10 @@
                                   "gmail",
                                   "horus.forums",
                                   "horus.stealer",
+                                  "horus.stealer.cards",
+                                  "horus.stealer.download",
+                                  "horus.stealer.pc",
+                                  "horus.stealer.socials",
                                   "horus.telegram",
                                   "horus.ulp",
                                   "hudsonrock",
@@ -807,6 +811,10 @@
                               "gmail",
                               "horus.forums",
                               "horus.stealer",
+                              "horus.stealer.cards",
+                              "horus.stealer.download",
+                              "horus.stealer.pc",
+                              "horus.stealer.socials",
                               "horus.telegram",
                               "horus.ulp",
                               "hudsonrock",
@@ -1033,6 +1041,10 @@
                             "gmail",
                             "horus.forums",
                             "horus.stealer",
+                            "horus.stealer.cards",
+                            "horus.stealer.download",
+                            "horus.stealer.pc",
+                            "horus.stealer.socials",
                             "horus.telegram",
                             "horus.ulp",
                             "hudsonrock",
@@ -6099,6 +6111,9 @@
                         "nextCursor": {
                           "type": "string"
                         },
+                        "offset": {
+                          "type": "number"
+                        },
                         "page": {
                           "type": "number"
                         },
@@ -6122,6 +6137,12 @@
                               "file_count": {
                                 "type": "number"
                               },
+                              "fullname_count": {
+                                "type": "number"
+                              },
+                              "indicator_count": {
+                                "type": "number"
+                              },
                               "ingested_at": {
                                 "type": "string"
                               },
@@ -6135,18 +6156,7 @@
                                 }
                               },
                               "matched_values": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "field": {
-                                      "type": "string"
-                                    },
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  }
-                                }
+                                "type": "array"
                               },
                               "metadata": {
                                 "type": "object"
@@ -6162,6 +6172,9 @@
                               },
                               "pc_prefix": {
                                 "type": "string"
+                              },
+                              "phone_count": {
+                                "type": "number"
                               },
                               "sample_domains": {
                                 "type": "array",
@@ -6219,6 +6232,9 @@
                   "query": {
                     "type": "string"
                   },
+                  "cursor": {
+                    "type": "string"
+                  },
                   "dateFrom": {
                     "type": "string"
                   },
@@ -6239,11 +6255,423 @@
                       "username",
                       "uuid"
                     ]
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "page": {
+                    "type": "number"
                   }
                 },
                 "required": [
                   "query"
                 ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/horus-stealer-pc": {
+      "post": {
+        "operationId": "searchHorusStealerPc",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Horus Machine Lookup",
+        "description": "Fetch the full Horus stealer record for one machine by pc_key",
+        "responses": {
+          "200": {
+            "description": "Lookup successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "cards": {
+                          "type": "array"
+                        },
+                        "computer": {
+                          "type": "string"
+                        },
+                        "cookies": {
+                          "type": "array"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "credentialPairs": {
+                          "type": "array"
+                        },
+                        "emails": {
+                          "type": "array"
+                        },
+                        "files": {
+                          "type": "array"
+                        },
+                        "ingestedAt": {
+                          "type": "string"
+                        },
+                        "ip": {
+                          "type": "string"
+                        },
+                        "malwareFamily": {
+                          "type": "string"
+                        },
+                        "metadata": {
+                          "type": "object"
+                        },
+                        "os": {
+                          "type": "string"
+                        },
+                        "passwords": {
+                          "type": "array"
+                        },
+                        "pcKey": {
+                          "type": "string"
+                        },
+                        "pcName": {
+                          "type": "string"
+                        },
+                        "user": {
+                          "type": "string"
+                        },
+                        "wallets": {
+                          "type": "array"
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pcKey": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "pcKey"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/horus-stealer-download": {
+      "post": {
+        "operationId": "downloadHorusStealer",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Horus Stealer Download",
+        "description": "Download a Horus stealer machine archive, or one file from it. Returns base64 JSON.",
+        "responses": {
+          "200": {
+            "description": "Download successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pcKey": {
+                    "type": "string"
+                  },
+                  "file": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "pcKey"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/horus-cards": {
+      "post": {
+        "operationId": "searchHorusCards",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Horus Cards",
+        "description": "Search payment cards captured in Horus stealer logs by BIN, brand, or archive",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "number"
+                        },
+                        "filters": {
+                          "type": "object"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "offset": {
+                          "type": "number"
+                        },
+                        "results": {
+                          "type": "array"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "archive": {
+                    "type": "string"
+                  },
+                  "bin": {
+                    "type": "string"
+                  },
+                  "brand": {
+                    "enum": [
+                      "amex",
+                      "diners",
+                      "discover",
+                      "jcb",
+                      "mastercard",
+                      "other",
+                      "unionpay",
+                      "visa"
+                    ]
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "offset": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/horus-stealer-socials": {
+      "post": {
+        "operationId": "searchHorusStealerSocials",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Horus Stealer Socials",
+        "description": "Search social accounts captured in Horus stealer logs by handle, platform, IP, or machine",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "number"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        },
+                        "ip": {
+                          "type": "string"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "nextCursor": {
+                          "type": "string"
+                        },
+                        "offset": {
+                          "type": "number"
+                        },
+                        "pcKey": {
+                          "type": "string"
+                        },
+                        "platform": {
+                          "type": "string"
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "results": {
+                          "type": "array"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cursor": {
+                    "type": "string"
+                  },
+                  "ip": {
+                    "type": "string"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "offset": {
+                    "type": "number"
+                  },
+                  "pcKey": {
+                    "type": "string"
+                  },
+                  "platform": {
+                    "type": "string"
+                  },
+                  "q": {
+                    "type": "string"
+                  },
+                  "strict": {
+                    "type": "boolean"
+                  }
+                }
               }
             }
           }
