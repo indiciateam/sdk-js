@@ -296,6 +296,14 @@
                             }
                           ]
                         },
+                        "announcementsSeenAt": {
+                          "anyOf": [
+                            {},
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
                         "banExpires": {
                           "type": "integer",
                           "description": "an integer representing a safe Unix timestamp",
@@ -437,22 +445,20 @@
                               "items": {
                                 "enum": [
                                   "address",
+                                  "ai-infra",
                                   "appstore",
-                                  "breachvip",
                                   "celltower",
                                   "certificates",
                                   "cloudsint",
                                   "courtrecords",
                                   "crypto",
+                                  "cve",
                                   "discord",
                                   "dnsdumpster",
-                                  "doogle",
                                   "doublecounter",
                                   "email",
                                   "epic",
-                                  "fr",
                                   "geolocation",
-                                  "ghosint.search",
                                   "github",
                                   "gmail",
                                   "horus.forums",
@@ -470,19 +476,13 @@
                                   "intelx.stealerlogs",
                                   "ipinfo",
                                   "leakcheck",
-                                  "leakosint",
                                   "link-resolver",
-                                  "linkedin",
                                   "location-to-bssid",
-                                  "melissa",
-                                  "minecraft",
-                                  "osintindustries",
                                   "person",
                                   "phone",
-                                  "phonebook",
                                   "pimeyes",
                                   "playstation",
-                                  "portscan",
+                                  "ransomware",
                                   "reddit",
                                   "roblox",
                                   "scraper",
@@ -491,9 +491,8 @@
                                   "snusbase",
                                   "steam",
                                   "tiktok",
-                                  "uk",
+                                  "urlscan",
                                   "username",
-                                  "vehicle",
                                   "virustotal.content",
                                   "virustotal.download",
                                   "virustotal.intelligence",
@@ -591,6 +590,19 @@
                           "maximum": 8640000000000000,
                           "minimum": -8640000000000000
                         },
+                        "updatesLockedCredits": {
+                          "type": "integer",
+                          "maximum": 2147483647,
+                          "minimum": -2147483648
+                        },
+                        "updatesSeenAt": {
+                          "anyOf": [
+                            {},
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
                         "username": {
                           "anyOf": [
                             {
@@ -605,6 +617,7 @@
                       "required": [
                         "acceptOrgInvites",
                         "acceptedLegalHash",
+                        "announcementsSeenAt",
                         "banExpires",
                         "banReason",
                         "banned",
@@ -631,6 +644,8 @@
                         "tokens",
                         "twoFactorEnabled",
                         "updatedAt",
+                        "updatesLockedCredits",
+                        "updatesSeenAt",
                         "username"
                       ]
                     }
@@ -791,6 +806,7 @@
                           "type": {
                             "enum": [
                               "address",
+                              "ai-infra",
                               "appstore",
                               "breachvip",
                               "celltower",
@@ -798,6 +814,7 @@
                               "cloudsint",
                               "courtrecords",
                               "crypto",
+                              "cve",
                               "discord",
                               "dnsdumpster",
                               "doogle",
@@ -838,6 +855,7 @@
                               "pimeyes",
                               "playstation",
                               "portscan",
+                              "ransomware",
                               "reddit",
                               "roblox",
                               "scraper",
@@ -848,6 +866,7 @@
                               "tiktok",
                               "uk",
                               "unified",
+                              "urlscan",
                               "username",
                               "usernames",
                               "vehicle",
@@ -1021,6 +1040,7 @@
                         "type": {
                           "enum": [
                             "address",
+                            "ai-infra",
                             "appstore",
                             "breachvip",
                             "celltower",
@@ -1028,6 +1048,7 @@
                             "cloudsint",
                             "courtrecords",
                             "crypto",
+                            "cve",
                             "discord",
                             "dnsdumpster",
                             "doogle",
@@ -1068,6 +1089,7 @@
                             "pimeyes",
                             "playstation",
                             "portscan",
+                            "ransomware",
                             "reddit",
                             "roblox",
                             "scraper",
@@ -1078,6 +1100,7 @@
                             "tiktok",
                             "uk",
                             "unified",
+                            "urlscan",
                             "username",
                             "usernames",
                             "vehicle",
@@ -7424,6 +7447,547 @@
         }
       }
     },
+    "/v1/search/intelligence/ransomware": {
+      "post": {
+        "operationId": "searchRansomware",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Ransomware Group Search",
+        "description": "Look up ransomware groups, leak sites, victim counts, and recent victims on ransomware.live. Free.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "groups": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "added": {
+                                "type": "string"
+                              },
+                              "altname": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "lineage": {
+                                "type": "string"
+                              },
+                              "locations": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "fqdn": {
+                                      "type": "string"
+                                    },
+                                    "available": {
+                                      "type": "boolean"
+                                    },
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "fqdn"
+                                  ]
+                                }
+                              },
+                              "meta": {
+                                "type": "string"
+                              },
+                              "profile": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "url": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "title",
+                                    "url"
+                                  ]
+                                }
+                              },
+                              "raas": {
+                                "type": "boolean"
+                              },
+                              "victimCount": {
+                                "type": "number"
+                              },
+                              "victims": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "attackdate": {
+                                      "type": "string"
+                                    },
+                                    "claim_url": {
+                                      "type": "string"
+                                    },
+                                    "country": {
+                                      "type": "string"
+                                    },
+                                    "victim": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "url"
+                            ]
+                          }
+                        },
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "groups",
+                        "query"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required - Insufficient Credits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/cve": {
+      "post": {
+        "operationId": "searchCve",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "CVE / KEV Lookup",
+        "description": "Look up a CVE in NVD and CISA Known Exploited Vulnerabilities, or search the KEV catalog by product. Free.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        },
+                        "kev": {
+                          "type": "object",
+                          "properties": {
+                            "cveID": {
+                              "type": "string"
+                            },
+                            "cwes": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "dateAdded": {
+                              "type": "string"
+                            },
+                            "dueDate": {
+                              "type": "string"
+                            },
+                            "knownRansomwareCampaignUse": {
+                              "type": "string"
+                            },
+                            "notes": {
+                              "type": "string"
+                            },
+                            "product": {
+                              "type": "string"
+                            },
+                            "requiredAction": {
+                              "type": "string"
+                            },
+                            "shortDescription": {
+                              "type": "string"
+                            },
+                            "vendorProject": {
+                              "type": "string"
+                            },
+                            "vulnerabilityName": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "cveID"
+                          ]
+                        },
+                        "kevMatches": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "cveID": {
+                                "type": "string"
+                              },
+                              "cwes": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "dateAdded": {
+                                "type": "string"
+                              },
+                              "dueDate": {
+                                "type": "string"
+                              },
+                              "knownRansomwareCampaignUse": {
+                                "type": "string"
+                              },
+                              "notes": {
+                                "type": "string"
+                              },
+                              "product": {
+                                "type": "string"
+                              },
+                              "requiredAction": {
+                                "type": "string"
+                              },
+                              "shortDescription": {
+                                "type": "string"
+                              },
+                              "vendorProject": {
+                                "type": "string"
+                              },
+                              "vulnerabilityName": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "cveID"
+                            ]
+                          }
+                        },
+                        "nvd": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "url": {
+                              "type": "string"
+                            },
+                            "cwes": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "lastModified": {
+                              "type": "string"
+                            },
+                            "published": {
+                              "type": "string"
+                            },
+                            "score": {
+                              "type": "number"
+                            },
+                            "severity": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "type": "string"
+                            },
+                            "vector": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "url"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "query"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required - Insufficient Credits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/urlscan": {
+      "post": {
+        "operationId": "searchUrlscan",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "URLScan Search",
+        "description": "Search public urlscan.io captures of a domain or URL. Free.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "result": {
+                                "type": "string"
+                              },
+                              "screenshot": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "uuid": {
+                                "type": "string"
+                              },
+                              "asn": {
+                                "type": "string"
+                              },
+                              "asnname": {
+                                "type": "string"
+                              },
+                              "country": {
+                                "type": "string"
+                              },
+                              "domain": {
+                                "type": "string"
+                              },
+                              "ip": {
+                                "type": "string"
+                              },
+                              "server": {
+                                "type": "string"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "time": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "result",
+                              "screenshot",
+                              "url",
+                              "uuid"
+                            ]
+                          }
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "query",
+                        "results",
+                        "total"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required - Insufficient Credits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search/socials/telegram": {
       "post": {
         "operationId": "searchHorusTelegram",
@@ -12582,6 +13146,224 @@
                 },
                 "required": [
                   "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/infrastructure/ai-infra": {
+      "post": {
+        "operationId": "searchAiInfra",
+        "tags": [
+          "infrastructure"
+        ],
+        "summary": "AI Infra Enumeration",
+        "description": "Search for exposed AI services on Shodan (Ollama, MCP, Gradio, ComfyUI, and similar).",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "matches": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "detected": {
+                                "type": "string"
+                              },
+                              "domains": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "family": {
+                                "type": "string"
+                              },
+                              "hostnames": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "ip": {
+                                "type": "string"
+                              },
+                              "port": {
+                                "type": "number"
+                              },
+                              "tls": {
+                                "type": "boolean"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "asn": {
+                                "type": "string"
+                              },
+                              "isp": {
+                                "type": "string"
+                              },
+                              "location": {
+                                "type": "object",
+                                "properties": {
+                                  "city": {
+                                    "type": "string"
+                                  },
+                                  "country_code": {
+                                    "type": "string"
+                                  },
+                                  "country_name": {
+                                    "type": "string"
+                                  },
+                                  "latitude": {
+                                    "type": "number"
+                                  },
+                                  "longitude": {
+                                    "type": "number"
+                                  },
+                                  "region_code": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "org": {
+                                "type": "string"
+                              },
+                              "product": {
+                                "type": "string"
+                              },
+                              "server": {
+                                "type": "string"
+                              },
+                              "timestamp": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              },
+                              "transport": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "detected",
+                              "domains",
+                              "family",
+                              "hostnames",
+                              "ip",
+                              "port",
+                              "tls",
+                              "url"
+                            ]
+                          }
+                        },
+                        "preset": {
+                          "enum": [
+                            "chat_ui",
+                            "gradio",
+                            "huggingface",
+                            "image_gen",
+                            "inference",
+                            "langserve",
+                            "mcp",
+                            "ollama",
+                            "openai_compat",
+                            "openclaw",
+                            "streamlit"
+                          ]
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "description",
+                        "matches",
+                        "preset",
+                        "query",
+                        "total"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required - Insufficient Credits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "preset": {
+                    "enum": [
+                      "chat_ui",
+                      "gradio",
+                      "huggingface",
+                      "image_gen",
+                      "inference",
+                      "langserve",
+                      "mcp",
+                      "ollama",
+                      "openai_compat",
+                      "openclaw",
+                      "streamlit"
+                    ]
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "preset"
                 ]
               }
             }
