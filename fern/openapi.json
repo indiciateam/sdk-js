@@ -9421,7 +9421,7 @@
                       "properties": {
                         "data": {
                           "type": "string",
-                          "description": "Human-readable progress message (e.g. \"Fetching commit history\")."
+                          "description": "Human-readable progress message (e.g. \"Fetching commit emails\")."
                         },
                         "event": {
                           "type": "string",
@@ -9637,7 +9637,7 @@
                     "summary": "Progress update (event: status)",
                     "value": {
                       "event": "status",
-                      "data": "Fetching commit history"
+                      "data": "Fetching commit emails"
                     }
                   },
                   "heartbeat": {
