@@ -6940,6 +6940,9 @@
                   "author": {
                     "type": "string"
                   },
+                  "cursor": {
+                    "type": "string"
+                  },
                   "dateFrom": {
                     "type": "string"
                   },
@@ -6951,6 +6954,12 @@
                   },
                   "ignoreCasing": {
                     "type": "boolean"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "offset": {
+                    "type": "number"
                   },
                   "query": {
                     "type": "string"
@@ -8082,11 +8091,17 @@
                         "query": {
                           "type": "string"
                         },
+                        "resultWindow": {
+                          "type": "number"
+                        },
                         "severitySummary": {
                           "type": "object"
                         },
                         "total": {
                           "type": "number"
+                        },
+                        "windowLimitReached": {
+                          "type": "boolean"
                         }
                       }
                     },
@@ -8123,14 +8138,41 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "chatId": {
+                    "type": "string"
+                  },
                   "chatTitle": {
+                    "type": "string"
+                  },
+                  "cursor": {
+                    "type": "string"
+                  },
+                  "dateFrom": {
+                    "type": "string"
+                  },
+                  "dateTo": {
                     "type": "string"
                   },
                   "domain": {
                     "type": "string"
                   },
+                  "hasMedia": {
+                    "type": "boolean"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "offset": {
+                    "type": "number"
+                  },
                   "query": {
                     "type": "string"
+                  },
+                  "sortOrder": {
+                    "enum": [
+                      "asc",
+                      "desc"
+                    ]
                   },
                   "username": {
                     "type": "string"
