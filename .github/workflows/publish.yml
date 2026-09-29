@@ -47,6 +47,10 @@ jobs:
           node-version: lts/*
           registry-url: https://registry.npmjs.org
 
+      - name: Upgrade npm
+        # Trusted publishing (OIDC) requires npm CLI >= 11.5.1.
+        run: npm install -g npm@latest
+
       - name: Setup Fern CLI
         uses: fern-api/setup-fern-cli@v1
         with:
@@ -77,9 +81,11 @@ jobs:
           test -f README.md
 
       - name: Publish to npm
+        # Publishes via npm Trusted Publishing (GitHub Actions OIDC); no
+        # NODE_AUTH_TOKEN/NPM_TOKEN secret is used or wanted here — npm skips
+        # OIDC whenever a token is configured. Requires the package's trusted
+        # publisher config on npmjs.com for this repo.
         working-directory: sdks/typescript
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           CURRENT="$(node -p "require('./package.json').version")"
           if [ "$CURRENT" != "$VERSION" ]; then
