@@ -87,6 +87,11 @@ jobs:
         # publisher config on npmjs.com for this repo.
         working-directory: sdks/typescript
         run: |
+          if [ -z "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
+            echo "ACTIONS_ID_TOKEN_REQUEST_URL is not set: the job did not get"
+            echo "id-token: write, so npm Trusted Publishing cannot authenticate."
+            exit 1
+          fi
           CURRENT="$(node -p "require('./package.json').version")"
           if [ "$CURRENT" != "$VERSION" ]; then
             echo "package.json version $CURRENT != $VERSION"
