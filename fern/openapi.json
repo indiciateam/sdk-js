@@ -9932,6 +9932,9 @@
                         "picture": {
                           "type": "string"
                         },
+                        "rateLimited": {
+                          "type": "boolean"
+                        },
                         "sessionSource": {
                           "enum": [
                             "inspection",
