@@ -487,7 +487,6 @@
                                   "reddit",
                                   "roblox",
                                   "scraper",
-                                  "seon",
                                   "shodan",
                                   "snusbase",
                                   "steam",
@@ -3231,912 +3230,6 @@
                 },
                 "required": [
                   "query"
-                ]
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/search/intelligence/seon": {
-      "post": {
-        "operationId": "searchSeon",
-        "tags": [
-          "intelligence"
-        ],
-        "summary": "SEON Lookup",
-        "description": "Evaluate potential threats with SEON\u2019s counter fraud intelligence systems.",
-        "responses": {
-          "200": {
-            "description": "Search successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "account_aggregates": {
-                          "type": "object",
-                          "properties": {
-                            "business": {
-                              "type": "object",
-                              "properties": {
-                                "jobs_and_employment": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "money_transfer_remittance": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "science_and_education": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "technology": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "total_registration": {
-                                  "type": "number"
-                                }
-                              }
-                            },
-                            "personal": {
-                              "type": "object",
-                              "properties": {
-                                "adult_sites": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "ai_platforms": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "betting_and_gaming": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "dating": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "delivery": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "ecommerce": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "email_service": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "entertainment": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "health_and_fitness": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "messenger": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "real_estate": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "social_media": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "technology": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                },
-                                "total_registration": {
-                                  "type": "number"
-                                },
-                                "travel": {
-                                  "type": "object",
-                                  "properties": {
-                                    "checked": {
-                                      "type": "number"
-                                    },
-                                    "registered": {
-                                      "type": "number"
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "total_registration": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "account_details": {
-                          "type": "object",
-                          "additionalProperties": {
-                            "type": "object",
-                            "properties": {
-                              "registered": {
-                                "anyOf": [
-                                  {
-                                    "type": "boolean"
-                                  },
-                                  {
-                                    "type": "null"
-                                  }
-                                ]
-                              }
-                            },
-                            "additionalProperties": {}
-                          }
-                        },
-                        "applied_rules": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "name": {
-                                "type": "string"
-                              },
-                              "operation": {
-                                "type": "string"
-                              },
-                              "score": {
-                                "type": "number"
-                              }
-                            }
-                          }
-                        },
-                        "associated_domain_registrations": {
-                          "type": "object",
-                          "properties": {
-                            "domains": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "city_name": {
-                                    "type": "string"
-                                  },
-                                  "company_name": {
-                                    "type": "string"
-                                  },
-                                  "country_code": {
-                                    "type": "string"
-                                  },
-                                  "create_date": {
-                                    "type": "string"
-                                  },
-                                  "domain_name": {
-                                    "type": "string"
-                                  },
-                                  "expiry_date": {
-                                    "type": "string"
-                                  },
-                                  "full_name": {
-                                    "type": "string"
-                                  },
-                                  "mailing_address": {
-                                    "type": "string"
-                                  },
-                                  "phone_number": {
-                                    "type": "string"
-                                  },
-                                  "registrar_name": {
-                                    "type": "string"
-                                  },
-                                  "state_name": {
-                                    "type": "string"
-                                  },
-                                  "update_date": {
-                                    "type": "string"
-                                  },
-                                  "zip_code": {
-                                    "type": "string"
-                                  }
-                                }
-                              }
-                            },
-                            "exists": {
-                              "type": "boolean"
-                            },
-                            "first_registration_date": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "number_of_domains": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "bin_bank": {
-                          "type": "string"
-                        },
-                        "bin_card": {
-                          "type": "string"
-                        },
-                        "bin_country": {
-                          "type": "string"
-                        },
-                        "bin_country_code": {
-                          "type": "string"
-                        },
-                        "bin_level": {
-                          "type": "string"
-                        },
-                        "bin_phone": {
-                          "type": "string"
-                        },
-                        "bin_type": {
-                          "type": "string"
-                        },
-                        "bin_valid": {
-                          "type": "boolean"
-                        },
-                        "bin_website": {
-                          "type": "string"
-                        },
-                        "breach_details": {
-                          "type": "object",
-                          "properties": {
-                            "breaches": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "date": {
-                                    "type": "string"
-                                  },
-                                  "domain": {
-                                    "type": "string"
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  }
-                                }
-                              }
-                            },
-                            "first_breach": {
-                              "type": "string"
-                            },
-                            "haveibeenpwned_listed": {
-                              "type": "boolean"
-                            },
-                            "last_breach": {
-                              "type": "string"
-                            },
-                            "number_of_breaches": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "card_bin": {
-                          "type": "string"
-                        },
-                        "card_issuer": {
-                          "type": "string"
-                        },
-                        "city": {
-                          "type": "string"
-                        },
-                        "cnam_details": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "consumer_privacy_network": {
-                          "type": "boolean"
-                        },
-                        "country": {
-                          "type": "string"
-                        },
-                        "data_center_proxy": {
-                          "type": "boolean"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "email_details": {
-                          "type": "object",
-                          "properties": {
-                            "deliverable": {
-                              "anyOf": [
-                                {
-                                  "type": "boolean"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "earliest_profile_date": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "email_randomness_score": {
-                              "anyOf": [
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "full_inbox": {
-                              "anyOf": [
-                                {
-                                  "type": "boolean"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "minimum_age_months": {
-                              "anyOf": [
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "valid_format": {
-                              "anyOf": [
-                                {
-                                  "type": "boolean"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        "email_domain_details": {
-                          "type": "object",
-                          "properties": {
-                            "accept_all": {
-                              "anyOf": [
-                                {
-                                  "type": "boolean"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "created": {
-                              "type": "string"
-                            },
-                            "custom": {
-                              "type": "boolean"
-                            },
-                            "disposable": {
-                              "type": "boolean"
-                            },
-                            "dmarc_enforced": {
-                              "type": "boolean"
-                            },
-                            "domain": {
-                              "type": "string"
-                            },
-                            "expires": {
-                              "type": "string"
-                            },
-                            "free": {
-                              "type": "boolean"
-                            },
-                            "registered": {
-                              "type": "boolean"
-                            },
-                            "registered_to": {
-                              "type": "string"
-                            },
-                            "registrar_name": {
-                              "type": "string"
-                            },
-                            "spf_strict": {
-                              "type": "boolean"
-                            },
-                            "suspicious_tld": {
-                              "type": "boolean"
-                            },
-                            "tld": {
-                              "type": "string"
-                            },
-                            "updated": {
-                              "type": "string"
-                            },
-                            "valid_mx": {
-                              "anyOf": [
-                                {
-                                  "type": "boolean"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "website_exists": {
-                              "type": "boolean"
-                            }
-                          }
-                        },
-                        "enterprise_private_network": {
-                          "type": "boolean"
-                        },
-                        "flags": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "additionalProperties": {}
-                          }
-                        },
-                        "harmful": {
-                          "type": "boolean"
-                        },
-                        "history": {
-                          "type": "object",
-                          "additionalProperties": {}
-                        },
-                        "hlr_details": {
-                          "type": "object",
-                          "properties": {
-                            "imsi": {
-                              "type": "string"
-                            },
-                            "original_carrier": {
-                              "type": "object",
-                              "properties": {
-                                "carrier": {
-                                  "type": "string"
-                                },
-                                "carrier_prefix": {
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "ported_carrier": {
-                              "type": "object",
-                              "properties": {
-                                "carrier": {
-                                  "type": "string"
-                                },
-                                "carrier_prefix": {
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "roaming_carrier": {
-                              "type": "object",
-                              "properties": {
-                                "carrier": {
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "null"
-                                    }
-                                  ]
-                                },
-                                "carrier_country": {
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "null"
-                                    }
-                                  ]
-                                },
-                                "carrier_prefix": {
-                                  "anyOf": [
-                                    {
-                                      "type": "string"
-                                    },
-                                    {
-                                      "type": "null"
-                                    }
-                                  ]
-                                }
-                              }
-                            },
-                            "serving_msc": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "status": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "id": {
-                          "type": "string"
-                        },
-                        "ip": {
-                          "type": "string"
-                        },
-                        "isp_name": {
-                          "type": "string"
-                        },
-                        "latitude": {
-                          "type": "number"
-                        },
-                        "longitude": {
-                          "type": "number"
-                        },
-                        "open_ports": {
-                          "type": "array",
-                          "items": {
-                            "type": "number"
-                          }
-                        },
-                        "phone": {
-                          "anyOf": [
-                            {
-                              "type": "number"
-                            },
-                            {
-                              "type": "string"
-                            }
-                          ]
-                        },
-                        "provider_carrier_details": {
-                          "type": "object",
-                          "properties": {
-                            "carrier": {
-                              "type": "string"
-                            },
-                            "country": {
-                              "type": "string"
-                            },
-                            "disposable": {
-                              "type": "boolean"
-                            },
-                            "phone_is_valid": {
-                              "type": "boolean"
-                            },
-                            "type": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "provider_name": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "null"
-                            }
-                          ]
-                        },
-                        "public_proxy": {
-                          "type": "boolean"
-                        },
-                        "residential_proxy": {
-                          "type": "boolean"
-                        },
-                        "risk_scores": {
-                          "type": "object",
-                          "properties": {
-                            "global_network_score": {
-                              "type": "number"
-                            }
-                          }
-                        },
-                        "score": {
-                          "type": "number"
-                        },
-                        "search_engine_spider": {
-                          "type": "boolean"
-                        },
-                        "seon_fraud_history": {
-                          "type": "object",
-                          "properties": {
-                            "customer_hits": {
-                              "type": "number"
-                            },
-                            "first_seen": {
-                              "anyOf": [
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "flags": {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              }
-                            },
-                            "fraudulent_decline_customer_hits": {
-                              "type": "number"
-                            },
-                            "fraudulent_decline_first_seen": {
-                              "anyOf": [
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "fraudulent_decline_hits": {
-                              "type": "number"
-                            },
-                            "fraudulent_decline_last_seen": {
-                              "anyOf": [
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "hits": {
-                              "type": "number"
-                            },
-                            "last_seen": {
-                              "anyOf": [
-                                {
-                                  "type": "number"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        "spam_number": {
-                          "type": "number"
-                        },
-                        "spam_urls": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
-                        },
-                        "state_prov": {
-                          "type": "string"
-                        },
-                        "timezone_offset": {
-                          "type": "string"
-                        },
-                        "tor": {
-                          "type": "boolean"
-                        },
-                        "type": {
-                          "type": "string"
-                        },
-                        "vpn": {
-                          "type": "boolean"
-                        },
-                        "web_proxy": {
-                          "type": "boolean"
-                        }
-                      }
-                    },
-                    "success": {
-                      "type": "boolean"
-                    },
-                    "error": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "data",
-                    "success"
-                  ]
-                }
-              }
-            }
-          },
-          "402": {
-            "description": "Payment Required - Insufficient Credits",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FailedResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/FailedResponse"
-                }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "query": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "enum": [
-                      "bin",
-                      "email",
-                      "ip",
-                      "phone"
-                    ]
-                  }
-                },
-                "required": [
-                  "query",
-                  "type"
                 ]
               }
             }
@@ -14228,7 +13321,7 @@
           "unified"
         ],
         "summary": "Unified Search",
-        "description": "Search across multiple sources with a single query. Fans out to every feature that supports the given selector type, always including the breach databases (web-dbs) that support it; username searches automatically follow up with GitHub, Roblox, and TikTok deep-dives when the username exists on those sites, and Instagram when the account exists and is public. email/phone/ip searches always include SEON; ip and domain searches always include VirusTotal intelligence; email searches whose domain is Google-hosted (MX check) also run Gmail (GHunt) intel. `usIntel` is only meaningful for `type: \"email\"`; phone searches require a country code, and include US intel if the country code is +1. Results are keyed per feature, with per-feature `error` entries on partial failure.",
+        "description": "Search across multiple sources with a single query. Fans out to every feature that supports the given selector type, always including the breach databases (web-dbs) that support it; username searches automatically follow up with GitHub, Roblox, and TikTok deep-dives when the username exists on those sites, and Instagram when the account exists and is public. ip and domain searches always include VirusTotal intelligence; email searches whose domain is Google-hosted (MX check) also run Gmail (GHunt) intel. `usIntel` is only meaningful for `type: \"email\"`; phone searches require a country code, and include US intel if the country code is +1. Results are keyed per feature, with per-feature `error` entries on partial failure.",
         "responses": {
           "200": {
             "description": "Search completed (partial failures reported per feature)",
@@ -15476,7 +14569,7 @@
         "tags": [
           "organizations"
         ],
-        "description": "List organizations the authenticated user belongs to.",
+        "description": "List organizations the authenticated user belongs to. API keys limited to specific features also need the `organizations` permission.",
         "responses": {
           "200": {
             "description": "List of organizations with member counts and your role.",
@@ -15576,7 +14669,7 @@
         "tags": [
           "organizations"
         ],
-        "description": "Get details for a specific organization you are a member of.",
+        "description": "Get details for a specific organization you are a member of. API keys limited to specific features also need the `organizations` permission.",
         "responses": {
           "200": {
             "description": "Organization details.",
@@ -15689,7 +14782,7 @@
         "tags": [
           "organizations"
         ],
-        "description": "List members of an organization you belong to.",
+        "description": "List members of an organization you belong to. API keys limited to specific features also need the `organizations` permission.",
         "responses": {
           "200": {
             "description": "Member list.",
@@ -15790,7 +14883,7 @@
         "tags": [
           "organizations"
         ],
-        "description": "Get the audit log for an organization. Requires owner or admin role.",
+        "description": "Get the audit log for an organization. Requires owner or admin role. API keys limited to specific features also need the `organizations` permission.",
         "responses": {
           "200": {
             "description": "Audit log entries.",
@@ -15898,7 +14991,7 @@
         "tags": [
           "organizations"
         ],
-        "description": "List cases shared with an organization (filtered by your visibility settings).",
+        "description": "List cases shared with an organization (filtered by your visibility settings). API keys limited to specific features also need the `organizations` permission.",
         "responses": {
           "200": {
             "description": "Shared cases.",
@@ -15999,7 +15092,7 @@
         "tags": [
           "organizations"
         ],
-        "description": "Send credits from your balance to one or more organization members. Requires owner or admin role.",
+        "description": "Send credits from your balance to one or more organization members. Requires owner or admin role. API keys limited to specific features also need the `organizations` permission.",
         "responses": {
           "200": {
             "description": "Credits sent.",
@@ -16080,8 +15173,8 @@
         "tags": [
           "socials"
         ],
-        "summary": "Username Search V2",
-        "description": "Search various sites for a specific username. Streams progress updates via Server-Sent Events.",
+        "summary": "Live Intelligence Search V2",
+        "description": "Check hundreds of sites for live registrations matching an email address, phone number, or username. Streams progress updates via Server-Sent Events. Phone numbers should include the country code (E.164, e.g. +18005553945); 10-digit US numbers default to +1. Set `allowNotify` to also probe sites whose account-recovery flows may email or SMS the target.",
         "responses": {
           "200": {
             "description": "Streaming response with progress updates. Each SSE message contains a JSON object with status updates.",
@@ -16115,6 +15208,7 @@
                             "type": {
                               "enum": [
                                 "email",
+                                "phone",
                                 "username"
                               ]
                             },
@@ -16710,6 +15804,12 @@
                                       "type": "string"
                                     },
                                     "recent_activity": {},
+                                    "recovered_email": {
+                                      "type": "string"
+                                    },
+                                    "recovered_phone": {
+                                      "type": "string"
+                                    },
                                     "recovery_email": {
                                       "type": "string"
                                     },
@@ -16964,7 +16064,7 @@
                             "type"
                           ],
                           "title": "OsintResult",
-                          "description": "A single service's username lookup result."
+                          "description": "A single service's live-registration lookup result."
                         },
                         "event": {
                           "type": "string",
@@ -17006,6 +16106,7 @@
                                   "type": {
                                     "enum": [
                                       "email",
+                                      "phone",
                                       "username"
                                     ]
                                   },
@@ -17601,6 +16702,12 @@
                                             "type": "string"
                                           },
                                           "recent_activity": {},
+                                          "recovered_email": {
+                                            "type": "string"
+                                          },
+                                          "recovered_phone": {
+                                            "type": "string"
+                                          },
                                           "recovery_email": {
                                             "type": "string"
                                           },
@@ -17855,7 +16962,7 @@
                                   "type"
                                 ],
                                 "title": "OsintResult",
-                                "description": "A single service's username lookup result."
+                                "description": "A single service's live-registration lookup result."
                               },
                               "description": "All OSINT results collected across every checked service."
                             },
@@ -18001,6 +17108,9 @@
                   "query": {
                     "type": "string",
                     "minLength": 1
+                  },
+                  "allowNotify": {
+                    "type": "boolean"
                   }
                 },
                 "required": [
