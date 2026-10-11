@@ -8883,7 +8883,7 @@
           "socials"
         ],
         "summary": "Instagram Search",
-        "description": "Lookup an Instagram account and return followers and following. Optionally supply a session cookie to access private lists the cookie can see; otherwise the inspection account is used.",
+        "description": "Lookup an Instagram account and return profile, followers, following, and active stories (media URLs, music, locations, hashtags, reshared posts; viewing is never marked as seen). Optionally supply a session cookie to access private lists the cookie can see; otherwise the inspection account is used.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -9033,6 +9033,72 @@
                             "inspection",
                             "user"
                           ]
+                        },
+                        "stories": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "isVideo": {
+                                "type": "boolean"
+                              },
+                              "takenAt": {
+                                "type": "number"
+                              },
+                              "expiringAt": {
+                                "type": "number"
+                              },
+                              "hashtags": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "image": {
+                                "type": "string"
+                              },
+                              "locations": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "lat": {
+                                      "type": "number"
+                                    },
+                                    "lng": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "name"
+                                  ]
+                                }
+                              },
+                              "music": {
+                                "type": "string"
+                              },
+                              "resharedPostCode": {
+                                "type": "string"
+                              },
+                              "video": {
+                                "type": "string"
+                              },
+                              "videoDuration": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "isVideo",
+                              "takenAt"
+                            ]
+                          }
                         },
                         "username": {
                           "type": "string"
