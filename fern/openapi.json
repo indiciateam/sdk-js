@@ -5513,7 +5513,7 @@
           "intelligence"
         ],
         "summary": "Horus Stealer Download",
-        "description": "Download a Horus stealer machine archive, or one file from it. Returns base64 JSON.",
+        "description": "Download a Horus stealer machine archive, or one file from it. Returns file metadata and a `downloadUrl` (valid 24 hours).",
         "responses": {
           "200": {
             "description": "Download successful",
@@ -14280,7 +14280,7 @@
           "tools"
         ],
         "summary": "Download IntelX file",
-        "description": "Download a file from IntelX storage. Use storageId + bucket for a standalone file (5 credits), or systemId with bucket \"leaks.logs\" for a stealer log (10 credits).  Not all stealerlogs are downloadable; if the systemId is not indexed by IntelX, the request will fail but still charge credits due to IntelX limitations.",
+        "description": "Download a file from IntelX storage. Use storageId + bucket for a standalone file (5 credits), or systemId with bucket \"leaks.logs\" for a stealer log (10 credits). Returns a download URL (valid 24 hours) for stealer-log archives, or the inline content for standalone files.  Not all stealerlogs are downloadable; if the systemId is not indexed by IntelX, the request will fail but still charge credits due to IntelX limitations.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -14542,7 +14542,7 @@
           "tools"
         ],
         "summary": "Download VirusTotal file",
-        "description": "Download a file from VirusTotal by its id. The file is returned base64-encoded.",
+        "description": "Download a file from VirusTotal by its id. Files over 1 MB return a presigned `downloadUrl` (the file is stored in R2 and expires after 24 hours); smaller files return inline base64 `content`.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -14557,22 +14557,32 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "content": {
-                          "type": "string"
-                        },
-                        "encoding": {
-                          "type": "string"
-                        },
                         "id": {
                           "type": "string"
                         },
                         "size": {
                           "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        },
+                        "contentType": {
+                          "type": "string"
+                        },
+                        "downloadUrl": {
+                          "type": "string"
+                        },
+                        "encoding": {
+                          "type": "string"
+                        },
+                        "expiresAt": {
+                          "type": "string"
+                        },
+                        "filename": {
+                          "type": "string"
                         }
                       },
                       "required": [
-                        "content",
-                        "encoding",
                         "id",
                         "size"
                       ]
