@@ -668,7 +668,7 @@
         "tags": [
           "pricing"
         ],
-        "description": "Gives credit pricing for all Indicia services",
+        "description": "Get credit pricing for all Indicia services.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -1238,6 +1238,7 @@
           "intelligence"
         ],
         "summary": "Address Search (US Only)",
+        "description": "Find US public records linked to an address.",
         "responses": {
           "200": {
             "description": "Search for individuals by address.",
@@ -1595,7 +1596,7 @@
           "intelligence"
         ],
         "summary": "Email Search (US Only)",
-        "description": "Search for individuals by email address.",
+        "description": "Find US public records linked to an email address.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -1730,7 +1731,7 @@
           "intelligence"
         ],
         "summary": "Geolocate Media",
-        "description": "Geolocate an image using AI-powered analysis. Streams progress updates via Server-Sent Events.",
+        "description": "Estimate where a photo was taken from visual clues.",
         "responses": {
           "200": {
             "description": "Streaming response with progress updates. Each SSE message contains a JSON object with status updates.",
@@ -1973,7 +1974,7 @@
           "intelligence"
         ],
         "summary": "Gmail Search",
-        "description": "Fetches Gmail account information based on the provided email address using the Ghunt library.",
+        "description": "Look up the Google account behind an email address.",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -2446,7 +2447,7 @@
           "intelligence"
         ],
         "summary": "Person Search (US Only)",
-        "description": "Search for individuals by name and state.",
+        "description": "Find US public records for a person by name and state.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -2800,7 +2801,7 @@
           "intelligence"
         ],
         "summary": "Phone Search (Individual data US only)",
-        "description": "Search for individuals by phone number.",
+        "description": "Find US public records linked to a phone number.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -3244,7 +3245,7 @@
           "intelligence"
         ],
         "summary": "VirusTotal File Intelligence",
-        "description": "Look up VirusTotal reputation and antivirus detection data for a URL, domain, IP address, or file (including content).",
+        "description": "Check VirusTotal verdicts for a file, URL, domain, or IP.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -3415,7 +3416,7 @@
           "intelligence"
         ],
         "summary": "Web Databases",
-        "description": "Deep web intelligence gathering and comprehensive data breach analysis",
+        "description": "Search breach databases for an email, username, IP, or password.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -4346,7 +4347,7 @@
           "intelligence"
         ],
         "summary": "Reverse Face Search",
-        "description": "Search for faces across the internet using facial recognition. Streams progress updates via Server-Sent Events.",
+        "description": "Find matching faces across public websites from a photo.",
         "responses": {
           "200": {
             "description": "Streaming response with progress updates. Each SSE message contains a JSON object with status updates.",
@@ -4601,7 +4602,7 @@
           "intelligence"
         ],
         "summary": "Hudson Rock Search",
-        "description": "Search for compromised data on Hudson Rock",
+        "description": "Check if a domain, email, username, IP, or password appears in stealer malware infections.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -5200,7 +5201,7 @@
           "intelligence"
         ],
         "summary": "Horus Stealer Logs",
-        "description": "Search stealer logs on Horus by domain, email, username, IP, or other field",
+        "description": "Search Horus stealer logs by domain, email, username, IP, or password.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -5395,7 +5396,7 @@
           "intelligence"
         ],
         "summary": "Horus Machine Lookup",
-        "description": "Fetch the full Horus stealer record for one machine by pc_key",
+        "description": "Get the full Horus stealer record for one infected machine.",
         "responses": {
           "200": {
             "description": "Lookup successful",
@@ -5513,7 +5514,7 @@
           "intelligence"
         ],
         "summary": "Horus Stealer Download",
-        "description": "Download a Horus stealer machine archive, or one file from it. Returns file metadata and a `downloadUrl` (valid 24 hours).",
+        "description": "Download a Horus stealer archive or one file from it.",
         "responses": {
           "200": {
             "description": "Download successful",
@@ -5580,7 +5581,7 @@
           "intelligence"
         ],
         "summary": "Horus Cards",
-        "description": "Search payment cards captured in Horus stealer logs by BIN, brand, or archive",
+        "description": "Search payment cards found in Horus stealer logs.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -5683,7 +5684,7 @@
           "intelligence"
         ],
         "summary": "Horus Stealer Socials",
-        "description": "Search social accounts captured in Horus stealer logs by handle, platform, IP, or machine",
+        "description": "Search social accounts found in Horus stealer logs.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -5801,7 +5802,7 @@
           "intelligence"
         ],
         "summary": "Forums Search",
-        "description": "Search indexed forums on Horus by content, thread title or author, across every source Horus crawls",
+        "description": "Search Horus-indexed forum posts by text, thread title, or author.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -6071,7 +6072,7 @@
           "intelligence"
         ],
         "summary": "Location to BSSID",
-        "description": "Find nearby Wi-Fi access points for a location",
+        "description": "Find nearby Wi-Fi networks for a location.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -6189,7 +6190,7 @@
           "intelligence"
         ],
         "summary": "Wi-Fi Network Map",
-        "description": "Geolocate Wi-Fi access points by BSSID",
+        "description": "Look up the location of Wi-Fi networks.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -6297,7 +6298,7 @@
           "intelligence"
         ],
         "summary": "Wayback Machine Search",
-        "description": "Trace the archived captures of a URL on the Wayback Machine, or read the content of a specific capture. Listing snapshots is free; reading a capture (pass `timestamp`) costs 1 credit.",
+        "description": "See archived versions of a page on the Wayback Machine. Listing snapshots is free; reading a capture (pass `timestamp`) costs 1 credit.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -6556,7 +6557,7 @@
           "intelligence"
         ],
         "summary": "Ransomware Group Search",
-        "description": "Look up ransomware groups, leak sites, victim counts, and recent victims on ransomware.live. Free.",
+        "description": "Look up ransomware groups and their victims. Free.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -6740,7 +6741,7 @@
           "intelligence"
         ],
         "summary": "CVE / KEV Lookup",
-        "description": "Look up a CVE in NVD and CISA Known Exploited Vulnerabilities, or search the KEV catalog by product. Free.",
+        "description": "Look up a security vulnerability, or find products with known exploits. Free.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -6956,7 +6957,7 @@
           "intelligence"
         ],
         "summary": "URLScan Search",
-        "description": "Search public urlscan.io captures of a domain or URL. Free.",
+        "description": "See public urlscan.io scans of a website or URL. Free.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -7097,7 +7098,7 @@
           "socials"
         ],
         "summary": "Telegram",
-        "description": "Search Telegram messages on Horus by text, username, chat title, or domain",
+        "description": "Search Horus-indexed Telegram messages by text, username, chat, or domain.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -7284,7 +7285,7 @@
           "socials"
         ],
         "summary": "Discord Search",
-        "description": "Search Discord users for profile and server info",
+        "description": "Look up a Discord user's profile and linked accounts.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -8197,7 +8198,7 @@
           "socials"
         ],
         "summary": "Epic Games Search",
-        "description": "Lookup an Epic Games account by display name or account ID",
+        "description": "Look up an Epic Games account and its linked profiles.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -8535,7 +8536,7 @@
           "socials"
         ],
         "summary": "GitHub Search",
-        "description": "Search GitHub profiles, info, and commit emails. Streams progress updates via Server-Sent Events.",
+        "description": "Look up a GitHub user and emails from their commits.",
         "responses": {
           "200": {
             "description": "Streaming response with progress updates. Each SSE message contains a JSON object with status updates.",
@@ -8883,7 +8884,7 @@
           "socials"
         ],
         "summary": "Instagram Search",
-        "description": "Lookup an Instagram account and return profile, followers, following, and active stories (media URLs, music, locations, hashtags, reshared posts; viewing is never marked as seen). Optionally supply a session cookie to access private lists the cookie can see; otherwise the inspection account is used.",
+        "description": "Look up an Instagram profile, followers, and stories.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -9161,7 +9162,7 @@
           "socials"
         ],
         "summary": "LinkedIn Lookup",
-        "description": "Resolve a LinkedIn profile from an email address (and optional display name): headline, company, location, and contact details.",
+        "description": "Find a LinkedIn profile from an email address.",
         "responses": {
           "200": {
             "description": "Lookup successful",
@@ -9420,7 +9421,7 @@
           "socials"
         ],
         "summary": "PlayStation Search",
-        "description": "Lookup a PlayStation Network profile by online ID",
+        "description": "Look up a PlayStation profile and trophies.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -9694,7 +9695,7 @@
           "socials"
         ],
         "summary": "Reddit Intel Search",
-        "description": "Search Reddit archives (Arctic Shift + PullPush) for a user's posts or comments, including deleted and removed content",
+        "description": "Search archived Reddit posts and comments, including deleted ones.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -9876,7 +9877,7 @@
           "socials"
         ],
         "summary": "Roblox Search",
-        "description": "Lookup Roblox users, game statistics, profile information, and whether the account has registered passkeys",
+        "description": "Look up a Roblox profile, past usernames, and linked accounts.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -10290,7 +10291,7 @@
           "socials"
         ],
         "summary": "Steam Search",
-        "description": "Lookup a Steam profile by vanity URL or SteamID64",
+        "description": "Look up a Steam profile, games, and bans.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -10524,7 +10525,7 @@
           "socials"
         ],
         "summary": "TikTok Search",
-        "description": "Aggregate intelligence and data of a TikTok account",
+        "description": "Look up a TikTok account and its public data.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -10654,7 +10655,7 @@
           "socials"
         ],
         "summary": "Xbox Search",
-        "description": "Lookup an Xbox Live profile by gamertag",
+        "description": "Look up an Xbox profile and game history.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -10903,7 +10904,7 @@
           "infrastructure"
         ],
         "summary": "IP Info",
-        "description": "Analyze details of an IP Address.",
+        "description": "Look up where an IP address is and who operates it.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -11570,7 +11571,7 @@
           "infrastructure"
         ],
         "summary": "DNS Reconnaissance",
-        "description": "Perform deep DNS analysis and find hidden subdomains",
+        "description": "Map a domain's DNS records and subdomains.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -12102,7 +12103,7 @@
           "infrastructure"
         ],
         "summary": "Shodan Search",
-        "description": "IP service and software intelligence",
+        "description": "Find internet-exposed devices and services.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -12623,7 +12624,7 @@
           "infrastructure"
         ],
         "summary": "AI Infra Enumeration",
-        "description": "Search for exposed AI services on Shodan (Ollama, MCP, Gradio, ComfyUI, and similar).",
+        "description": "Find publicly exposed AI services.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -12841,7 +12842,7 @@
           "infrastructure"
         ],
         "summary": "VirusTotal Content Search",
-        "description": "Search VirusTotal for files whose content matches a given string.",
+        "description": "Find files on VirusTotal that contain specific text.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -13018,7 +13019,7 @@
           "infrastructure"
         ],
         "summary": "Whois",
-        "description": "Return information on a domain and its registration",
+        "description": "See who registered a domain and when.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -13156,7 +13157,7 @@
           "infrastructure"
         ],
         "summary": "Cell Tower",
-        "description": "Geolocate a cell tower by MCC, MNC, Cell ID and TAC (LTE only).",
+        "description": "Locate an LTE cell tower from its network IDs.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -13279,7 +13280,7 @@
           "infrastructure"
         ],
         "summary": "Certificate Lookup",
-        "description": "Lookup details about a TLS certificate by domain.",
+        "description": "List security certificates issued for a domain.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -13387,7 +13388,7 @@
           "unified"
         ],
         "summary": "Unified Search",
-        "description": "Search across multiple sources with a single query. Fans out to every feature that supports the given selector type, always including the breach databases (web-dbs) that support it; username searches automatically follow up with GitHub, Roblox, and TikTok deep-dives when the username exists on those sites, and Instagram when the account exists and is public. ip and domain searches always include VirusTotal intelligence; email searches whose domain is Google-hosted (MX check) also run Gmail (GHunt) intel. `usIntel` is only meaningful for `type: \"email\"`; phone searches require a country code, and include US intel if the country code is +1. Results are keyed per feature, with per-feature `error` entries on partial failure.",
+        "description": "Search every matching source at once with one query.",
         "responses": {
           "200": {
             "description": "Search completed (partial failures reported per feature)",
@@ -13484,7 +13485,7 @@
           "tools"
         ],
         "summary": "App Store Search",
-        "description": "Scrape app and developer information from the Google Play Store or Apple App Store. Pass an app/package ID (e.g. com.whatsapp) for full developer contact details, or a name to search.",
+        "description": "Look up app and developer details from the app stores.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -13880,7 +13881,7 @@
           "tools"
         ],
         "summary": "Crypto Address Analyzer",
-        "description": "Analyze a cryptocurrency address: native balance and USD value, token holdings, and recent transaction history with counterparties. Supports Bitcoin, Litecoin, Ethereum, Base, Optimism, Arbitrum, Polygon, Gnosis, Celo, Mode, Fuse, Tron, TON and Solana. The network is auto-detected from the address format if not supplied (pass a specific id to disambiguate base58 chains).",
+        "description": "Check a crypto wallet's balance, tokens, and transactions.",
         "responses": {
           "200": {
             "description": "Analysis successful",
@@ -14209,7 +14210,7 @@
           "tools"
         ],
         "summary": "Bypass Double Counter URL",
-        "description": "Bypass alt detection for Discord servers.",
+        "description": "Get past a Discord server's Double Counter verification page.",
         "responses": {
           "200": {
             "description": "Bypass successful",
@@ -14280,7 +14281,7 @@
           "tools"
         ],
         "summary": "Download IntelX file",
-        "description": "Download a file from IntelX storage. Use storageId + bucket for a standalone file (5 credits), or systemId with bucket \"leaks.logs\" for a stealer log (10 credits). Returns a download URL (valid 24 hours) for stealer-log archives, or the inline content for standalone files.  Not all stealerlogs are downloadable; if the systemId is not indexed by IntelX, the request will fail but still charge credits due to IntelX limitations.",
+        "description": "Download a file from IntelX storage. Use storageId and bucket for a file, or systemId for a stealer log. Not all stealer logs are downloadable; failed requests still charge credits.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -14413,7 +14414,7 @@
           "tools"
         ],
         "summary": "Resolve Share Link",
-        "description": "Resolve a TikTok or Instagram share link to identify the user who shared it (and the post author for Instagram). TikTok links must use the /t/ share format; Instagram links must contain the igsh query parameter.",
+        "description": "Find who shared a TikTok or Instagram link. TikTok links must use the /t/ share format; Instagram links must contain the igsh parameter.",
         "responses": {
           "200": {
             "description": "Link resolved",
@@ -14542,7 +14543,7 @@
           "tools"
         ],
         "summary": "Download VirusTotal file",
-        "description": "Download a file from VirusTotal by its id. Files over 1 MB return a presigned `downloadUrl` (the file is stored in R2 and expires after 24 hours); smaller files return inline base64 `content`.",
+        "description": "Download a file from VirusTotal.",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -15250,7 +15251,7 @@
           "socials"
         ],
         "summary": "Live Intelligence Search V2",
-        "description": "Check hundreds of sites for live registrations matching an email address, phone number, or username. Streams progress updates via Server-Sent Events. Phone numbers should include the country code (E.164, e.g. +18005553945); 10-digit US numbers default to +1. Set `allowNotify` to also probe sites whose account-recovery flows may email or SMS the target.",
+        "description": "Check where an email, phone number, or username is registered. Phone numbers should include a country code.",
         "responses": {
           "200": {
             "description": "Streaming response with progress updates. Each SSE message contains a JSON object with status updates.",
