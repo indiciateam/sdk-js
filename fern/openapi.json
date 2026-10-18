@@ -7285,7 +7285,7 @@
           "socials"
         ],
         "summary": "Discord Search",
-        "description": "Look up a Discord user's profile and linked accounts.",
+        "description": "Look up a Discord user's profile and linked accounts. Includes Community Warnings (scam reports) when present; archived proof links in warnings are presigned and expire 7 days after the lookup \u2014 re-run the search for fresh links.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -8115,6 +8115,283 @@
                         },
                         "username": {
                           "type": "string"
+                        },
+                        "warnings": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "dwcdb": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "displayName": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "firstSeenAt": {
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "isBanned": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "key": {
+                                        "type": "string"
+                                      },
+                                      "lastSeenAt": {
+                                        "type": "string"
+                                      },
+                                      "platform": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "profileUrl": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "sourceCount": {
+                                        "anyOf": [
+                                          {
+                                            "type": "number"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "tags": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "username": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "required": [
+                                      "displayName",
+                                      "firstSeenAt",
+                                      "id",
+                                      "isBanned",
+                                      "key",
+                                      "lastSeenAt",
+                                      "platform",
+                                      "profileUrl",
+                                      "sourceCount",
+                                      "tags",
+                                      "username"
+                                    ]
+                                  }
+                                },
+                                "reports": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "approvedAt": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "approvedBy": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "contextNotes": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "firstSeenAt": {
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "identifiers": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "kind": {
+                                              "type": "string"
+                                            },
+                                            "value": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "required": [
+                                            "kind",
+                                            "value"
+                                          ]
+                                        }
+                                      },
+                                      "kind": {
+                                        "type": "string"
+                                      },
+                                      "lastSeenAt": {
+                                        "type": "string"
+                                      },
+                                      "postedAt": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "proofs": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "fetchedAt": {
+                                              "type": "string"
+                                            },
+                                            "sourceUrl": {
+                                              "type": "string"
+                                            },
+                                            "url": {
+                                              "anyOf": [
+                                                {
+                                                  "type": "string"
+                                                },
+                                                {
+                                                  "type": "null"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "required": [
+                                            "fetchedAt",
+                                            "sourceUrl",
+                                            "url"
+                                          ]
+                                        }
+                                      },
+                                      "rawText": {
+                                        "type": "string"
+                                      },
+                                      "removedAt": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "reportedBy": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ]
+                                      },
+                                      "servers": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "sources": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "approvedAt",
+                                      "approvedBy",
+                                      "contextNotes",
+                                      "firstSeenAt",
+                                      "id",
+                                      "identifiers",
+                                      "kind",
+                                      "lastSeenAt",
+                                      "postedAt",
+                                      "proofs",
+                                      "rawText",
+                                      "removedAt",
+                                      "reportedBy",
+                                      "servers",
+                                      "sources"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "dwcdb",
+                                "reports"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         }
                       },
                       "required": [
@@ -9877,7 +10154,7 @@
           "socials"
         ],
         "summary": "Roblox Search",
-        "description": "Look up a Roblox profile, past usernames, and linked accounts.",
+        "description": "Look up a Roblox profile, past usernames, and linked accounts. Includes Community Warnings (scam reports) when present; archived proof links in warnings are presigned and expire 7 days after the lookup \u2014 re-run the search for fresh links.",
         "responses": {
           "200": {
             "description": "Search successful",
