@@ -447,8 +447,11 @@
                                   "address",
                                   "ai-infra",
                                   "appstore",
+                                  "arrests.face",
+                                  "bluesky",
                                   "celltower",
                                   "certificates",
+                                  "cloud-storage",
                                   "cloudsint",
                                   "courtrecords",
                                   "crypto",
@@ -456,10 +459,12 @@
                                   "discord",
                                   "dnsdumpster",
                                   "doublecounter",
+                                  "dronebl",
                                   "email",
                                   "epic",
                                   "geolocation",
                                   "github",
+                                  "github.history",
                                   "gmail",
                                   "horus.forums",
                                   "horus.stealer",
@@ -476,6 +481,7 @@
                                   "intelx.stealerlogs",
                                   "ipinfo",
                                   "leakcheck",
+                                  "leakix",
                                   "link-resolver",
                                   "linkedin",
                                   "location-to-bssid",
@@ -485,11 +491,15 @@
                                   "playstation",
                                   "ransomware",
                                   "reddit",
+                                  "reddit.search",
+                                  "reddit.trends",
+                                  "reverse-ip",
                                   "roblox",
                                   "scraper",
                                   "shodan",
                                   "snusbase",
                                   "steam",
+                                  "telegram.channel",
                                   "tiktok",
                                   "urlscan",
                                   "username",
@@ -808,9 +818,12 @@
                               "address",
                               "ai-infra",
                               "appstore",
+                              "arrests.face",
+                              "bluesky",
                               "breachvip",
                               "celltower",
                               "certificates",
+                              "cloud-storage",
                               "cloudsint",
                               "courtrecords",
                               "crypto",
@@ -819,12 +832,14 @@
                               "dnsdumpster",
                               "doogle",
                               "doublecounter",
+                              "dronebl",
                               "email",
                               "epic",
                               "fr",
                               "geolocation",
                               "ghosint.search",
                               "github",
+                              "github.history",
                               "gmail",
                               "horus.forums",
                               "horus.stealer",
@@ -841,6 +856,7 @@
                               "intelx.stealerlogs",
                               "ipinfo",
                               "leakcheck",
+                              "leakix",
                               "leakosint",
                               "link-resolver",
                               "linkedin",
@@ -857,12 +873,16 @@
                               "portscan",
                               "ransomware",
                               "reddit",
+                              "reddit.search",
+                              "reddit.trends",
+                              "reverse-ip",
                               "roblox",
                               "scraper",
                               "seon",
                               "shodan",
                               "snusbase",
                               "steam",
+                              "telegram.channel",
                               "tiktok",
                               "uk",
                               "unified",
@@ -1042,9 +1062,12 @@
                             "address",
                             "ai-infra",
                             "appstore",
+                            "arrests.face",
+                            "bluesky",
                             "breachvip",
                             "celltower",
                             "certificates",
+                            "cloud-storage",
                             "cloudsint",
                             "courtrecords",
                             "crypto",
@@ -1053,12 +1076,14 @@
                             "dnsdumpster",
                             "doogle",
                             "doublecounter",
+                            "dronebl",
                             "email",
                             "epic",
                             "fr",
                             "geolocation",
                             "ghosint.search",
                             "github",
+                            "github.history",
                             "gmail",
                             "horus.forums",
                             "horus.stealer",
@@ -1075,6 +1100,7 @@
                             "intelx.stealerlogs",
                             "ipinfo",
                             "leakcheck",
+                            "leakix",
                             "leakosint",
                             "link-resolver",
                             "linkedin",
@@ -1091,12 +1117,16 @@
                             "portscan",
                             "ransomware",
                             "reddit",
+                            "reddit.search",
+                            "reddit.trends",
+                            "reverse-ip",
                             "roblox",
                             "scraper",
                             "seon",
                             "shodan",
                             "snusbase",
                             "steam",
+                            "telegram.channel",
                             "tiktok",
                             "uk",
                             "unified",
@@ -4340,6 +4370,250 @@
         }
       }
     },
+    "/v1/search/intelligence/facial/arrests": {
+      "post": {
+        "operationId": "searchArrestsFace",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "US Arrests Search",
+        "description": "Search candidate mugshots from US arrests using a photo. Similarity scores and arrest records are investigative leads requiring corroboration, not confirmed identity, guilt, or current status.",
+        "responses": {
+          "200": {
+            "description": "Candidate search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "faces": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "candidates": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "age": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "county": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "description": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "matchScore": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "mugshotUrl": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "offense": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "recordAge": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "recordUrl": {
+                                      "type": "string"
+                                    },
+                                    "state": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "age",
+                                    "county",
+                                    "description",
+                                    "matchScore",
+                                    "mugshotUrl",
+                                    "name",
+                                    "offense",
+                                    "recordAge",
+                                    "recordUrl",
+                                    "state"
+                                  ]
+                                }
+                              },
+                              "index": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "candidates",
+                              "index"
+                            ]
+                          }
+                        },
+                        "source": {
+                          "type": "object",
+                          "properties": {
+                            "confidence": {
+                              "type": "string"
+                            },
+                            "coverage": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "retrievedAt": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "confidence",
+                            "coverage",
+                            "name",
+                            "retrievedAt"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "faces",
+                        "source"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid image or ZIP code",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Payment Required - Insufficient Credits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Image exceeds the 5 MB provider limit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Image rejected by content moderation or unreadable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "media": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The image file to analyze. Maximum size 5 MB."
+                  },
+                  "zip": {
+                    "type": "string",
+                    "description": "Optional US ZIP code filter (5 digits, optional +4).",
+                    "pattern": "^\\d{5}(-\\d{4})?$"
+                  }
+                },
+                "required": [
+                  "media"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search/intelligence/facial": {
       "post": {
         "operationId": "searchFace",
@@ -7278,6 +7552,365 @@
         }
       }
     },
+    "/v1/search/socials/telegram-channel": {
+      "post": {
+        "operationId": "searchTelegramChannel",
+        "tags": [
+          "socials"
+        ],
+        "summary": "Telegram Public Channel History",
+        "description": "Read recent and older posts from a public Telegram channel via its logged-out web preview, without a Telegram account.",
+        "responses": {
+          "200": {
+            "description": "Lookup successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "channel": {
+                          "type": "string"
+                        },
+                        "count": {
+                          "type": "number"
+                        },
+                        "posts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "date": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "id": {
+                                "type": "number"
+                              },
+                              "links": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "post": {
+                                "type": "string"
+                              },
+                              "text": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "views": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "viewsText": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "date",
+                              "id",
+                              "links",
+                              "post",
+                              "text",
+                              "url",
+                              "views",
+                              "viewsText"
+                            ]
+                          }
+                        },
+                        "provenance": {
+                          "type": "object",
+                          "properties": {
+                            "caveats": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "retrievedAt": {
+                              "type": "string"
+                            },
+                            "source": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "caveats",
+                            "retrievedAt",
+                            "source"
+                          ]
+                        },
+                        "nextBefore": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "channel",
+                        "count",
+                        "posts",
+                        "provenance"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "channel": {
+                    "type": "string"
+                  },
+                  "before": {
+                    "type": "number"
+                  },
+                  "limit": {
+                    "type": "number"
+                  },
+                  "since": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "channel"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/socials/bluesky": {
+      "post": {
+        "operationId": "searchBluesky",
+        "tags": [
+          "socials"
+        ],
+        "summary": "Bluesky Profile Lookup",
+        "description": "Resolve a Bluesky handle or DID to its public profile, bio, follower counts, and recent public posts.",
+        "responses": {
+          "200": {
+            "description": "Lookup successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "number"
+                        },
+                        "posts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "text": {
+                                "type": "string"
+                              },
+                              "uri": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "createdAt": {
+                                "type": "string"
+                              },
+                              "likeCount": {
+                                "type": "number"
+                              },
+                              "quoteCount": {
+                                "type": "number"
+                              },
+                              "replyCount": {
+                                "type": "number"
+                              },
+                              "repostCount": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "text",
+                              "uri",
+                              "url"
+                            ]
+                          }
+                        },
+                        "profile": {
+                          "type": "object",
+                          "properties": {
+                            "did": {
+                              "type": "string"
+                            },
+                            "handle": {
+                              "type": "string"
+                            },
+                            "avatar": {
+                              "type": "string"
+                            },
+                            "banner": {
+                              "type": "string"
+                            },
+                            "createdAt": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "displayName": {
+                              "type": "string"
+                            },
+                            "followersCount": {
+                              "type": "number"
+                            },
+                            "followsCount": {
+                              "type": "number"
+                            },
+                            "indexedAt": {
+                              "type": "string"
+                            },
+                            "postsCount": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "did",
+                            "handle"
+                          ]
+                        },
+                        "provenance": {
+                          "type": "object",
+                          "properties": {
+                            "caveats": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "retrievedAt": {
+                              "type": "string"
+                            },
+                            "source": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "caveats",
+                            "retrievedAt",
+                            "source"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "count",
+                        "posts",
+                        "profile",
+                        "provenance"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "handle": {
+                    "type": "string"
+                  },
+                  "limit": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "handle"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search/socials/discord": {
       "post": {
         "operationId": "searchDiscord",
@@ -9154,6 +9787,176 @@
         }
       }
     },
+    "/v1/search/socials/github-history": {
+      "post": {
+        "operationId": "searchGithubHistory",
+        "tags": [
+          "socials"
+        ],
+        "summary": "GitHub Username History",
+        "description": "Resolve an exact GitHub username (case-insensitive) to every account that has used it, with first-seen dates. Supports rename-aware pivots.",
+        "responses": {
+          "200": {
+            "description": "Lookup successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "accounts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "usernames": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "firstSeen": {
+                                      "type": "string"
+                                    },
+                                    "username": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "firstSeen",
+                                    "username"
+                                  ]
+                                }
+                              },
+                              "forks": {
+                                "type": "object",
+                                "properties": {
+                                  "count": {
+                                    "type": "number"
+                                  },
+                                  "lowerBound": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "count",
+                                  "lowerBound"
+                                ]
+                              },
+                              "repositories": {
+                                "type": "object",
+                                "properties": {
+                                  "count": {
+                                    "type": "number"
+                                  },
+                                  "lowerBound": {
+                                    "type": "boolean"
+                                  }
+                                },
+                                "required": [
+                                  "count",
+                                  "lowerBound"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "usernames"
+                            ]
+                          }
+                        },
+                        "count": {
+                          "type": "number"
+                        },
+                        "provenance": {
+                          "type": "object",
+                          "properties": {
+                            "caveats": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "retrievedAt": {
+                              "type": "string"
+                            },
+                            "source": {
+                              "type": "string"
+                            },
+                            "remaining": {
+                              "type": "number"
+                            },
+                            "tier": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "caveats",
+                            "retrievedAt",
+                            "source"
+                          ]
+                        },
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "accounts",
+                        "count",
+                        "provenance",
+                        "query"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search/socials/instagram": {
       "post": {
         "operationId": "searchInstagram",
@@ -10140,6 +10943,296 @@
                 "required": [
                   "author",
                   "type"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/socials/reddit-search": {
+      "post": {
+        "operationId": "searchRedditArchive",
+        "tags": [
+          "socials"
+        ],
+        "summary": "Reddit Archive Keyword Search",
+        "description": "Search a third-party Reddit archive by keyword, across posts and comments including content deleted from Reddit.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "number"
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "kind": {
+                                "enum": [
+                                  "comment",
+                                  "post"
+                                ]
+                              },
+                              "author": {
+                                "type": "string"
+                              },
+                              "created_utc": {
+                                "type": "number"
+                              },
+                              "num_comments": {
+                                "type": "number"
+                              },
+                              "permalink": {
+                                "type": "string"
+                              },
+                              "score": {
+                                "type": "number"
+                              },
+                              "subreddit": {
+                                "type": "string"
+                              },
+                              "text": {
+                                "type": "string"
+                              },
+                              "title": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "kind"
+                            ]
+                          }
+                        },
+                        "provenance": {
+                          "type": "object",
+                          "properties": {
+                            "caveats": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "retrievedAt": {
+                              "type": "string"
+                            },
+                            "source": {
+                              "type": "string"
+                            },
+                            "remaining": {
+                              "type": "number"
+                            },
+                            "tier": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "caveats",
+                            "retrievedAt",
+                            "source"
+                          ]
+                        },
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "count",
+                        "items",
+                        "provenance",
+                        "query"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "all",
+                      "comments",
+                      "posts"
+                    ]
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/socials/reddit-trends": {
+      "post": {
+        "operationId": "searchRedditTrends",
+        "tags": [
+          "socials"
+        ],
+        "summary": "Reddit Keyword Trends",
+        "description": "Chart how a keyword's popularity on Reddit has evolved year by year over roughly the past decade, from a third-party archive.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "bucket": {
+                                "type": "string"
+                              },
+                              "count": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "bucket",
+                              "count"
+                            ]
+                          }
+                        },
+                        "provenance": {
+                          "type": "object",
+                          "properties": {
+                            "caveats": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "retrievedAt": {
+                              "type": "string"
+                            },
+                            "source": {
+                              "type": "string"
+                            },
+                            "remaining": {
+                              "type": "number"
+                            },
+                            "tier": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "caveats",
+                            "retrievedAt",
+                            "source"
+                          ]
+                        },
+                        "resolution": {
+                          "type": "string"
+                        },
+                        "term": {
+                          "type": "string"
+                        },
+                        "from": {
+                          "type": "string"
+                        },
+                        "to": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "points",
+                        "provenance",
+                        "resolution",
+                        "term"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "term": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "term"
                 ]
               }
             }
@@ -13658,6 +14751,454 @@
         }
       }
     },
+    "/v1/search/infrastructure/cloud-storage": {
+      "post": {
+        "operationId": "searchCloudStorage",
+        "tags": [
+          "infrastructure"
+        ],
+        "summary": "Cloud Storage",
+        "description": "Find public cloud storage buckets for a brand or keyword.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "buckets": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "objects": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "provider": {
+                                "enum": [
+                                  "azure",
+                                  "s3"
+                                ]
+                              },
+                              "public": {
+                                "type": "boolean"
+                              },
+                              "url": {
+                                "type": "string"
+                              },
+                              "container": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "objects",
+                              "provider",
+                              "public",
+                              "url"
+                            ]
+                          }
+                        },
+                        "checked": {
+                          "type": "number"
+                        },
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "buckets",
+                        "checked",
+                        "query"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/infrastructure/reverse-ip": {
+      "post": {
+        "operationId": "searchReverseIp",
+        "tags": [
+          "infrastructure"
+        ],
+        "summary": "Reverse IP",
+        "description": "Find hostnames sharing the same IP.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "hosts": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "query": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "hosts",
+                        "query"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/infrastructure/leakix": {
+      "post": {
+        "operationId": "searchLeakix",
+        "tags": [
+          "infrastructure"
+        ],
+        "summary": "LeakIX",
+        "description": "Find data leaks and exposed services for a host.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "counts": {
+                          "type": "object",
+                          "properties": {
+                            "certificates": {
+                              "type": "number"
+                            },
+                            "leaks": {
+                              "type": "number"
+                            },
+                            "services": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "certificates",
+                            "leaks",
+                            "services"
+                          ]
+                        },
+                        "leaks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "time": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name"
+                            ]
+                          }
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "services": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "port": {
+                                "type": "number"
+                              },
+                              "summary": {
+                                "type": "string"
+                              },
+                              "time": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "port"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "counts",
+                        "leaks",
+                        "query",
+                        "services"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/infrastructure/dronebl": {
+      "post": {
+        "operationId": "searchDronebl",
+        "tags": [
+          "infrastructure"
+        ],
+        "summary": "DroneBL",
+        "description": "Check an IP against abuse/blacklist incident reports.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "incidents": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "class": {
+                                "type": "string"
+                              },
+                              "date": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "reason": {
+                                "type": "string"
+                              },
+                              "comment": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "class",
+                              "date",
+                              "id",
+                              "reason"
+                            ]
+                          }
+                        },
+                        "listed": {
+                          "type": "boolean"
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "asn": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "reverse": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "incidents",
+                        "listed",
+                        "query"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search/unified": {
       "post": {
         "operationId": "searchUnified",
@@ -14417,6 +15958,45 @@
                               "type": "null"
                             }
                           ]
+                        },
+                        "chainabuse": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "reports": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "category": {
+                                        "type": "string"
+                                      },
+                                      "createdAt": {
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "category"
+                                    ]
+                                  }
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "reports",
+                                "url"
+                              ]
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         }
                       },
                       "required": [
@@ -14466,6 +16046,9 @@
                 "properties": {
                   "address": {
                     "type": "string"
+                  },
+                  "chainabuse": {
+                    "type": "boolean"
                   },
                   "network": {
                     "type": "string"
@@ -14691,7 +16274,7 @@
           "tools"
         ],
         "summary": "Resolve Share Link",
-        "description": "Find who shared a TikTok or Instagram link. TikTok links must use the /t/ share format; Instagram links must contain the igsh parameter.",
+        "description": "Find who shared a link, or decode the identifiers it exposes. Supports TikTok /t/ share links, Discord invite and channel links, and Microsoft SharePoint share links.",
         "responses": {
           "200": {
             "description": "Link resolved",
@@ -14708,9 +16291,31 @@
                       "properties": {
                         "platform": {
                           "enum": [
+                            "discord",
                             "instagram",
+                            "microsoft",
                             "tiktok"
                           ]
+                        },
+                        "provenance": {
+                          "type": "string"
+                        },
+                        "author": {
+                          "type": "object",
+                          "properties": {
+                            "avatarUrl": {
+                              "type": "string"
+                            },
+                            "displayName": {
+                              "type": "string"
+                            },
+                            "username": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "email": {
+                          "type": "string"
                         },
                         "sharer": {
                           "type": "object",
@@ -14722,6 +16327,9 @@
                               "type": "string"
                             },
                             "avatarUrl": {
+                              "type": "string"
+                            },
+                            "createdAt": {
                               "type": "string"
                             },
                             "displayName": {
@@ -14751,24 +16359,45 @@
                             "username"
                           ]
                         },
-                        "author": {
+                        "target": {
                           "type": "object",
                           "properties": {
-                            "avatarUrl": {
+                            "channelCreatedAt": {
                               "type": "string"
                             },
-                            "displayName": {
+                            "channelId": {
                               "type": "string"
                             },
-                            "username": {
+                            "type": {
+                              "enum": [
+                                "dm",
+                                "guild-channel",
+                                "guild-message"
+                              ]
+                            },
+                            "guildCreatedAt": {
+                              "type": "string"
+                            },
+                            "guildId": {
+                              "type": "string"
+                            },
+                            "messageCreatedAt": {
+                              "type": "string"
+                            },
+                            "messageId": {
                               "type": "string"
                             }
-                          }
+                          },
+                          "required": [
+                            "channelCreatedAt",
+                            "channelId",
+                            "type"
+                          ]
                         }
                       },
                       "required": [
                         "platform",
-                        "sharer"
+                        "provenance"
                       ]
                     },
                     "error": {
