@@ -296,6 +296,25 @@
                             }
                           ]
                         },
+                        "adamPrefs": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "object"
+                            },
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
                         "announcementsSeenAt": {
                           "anyOf": [
                             {},
@@ -627,6 +646,7 @@
                       "required": [
                         "acceptOrgInvites",
                         "acceptedLegalHash",
+                        "adamPrefs",
                         "announcementsSeenAt",
                         "banExpires",
                         "banReason",
@@ -11925,11 +11945,77 @@
                         "followers": {
                           "type": "string"
                         },
+                        "followersList": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "username": {
+                                "type": "string"
+                              },
+                              "avatar": {
+                                "type": "string"
+                              },
+                              "nickname": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "username"
+                            ]
+                          }
+                        },
+                        "followersTruncated": {
+                          "type": "boolean"
+                        },
                         "following": {
                           "type": "string"
                         },
+                        "followingList": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "username": {
+                                "type": "string"
+                              },
+                              "avatar": {
+                                "type": "string"
+                              },
+                              "nickname": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "username"
+                            ]
+                          }
+                        },
+                        "followingTruncated": {
+                          "type": "boolean"
+                        },
                         "friends": {
                           "type": "string"
+                        },
+                        "friendsList": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "username": {
+                                "type": "string"
+                              },
+                              "avatar": {
+                                "type": "string"
+                              },
+                              "nickname": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "username"
+                            ]
+                          }
                         },
                         "id": {
                           "type": "string"
