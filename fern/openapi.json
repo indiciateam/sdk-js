@@ -472,6 +472,9 @@
                                   "certificates",
                                   "cloud-storage",
                                   "cloudsint",
+                                  "code-search",
+                                  "company",
+                                  "company.profile",
                                   "courtrecords",
                                   "crypto",
                                   "cve",
@@ -845,6 +848,9 @@
                               "certificates",
                               "cloud-storage",
                               "cloudsint",
+                              "code-search",
+                              "company",
+                              "company.profile",
                               "courtrecords",
                               "crypto",
                               "cve",
@@ -1089,6 +1095,9 @@
                             "certificates",
                             "cloud-storage",
                             "cloudsint",
+                            "code-search",
+                            "company",
+                            "company.profile",
                             "courtrecords",
                             "crypto",
                             "cve",
@@ -7244,6 +7253,1329 @@
         }
       }
     },
+    "/v1/search/intelligence/code-search": {
+      "post": {
+        "operationId": "searchCode",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Code Search",
+        "description": "Search public GitHub code across indexed repositories by string or regex, with optional case, whole-word, repository, and language filters.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "hits": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "branch": {
+                                "type": "string"
+                              },
+                              "path": {
+                                "type": "string"
+                              },
+                              "repo": {
+                                "type": "string"
+                              },
+                              "snippet": {
+                                "type": "string"
+                              },
+                              "snippetText": {
+                                "type": "string"
+                              },
+                              "totalMatches": {
+                                "type": "number"
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "branch",
+                              "path",
+                              "repo",
+                              "snippet",
+                              "snippetText",
+                              "totalMatches",
+                              "url"
+                            ]
+                          }
+                        },
+                        "languages": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "count": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "count",
+                              "name"
+                            ]
+                          }
+                        },
+                        "page": {
+                          "type": "number"
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "repositories": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "count": {
+                                "type": "number"
+                              },
+                              "name": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "count",
+                              "name"
+                            ]
+                          }
+                        },
+                        "timeMs": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "hits",
+                        "languages",
+                        "page",
+                        "query",
+                        "repositories",
+                        "timeMs",
+                        "total"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "case": {
+                    "type": "boolean"
+                  },
+                  "lang": {
+                    "type": "string"
+                  },
+                  "page": {
+                    "type": "number"
+                  },
+                  "regexp": {
+                    "type": "boolean"
+                  },
+                  "repo": {
+                    "type": "string"
+                  },
+                  "words": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/company": {
+      "post": {
+        "operationId": "searchCompany",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Company Search",
+        "description": "Search company registries worldwide by name, registry number, LEI/VAT/tax identifier, or registered address, with jurisdiction, geography, status, and incorporation-date filters.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "facets": {
+                          "type": "object",
+                          "properties": {
+                            "countries": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "count": {
+                                    "type": "number"
+                                  },
+                                  "key": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "count",
+                                  "key"
+                                ]
+                              }
+                            },
+                            "jurisdictions": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "count": {
+                                    "type": "number"
+                                  },
+                                  "key": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "count",
+                                  "key"
+                                ]
+                              }
+                            },
+                            "statuses": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "count": {
+                                    "type": "number"
+                                  },
+                                  "key": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "count",
+                                  "key"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "countries",
+                            "jurisdictions",
+                            "statuses"
+                          ]
+                        },
+                        "page": {
+                          "type": "number"
+                        },
+                        "perPage": {
+                          "type": "number"
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "city": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "country": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "id": {
+                                "type": "string"
+                              },
+                              "incorporationDate": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "isActive": {
+                                "anyOf": [
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "jurisdiction": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "region": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "registryNumber": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "status": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "city",
+                              "country",
+                              "id",
+                              "incorporationDate",
+                              "isActive",
+                              "jurisdiction",
+                              "name",
+                              "region",
+                              "registryNumber",
+                              "status"
+                            ]
+                          }
+                        },
+                        "total": {
+                          "type": "number"
+                        },
+                        "totalPages": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "facets",
+                        "page",
+                        "perPage",
+                        "results",
+                        "total",
+                        "totalPages"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "identifier": {
+                    "type": "string"
+                  },
+                  "incorporatedFrom": {
+                    "type": "string"
+                  },
+                  "incorporatedTo": {
+                    "type": "string"
+                  },
+                  "jurisdiction": {
+                    "type": "string"
+                  },
+                  "page": {
+                    "type": "number"
+                  },
+                  "perPage": {
+                    "type": "number"
+                  },
+                  "query": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "registryNumber": {
+                    "type": "string"
+                  },
+                  "sort": {
+                    "enum": [
+                      "active_then_oldest",
+                      "incorporation_date_desc",
+                      "name_asc",
+                      "name_desc",
+                      "relevance",
+                      "updated_desc"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "Active",
+                      "Inactive",
+                      "Unknown"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/intelligence/company-profile": {
+      "post": {
+        "operationId": "getCompanyProfile",
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Company Profile",
+        "description": "Retrieve one company registry profile by entity ID, or by jurisdiction code and official registry number. `found: false` means no record exists at those coordinates.",
+        "responses": {
+          "200": {
+            "description": "Lookup completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "found": {
+                          "type": "boolean"
+                        },
+                        "entity": {
+                          "type": "object",
+                          "properties": {
+                            "address": {
+                              "anyOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "city": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "cityDistrict": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "countryCode": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "countryName": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "houseNumber": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "latitude": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "longitude": {
+                                      "anyOf": [
+                                        {
+                                          "type": "number"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "postcode": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "rawText": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "regionCode": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "regionName": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "road": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "suburb": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "city",
+                                    "cityDistrict",
+                                    "countryCode",
+                                    "countryName",
+                                    "houseNumber",
+                                    "latitude",
+                                    "longitude",
+                                    "postcode",
+                                    "rawText",
+                                    "regionCode",
+                                    "regionName",
+                                    "road",
+                                    "suburb"
+                                  ]
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "alternativeNames": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "changeType": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "companyType": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "country": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "dissolutionDate": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "domain": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "email": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "employees": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "financials": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "currency": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "estimate": {
+                                    "type": "boolean"
+                                  },
+                                  "fiscalYear": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "indicator": {
+                                    "type": "string"
+                                  },
+                                  "kind": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "label": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "usdValue": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "value": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "currency",
+                                  "estimate",
+                                  "fiscalYear",
+                                  "indicator",
+                                  "kind",
+                                  "label",
+                                  "usdValue",
+                                  "value"
+                                ]
+                              }
+                            },
+                            "firstSeenAt": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "foundedDate": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "identifiers": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "abbreviation": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "label": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "value": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "abbreviation",
+                                  "label",
+                                  "type",
+                                  "value"
+                                ]
+                              }
+                            },
+                            "incorporationDate": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "indexedAt": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "isActive": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "jurisdiction": {
+                              "type": "string"
+                            },
+                            "lastUpdatedAt": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "legalForm": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "legalName": {
+                              "type": "string"
+                            },
+                            "people": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "isCurrent": {
+                                    "anyOf": [
+                                      {
+                                        "type": "boolean"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "stake": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "title": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "titleLabel": {
+                                    "anyOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "required": [
+                                  "isCurrent",
+                                  "name",
+                                  "stake",
+                                  "title",
+                                  "titleLabel"
+                                ]
+                              }
+                            },
+                            "phone": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "previousNames": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "registryName": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "registryNumber": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "relations": {
+                              "type": "object",
+                              "properties": {
+                                "branchOf": {
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "jurisdiction": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "registryNumber": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "resolved": {
+                                          "type": "boolean"
+                                        },
+                                        "status": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "jurisdiction",
+                                        "name",
+                                        "registryNumber",
+                                        "resolved",
+                                        "status"
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "mergedInto": {
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "jurisdiction": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "registryNumber": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "resolved": {
+                                          "type": "boolean"
+                                        },
+                                        "status": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "jurisdiction",
+                                        "name",
+                                        "registryNumber",
+                                        "resolved",
+                                        "status"
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                },
+                                "parent": {
+                                  "anyOf": [
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "jurisdiction": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "registryNumber": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        },
+                                        "resolved": {
+                                          "type": "boolean"
+                                        },
+                                        "status": {
+                                          "anyOf": [
+                                            {
+                                              "type": "string"
+                                            },
+                                            {
+                                              "type": "null"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "jurisdiction",
+                                        "name",
+                                        "registryNumber",
+                                        "resolved",
+                                        "status"
+                                      ]
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "branchOf",
+                                "mergedInto",
+                                "parent"
+                              ]
+                            },
+                            "revenue": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "status": {
+                              "type": "string"
+                            },
+                            "website": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "address",
+                            "alternativeNames",
+                            "changeType",
+                            "companyType",
+                            "country",
+                            "dissolutionDate",
+                            "domain",
+                            "email",
+                            "employees",
+                            "financials",
+                            "firstSeenAt",
+                            "foundedDate",
+                            "id",
+                            "identifiers",
+                            "incorporationDate",
+                            "indexedAt",
+                            "isActive",
+                            "jurisdiction",
+                            "lastUpdatedAt",
+                            "legalForm",
+                            "legalName",
+                            "people",
+                            "phone",
+                            "previousNames",
+                            "registryName",
+                            "registryNumber",
+                            "relations",
+                            "revenue",
+                            "status",
+                            "website"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "found"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "jurisdiction": {
+                    "type": "string"
+                  },
+                  "registryNumber": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/search/intelligence/urlscan": {
       "post": {
         "operationId": "searchUrlscan",
@@ -10885,10 +12217,17 @@
                           }
                         },
                         "sources": {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          }
+                          "anyOf": [
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
                         },
                         "type": {
                           "enum": [
@@ -12089,6 +13428,9 @@
                 "type": "object",
                 "properties": {
                   "query": {
+                    "type": "string"
+                  },
+                  "cookie": {
                     "type": "string"
                   },
                   "type": {
