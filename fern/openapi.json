@@ -10961,6 +10961,180 @@
                             "username": {
                               "type": "string"
                             },
+                            "analytics": {
+                              "type": "object",
+                              "properties": {
+                                "caveats": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "languages": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "language": {
+                                        "type": "string"
+                                      },
+                                      "percentage": {
+                                        "type": "number"
+                                      },
+                                      "pullRequests": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "language",
+                                      "percentage",
+                                      "pullRequests"
+                                    ]
+                                  }
+                                },
+                                "monthly": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "issueComments": {
+                                        "type": "number"
+                                      },
+                                      "issues": {
+                                        "type": "number"
+                                      },
+                                      "month": {
+                                        "type": "string"
+                                      },
+                                      "pullRequests": {
+                                        "type": "number"
+                                      },
+                                      "pushes": {
+                                        "type": "number"
+                                      },
+                                      "reviewComments": {
+                                        "type": "number"
+                                      },
+                                      "reviews": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "issueComments",
+                                      "issues",
+                                      "month",
+                                      "pullRequests",
+                                      "pushes",
+                                      "reviewComments",
+                                      "reviews"
+                                    ]
+                                  }
+                                },
+                                "retrievedAt": {
+                                  "type": "string"
+                                },
+                                "source": {
+                                  "type": "string"
+                                },
+                                "status": {
+                                  "enum": [
+                                    "ok",
+                                    "rate_limited",
+                                    "timeout",
+                                    "unavailable"
+                                  ]
+                                },
+                                "topRepos": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "issueComments": {
+                                        "type": "number"
+                                      },
+                                      "issues": {
+                                        "type": "number"
+                                      },
+                                      "pullRequests": {
+                                        "type": "number"
+                                      },
+                                      "pushes": {
+                                        "type": "number"
+                                      },
+                                      "repo": {
+                                        "type": "string"
+                                      },
+                                      "reviewComments": {
+                                        "type": "number"
+                                      },
+                                      "reviews": {
+                                        "type": "number"
+                                      },
+                                      "total": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "issueComments",
+                                      "issues",
+                                      "pullRequests",
+                                      "pushes",
+                                      "repo",
+                                      "reviewComments",
+                                      "reviews",
+                                      "total"
+                                    ]
+                                  }
+                                },
+                                "message": {
+                                  "type": "string"
+                                },
+                                "overview": {
+                                  "type": "object",
+                                  "properties": {
+                                    "codeReviews": {
+                                      "type": "number"
+                                    },
+                                    "issues": {
+                                      "type": "number"
+                                    },
+                                    "pullRequests": {
+                                      "type": "number"
+                                    },
+                                    "reposContributed": {
+                                      "type": "number"
+                                    },
+                                    "reposOwned": {
+                                      "type": "number"
+                                    },
+                                    "reposStarred": {
+                                      "type": "number"
+                                    },
+                                    "starsEarned": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "codeReviews",
+                                    "issues",
+                                    "pullRequests",
+                                    "reposContributed",
+                                    "reposOwned",
+                                    "reposStarred",
+                                    "starsEarned"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "caveats",
+                                "languages",
+                                "monthly",
+                                "retrievedAt",
+                                "source",
+                                "status",
+                                "topRepos"
+                              ]
+                            },
                             "activityId": {
                               "type": [
                                 "string",
@@ -12127,7 +12301,7 @@
           "socials"
         ],
         "summary": "Reddit Intel Search",
-        "description": "Search archived Reddit posts and comments, including deleted ones.",
+        "description": "Search archived Reddit posts and comments, including deleted ones. Set `interactions` to also return who the author interacts with most (counterparties and interaction counts) from the Reddit archive; it is best-effort and reports a status (e.g. timeout, rate_limited) instead of failing the search.",
         "responses": {
           "200": {
             "description": "Search successful",
@@ -12235,6 +12409,78 @@
                             "posts"
                           ]
                         },
+                        "interactions": {
+                          "type": "object",
+                          "properties": {
+                            "caveats": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            },
+                            "counterparties": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "count": {
+                                    "type": "number"
+                                  },
+                                  "user": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "count",
+                                  "user"
+                                ]
+                              }
+                            },
+                            "limit": {
+                              "type": "number"
+                            },
+                            "retrievedAt": {
+                              "type": "string"
+                            },
+                            "source": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "enum": [
+                                "ok",
+                                "rate_limited",
+                                "timeout",
+                                "unavailable"
+                              ]
+                            },
+                            "after": {
+                              "type": "number"
+                            },
+                            "before": {
+                              "type": "number"
+                            },
+                            "message": {
+                              "type": "string"
+                            },
+                            "minCount": {
+                              "type": "number"
+                            },
+                            "retryAfterSeconds": {
+                              "type": "number"
+                            },
+                            "subreddit": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "caveats",
+                            "counterparties",
+                            "limit",
+                            "retrievedAt",
+                            "source",
+                            "status"
+                          ]
+                        },
                         "nextCursor": {
                           "type": "number"
                         }
@@ -12289,10 +12535,19 @@
                       "posts"
                     ]
                   },
+                  "after": {
+                    "type": "number"
+                  },
                   "before": {
                     "type": "number"
                   },
+                  "interactions": {
+                    "type": "boolean"
+                  },
                   "limit": {
+                    "type": "number"
+                  },
+                  "minCount": {
                     "type": "number"
                   },
                   "subreddit": {
