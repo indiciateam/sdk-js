@@ -507,6 +507,7 @@
                                   "link-resolver",
                                   "linkedin",
                                   "location-to-bssid",
+                                  "onion-lookup",
                                   "person",
                                   "phone",
                                   "pimeyes",
@@ -889,6 +890,7 @@
                               "location-to-bssid",
                               "melissa",
                               "minecraft",
+                              "onion-lookup",
                               "osintindustries",
                               "other",
                               "person",
@@ -1136,6 +1138,7 @@
                             "location-to-bssid",
                             "melissa",
                             "minecraft",
+                            "onion-lookup",
                             "osintindustries",
                             "other",
                             "person",
@@ -16834,6 +16837,118 @@
                         "incidents",
                         "listed",
                         "query"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/infrastructure/onion-lookup": {
+      "post": {
+        "operationId": "searchOnionLookup",
+        "tags": [
+          "infrastructure"
+        ],
+        "summary": "Onion-Lookup",
+        "description": "Check whether a .onion address exists and retrieve its hidden service metadata.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "found": {
+                          "type": "boolean"
+                        },
+                        "languages": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "onion": {
+                          "type": "string"
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "tags": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "titleCount": {
+                          "type": "number"
+                        },
+                        "titles": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "firstSeen": {
+                          "type": "string"
+                        },
+                        "lastSeen": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "found",
+                        "languages",
+                        "onion",
+                        "query",
+                        "tags",
+                        "titleCount",
+                        "titles"
                       ]
                     },
                     "success": {
