@@ -4335,21 +4335,11 @@
                     "type": "array",
                     "items": {
                       "enum": [
-                        "cloudsint",
                         "horus.ulp",
-                        "intelligencex.identityportal",
                         "leakcheck",
                         "snusbase"
                       ]
                     }
-                  },
-                  "cloudsintType": {
-                    "enum": [
-                      "any",
-                      "domain",
-                      "email",
-                      "ip"
-                    ]
                   },
                   "horusType": {
                     "enum": [
@@ -4357,12 +4347,6 @@
                       "keyword",
                       "login",
                       "password"
-                    ]
-                  },
-                  "intelxType": {
-                    "enum": [
-                      "email",
-                      "ip"
                     ]
                   },
                   "leakCheckType": {
