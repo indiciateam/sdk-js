@@ -465,6 +465,7 @@
                                 "enum": [
                                   "address",
                                   "ai-infra",
+                                  "analytics-ids",
                                   "appstore",
                                   "arrests.face",
                                   "bluesky",
@@ -519,6 +520,7 @@
                                   "reverse-ip",
                                   "roblox",
                                   "scraper",
+                                  "shared-ids",
                                   "shodan",
                                   "snusbase",
                                   "steam",
@@ -841,6 +843,7 @@
                             "enum": [
                               "address",
                               "ai-infra",
+                              "analytics-ids",
                               "appstore",
                               "arrests.face",
                               "bluesky",
@@ -907,6 +910,7 @@
                               "roblox",
                               "scraper",
                               "seon",
+                              "shared-ids",
                               "shodan",
                               "snusbase",
                               "steam",
@@ -1089,6 +1093,7 @@
                           "enum": [
                             "address",
                             "ai-infra",
+                            "analytics-ids",
                             "appstore",
                             "arrests.face",
                             "bluesky",
@@ -1155,6 +1160,7 @@
                             "roblox",
                             "scraper",
                             "seon",
+                            "shared-ids",
                             "shodan",
                             "snusbase",
                             "steam",
@@ -16933,6 +16939,339 @@
                         "tags",
                         "titleCount",
                         "titles"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/infrastructure/analytics-ids": {
+      "post": {
+        "operationId": "searchAnalyticsIds",
+        "tags": [
+          "infrastructure"
+        ],
+        "summary": "Analytics IDs",
+        "description": "Find current and Wayback-archived Google Analytics and Tag Manager IDs for a site, and compare up to four sites for shared IDs.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "query": {
+                          "type": "string"
+                        },
+                        "shared": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "ids": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "key": {
+                                "type": "string"
+                              },
+                              "sites": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "type": {
+                                "enum": [
+                                  "ga4",
+                                  "gtm",
+                                  "ua"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "ids",
+                              "key",
+                              "sites",
+                              "type"
+                            ]
+                          }
+                        },
+                        "sites": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "archive": {
+                                "type": "object",
+                                "properties": {
+                                  "captures": {
+                                    "type": "number"
+                                  },
+                                  "failed": {
+                                    "type": "number"
+                                  },
+                                  "status": {
+                                    "enum": [
+                                      "none",
+                                      "ok",
+                                      "partial",
+                                      "unavailable"
+                                    ]
+                                  },
+                                  "firstCapture": {
+                                    "type": "string"
+                                  },
+                                  "lastCapture": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "captures",
+                                  "failed",
+                                  "status"
+                                ]
+                              },
+                              "currentPage": {
+                                "enum": [
+                                  "ok",
+                                  "unreachable"
+                                ]
+                              },
+                              "ids": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "captures": {
+                                      "type": "number"
+                                    },
+                                    "current": {
+                                      "type": "boolean"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "enum": [
+                                        "ga4",
+                                        "gtm",
+                                        "ua"
+                                      ]
+                                    },
+                                    "firstSeen": {
+                                      "type": "string"
+                                    },
+                                    "lastSeen": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "captures",
+                                    "current",
+                                    "id",
+                                    "type"
+                                  ]
+                                }
+                              },
+                              "site": {
+                                "type": "string"
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "archive",
+                              "currentPage",
+                              "ids",
+                              "site",
+                              "url"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "query",
+                        "shared",
+                        "sites"
+                      ]
+                    },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "success"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FailedResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/infrastructure/shared-ids": {
+      "post": {
+        "operationId": "searchSharedIds",
+        "tags": [
+          "infrastructure"
+        ],
+        "summary": "Shared IDs",
+        "description": "Find other websites that share Google Analytics, AdSense, Amazon affiliate or email identifiers with a domain.",
+        "responses": {
+          "200": {
+            "description": "Search successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "hidden": {
+                          "type": "number"
+                        },
+                        "query": {
+                          "type": "string"
+                        },
+                        "queryType": {
+                          "enum": [
+                            "domain",
+                            "identifier"
+                          ]
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "confidence": {
+                                "type": "number"
+                              },
+                              "domain": {
+                                "type": "string"
+                              },
+                              "identifiers": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "shared": {
+                                      "type": "boolean"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "value": {
+                                      "type": "string"
+                                    },
+                                    "seen": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "shared",
+                                    "type",
+                                    "value"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "confidence",
+                              "domain",
+                              "identifiers"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "hidden",
+                        "query",
+                        "queryType",
+                        "results"
                       ]
                     },
                     "success": {
